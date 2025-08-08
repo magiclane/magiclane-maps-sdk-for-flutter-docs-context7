@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the convert method from the ProjectionService class, for the Dart programming language.">
+  <title>convert method - ProjectionService class - projections library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">gem_kit</a></li>
+    <li><a href="../../projections/">projections.dart</a></li>
+    <li><a href="../../projections/ProjectionService-class.html">ProjectionService</a></li>
+    <li class="self-crumb">convert static method</li>
+  </ol>
+  <div class="self-name">convert</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="projections&#47;ProjectionService-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">convert</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="../../core/TaskHandler-class.html">TaskHandler</a>?</span>
+<span class="name ">convert</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="convert-param-from"><span>required</span> <span class="type-annotation"><a href="../../projections/Projection-class.html">Projection</a></span> <span class="parameter-name">from</span>, </span></li>
+<li><span class="parameter" id="convert-param-toType"><span>required</span> <span class="type-annotation"><a href="../../projections/ProjectionType.html">ProjectionType</a></span> <span class="parameter-name">toType</span>, </span></li>
+<li><span class="parameter" id="convert-param-onComplete"><span class="type-annotation">void</span> <span class="parameter-name">onComplete</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-err"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">err</span>, </span></li>
+<li><span class="parameter" id="param-result"><span class="type-annotation"><a href="../../projections/Projection-class.html">Projection</a>?</span> <span class="parameter-name">result</span></span></li>
+</ol>)?, </span></li>
+<li><span class="parameter" id="convert-param-onCompleteCallback"><span>@<a href="https://api.flutter.dev/flutter/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use onComplete instead.&#39;)</span> <span class="type-annotation">void</span> <span class="parameter-name">onCompleteCallback</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-err"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">err</span>, </span></li>
+<li><span class="parameter" id="param-result"><span class="type-annotation"><a href="../../projections/Projection-class.html">Projection</a>?</span> <span class="parameter-name">result</span></span></li>
+</ol>)?, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Async method that returns the projection result from an input projection.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><strong>IN</strong> <em>type</em> The type of projection to cast to.</li>
+<li><strong>IN</strong> <em>from</em> The input projection that needs to be converted.</li>
+<li><strong>IN</strong> <em>onComplete</em> Callback for the operation completion.
+<ul>
+<li><strong>err</strong> <a href="../../core/GemError.html">GemError</a> The error code returned by the operation.</li>
+<li><a href="../../core/GemError.html">GemError.success</a> and a non-null <a href="../../projections/Projection-class.html">Projection</a> if the conversion was successfully completed</li>
+<li><a href="../../core/GemError.html">GemError.notSupported</a> and null if the conversion cannot be done</li>
+<li><a href="../../core/GemError.html">GemError.internalAbort</a> and null if the result parsing failed or server internal error occurred</li>
+</ul>
+</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>A <a href="../../core/TaskHandler-class.html">TaskHandler</a> that can be used to track the progress of the operation or null if it failed.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static TaskHandler? convert({
+  required Projection from,
+  required ProjectionType toType,
+  final void Function(GemError err, Projection? result)? onComplete,
+  @Deprecated(&#39;Use onComplete instead.&#39;)
+  final void Function(GemError err, Projection? result)? onCompleteCallback,
+}) {
+  assert(
+    onCompleteCallback != null || onComplete != null,
+    &#39;You must provide either onComplete or onCompleteCallback&#39;,
+  );
+  final EventDrivenProgressListener progListener =
+      EventDrivenProgressListener();
+
+  late Projection result;
+
+  switch (toType) {
+    case ProjectionType.bng:
+      result = BNGProjection(easting: 0, northing: 0);
+    case ProjectionType.lam:
+      result = LAMProjection(x: 0, y: 0);
+    case ProjectionType.utm:
+      result =
+          UTMProjection(x: 0, y: 0, zone: 0, hemisphere: Hemisphere.north);
+    case ProjectionType.mgrs:
+      result = MGRSProjection(easting: 0, northing: 0, zone: &#39;&#39;, letters: &#39;&#39;);
+    case ProjectionType.gk:
+      result = GKProjection(x: 0, y: 0, zone: 0);
+    case ProjectionType.wgs84:
+      result = WGS84Projection(Coordinates());
+    case ProjectionType.w3w:
+      result = W3WProjection(&#39;&#39;);
+    case ProjectionType.undefined:
+      throw UnimplementedError();
+  }
+
+  GemKitPlatform.instance.registerEventHandler(progListener.id, progListener);
+
+  progListener.registerOnCompleteWithDataCallback((
+    final int err,
+    final String hint,
+    final Map&lt;dynamic, dynamic&gt; json,
+  ) {
+    GemKitPlatform.instance.unregisterEventHandler(progListener.id);
+
+    if (err == GemError.success.code) {
+      if (onCompleteCallback != null) {
+        onCompleteCallback(GemErrorExtension.fromCode(err), result);
+      } else {
+        onComplete!(GemErrorExtension.fromCode(err), result);
+      }
+    } else {
+      if (onCompleteCallback != null) {
+        onCompleteCallback(GemErrorExtension.fromCode(err), null);
+      } else {
+        onComplete!(GemErrorExtension.fromCode(err), null);
+      }
+    }
+  });
+
+  final OperationResult resultString = staticMethod(
+    &#39;ProjectionService&#39;,
+    &#39;convert&#39;,
+    args: &lt;String, dynamic&gt;{
+      &#39;from&#39;: from.pointerId,
+      &#39;to&#39;: result.pointerId,
+      &#39;listener&#39;: progListener.id,
+    },
+  );
+
+  final GemError errorCode =
+      GemErrorExtension.fromCode(resultString[&#39;result&#39;]);
+
+  if (errorCode != GemError.success) {
+    if (onCompleteCallback != null) {
+      onCompleteCallback(errorCode, null);
+    } else {
+      onComplete!(errorCode, null);
+    }
+    return null;
+  }
+
+  return TaskHandlerImpl(progListener.id);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">gem_kit</a></li>
+    <li><a href="../../projections/">projections</a></li>
+    <li><a href="../../projections/ProjectionService-class.html">ProjectionService</a></li>
+    <li class="self-crumb">convert static method</li>
+</ol>
+
+    <h5>ProjectionService class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    gem_kit
+      2.24.0
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

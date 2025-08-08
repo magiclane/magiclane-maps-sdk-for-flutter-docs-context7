@@ -1,0 +1,17 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "Maps SDK for Flutter Documentation",
+  "description": "Documentation for Maps SDK for Flutter",
+  "folders": [],
+  "excludeFolders": [],
+  "excludeFiles": [],
+  "rules": [
+    "This project uses: flutter, dart, sdk"
+  ],
+  "previousVersions": [
+    {
+      "tag": "v2.24.0",
+      "title": "Version 2.24.0"
+    }
+  ]
+}

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the LandmarkStoreListener class from the landmark_store library, for the Dart programming language.">
+  <title>LandmarkStoreListener class - landmark_store library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">gem_kit</a></li>
+    <li><a href="../landmark_store/">landmark_store.dart</a></li>
+    <li class="self-crumb">LandmarkStoreListener class</li>
+  </ol>
+  <div class="self-name">LandmarkStoreListener</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="landmark_store&#47;landmark_store-library-sidebar.html"
+    data-below-sidebar="landmark_store&#47;LandmarkStoreListener-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">LandmarkStoreListener</span> class 
+ 
+    <span class="category places cp-3 linked" title="This is part of the Places topic."><a href="../topics/Places-topic.html">Places</a></span>
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Listener class for a specific landmark store.</p>
+<p>Should be used with <a href="../landmark_store/LandmarkStoreService/addListener.html">LandmarkStoreService.addListener</a> in order to receive events</p>
+</section>
+
+
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+    <dl class="constructor-summary-list">
+        <dt id="LandmarkStoreListener.new" class="callable">
+          <span class="name"><a href="../landmark_store/LandmarkStoreListener/LandmarkStoreListener.html">LandmarkStoreListener.new</a></span><span class="signature">({<span class="parameter" id="-param-onLandmarkCreated"><span class="type-annotation">void</span> <span class="parameter-name">onLandmarkCreated</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarkId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkId</span></span>)?, </span><span class="parameter" id="-param-onLandmarkUpdated"><span class="type-annotation">void</span> <span class="parameter-name">onLandmarkUpdated</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarkId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkId</span></span>)?, </span><span class="parameter" id="-param-onLandmarksUpdated"><span class="type-annotation">void</span> <span class="parameter-name">onLandmarksUpdated</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarksId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> <span class="parameter-name">landmarksId</span></span>)?, </span><span class="parameter" id="-param-onLandmarkRemoved"><span class="type-annotation">void</span> <span class="parameter-name">onLandmarkRemoved</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarkId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkId</span></span>)?, </span><span class="parameter" id="-param-onLandmarksRemoved"><span class="type-annotation">void</span> <span class="parameter-name">onLandmarksRemoved</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarkIds"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> <span class="parameter-name">landmarkIds</span></span>)?, </span><span class="parameter" id="-param-onCategoryCreated"><span class="type-annotation">void</span> <span class="parameter-name">onCategoryCreated</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">categoryId</span></span>)?, </span><span class="parameter" id="-param-onCategoryUpdated"><span class="type-annotation">void</span> <span class="parameter-name">onCategoryUpdated</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">categoryId</span></span>)?, </span><span class="parameter" id="-param-onCategoryRemoved"><span class="type-annotation">void</span> <span class="parameter-name">onCategoryRemoved</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">categoryId</span></span>)?, </span><span class="parameter" id="-param-onLandmarkStoreCreated"><span class="type-annotation">void</span> <span class="parameter-name">onLandmarkStoreCreated</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span></span>)?, </span><span class="parameter" id="-param-onLandmarkStoreRegistered"><span class="type-annotation">void</span> <span class="parameter-name">onLandmarkStoreRegistered</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span></span>)?, </span><span class="parameter" id="-param-onLandmarkStoreRemoved"><span class="type-annotation">void</span> <span class="parameter-name">onLandmarkStoreRemoved</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span></span>)?</span>})</span>
+        </dt>
+        <dd>
+          Creates a new <a href="../landmark_store/LandmarkStoreListener-class.html">LandmarkStoreListener</a> instance with the given callbacks.
+            <div class="constructor-modifier features">factory</div>
+        </dd>
+        <dt id="LandmarkStoreListener.init" class="callable">
+          <span class="name"><a href="../landmark_store/LandmarkStoreListener/LandmarkStoreListener.init.html">LandmarkStoreListener.init</a></span><span class="signature">(<span class="parameter" id="init-param-id"><span class="type-annotation">dynamic</span> <span class="parameter-name">id</span></span>)</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="id" class="property">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/id.html">id</a></span>
+  <span class="signature">&#8596; dynamic</span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">getter/setter pair</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="dispose" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/dispose.html">dispose</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="handleEvent" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/handleEvent.html">handleEvent</a></span><span class="signature">(<wbr><span class="parameter" id="handleEvent-param-arguments"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a></span> <span class="parameter-name">arguments</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Method called when event is called from the native side.
+  
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="registerOnCategoryCreated" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnCategoryCreated.html">registerOnCategoryCreated</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnCategoryCreated-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">categoryId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a landmark category is created.
+  
+
+</dd>
+
+        <dt id="registerOnCategoryRemoved" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnCategoryRemoved.html">registerOnCategoryRemoved</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnCategoryRemoved-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">categoryId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a landmark category is removed.
+  
+
+</dd>
+
+        <dt id="registerOnCategoryUpdated" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnCategoryUpdated.html">registerOnCategoryUpdated</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnCategoryUpdated-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">categoryId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a landmark category is updated.
+  
+
+</dd>
+
+        <dt id="registerOnLandmarkCreated" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnLandmarkCreated.html">registerOnLandmarkCreated</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnLandmarkCreated-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarkId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a landmark is added to the store.
+  
+
+</dd>
+
+        <dt id="registerOnLandmarkRemoved" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnLandmarkRemoved.html">registerOnLandmarkRemoved</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnLandmarkRemoved-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarkId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a landmark is removed.
+  
+
+</dd>
+
+        <dt id="registerOnLandmarksRemoved" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnLandmarksRemoved.html">registerOnLandmarksRemoved</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnLandmarksRemoved-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarkIds"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> <span class="parameter-name">landmarkIds</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a list of landmarks is removed.
+  
+
+</dd>
+
+        <dt id="registerOnLandmarkStoreCreated" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnLandmarkStoreCreated.html">registerOnLandmarkStoreCreated</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnLandmarkStoreCreated-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a new landmark store is created.
+  
+
+</dd>
+
+        <dt id="registerOnLandmarkStoreRegistered" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnLandmarkStoreRegistered.html">registerOnLandmarkStoreRegistered</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnLandmarkStoreRegistered-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a new landmark store is registered.
+  
+
+</dd>
+
+        <dt id="registerOnLandmarkStoreRemoved" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnLandmarkStoreRemoved.html">registerOnLandmarkStoreRemoved</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnLandmarkStoreRemoved-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a landmark store is removed.
+  
+
+</dd>
+
+        <dt id="registerOnLandmarksUpdated" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnLandmarksUpdated.html">registerOnLandmarksUpdated</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnLandmarksUpdated-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarksId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> <span class="parameter-name">landmarksId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a list of landmarks is updated.
+  
+
+</dd>
+
+        <dt id="registerOnLandmarkUpdated" class="callable">
+  <span class="name"><a href="../landmark_store/LandmarkStoreListener/registerOnLandmarkUpdated.html">registerOnLandmarkUpdated</a></span><span class="signature">(<wbr><span class="parameter" id="registerOnLandmarkUpdated-param-callback"><span class="type-annotation">void</span> <span class="parameter-name">callback</span>(<span class="parameter" id="param-landmarkStoreId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkStoreId</span>, </span><span class="parameter" id="param-landmarkId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">landmarkId</span></span>)?</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Called when a landmark is updated.
+  
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">gem_kit</a></li>
+    <li><a href="../landmark_store/">landmark_store</a></li>
+    <li class="self-crumb">LandmarkStoreListener class</li>
+</ol>
+
+    <h5>landmark_store library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    gem_kit
+      2.24.0
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

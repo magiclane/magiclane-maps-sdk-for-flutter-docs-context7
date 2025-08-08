@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the update method from the ContentUpdater class, for the Dart programming language.">
+  <title>update method - ContentUpdater class - content_store library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">gem_kit</a></li>
+    <li><a href="../../content_store/">content_store.dart</a></li>
+    <li><a href="../../content_store/ContentUpdater-class.html">ContentUpdater</a></li>
+    <li class="self-crumb">update method</li>
+  </ol>
+  <div class="self-name">update</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="content_store&#47;ContentUpdater-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">update</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="../../core/ProgressListener-class.html">ProgressListener</a>?</span>
+<span class="name ">update</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="update-param-allowChargeNetwork"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">allowChargeNetwork</span>, {</span></li>
+<li><span class="parameter" id="update-param-onStatusUpdated"><span class="type-annotation">void</span> <span class="parameter-name">onStatusUpdated</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-status"><span class="type-annotation"><a href="../../content_store/ContentUpdaterStatus.html">ContentUpdaterStatus</a></span> <span class="parameter-name">status</span></span></li>
+</ol>)?, </span></li>
+<li><span class="parameter" id="update-param-onProgressUpdated"><span class="type-annotation">void</span> <span class="parameter-name">onProgressUpdated</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-progress"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">progress</span></span></li>
+</ol>)?, </span></li>
+<li><span class="parameter" id="update-param-onCompleteCallback"><span>@<a href="https://api.flutter.dev/flutter/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use onComplete instead.&#39;)</span> <span class="type-annotation">void</span> <span class="parameter-name">onCompleteCallback</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-error"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">error</span></span></li>
+</ol>)?, </span></li>
+<li><span class="parameter" id="update-param-onComplete"><span class="type-annotation">void</span> <span class="parameter-name">onComplete</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-error"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">error</span></span></li>
+</ol>)?, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Start / resume the update process.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><strong>IN</strong> <em>allowChargeNetwork</em>	Allow charging network</li>
+<li><strong>IN</strong> <em>onStatusUpdated</em> Callback that gets triggered when the status of the updater changes. Gets called with the associated <a href="../../content_store/ContentUpdaterStatus.html">ContentUpdaterStatus</a>.</li>
+<li><strong>IN</strong> <em>onProgressUpdated</em> Callback that gets triggered when the progress of the updater changes. Gets called with the associated progress.</li>
+<li><strong>IN</strong> <em>onComplete</em>  Callback that gets triggered when the update process is completed. Gets called with the associated <a href="../../core/GemError.html">GemError</a>:
+<ul>
+<li><a href="../../core/GemError.html">GemError.success</a> on success</li>
+<li><a href="../../core/GemError.html">GemError.inUse</a> if the update is already running</li>
+<li><a href="../../core/GemError.html">GemError.notSupported</a> if the update is not supported for the given <a href="../../content_store/ContentType.html">ContentType</a></li>
+<li><a href="../../core/GemError.html">GemError.noDiskSpace</a> if there is not enough disk space on the device</li>
+<li><a href="../../core/GemError.html">GemError.io</a> if a file system error occurs</li>
+<li>Other <a href="../../core/GemError.html">GemError</a> values for other errors</li>
+</ul>
+</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>Associated <a href="../../core/ProgressListener-class.html">ProgressListener</a> for this operation if the update can be started otherwise null.</li>
+</ul>
+<p><strong>Throws</strong></p>
+<ul>
+<li>An exception if it fails.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">ProgressListener? update(
+  final bool allowChargeNetwork, {
+  final void Function(ContentUpdaterStatus status)? onStatusUpdated,
+  final void Function(int progress)? onProgressUpdated,
+  @Deprecated(&#39;Use onComplete instead.&#39;)
+  final void Function(GemError error)? onCompleteCallback,
+  final void Function(GemError error)? onComplete,
+}) {
+  final EventDrivenProgressListener progressListener =
+      EventDrivenProgressListener();
+
+  if (onStatusUpdated != null) {
+    progressListener.registerOnNotifyStatusChanged(
+      (final int status) =&gt;
+          onStatusUpdated(ContentUpdaterStatusExtension.fromId(status)),
+    );
+  }
+
+  if (onProgressUpdated != null) {
+    progressListener.registerOnProgressCallback(
+      (final int progress) =&gt; onProgressUpdated(progress),
+    );
+  }
+
+  if (onComplete != null) {
+    progressListener.registerOnCompleteWithDataCallback(
+      (final int err, final String hint, final Map&lt;dynamic, dynamic&gt; json) =&gt;
+          onComplete(GemErrorExtension.fromCode(err)),
+    );
+  }
+
+  GemKitPlatform.instance.registerEventHandler(
+    progressListener.id,
+    progressListener,
+  );
+
+  final OperationResult resultString = objectMethod(
+    _pointerId,
+    &#39;ContentUpdater&#39;,
+    &#39;update&#39;,
+    args: &lt;String, dynamic&gt;{
+      &#39;allowChargeNetwork&#39;: allowChargeNetwork,
+      &#39;listener&#39;: progressListener.id,
+    },
+  );
+
+  final GemError errorCode = GemErrorExtension.fromCode(
+    resultString[&#39;result&#39;],
+  );
+  if (errorCode != GemError.success) {
+    onComplete?.call(errorCode);
+    return null;
+  }
+
+  return progressListener;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">gem_kit</a></li>
+    <li><a href="../../content_store/">content_store</a></li>
+    <li><a href="../../content_store/ContentUpdater-class.html">ContentUpdater</a></li>
+    <li class="self-crumb">update method</li>
+</ol>
+
+    <h5>ContentUpdater class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    gem_kit
+      2.24.0
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the asyncGetStoreFilteredList method from the ContentStore class, for the Dart programming language.">
+  <title>asyncGetStoreFilteredList method - ContentStore class - content_store library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">gem_kit</a></li>
+    <li><a href="../../content_store/">content_store.dart</a></li>
+    <li><a href="../../content_store/ContentStore-class.html">ContentStore</a></li>
+    <li class="self-crumb">asyncGetStoreFilteredList static method</li>
+  </ol>
+  <div class="self-name">asyncGetStoreFilteredList</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="content_store&#47;ContentStore-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">asyncGetStoreFilteredList</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="../../core/ProgressListener-class.html">ProgressListener</a>?</span>
+<span class="name ">asyncGetStoreFilteredList</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="asyncGetStoreFilteredList-param-type"><span>required</span> <span class="type-annotation"><a href="../../content_store/ContentType.html">ContentType</a></span> <span class="parameter-name">type</span>, </span></li>
+<li><span class="parameter" id="asyncGetStoreFilteredList-param-countries"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">countries</span>, </span></li>
+<li><span class="parameter" id="asyncGetStoreFilteredList-param-area"><span class="type-annotation"><a href="../../core/GeographicArea-class.html">GeographicArea</a>?</span> <span class="parameter-name">area</span>, </span></li>
+<li><span class="parameter" id="asyncGetStoreFilteredList-param-onComplete"><span class="type-annotation">void</span> <span class="parameter-name">onComplete</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-err"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">err</span>, </span></li>
+<li><span class="parameter" id="param-items"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../content_store/ContentStoreItem-class.html">ContentStoreItem</a></span>&gt;</span>?</span> <span class="parameter-name">items</span></span></li>
+</ol>)?, </span></li>
+<li><span class="parameter" id="asyncGetStoreFilteredList-param-onCompleteCallback"><span>@<a href="https://api.flutter.dev/flutter/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use onComplete instead.&#39;)</span> <span class="type-annotation">void</span> <span class="parameter-name">onCompleteCallback</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-err"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">err</span>, </span></li>
+<li><span class="parameter" id="param-items"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../content_store/ContentStoreItem-class.html">ContentStoreItem</a></span>&gt;</span>?</span> <span class="parameter-name">items</span></span></li>
+</ol>)?, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Asynchronously search the online store content with given filters</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><strong>IN</strong> <em>type</em>	Content list type (see <a href="../../content_store/ContentType.html">ContentType</a>)</li>
+<li><strong>IN</strong> <em>countries</em>	List (ISO 3166-3) to search in, null for all countries</li>
+<li><strong>IN</strong> <em>area</em>	Geographic area to search in, nullptr for all world</li>
+<li><strong>IN</strong> <em>onComplete</em>	The listener object that implements the notification events associated with this operation.
+<ul>
+<li><strong>IN</strong> <em>err</em>	<a href="../../core/GemError.html">GemError.success</a> on success, otherwise see <a href="../../core/GemError.html">GemError</a> for other values</li>
+<li><strong>IN</strong> <em>items</em>	List of content store items on success. Null on error</li>
+</ul>
+</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li>The associated <a href="../../core/ProgressListener-class.html">ProgressListener</a> if the request can be started, null otherwise.</li>
+</ul>
+<p><strong>Throws</strong></p>
+<ul>
+<li>An exception if it fails to initialize.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static ProgressListener? asyncGetStoreFilteredList({
+  required ContentType type,
+  List&lt;String&gt;? countries,
+  GeographicArea? area,
+  void Function(
+    GemError err,
+    List&lt;ContentStoreItem&gt;? items,
+  )? onComplete,
+  @Deprecated(&#39;Use onComplete instead.&#39;)
+  void Function(
+    GemError err,
+    List&lt;ContentStoreItem&gt;? items,
+  )? onCompleteCallback,
+}) {
+  assert(
+    onCompleteCallback != null || onComplete != null,
+    &#39;You must provide either onComplete or onCompleteCallback&#39;,
+  );
+  final EventDrivenProgressListener progListener =
+      EventDrivenProgressListener();
+  final OperationResult resultString = staticMethod(
+    &#39;ContentStore&#39;,
+    &#39;asyncGetStoreFilteredList&#39;,
+    args: &lt;String, dynamic&gt;{
+      &#39;type&#39;: type.id,
+      if (countries != null) &#39;countries&#39;: countries,
+      &#39;area&#39;: area ??
+          RectangleGeographicArea(
+              topLeft: Coordinates(), bottomRight: Coordinates()),
+      &#39;listener&#39;: progListener.id
+    },
+  );
+
+  if (resultString is Map &amp;&amp; resultString.containsKey(&#39;gemApiError&#39;)) {
+    final int errorCode = resultString[&#39;gemApiError&#39;] as int;
+    final GemError error = GemErrorExtension.fromCode(errorCode);
+    if (error != GemError.success) {
+      if (onCompleteCallback != null) {
+        onCompleteCallback(error, null);
+      } else {
+        onComplete!(error, null);
+      }
+      return null;
+    }
+  }
+
+  progListener.registerOnCompleteWithDataCallback((
+    final int err,
+    final String hint,
+    final Map&lt;dynamic, dynamic&gt; json,
+  ) {
+    if (err == 0) {
+      final OperationResult contentStoreListString = staticMethod(
+        &#39;ContentStore&#39;,
+        &#39;getStoreFilteredList&#39;,
+      );
+      final int listId = contentStoreListString[&#39;result&#39;];
+      if (onCompleteCallback != null) {
+        onCompleteCallback(
+          GemErrorExtension.fromCode(0),
+          ContentStoreItemList.init(listId).toList(),
+        );
+      } else {
+        onComplete!(
+          GemErrorExtension.fromCode(0),
+          ContentStoreItemList.init(listId).toList(),
+        );
+      }
+    } else {
+      if (onCompleteCallback != null) {
+        onCompleteCallback(GemErrorExtension.fromCode(err), null);
+      } else {
+        onComplete!(GemErrorExtension.fromCode(err), null);
+      }
+    }
+  });
+  GemKitPlatform.instance.registerEventHandler(progListener.id, progListener);
+  return progListener;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">gem_kit</a></li>
+    <li><a href="../../content_store/">content_store</a></li>
+    <li><a href="../../content_store/ContentStore-class.html">ContentStore</a></li>
+    <li class="self-crumb">asyncGetStoreFilteredList static method</li>
+</ol>
+
+    <h5>ContentStore class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    gem_kit
+      2.24.0
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
