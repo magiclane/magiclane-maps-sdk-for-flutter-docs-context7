@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the setCameraTargetCentered method from the MapCamera class, for the Dart programming language.">
+  <title>setCameraTargetCentered method - MapCamera class - map library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">gem_kit</a></li>
+    <li><a href="../../map/">map.dart</a></li>
+    <li><a href="../../map/MapCamera-class.html">MapCamera</a></li>
+    <li class="self-crumb">setCameraTargetCentered method</li>
+  </ol>
+  <div class="self-name">setCameraTargetCentered</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="map&#47;MapCamera-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">setCameraTargetCentered</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype">void</span>
+<span class="name ">setCameraTargetCentered</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="setCameraTargetCentered-param-coords"><span class="type-annotation"><a href="../../core/Coordinates-class.html">Coordinates</a></span> <span class="parameter-name">coords</span>, </span></li>
+<li><span class="parameter" id="setCameraTargetCentered-param-pos"><span class="type-annotation"><a href="../../core/Point3d-class.html">Point3d</a></span> <span class="parameter-name">pos</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Sets the camera to look toward a target position, all in the coordinate system of the focused sphere.</p>
+<p>Target coordinates are longitude, latitude position in degrees, with respect to the focused sphere surface, altitude in meters above the sphere (sea level).</p>
+<p>The camera is centered on the target, at the specified distance in meters from the target, heading (0=N, 90=E, 180=S, 270=W) with respect to the focused sphere, and pitch (0=looking toward the target center from above the target, 90=looking at the target center from the horizontal plane/equator of the target, which is the plane containing the target forward and right vectors). The roll is always 0, so the horizon is level.</p>
+<p>See <a href="../../map/MapCamera/generatePositionAndOrientationTargetCentered.html">generatePositionAndOrientationTargetCentered</a>.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><strong>IN</strong> <em>targetCoords</em> <a href="../../core/Coordinates-class.html">Coordinates</a> representing the desired latitude, longitude and altitude.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void setCameraTargetCentered(final Coordinates coords, final Point3d pos) {
+  objectMethod(
+    _pointerId,
+    &#39;MapCamera&#39;,
+    &#39;setCameraTargetCentered&#39;,
+    args: &lt;String, Object&gt;{&#39;coordinates&#39;: coords, &#39;tuple3D&#39;: pos},
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">gem_kit</a></li>
+    <li><a href="../../map/">map</a></li>
+    <li><a href="../../map/MapCamera-class.html">MapCamera</a></li>
+    <li class="self-crumb">setCameraTargetCentered method</li>
+</ol>
+
+    <h5>MapCamera class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    gem_kit
+      2.28.0
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

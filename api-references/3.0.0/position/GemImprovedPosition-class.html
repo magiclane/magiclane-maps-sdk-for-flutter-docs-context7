@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the GemImprovedPosition class from the position library, for the Dart programming language.">
+  <title>GemImprovedPosition class - position library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">gem_kit</a></li>
+    <li><a href="../position/">position.dart</a></li>
+    <li class="self-crumb">GemImprovedPosition class</li>
+  </ol>
+  <div class="self-name">GemImprovedPosition</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="position&#47;position-library-sidebar.html"
+    data-below-sidebar="position&#47;GemImprovedPosition-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">GemImprovedPosition</span> class 
+    <a href="https://dart.dev/language/class-modifiers#abstract" class="feature feature-abstract" title="This type can not be directly constructed.">abstract</a>
+ 
+    <span class="category sensor-data-source cp-11 linked" title="This is part of the Sensor Data Source topic."><a href="../topics/Sensor Data Source-topic.html">Sensor&nbsp;Data&nbsp;Source</a></span>
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Improved position class</p>
+<p>Contains additional information than <a href="../position/GemPosition-class.html">GemPosition</a> obtained via map matching.</p>
+</section>
+
+
+    <section>
+      <dl class="dl-horizontal">
+        
+  <dt>Inheritance</dt>
+  <dd>
+    <ul class="gt-separated dark clazz-relationships">
+      <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
+        <li><a href="../sense/SenseData-class.html">SenseData</a></li>
+        <li><a href="../position/GemPosition-class.html">GemPosition</a></li>
+      <li>GemImprovedPosition</li>
+    </ul>
+  </dd>
+
+        
+        
+
+
+        
+        
+
+
+      </dl>
+    </section>
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+    <dl class="constructor-summary-list">
+        <dt id="GemImprovedPosition.new" class="callable">
+          <span class="name"><a href="../position/GemImprovedPosition/GemImprovedPosition.html">GemImprovedPosition.new</a></span><span class="signature">()</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="accuracyH" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/accuracyH.html">accuracyH</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Horizontal accuracy of position.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="accuracyV" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/accuracyV.html">accuracyV</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Vertical accuracy of position.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="acquisitionTime" class="property inherited">
+  <span class="name"><a href="../sense/SenseData/acquisitionTime.html">acquisitionTime</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns the acquisition time of this data sample in UTC.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="address" class="property">
+  <span class="name"><a href="../position/GemImprovedPosition/address.html">address</a></span>
+  <span class="signature">&#8594; <a href="../core/AddressInfo-class.html">AddressInfo</a></span>
+  
+
+</dt>
+<dd>
+  Gets the position road address.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="altitude" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/altitude.html">altitude</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Altitude above mean sea level in meters.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="coordinates" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/coordinates.html">coordinates</a></span>
+  <span class="signature">&#8594; <a href="../core/Coordinates-class.html">Coordinates</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Geographical coordinates of the position.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="course" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/course.html">course</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The course (direction) of the movement in degrees.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="courseAccuracy" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/courseAccuracy.html">courseAccuracy</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Course accuracy in degrees.
+Typical accuracy for consumer GPS is 25 degrees at high speeds.
+Valid course accuracy should always be positive.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="fixQuality" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/fixQuality.html">fixQuality</a></span>
+  <span class="signature">&#8594; <a href="../core/PositionQuality.html">PositionQuality</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Fix quality (whether this position is trustworthy). See <a href="../core/PositionQuality.html">PositionQuality</a> for details.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasAltitude" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/hasAltitude.html">hasAltitude</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Altitude above mean sea level.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasCoordinates" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/hasCoordinates.html">hasCoordinates</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Query if this object has coordinates.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasCourse" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/hasCourse.html">hasCourse</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Query if this object has course.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasCourseAccuracy" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/hasCourseAccuracy.html">hasCourseAccuracy</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Query if this object has course accuracy.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasHorizontalAccuracy" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/hasHorizontalAccuracy.html">hasHorizontalAccuracy</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Query if this object has horizontal accuracy.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasRoadLocalization" class="property">
+  <span class="name"><a href="../position/GemImprovedPosition/hasRoadLocalization.html">hasRoadLocalization</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Checks if the improved position has a road localization.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hasSpeed" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/hasSpeed.html">hasSpeed</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Query if this object has speed.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasSpeedAccuracy" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/hasSpeedAccuracy.html">hasSpeedAccuracy</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Query if this object has speed accuracy.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasTerrainData" class="property">
+  <span class="name"><a href="../position/GemImprovedPosition/hasTerrainData.html">hasTerrainData</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Checks if the improved position has terrain data.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hasVerticalAccuracy" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/hasVerticalAccuracy.html">hasVerticalAccuracy</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Query if this object has vertical accuracy.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="latitude" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/latitude.html">latitude</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Geographical latitude in degrees.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="longitude" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/longitude.html">longitude</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Geographical longitude in degrees.
+From -180 to +180; positive on the eastern hemisphere.
+If value is out of the -180...180 range, the position is considered invalid.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="provider" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/provider.html">provider</a></span>
+  <span class="signature">&#8594; <a href="../position/Provider.html">Provider</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Provider type: GPS, Network, Unknown.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="roadInfo" class="property">
+  <span class="name"><a href="../position/GemImprovedPosition/roadInfo.html">roadInfo</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../core/RoadInfo-class.html">RoadInfo</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  Gets the position road information details
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="roadModifiers" class="property">
+  <span class="name"><a href="../position/GemImprovedPosition/roadModifiers.html">roadModifiers</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../sense/RoadModifier.html">RoadModifier</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  Position road modifiers.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="satelliteTime" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/satelliteTime.html">satelliteTime</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Satellite timestamp in UTC.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="speed" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/speed.html">speed</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Travel speed in m/s.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="speedAccuracy" class="property inherited">
+  <span class="name"><a href="../position/GemPosition/speedAccuracy.html">speedAccuracy</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Travel speed accuracy in m/s.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="speedLimit" class="property">
+  <span class="name"><a href="../position/GemImprovedPosition/speedLimit.html">speedLimit</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  Gets the position road speed limit in m/s.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="terrainAltitude" class="property">
+  <span class="name"><a href="../position/GemImprovedPosition/terrainAltitude.html">terrainAltitude</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  Gets the terrain altitude.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="terrainSlope" class="property">
+  <span class="name"><a href="../position/GemImprovedPosition/terrainSlope.html">terrainSlope</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  Gets the terrain slope in degrees.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="type" class="property inherited">
+  <span class="name"><a href="../sense/SenseData/type.html">type</a></span>
+  <span class="signature">&#8594; <a href="../sense/DataType.html">DataType</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  Returns the data type of this sense data.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">gem_kit</a></li>
+    <li><a href="../position/">position</a></li>
+    <li class="self-crumb">GemImprovedPosition class</li>
+</ol>
+
+    <h5>position library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    gem_kit
+      2.28.0
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

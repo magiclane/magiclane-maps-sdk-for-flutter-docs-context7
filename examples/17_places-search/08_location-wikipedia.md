@@ -7,7 +7,7 @@ title: Location Wikipedia
 
 This example demonstrates how to create a Flutter app that displays a map and retrieves Wikipedia information about selected locations using Maps SDK for Flutter. Users can explore geographic data on a map and search for relevant Wikipedia content.
 
-## How It Works
+## How it works
 
 - Main App Setup : The main app initializes GemKit and sets up the primary map screen.
 
@@ -79,8 +79,8 @@ The following code manages the Wikipedia data retrieval and display for the sele
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:gem_kit/core.dart';
-import 'package:gem_kit/search.dart';
+import 'package:magiclane_maps_flutter/core.dart';
+import 'package:magiclane_maps_flutter/search.dart';
 
 class LocationWikipediaPage extends StatefulWidget {
   const LocationWikipediaPage({super.key});

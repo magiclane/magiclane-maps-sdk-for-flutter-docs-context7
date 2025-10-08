@@ -7,7 +7,7 @@ title: Search Category
 
 In this guide, you will learn how to integrate map functionality and perform searches for landmarks.
 
-## How It Works
+## How it works
 
 This example demonstrates the following key features:
 
@@ -17,6 +17,11 @@ This example demonstrates the following key features:
 
 ### UI and Map Integration
 ```dart
+
+void main() async {
+  runApp(const MyApp());
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -51,7 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[900],
-        title: const Text("Search Category", style: TextStyle(color: Colors.white)),
+        title: const Text(
+          "Search Category",
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           IconButton(
             onPressed: () => _onSearchButtonPressed(context),
@@ -76,21 +84,26 @@ class _MyHomePageState extends State<MyHomePage> {
     // Taking the coordinates at the center of the screen as reference coordinates for search.
     final x = MediaQuery.of(context).size.width / 2;
     final y = MediaQuery.of(context).size.height / 2;
-    final mapCoords = _mapController.transformScreenToWgs(XyType(x: x.toInt(), y: y.toInt()));
+    final mapCoords = _mapController.transformScreenToWgs(
+      Point<int>(x.toInt(), y.toInt()),
+    );
 
-    // Navigating to search screen. The result will be the selected search result (Landmark)
-    final result = await Navigator.of(context).push(MaterialPageRoute<dynamic>(
-      builder: (context) => SearchPage(
-        controller: _mapController,
-        coordinates: mapCoords!,
+    // Navigating to search screen. The result will be the selected search result(Landmark)
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute<dynamic>(
+        builder: (context) =>
+            SearchPage(controller: _mapController, coordinates: mapCoords),
       ),
-    ));
+    );
 
     if (result is Landmark) {
       // Activating the highlight
-      _mapController.activateHighlight([result], renderSettings: HighlightRenderSettings());
+      _mapController.activateHighlight([
+        result,
+      ], renderSettings: HighlightRenderSettings());
+
       // Centering the map on the desired coordinates
-      _mapController.centerOnCoordinates(result.coordinates);
+      _mapController.centerOnCoordinates(result.coordinates, zoomLevel: 70);
     }
   }
 }
@@ -123,19 +136,13 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: _onLeadingPressed,
-          icon: const Icon(CupertinoIcons.arrow_left),
-        ),
+        leading: IconButton(onPressed: _onLeadingPressed, icon: const Icon(CupertinoIcons.arrow_left)),
         title: const Text("Search Category"),
         backgroundColor: Colors.deepPurple[900],
         foregroundColor: Colors.white,
         actions: [
           if (landmarks.isEmpty)
-            IconButton(
-              onPressed: () => _onSubmitted(_textController.text),
-              icon: const Icon(Icons.search),
-            ),
+            IconButton(onPressed: () => _onSubmitted(_textController.text), icon: const Icon(Icons.search)),
         ],
       ),
       body: Column(
@@ -149,12 +156,7 @@ class _SearchPageState extends State<SearchPage> {
                 decoration: const InputDecoration(
                   hintText: 'Enter text',
                   hintStyle: TextStyle(color: Colors.black),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.deepPurple,
-                      width: 2.0,
-                    ),
-                  ),
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.deepPurple, width: 2.0)),
                 ),
               ),
             ),
@@ -213,10 +215,7 @@ class _SearchPageState extends State<SearchPage> {
 
     // Adding in search preferences the selected categories
     for (final category in selectedCategories) {
-      preferences.landmarks.addStoreCategoryId(
-        category.landmarkStoreId,
-        category.id,
-      );
+      preferences.landmarks.addStoreCategoryId(category.landmarkStoreId, category.id);
     }
 
     search(text, widget.coordinates, preferences);
@@ -225,30 +224,21 @@ class _SearchPageState extends State<SearchPage> {
   late Completer<List<Landmark>> completer;
 
   // Search method
-  Future<void> search(
-    String text,
-    Coordinates coordinates,
-    SearchPreferences preferences,
-  ) async {
+  Future<void> search(String text, Coordinates coordinates, SearchPreferences preferences) async {
     completer = Completer<List<Landmark>>();
 
     // Calling the search around position SDK method.
     // (err, results) - is a callback function that calls when the computing is done.
     // err is an error code, results is a list of landmarks
-    SearchService.searchAroundPosition(
-      coordinates,
-      preferences: preferences,
-      textFilter: text,
-      (err, results) async {
-        // If there is an error or there aren't any results, the method will return an empty list.
-        if (err != GemError.success) {
-          completer.complete([]);
-          return;
-        }
+    SearchService.searchAroundPosition(coordinates, preferences: preferences, textFilter: text, (err, results) async {
+      // If there is an error or there aren't any results, the method will return an empty list.
+      if (err != GemError.success) {
+        completer.complete([]);
+        return;
+      }
 
-        if (!completer.isCompleted) completer.complete(results);
-      },
-    );
+      if (!completer.isCompleted) completer.complete(results);
+    });
 
     final result = await completer.future;
 
@@ -284,12 +274,7 @@ class CategoryItem extends StatefulWidget {
   final Img categoryIcon;
   final VoidCallback onTap;
 
-  const CategoryItem({
-    super.key,
-    required this.category,
-    required this.onTap,
-    required this.categoryIcon,
-  });
+  const CategoryItem({super.key, required this.category, required this.onTap, required this.categoryIcon});
 
   @override
   State<CategoryItem> createState() => _CategoryItemState();
@@ -310,28 +295,14 @@ class _CategoryItemState extends State<CategoryItem> {
       leading: Container(
         padding: const EdgeInsets.all(8),
         child: widget.categoryIcon.isValid
-            ? Image.memory(
-                widget.categoryIcon.getRenderableImageBytes(
-                  size: Size(50, 50),
-                )!,
-                gaplessPlayback: true,
-              )
+            ? Image.memory(widget.categoryIcon.getRenderableImageBytes(size: Size(50, 50))!, gaplessPlayback: true)
             : SizedBox(),
       ),
       title: Text(
         widget.category.name,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
+        style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
       ),
-      trailing: (_isSelected)
-          ? const SizedBox(
-              width: 50,
-              child: Icon(Icons.check, color: Colors.grey),
-            )
-          : null,
+      trailing: (_isSelected) ? const SizedBox(width: 50, child: Icon(Icons.check, color: Colors.grey)) : null,
     );
   }
 }
@@ -360,48 +331,37 @@ class _SearchResultItemState extends State<SearchResultItem> {
       title: Text(
         widget.landmark.name,
         overflow: TextOverflow.fade,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
+        style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
         maxLines: 2,
       ),
       subtitle: Text(
-        "${widget.landmark.getFormattedDistance()} ${widget.landmark.getAddress()}",
+        "${getFormattedDistance(widget.landmark)} ${getAddress(widget.landmark)}",
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
+        style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
       ),
     );
   }
 }
 
-// Define an extension for landmark for formatting the address and the distance.
-extension LandmarkExtension on Landmark {
-  String getAddress() {
-    final addressInfo = address;
-    final street = addressInfo.getField(AddressField.streetName);
-    final city = addressInfo.getField(AddressField.city);
-    final country = addressInfo.getField(AddressField.country);
+String getAddress(Landmark landmark) {
+  final addressInfo = landmark.address;
+  final street = addressInfo.getField(AddressField.streetName);
+  final city = addressInfo.getField(AddressField.city);
+  final country = addressInfo.getField(AddressField.country);
 
-    if (street == null && city == null && country == null) {
-      return 'Address not available';
-    }
-
-    return " ${street ?? ""} ${city ?? ""} ${country ?? ""}";
+  if (street == null && city == null && country == null) {
+    return 'Address not available';
   }
 
-  String getFormattedDistance() {
-    String formattedDistance = '';
+  return " ${street ?? ""} ${city ?? ""} ${country ?? ""}";
+}
 
-    double distance = (extraInfo.getByKey(PredefinedExtraInfoKey.gmSearchResultDistance) / 1000) as double;
-    formattedDistance = "${distance.toStringAsFixed(0)}km";
-    return formattedDistance;
-  }
+String getFormattedDistance(Landmark landmark) {
+  String formattedDistance = '';
+
+  double distance = (landmark.extraInfo.getByKey(PredefinedExtraInfoKey.gmSearchResultDistance) / 1000) as double;
+  formattedDistance = "${distance.toStringAsFixed(0)}km";
+  return formattedDistance;
 }
 ```
 

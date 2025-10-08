@@ -7,7 +7,7 @@ title: Save Favorites
 
 In this guide, you will learn how to integrate map functionality and save landmarks to a favorites collection.
 
-## How It Works
+## How it works
 
 This example demonstrates the following key features:
 
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
 Implement methods to manage landmark selection and favorites.
 ```dart
 Future<void> _registerLandmarkTapCallback() async {
-    _mapController.registerTouchCallback((pos) async {
+    _mapController.registerOnTouch((pos) async {
       // Select the object at the tap position.
       await _mapController.setCursorScreenPosition(pos);
 
@@ -247,7 +247,7 @@ Future<void> _registerLandmarkTapCallback() async {
 
 ### Favorites Page
 ```dart
-import 'package:gem_kit/core.dart';
+import 'package:magiclane_maps_flutter/core.dart';
 
 import 'package:flutter/material.dart';
 

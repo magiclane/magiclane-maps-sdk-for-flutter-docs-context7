@@ -7,7 +7,7 @@ title: Truck Profile
 
 This example demonstrates how to create a Flutter app that displays a truck profile and calculates routes using Maps SDK for Flutter. Users can modify truck parameters and visualize routes on the map.
 
-## How It Works
+## How it works
 
 The example app demonstrates the following features:
 
@@ -120,7 +120,10 @@ This code handles the route calculation based on the truck’s profile and updat
 void _onBuildRouteButtonPressed(BuildContext context) {
   final departureLandmark = Landmark.withLatLng(latitude: 48.87126, longitude: 2.33787);
   final destinationLandmark = Landmark.withLatLng(latitude: 51.4739, longitude: -0.0302);
-  final routePreferences = RoutePreferences(truckProfile: _truckProfile);
+  final routePreferences = RoutePreferences(
+    truckProfile: _truckProfile,
+    transportMode: RouteTransportMode.lorry, // <- This field is very important
+  );
 
   _showSnackBar(context, message: "The route is being calculated.");
 
@@ -145,6 +148,11 @@ void _onBuildRouteButtonPressed(BuildContext context) {
   setState(() {});
 }
 ```
+
+Version 2.26.0 introduces options for caravan routes, allowing you to specify vehicle dimensions without being limited to truck routes.
+The `transportMode` field is essential for distinguishing a caravan from a truck.
+
+If `RouteTransportMode` is not set to `lorry`, the routing may direct you onto roads restricted for lorries.
 
 ### Truck Profile Modification
 

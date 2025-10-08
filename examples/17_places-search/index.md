@@ -9,4 +9,4 @@ title: Places & Search
 
 # Places & Search
 
-This collection of articles covers a wide range of features and techniques related to the GemMap widget.
+These resources cover diverse features and methods for location-based intelligence and search operations.

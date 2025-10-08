@@ -7,7 +7,7 @@ title: Areas Alarms
 
 This example demonstrates how to build a Flutter app using the Maps SDK which notifies the user when he enters or exits a geographic area. It can be used with any type of area that implements the `GeographicArea` interface.
 
-## How It Works
+## How it works
 
 The example app highlights the following features:
 
@@ -219,7 +219,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _navigationHandler = NavigationService.startSimulation(
       routes.mainRoute!,
-      null,
       onNavigationInstruction: (instruction, events) {
         setState(() {
           _isSimulationActive = true;

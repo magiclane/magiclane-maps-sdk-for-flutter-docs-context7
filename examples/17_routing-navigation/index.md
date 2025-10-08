@@ -9,4 +9,4 @@ title: Routing & Navigation
 
 # Routing & Navigation
 
-This collection of articles covers a wide range of features and techniques related to routing and navigation features.
+This collection of articles covers comprehensive routing and navigation features and techniques.

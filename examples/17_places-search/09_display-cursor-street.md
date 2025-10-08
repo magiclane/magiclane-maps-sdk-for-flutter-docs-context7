@@ -7,7 +7,7 @@ title: Display Cursor Street
 
 This example demonstrates how to create a Flutter app that displays the name of the street at the cursor position using Maps SDK for Flutter. When the user taps on the map, the app retrieves and displays the street name at that location.
 
-## How It Works 
+## How it works 
 
 - Main App Setup : Initializes the Maps SDK and sets up the app’s home screen with a map.
 
@@ -84,7 +84,7 @@ void _onMapCreated(GemMapController controller) async {
   _mapController.preferences.enableCursorRender = true;
 
   // Register touch callback to set cursor to tapped position
-  _mapController.registerTouchCallback((point) async {
+  _mapController.registerOnTouch((point) async {
     await _mapController.setCursorScreenPosition(point);
     final streets = _mapController.cursorSelectionStreets();
     setState(() {

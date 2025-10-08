@@ -7,7 +7,7 @@ title: Human Voices
 
 This example demonstrates the functionalities of the Maps SDK for Flutter, including route calculation, simulation of navigation, and voice instructions.
 
-## How It Works
+## How it works
 
 This example integrates several components to simulate navigation with voice instructions. Here’s a breakdown of the key functionalities:
 
@@ -36,33 +36,41 @@ void _onBuildRouteButtonPressed(BuildContext context) {
   _showSnackBar(context, message: 'The route is calculating.');
 
   // Define landmarks.
-  final departureLandmark =
-      Landmark.withLatLng(latitude: 48.87586, longitude: 2.30311);
-  final intermediaryPointLandmark =
-      Landmark.withLatLng(latitude: 48.87422, longitude: 2.29952);
-  final destinationLandmark =
-      Landmark.withLatLng(latitude: 48.87361, longitude: 2.29513);
+  final departureLandmark = Landmark.withLatLng(latitude: 48.87586, longitude: 2.30311);
+  final intermediaryPointLandmark = Landmark.withLatLng(latitude: 48.87422, longitude: 2.29952);
+  final destinationLandmark = Landmark.withLatLng(latitude: 48.87361, longitude: 2.29513);
 
   // Define the route preferences.
   final routePreferences = RoutePreferences();
 
-  // Calculate the route.
+  // Calling the calculateRoute SDK method.
+  // (err, results) - is a callback function that gets called when the route computing is finished.
+  // err is an error enum, results is a list of routes.
   _routingHandler = RoutingService.calculateRoute(
-      [departureLandmark, intermediaryPointLandmark, destinationLandmark],
-      routePreferences, (err, routes) {
-    _routingHandler = null;
-    ScaffoldMessenger.of(context).clearSnackBars();
+    [departureLandmark, intermediaryPointLandmark, destinationLandmark],
+    routePreferences,
+    (err, routes) {
+      // If the route calculation is finished, we don't have a progress listener anymore.
+      _routingHandler = null;
+      ScaffoldMessenger.of(context).clearSnackBars();
 
-    if (err == GemError.success) {
-      final routesMap = _mapController.preferences.routes;
-      for (final route in routes!) {
-        routesMap.add(route, route == routes.first,
-            label: route.getMapLabel());
+      // If there aren't any errors, we display the routes.
+      if (err == GemError.success) {
+        // Get the routes collection from map preferences.
+        final routesMap = _mapController.preferences.routes;
+
+        // Display the routes on map.
+        for (final route in routes) {
+          routesMap.add(route, route == routes.first, label: getMapLabel(route));
+        }
+
+        // Center the camera on routes.
+        _mapController.centerOnRoutes(routes: routes);
+
+        setState(() => _areRoutesBuilt = true);
       }
-      _mapController.centerOnRoutes(routes: routes);
-      setState(() => _areRoutesBuilt = true);
-    }
-  });
+    },
+  );
 }
 ```
 
@@ -80,7 +88,6 @@ void _startSimulation() {
 
   _navigationHandler = NavigationService.startSimulation(
     routes.mainRoute!,
-    null,
     onNavigationInstruction: (instruction, events) {
       setState(() {
         _isSimulationActive = true;
@@ -88,6 +95,7 @@ void _startSimulation() {
       currentInstruction = instruction;
     },
     onError: (error) {
+      // If the navigation has ended or if and error occurred while navigating, remove routes.
       setState(() {
         _isSimulationActive = false;
         _cancelRoute();
@@ -104,6 +112,7 @@ void _startSimulation() {
   // Set auto play sound to true, so that the voice instructions will be played automatically
   SoundPlayingService.canPlaySounds = true;
 
+  // Set the camera to follow position.
   _mapController.startFollowingPosition();
 }
 ```
@@ -112,10 +121,10 @@ The canPlaySounds flag controlls if the SDK should automatically play TTS instru
 
 ### Top Navigation Instruction Panel
 ```dart
-class NavigationInstructionPanel extends StatelessWidget {
+class BottomNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const NavigationInstructionPanel({super.key, required this.instruction});
+  const BottomNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +156,7 @@ class NavigationInstructionPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  instruction.getFormattedDistanceToNextTurn(),
+                  getFormattedDistanceToNextTurn(instruction),
                   textAlign: TextAlign.left,
                   style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
                   overflow: TextOverflow.ellipsis,

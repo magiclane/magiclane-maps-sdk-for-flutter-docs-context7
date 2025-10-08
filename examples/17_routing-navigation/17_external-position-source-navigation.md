@@ -7,7 +7,7 @@ title: External Position Source Navigation
 
 This example demonstrates how to create a Flutter app that utilizes external position sources for navigation on a map using Maps SDK for Flutter. The app allows users to navigate to a predefined destination while following the route on the map.
 
-## How It Works
+## How it works
 
 The example app demonstrates the following features:
 
@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
               left: 10,
               child: Column(
                 children: [
-                  NavigationInstructionPanel(instruction: currentInstruction),
+                  BottomNavigationPanel(instruction: currentInstruction),
                   const SizedBox(height: 10),
                   FollowPositionButton(
                     onTap: () => _mapController.startFollowingPosition(),
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned(
               bottom: MediaQuery.of(context).padding.bottom + 10,
               left: 0,
-              child: NavigationBottomPanel(
+              child: BottomNavigationPanel(
                 remainingDistance:
                     currentInstruction.getFormattedRemainingDistance(),
                 remainingDuration:
@@ -184,7 +184,6 @@ Future<void> _startNavigation() async {
   }
     _navigationHandler = NavigationService.startNavigation(
       routes.mainRoute!,
-      null,
       onNavigationInstruction: (instruction, events) {
         setState(() {
           _isNavigationActive = true;
@@ -192,7 +191,7 @@ Future<void> _startNavigation() async {
         currentInstruction = instruction;
       },
       onError: (error) {
-        PositionService.instance.removeDataSource();
+        PositionService.removeDataSource();
         _dataSource.stop();
         setState(() {
           _isNavigationActive = false;
@@ -205,7 +204,7 @@ Future<void> _startNavigation() async {
         return;
       },
       onDestinationReached: (landmark) {
-        PositionService.instance.removeDataSource();
+        PositionService.removeDataSource();
         _dataSource.stop();
         setState(() {
           _isNavigationActive = false;
@@ -262,10 +261,10 @@ Future<void> _pushExternalPosition() async {
 
 ### Top Navigation Instruction Panel
 ```dart
-class NavigationInstructionPanel extends StatelessWidget {
+class BottomNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const NavigationInstructionPanel({super.key, required this.instruction});
+  const BottomNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {

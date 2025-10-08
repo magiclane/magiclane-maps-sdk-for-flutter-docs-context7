@@ -7,7 +7,7 @@ title: Calculate Bike Route
 
 This example demonstrates how to build a Flutter app using the Maps SDK to calculate a bike-specific route.
 
-## How It Works
+## How it works
 
 The example app highlights the following features:
 
@@ -22,23 +22,6 @@ The example app highlights the following features:
 The following code builds the UI with a `GemMap` widget and an app bar that includes buttons for selecting desired bike type and calculating a route.
 ```dart
 enum EBikeType { city, cross, mountain, road }
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Calculate Bike Route',
-      home: MyHomePage(),
-    );
-  }
-}
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -67,10 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[900],
-        title: const Text(
-          'Calculate Bike Route',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Calculate Bike Route', style: TextStyle(color: Colors.white)),
         actions: [
           // Select the bike profile.
           IconButton(
@@ -97,11 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
         ],
       ),
-      body: GemMap(
-        key: ValueKey("GemMap"),
-        onMapCreated: _onMapCreated,
-        appAuthorization: projectApiToken,
-      ),
+      body: GemMap(key: ValueKey("GemMap"), onMapCreated: _onMapCreated, appAuthorization: projectApiToken),
     );
   }
 
@@ -116,22 +92,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onBuildRouteButtonPressed(BuildContext context) {
     // Define the departure.
-    final departureLandmark = Landmark.withLatLng(
-      latitude: 52.36239785,
-      longitude: 4.89891628,
-    );
+    final departureLandmark = Landmark.withLatLng(latitude: 52.36239785, longitude: 4.89891628);
 
     // Define the destination.
-    final destinationLandmark = Landmark.withLatLng(
-      latitude: 52.3769534,
-      longitude: 4.898427,
-    );
+    final destinationLandmark = Landmark.withLatLng(latitude: 52.3769534, longitude: 4.898427);
 
     // Define the route preferences with selected bike type.
     final routePreferences = RoutePreferences(
-      bikeProfile: BikeProfileElectricBikeProfile(
-        profile: selectedBikeType ?? BikeProfile.city,
-      ),
+      bikeProfile: BikeProfileElectricBikeProfile(profile: selectedBikeType ?? BikeProfile.city),
     );
 
     _showSnackBar(context, message: "The route is being calculated.");
@@ -140,36 +108,31 @@ class _MyHomePageState extends State<MyHomePage> {
     // (err, results) - is a callback function that gets called when the route computing is finished.
     // err is an error enum, results is a list of routes.
 
-    _routingHandler = RoutingService.calculateRoute(
-      [departureLandmark, destinationLandmark],
-      routePreferences,
-      (err, routes) {
-        // If the route calculation is finished, we don't have a progress listener anymore.
-        _routingHandler = null;
-        ScaffoldMessenger.of(context).clearSnackBars();
+    _routingHandler = RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (
+      err,
+      routes,
+    ) {
+      // If the route calculation is finished, we don't have a progress listener anymore.
+      _routingHandler = null;
+      ScaffoldMessenger.of(context).clearSnackBars();
 
-        // If there aren't any errors, we display the routes.
-        if (err == GemError.success) {
-          // Get the routes collection from map preferences.
-          final routesMap = _mapController.preferences.routes;
+      // If there aren't any errors, we display the routes.
+      if (err == GemError.success) {
+        // Get the routes collection from map preferences.
+        final routesMap = _mapController.preferences.routes;
 
-          // Display the routes on map.
-          for (final route in routes) {
-            routesMap.add(
-              route,
-              route == routes.first,
-              label: route.getMapLabel(),
-            );
-          }
-
-          // Center the camera on routes.
-          _mapController.centerOnRoutes(routes: routes);
-          setState(() {
-            _routes = routes;
-          });
+        // Display the routes on map.
+        for (final route in routes) {
+          routesMap.add(route, route == routes.first, label: getMapLabel(route));
         }
-      },
-    );
+
+        // Center the camera on routes.
+        _mapController.centerOnRoutes(routes: routes);
+        setState(() {
+          _routes = routes;
+        });
+      }
+    });
 
     setState(() {});
   }
@@ -197,8 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
   // In order to be able to select an alternative route, we have to register the route tap gesture callback.
   Future<void> _registerRouteTapCallback() async {
     // Register the generic map touch gesture.
-    _mapController.registerTouchCallback((pos) async {
-      // Select the map objects at the given position.
+    _mapController.registerOnTouch((pos) async {
+      // Select the map objects at gives position.
       await _mapController.setCursorScreenPosition(pos);
 
       // Get the selected routes.
@@ -214,19 +177,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showPopupMenu(BuildContext context) async {
     final BikeProfile? result = await showMenu(
       context: context,
-      position: const RelativeRect.fromLTRB(
-        100,
-        80,
-        0,
-        0,
-      ), // Adjust menu position
+      position: const RelativeRect.fromLTRB(100, 80, 0, 0), // Adjust menu position
       items: [
         const PopupMenuItem(value: BikeProfile.city, child: Text("City")),
         const PopupMenuItem(value: BikeProfile.cross, child: Text("Cross")),
-        const PopupMenuItem(
-          value: BikeProfile.mountain,
-          child: Text("Mountain"),
-        ),
+        const PopupMenuItem(value: BikeProfile.mountain, child: Text("Mountain")),
         const PopupMenuItem(value: BikeProfile.road, child: Text("Road")),
       ],
     );
@@ -239,11 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // Show a snackbar indicating that the route calculation is in progress.
-  void _showSnackBar(
-    BuildContext context, {
-    required String message,
-    Duration duration = const Duration(hours: 1),
-  }) {
+  void _showSnackBar(BuildContext context, {required String message, Duration duration = const Duration(hours: 1)}) {
     final snackBar = SnackBar(content: Text(message), duration: duration);
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -253,39 +204,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ### Utility Functions
 ```dart
-// Define an extension for route for calculating the route label which will be displayed on map.
-extension RouteExtension on Route {
-  String getMapLabel() {
-    final totalDistance =
-        getTimeDistance().unrestrictedDistanceM +
-        getTimeDistance().restrictedDistanceM;
-    final totalDuration =
-        getTimeDistance().unrestrictedTimeS + getTimeDistance().restrictedTimeS;
+String getMapLabel(Route route) {
+  return '${convertDistance(route.getTimeDistance().totalDistanceM)} \n${convertDuration(route.getTimeDistance().totalTimeS)}';
+}
 
-    return '${_convertDistance(totalDistance)} \n${_convertDuration(totalDuration)}';
-  }
-
-  // Utility function to convert the meters distance into a suitable format.
-  String _convertDistance(int meters) {
-    if (meters >= 1000) {
-      double kilometers = meters / 1000;
-      return '${kilometers.toStringAsFixed(1)} km';
-    } else {
-      return '${meters.toString()} m';
-    }
-  }
-
-  // Utility function to convert the seconds duration into a suitable format.
-  String _convertDuration(int seconds) {
-    int hours = seconds ~/ 3600; // Number of whole hours
-    int minutes = (seconds % 3600) ~/ 60; // Number of whole minutes
-
-    String hoursText = (hours > 0) ? '$hours h ' : ''; // Hours text
-    String minutesText = '$minutes min'; // Minutes text
-
-    return hoursText + minutesText;
+// Utility function to convert the meters distance into a suitable format.
+String convertDistance(int meters) {
+  if (meters >= 1000) {
+    double kilometers = meters / 1000;
+    return '${kilometers.toStringAsFixed(1)} km';
+  } else {
+    return '${meters.toString()} m';
   }
 }
+
+// Utility function to convert the seconds duration into a suitable format.
+String convertDuration(int seconds) {
+  int hours = seconds ~/ 3600; // Number of whole hours
+  int minutes = (seconds % 3600) ~/ 60; // Number of whole minutes
+
+  String hoursText = (hours > 0) ? '$hours h ' : ''; // Hours text
+  String minutesText = '$minutes min'; // Minutes text
+
+  return hoursText + minutesText;
+}
+
+
 ```
 
 

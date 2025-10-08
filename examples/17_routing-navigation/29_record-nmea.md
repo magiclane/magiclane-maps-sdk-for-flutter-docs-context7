@@ -10,7 +10,7 @@ This example demonstrates how to build a Flutter app using the Maps SDK to recor
 This example is supported only on Android, as the NMEA Chunk data type is exclusive to this platform.
 On iOS, a warning will be displayed, and this data type will not be available.
 
-## How It Works
+## How it works
 
 The example app highlights the following features:
 
@@ -94,7 +94,7 @@ The `Permission.manageExternalStorage` is also required for saving the exported 
     if (kIsWeb) {
       // On web platform permission are handled differently than other platforms.
       // The SDK handles the request of permission for location.
-      final locationPermssionWeb = await PositionService.requestLocationPermission;
+      final locationPermssionWeb = await PositionService.requestLocationPermission();
       if (locationPermssionWeb == true) {
         _locationPermissionStatus = PermissionStatus.granted;
       } else {
@@ -110,7 +110,7 @@ The `Permission.manageExternalStorage` is also required for saving the exported 
       // After the permission was granted, we can set the live data source (in most cases the GPS).
       // The data source should be set only once, otherwise we'll get -5 error.
       if (!_hasLiveDataSource) {
-        PositionService.instance.setLiveDataSource();
+        PositionService.setLiveDataSource();
         _hasLiveDataSource = true;
       }
 

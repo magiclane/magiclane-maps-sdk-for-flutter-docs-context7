@@ -7,7 +7,7 @@ title: Better Route Notification
 
 This guide will teach you how to get notified when a better route is detected during navigation.
 
-## How It Works
+## How it works
 
 The example app demonstrates the following key features:
 
@@ -35,11 +35,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Better Route Notification',
-      home: MyHomePage(),
-    );
+    return const MaterialApp(debugShowCheckedModeBanner: false, title: 'Better Route Notification', home: MyHomePage());
   }
 }
 
@@ -73,10 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Better Route Notification",
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text("Better Route Notification", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.deepPurple[900],
         actions: [
           if (!_isSimulationActive && _areRoutesBuilt)
@@ -98,11 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Stack(
         children: [
-          GemMap(
-            key: ValueKey("GemMap"),
-            onMapCreated: _onMapCreated,
-            appAuthorization: projectApiToken,
-          ),
+          GemMap(key: ValueKey("GemMap"), onMapCreated: _onMapCreated, appAuthorization: projectApiToken),
           if (_isSimulationActive)
             Positioned(
               top: 10,
@@ -110,10 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 spacing: 10,
                 children: [
-                  NavigationInstructionPanel(instruction: currentInstruction),
-                  FollowPositionButton(
-                    onTap: () => _mapController.startFollowingPosition(),
-                  ),
+                  BottomNavigationPanel(instruction: currentInstruction),
+                  FollowPositionButton(onTap: () => _mapController.startFollowingPosition()),
                 ],
               ),
             ),
@@ -121,10 +108,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned(
               bottom: MediaQuery.of(context).padding.bottom + 10,
               left: 0,
-              child: NavigationBottomPanel(
-                remainingDistance: currentInstruction.getFormattedRemainingDistance(),
-                eta: currentInstruction.getFormattedRemainingDuration(),
-                remainingDuration: currentInstruction.getFormattedETA(),
+              child: BottomNavigationPanel(
+                remainingDistance: getFormattedRemainingDistance(currentInstruction),
+                eta: getFormattedRemainingDuration(currentInstruction),
+                remainingDuration: getFormattedETA(currentInstruction),
               ),
             ),
         ],
@@ -140,16 +127,10 @@ class _MyHomePageState extends State<MyHomePage> {
   // Custom method for calling calculate route and displaying the results.
   void _onBuildRouteButtonPressed(BuildContext context) {
     // Define the departure.
-    final departureLandmark = Landmark.withLatLng(
-      latitude: 48.79743778098061,
-      longitude: 2.4029037044571875,
-    );
+    final departureLandmark = Landmark.withLatLng(latitude: 48.79743778098061, longitude: 2.4029037044571875);
 
     // Define the destination.
-    final destinationLandmark = Landmark.withLatLng(
-      latitude: 48.904767018940184,
-      longitude: 2.3223936076132086,
-    );
+    final destinationLandmark = Landmark.withLatLng(latitude: 48.904767018940184, longitude: 2.3223936076132086);
 
     // Define the route preferences.
     final routePreferences = RoutePreferences(
@@ -162,37 +143,32 @@ class _MyHomePageState extends State<MyHomePage> {
     // Calling the calculateRoute SDK method.
     // (err, results) - is a callback function that gets called when the route computing is finished.
     // err is an error enum, results is a list of routes.
-    _routingHandler = RoutingService.calculateRoute(
-      [departureLandmark, destinationLandmark],
-      routePreferences,
-      (err, routes) async {
-        // If the route calculation is finished, we don't have a progress listener anymore.
-        _routingHandler = null;
+    _routingHandler = RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (
+      err,
+      routes,
+    ) async {
+      // If the route calculation is finished, we don't have a progress listener anymore.
+      _routingHandler = null;
 
-        ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).clearSnackBars();
 
-        // If there aren't any errors, we display the routes.
-        if (err == GemError.success) {
-          // Get the routes collection from map preferences.
-          final routesMap = _mapController.preferences.routes;
+      // If there aren't any errors, we display the routes.
+      if (err == GemError.success) {
+        // Get the routes collection from map preferences.
+        final routesMap = _mapController.preferences.routes;
 
-          // Display the routes on map.
-          for (final route in routes) {
-            routesMap.add(
-              route,
-              route == routes.first,
-              label: route.getMapLabel(),
-            );
-          }
-
-          // Center the camera on routes.
-          _mapController.centerOnRoutes(routes: routes);
+        // Display the routes on map.
+        for (final route in routes) {
+          routesMap.add(route, route == routes.first, label: getMapLabel(route));
         }
-        setState(() {
-          _areRoutesBuilt = true;
-        });
-      },
-    );
+
+        // Center the camera on routes.
+        _mapController.centerOnRoutes(routes: routes);
+      }
+      setState(() {
+        _areRoutesBuilt = true;
+      });
+    });
   }
 
   // Method for starting the simulation and following the position,
@@ -208,7 +184,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _navigationHandler = NavigationService.startSimulation(
       routes.mainRoute!,
-      null,
       onNavigationInstruction: (instruction, events) {
         setState(() {
           _isSimulationActive = true;
@@ -284,11 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // Method to show message in case calculate route is not finished,
-  void _showSnackBar(
-    BuildContext context, {
-    required String message,
-    Duration duration = const Duration(hours: 1),
-  }) {
+  void _showSnackBar(BuildContext context, {required String message, Duration duration = const Duration(hours: 1)}) {
     final snackBar = SnackBar(content: Text(message), duration: duration);
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -325,11 +296,7 @@ class FollowPositionButton extends StatelessWidget {
             Icon(Icons.navigation),
             Text(
               'Recenter',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -359,13 +326,19 @@ class BetterRoutePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 6,
-      borderRadius: const BorderRadius.vertical(top: Radius.circular(16), bottom: Radius.circular(16)),
+      borderRadius: const BorderRadius.vertical(
+        top: Radius.circular(16),
+        bottom: Radius.circular(16),
+      ),
       child: Container(
         width: MediaQuery.of(context).size.width - 20,
         padding: const EdgeInsets.all(16),
         decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16), bottom: Radius.circular(16)),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(16),
+            bottom: Radius.circular(16),
+          ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -373,7 +346,9 @@ class BetterRoutePanel extends StatelessWidget {
           children: [
             Text(
               'Better Route Detected',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
 
@@ -381,7 +356,10 @@ class BetterRoutePanel extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Total travel time:', style: TextStyle(fontWeight: FontWeight.w500)),
+                const Text(
+                  'Total travel time:',
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
                 Text('${travelTime.inMinutes} min'),
               ],
             ),
@@ -391,7 +369,10 @@ class BetterRoutePanel extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Traffic delay:', style: TextStyle(fontWeight: FontWeight.w500)),
+                const Text(
+                  'Traffic delay:',
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
                 Text('${delay.inMinutes} min'),
               ],
             ),
@@ -401,7 +382,10 @@ class BetterRoutePanel extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Time gain:', style: TextStyle(fontWeight: FontWeight.w500)),
+                const Text(
+                  'Time gain:',
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
                 Text('${timeGain.inMinutes} min'),
               ],
             ),
@@ -425,10 +409,10 @@ class BetterRoutePanel extends StatelessWidget {
 
 ### Top Navigation Panel
 ```dart
-class NavigationInstructionPanel extends StatelessWidget {
+class BottomNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const NavigationInstructionPanel({super.key, required this.instruction});
+  const BottomNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {
@@ -436,10 +420,7 @@ class NavigationInstructionPanel extends StatelessWidget {
       width: MediaQuery.of(context).size.width - 20,
       height: MediaQuery.of(context).size.height * 0.2,
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(15),
-      ),
+      decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(15)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -463,7 +444,7 @@ class NavigationInstructionPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  instruction.getFormattedDistanceToNextTurn(),
+                  getFormattedDistanceToNextTurn(instruction),
                   textAlign: TextAlign.left,
                   style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
                   overflow: TextOverflow.ellipsis,
@@ -485,12 +466,12 @@ class NavigationInstructionPanel extends StatelessWidget {
 
 ### Bottom Navigation Panel
 ```dart
-class NavigationBottomPanel extends StatelessWidget {
+class BottomNavigationPanel extends StatelessWidget {
   final String remainingDuration;
   final String remainingDistance;
   final String eta;
 
-  const NavigationBottomPanel({
+  const BottomNavigationPanel({
     super.key,
     required this.remainingDuration,
     required this.remainingDistance,
@@ -548,6 +529,7 @@ class NavigationBottomPanel extends StatelessWidget {
     );
   }
 }
+
 ```
 
 ### Utility Functions
@@ -564,13 +546,15 @@ String convertDistance(int meters) {
 
 // Utility function to convert the seconds duration into a suitable format
 String convertDuration(int seconds) {
-  int hours = seconds ~/ 3600; // Number of whole hours
-  int minutes = (seconds % 3600) ~/ 60; // Number of whole minutes
+  int hours = seconds ~/ 3600;
+  int minutes = (seconds % 3600) ~/ 60;
+  int remainingSeconds = seconds % 60;
 
-  String hoursText = (hours > 0) ? '$hours h ' : ''; // Hours text
-  String minutesText = '$minutes min'; // Minutes text
+  String hoursText = (hours > 0) ? '$hours h ' : '';
+  String minutesText = (minutes > 0) ? '$minutes min ' : '';
+  String secondsText = (hours == 0 && minutes == 0) ? '$remainingSeconds sec' : '';
 
-  return hoursText + minutesText;
+  return (hoursText + minutesText + secondsText).trim();
 }
 
 // Utility function to add the given additional time to current time
@@ -598,55 +582,42 @@ Future<Uint8List?> imageToUint8List(Image? image) async {
   return byteData!.buffer.asUint8List();
 }
 
-// Define an extension for route for calculating the route label which will be displayed on map
-extension RouteExtension on Route {
-  String getMapLabel() {
-    final totalDistance =
-        getTimeDistance().unrestrictedDistanceM +
-        getTimeDistance().restrictedDistanceM;
-    final totalDuration =
-        getTimeDistance().unrestrictedTimeS + getTimeDistance().restrictedTimeS;
-
-    return '${convertDistance(totalDistance)} \n${convertDuration(totalDuration)}';
-  }
+String getMapLabel(Route route) {
+  return '${convertDistance(route.getTimeDistance().totalDistanceM)} \n${convertDuration(route.getTimeDistance().totalTimeS)}';
 }
 
-// Define an extension for navigation instruction to calculate distance and duration
-extension NavigationInstructionExtension on NavigationInstruction {
-  String getFormattedDistanceToNextTurn() {
-    final totalDistanceToTurn =
-        timeDistanceToNextTurn.unrestrictedDistanceM +
-        timeDistanceToNextTurn.restrictedDistanceM;
-    return convertDistance(totalDistanceToTurn);
-  }
+String getFormattedDistanceToNextTurn(NavigationInstruction navInstruction) {
+  final totalDistanceToTurn =
+      navInstruction.timeDistanceToNextTurn.unrestrictedDistanceM +
+      navInstruction.timeDistanceToNextTurn.restrictedDistanceM;
+  return convertDistance(totalDistanceToTurn);
+}
 
-  String getFormattedDurationToNextTurn() {
-    final totalDurationToTurn =
-        timeDistanceToNextTurn.unrestrictedTimeS +
-        timeDistanceToNextTurn.restrictedTimeS;
-    return convertDuration(totalDurationToTurn);
-  }
+String getFormattedDurationToNextTurn(NavigationInstruction navInstruction) {
+  final totalDurationToTurn =
+      navInstruction.timeDistanceToNextTurn.unrestrictedTimeS + navInstruction.timeDistanceToNextTurn.restrictedTimeS;
+  return convertDuration(totalDurationToTurn);
+}
 
-  String getFormattedRemainingDistance() {
-    final remainingDistance =
-        remainingTravelTimeDistance.unrestrictedDistanceM +
-        remainingTravelTimeDistance.restrictedDistanceM;
-    return convertDistance(remainingDistance);
-  }
+String getFormattedRemainingDistance(NavigationInstruction navInstruction) {
+  final remainingDistance =
+      navInstruction.remainingTravelTimeDistance.unrestrictedDistanceM +
+      navInstruction.remainingTravelTimeDistance.restrictedDistanceM;
+  return convertDistance(remainingDistance);
+}
 
-  String getFormattedRemainingDuration() {
-    final remainingDuration =
-        remainingTravelTimeDistance.unrestrictedTimeS +
-        remainingTravelTimeDistance.restrictedTimeS;
-    return convertDuration(remainingDuration);
-  }
+String getFormattedRemainingDuration(NavigationInstruction navInstruction) {
+  final remainingDuration =
+      navInstruction.remainingTravelTimeDistance.unrestrictedTimeS +
+      navInstruction.remainingTravelTimeDistance.restrictedTimeS;
+  return convertDuration(remainingDuration);
+}
 
-  String getFormattedETA() {
-    final remainingDuration =
-        remainingTravelTimeDistance.unrestrictedTimeS +
-        remainingTravelTimeDistance.restrictedTimeS;
-    return getCurrentTime(additionalSeconds: remainingDuration);
-  }
+String getFormattedETA(NavigationInstruction navInstruction) {
+  final remainingDuration =
+      navInstruction.remainingTravelTimeDistance.unrestrictedTimeS +
+      navInstruction.remainingTravelTimeDistance.restrictedTimeS;
+  return getCurrentTime(additionalSeconds: remainingDuration);
 }
 ```
 

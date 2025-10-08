@@ -7,7 +7,7 @@ title: Weather Forecast
 
 This example demonstrates how to create a Flutter application that utilizes the Maps SDK for Flutter to display a weather forecast on a map. The application initializes the Maps SDK for Flutter and provides a user interface to show current, hourly, and daily weather forecasts.
 
-## How It Works
+## How it works
 
 - Main App Setup : The main app initializes GemKit and displays a map.
 

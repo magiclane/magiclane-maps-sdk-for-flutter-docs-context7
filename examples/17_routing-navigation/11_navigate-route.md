@@ -7,7 +7,7 @@ title: Navigate Route
 
 In this guide, you will learn how to compute a route between a departure point and a destination point, render the route on an interactive map, and then navigate along the route.
 
-## How It Works
+## How it works
 
 This example demonstrates the following features:
 
@@ -31,8 +31,11 @@ void _onMapCreated(GemMapController controller) {
 ```dart
 void _onBuildRouteButtonPressed(BuildContext context) {
   if (_currentLocation == null) {
-    _showSnackBar(context,
-        message: 'Current location is needed to compute the route.', duration: const Duration(seconds: 3));
+    _showSnackBar(
+      context,
+      message: 'Current location is needed to compute the route.',
+      duration: const Duration(seconds: 3),
+    );
     return;
   }
 
@@ -47,8 +50,12 @@ void _onBuildRouteButtonPressed(BuildContext context) {
   _showSnackBar(context, message: 'The route is calculating.');
 
   // Calling the calculateRoute SDK method.
-  _routingHandler =
-      RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (err, routes) {
+  // (err, results) - is a callback function that gets called when the route computing is finished.
+  // err is an error enum, results is a list of routes.
+  _routingHandler = RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (
+    err,
+    routes,
+  ) {
     // If the route calculation is finished, we don't have a progress listener anymore.
     _routingHandler = null;
 
@@ -59,25 +66,24 @@ void _onBuildRouteButtonPressed(BuildContext context) {
       return;
     }
 
-        if (err == GemError.success) {
-          final routesMap = _mapController.preferences.routes;
+    // If there aren't any errors, we display the routes.
+    if (err == GemError.success) {
+      // Get the routes collection from map preferences.
+      final routesMap = _mapController.preferences.routes;
 
-          for (final route in routes) {
-            routesMap.add(
-              route,
-              route == routes.first,
-              label: route.getMapLabel(),
-            );
-          }
+      // Display the routes on map.
+      for (final route in routes) {
+        routesMap.add(route, route == routes.first, label: getMapLabel(route));
+      }
 
-          _mapController.centerOnRoutes(routes: routes);
-          setState(() {
-            _areRoutesBuilt = true;
-          });
-        }
-      },
-    );
-  }
+      // Center the camera on routes.
+      _mapController.centerOnRoutes(routes: routes);
+      setState(() {
+        _areRoutesBuilt = true;
+      });
+    }
+  });
+}
 ```
 
 When the route button in the upper right corner is pressed, a route is computed from the current position to a preset location in Europe.
@@ -114,47 +120,53 @@ _mapController.centerOnRoutes(routes);
 
 Once a route is computed, tapping the play button in the upper right starts navigation on the selected route.
 ```dart
-  void _startNavigation() {
-    final routes = _mapController.preferences.routes;
+void _startNavigation() {
+  final routes = _mapController.preferences.routes;
 
-    if (routes.mainRoute == null) {
-      _showSnackBar(context, message: "No main route available");
-      return;
-    }
-
-    _navigationHandler = NavigationService.startSimulation(
-      routes.mainRoute!,
-      null,
-      onNavigationInstruction: (instruction, events) {
-        setState(() {
-          _isNavigationActive = true;
-        });
-        currentInstruction = instruction;
-      },
-      onError: (error) {
-        setState(() {
-          _isNavigationActive = false;
-          _cancelRoute();
-        });
-
-        if (error != GemError.cancel) {
-          _stopNavigation();
-        }
-        return;
-      },
-    );
-
-    _mapController.startFollowingPosition();
+  if (routes.mainRoute == null) {
+    _showSnackBar(context, message: "No main route available");
+    return;
   }
+
+  _navigationHandler = NavigationService.startSimulation(
+    routes.mainRoute!,
+    onNavigationInstruction: (instruction, events) {
+      setState(() {
+        _isNavigationActive = true;
+      });
+      currentInstruction = instruction;
+    },
+    onError: (error) {
+      // If the navigation has ended or if and error occurred while navigating, remove routes.
+      setState(() {
+        _isNavigationActive = false;
+        _cancelRoute();
+      });
+
+      if (error != GemError.cancel) {
+        _stopNavigation();
+      }
+      return;
+    },
+  );
+
+  // Set the camera to follow position.
+  _mapController.startFollowingPosition();
+}
 ```
 
 ### Following the Position
 ```dart
 void _onFollowPositionButtonPressed() async {
   if (kIsWeb) {
-    // On web platform permissions are handled differently than other platforms.
-    // The SDK handles the request for permission for location.
-    _locationPermissionStatus = PermissionStatus.granted;
+    // On web platform permission are handled differently than other platforms.
+    // The SDK handles the request of permission for location.
+    final locationPermssionWeb = await PositionService.requestLocationPermission();
+    if (locationPermssionWeb == true) {
+      _locationPermissionStatus = PermissionStatus.granted;
+    } else {
+      _locationPermissionStatus = PermissionStatus.denied;
+    }
   } else {
     // For Android & iOS platforms, permission_handler package is used to ask for permissions.
     _locationPermissionStatus = await Permission.locationWhenInUse.request();
@@ -162,14 +174,14 @@ void _onFollowPositionButtonPressed() async {
 
   if (_locationPermissionStatus == PermissionStatus.granted) {
     // After the permission was granted, we can set the live data source (in most cases the GPS).
-    // The data source should be set only once; otherwise, we'll get -5 error.
+    // The data source should be set only once, otherwise we'll get -5 error.
     if (!_hasLiveDataSource) {
-      PositionService.instance.setLiveDataSource();
+      PositionService.setLiveDataSource();
       _getCurrentLocation();
       _hasLiveDataSource = true;
     }
 
-    // After the data source is set, startFollowingPosition can be safely called.
+    // After data source is set, startFollowingPosition can be safely called.
     // Optionally, we can set an animation
     final animation = GemAnimation(type: AnimationType.linear);
 
@@ -192,17 +204,17 @@ _locationPermissionStatus = await Permission.locationWhenInUse.request();
 
 Once permission is granted by the user, it is possible to set the location (GPS sensor) as the data source for the phone/device position on the map:
 ```dart
-PositionService.instance.setLiveDataSource();
+PositionService.setLiveDataSource();
 ```
 
 If the user pans the map away from the route, clicking the Re-center button starts following position again.
 
 ### Top Navigation Instruction Panel
 ```dart
-class NavigationInstructionPanel extends StatelessWidget {
+class BottomNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const NavigationInstructionPanel({super.key, required this.instruction});
+  const BottomNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +246,7 @@ class NavigationInstructionPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  instruction.getFormattedDistanceToNextTurn(),
+                  getFormattedDistanceToNextTurn(instruction),
                   textAlign: TextAlign.left,
                   style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
                   overflow: TextOverflow.ellipsis,
@@ -256,12 +268,12 @@ class NavigationInstructionPanel extends StatelessWidget {
 
 ### Bottom Navigation Panel
 ```dart
-class NavigationBottomPanel extends StatelessWidget {
+class BottomNavigationPanel extends StatelessWidget {
   final String remainingDuration;
   final String remainingDistance;
   final String eta;
 
-  const NavigationBottomPanel({
+  const BottomNavigationPanel({
     super.key,
     required this.remainingDuration,
     required this.remainingDistance,

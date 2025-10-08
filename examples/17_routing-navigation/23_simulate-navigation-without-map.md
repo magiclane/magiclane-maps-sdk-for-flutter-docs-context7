@@ -7,7 +7,7 @@ title: Simulate Navigation Without Map
 
 In this guide, you will learn how to compute a route between a departure point and a destination point, and then simulate navigation along the route without a map.
 
-## How It Works
+## How it works
 
 The example app highlights the following features:
 
@@ -19,6 +19,7 @@ The example app highlights the following features:
 
 The following code builds the UI with an app bar containing a build route button, and start and stop navigation buttons. Top and bottom navigation panels appear when navigating.
 ```dart
+const projectApiToken = String.fromEnvironment('GEM_TOKEN');
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GemKit.initialize(appAuthorization: projectApiToken);
@@ -70,10 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Simulate Navigation Without Map",
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text("Simulate Navigation Without Map", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.deepPurple[900],
         actions: [
           if (!_isSimulationActive && _areRoutesBuilt)
@@ -96,22 +94,15 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: [
           if (_isSimulationActive)
-            Positioned(
-              top: 10,
-              left: 10,
-              child: NavigationInstructionPanel(
-                instruction: _currentInstruction,
-              ),
-            ),
+            Positioned(top: 10, left: 10, child: BottomNavigationPanel(instruction: _currentInstruction)),
           if (_isSimulationActive)
             Positioned(
               bottom: MediaQuery.of(context).padding.bottom + 10,
               left: 0,
-              child: NavigationBottomPanel(
-                remainingDistance:
-                    _currentInstruction.getFormattedRemainingDistance(),
-                eta: _currentInstruction.getFormattedRemainingDuration(),
-                remainingDuration: _currentInstruction.getFormattedETA(),
+              child: BottomNavigationPanel(
+                remainingDistance: getFormattedRemainingDistance(_currentInstruction),
+                eta: getFormattedRemainingDistance(_currentInstruction),
+                remainingDuration: getFormattedETA(_currentInstruction),
               ),
             ),
         ],
@@ -123,16 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
   // Custom method for calling calculate route and displaying the results.
   void _onBuildRouteButtonPressed(BuildContext context) {
     // Define the departure.
-    final departureLandmark = Landmark.withLatLng(
-      latitude: 51.20830988558932,
-      longitude: 6.6794155000229045,
-    );
+    final departureLandmark = Landmark.withLatLng(latitude: 51.20830988558932, longitude: 6.6794155000229045);
 
     // Define the destination.
-    final destinationLandmark = Landmark.withLatLng(
-      latitude: 50.93416933110433,
-      longitude: 6.94370301382495,
-    );
+    final destinationLandmark = Landmark.withLatLng(latitude: 50.93416933110433, longitude: 6.94370301382495);
 
     // Define the route preferences.
     final routePreferences = RoutePreferences();
@@ -141,31 +126,26 @@ class _MyHomePageState extends State<MyHomePage> {
     // Calling the calculateRoute SDK method.
     // (err, results) - is a callback function that gets called when the route computing is finished.
     // err is an error enum, results is a list of routes.
-    _routingHandler = RoutingService.calculateRoute(
-      [departureLandmark, destinationLandmark],
-      routePreferences,
-      (err, routes) async {
-        // If the route calculation is finished, we don't have a progress listener anymore.
-        _routingHandler = null;
+    _routingHandler = RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (
+      err,
+      routes,
+    ) async {
+      // If the route calculation is finished, we don't have a progress listener anymore.
+      _routingHandler = null;
 
-        ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).clearSnackBars();
 
-        // If there aren't any errors, we display the routes.
-        if (err == GemError.success) {
-          _showSnackBar(
-            context,
-            message: 'Successfully calculated the route.',
-            duration: const Duration(seconds: 2),
-          );
-          setState(() {
-            _route = routes.first;
-          });
-        }
+      // If there aren't any errors, we display the routes.
+      if (err == GemError.success) {
+        _showSnackBar(context, message: 'Successfully calculated the route.', duration: const Duration(seconds: 2));
         setState(() {
-          _areRoutesBuilt = true;
+          _route = routes.first;
         });
-      },
-    );
+      }
+      setState(() {
+        _areRoutesBuilt = true;
+      });
+    });
   }
 ```
 
@@ -175,7 +155,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void _startSimulation() {
     _navigationHandler = NavigationService.startSimulation(
       _route,
-      null,
       onNavigationInstruction: (instruction, events) {
         setState(() {
           _isSimulationActive = true;
@@ -183,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _currentInstruction = instruction;
       },
       onError: (error) {
-        // If the navigation has ended or if an error occurred while navigating, remove routes.
+        // If the navigation has ended or if and error occurred while navigating, remove routes.
         setState(() {
           _isSimulationActive = false;
           _cancelRoute();
@@ -200,42 +179,38 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 ```dart
-  // Method for removing the routes from display,
-  void _cancelRoute() {
-    if (_routingHandler != null) {
-      // Cancel the navigation.
-      RoutingService.cancelRoute(_routingHandler!);
-      _routingHandler = null;
-    }
-
-    setState(() {
-      _areRoutesBuilt = false;
-    });
+// Method for removing the routes from display,
+void _cancelRoute() {
+  if (_routingHandler != null) {
+    // Cancel the navigation.
+    RoutingService.cancelRoute(_routingHandler!);
+    _routingHandler = null;
   }
+
+  setState(() {
+    _areRoutesBuilt = false;
+  });
+}
 ```
 
 
 ```dart
-  // Method to stop the simulation and remove the displayed routes,
-  void _stopSimulation() {
-    // Cancel the navigation.
-    NavigationService.cancelNavigation(_navigationHandler!);
-    _navigationHandler = null;
+// Method to stop the simulation and remove the displayed routes,
+void _stopSimulation() {
+  // Cancel the navigation.
+  NavigationService.cancelNavigation(_navigationHandler!);
+  _navigationHandler = null;
 
-    _cancelRoute();
+  _cancelRoute();
 
-    setState(() => _isSimulationActive = false);
-  }
+  setState(() => _isSimulationActive = false);
+}
 ```
 
 
 ```dart
   // Method to show message in case calculate route is not finished,
-  void _showSnackBar(
-    BuildContext context, {
-    required String message,
-    Duration duration = const Duration(hours: 1),
-  }) {
+  void _showSnackBar(BuildContext context, {required String message, Duration duration = const Duration(hours: 1)}) {
     final snackBar = SnackBar(content: Text(message), duration: duration);
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -244,10 +219,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ### Top Navigation Panel
 ```dart
-class NavigationInstructionPanel extends StatelessWidget {
+class BottomNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const NavigationInstructionPanel({super.key, required this.instruction});
+  const BottomNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +254,7 @@ class NavigationInstructionPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  instruction.getFormattedDistanceToNextTurn(),
+                  getFormattedDistanceToNextTurn(instruction),
                   textAlign: TextAlign.left,
                   style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
                   overflow: TextOverflow.ellipsis,
@@ -301,12 +276,12 @@ class NavigationInstructionPanel extends StatelessWidget {
 
 ### Bottom Navigation Panel
 ```dart
-class NavigationBottomPanel extends StatelessWidget {
+class BottomNavigationPanel extends StatelessWidget {
   final String remainingDuration;
   final String remainingDistance;
   final String eta;
 
-  const NavigationBottomPanel({
+  const BottomNavigationPanel({
     super.key,
     required this.remainingDuration,
     required this.remainingDistance,

@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _registerLandmarkTapCallback() {
-    _mapController.registerTouchCallback((pos) async {
+    _mapController.registerOnTouch((pos) async {
       _mapController.setCursorScreenPosition(pos);
       final landmarks = _mapController.cursorSelectionLandmarks();
 
@@ -282,17 +282,14 @@ void _centerOnRouteRange(Route route) {
   const padding = 20;
 
   widget.mapController.centerOnRoute(route,
-      screenRect: RectType(
-        x: 0,
-        y: (appbarHeight + padding * MediaQuery.of(context).devicePixelRatio)
-            .toInt(),
-        width: (MediaQuery.of(context).size.width *
-                MediaQuery.of(context).devicePixelRatio)
-            .toInt(),
-        height: ((MediaQuery.of(context).size.height / 2 -
+      screenRect: Rectangle<int>(
+        0,
+        (appbarHeight + padding * MediaQuery.of(context).devicePixelRatio).toInt(),
+        (MediaQuery.of(context).size.width * MediaQuery.of(context).devicePixelRatio).toInt(),
+        ((MediaQuery.of(context).size.height / 2 -
                     appbarHeight -
                     2 * padding * MediaQuery.of(context).devicePixelRatio) *
-                  MediaQuery.of(context).devicePixelRatio)
+                MediaQuery.of(context).devicePixelRatio)
             .toInt(),
       ),
     );

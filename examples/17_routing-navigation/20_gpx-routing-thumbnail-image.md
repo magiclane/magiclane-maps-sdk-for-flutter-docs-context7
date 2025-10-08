@@ -18,7 +18,7 @@ flutter:
     - assets/
 ```
 
-## How It Works
+## How it works
 
 The example app highlights the following features:
 
@@ -163,11 +163,11 @@ class _MyHomePageState extends State<MyHomePage> {
       _mapController.centerOnAreaRect(
         route.geographicArea,
         zoomLevel: 70,
-        viewRc: RectType(
-          x: _mapController.viewport.x + 100,
-          y: _mapController.viewport.y + 100,
-          width: _mapController.viewport.width - 200,
-          height: _mapController.viewport.height - 100,
+        viewRc: Rectangle<int>(
+          _mapController.viewport.width ~/ 3,
+          _mapController.viewport.height ~/ 3,
+          _mapController.viewport.width ~/ 3,
+          _mapController.viewport.height ~/ 3,
         ),
       );
 

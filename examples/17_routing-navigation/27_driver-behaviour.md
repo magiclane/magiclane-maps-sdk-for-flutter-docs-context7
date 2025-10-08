@@ -7,7 +7,7 @@ title: Driver Behaviour
 
 This guide will teach you how to start analyzing driver behaviour using Maps SDK for Flutter.
 
-## How It Works
+## How it works
 
 The example app demonstrates the following key features:
 
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (kIsWeb) {
       // On web platform permission are handled differently than other platforms.
       // The SDK handles the request of permission for location.
-      final locationPermssionWeb = await PositionService.requestLocationPermission;
+      final locationPermssionWeb = await PositionService.requestLocationPermission();
       if (locationPermssionWeb == true) {
         _locationPermissionStatus = PermissionStatus.granted;
       } else {
@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // After the permission was granted, we can set the live data source (in most cases the GPS).
       // The data source should be set only once, otherwise we'll get -5 error.
       if (!_hasLiveDataSource) {
-        PositionService.instance.setLiveDataSource();
+        PositionService.setLiveDataSource();
         _hasLiveDataSource = true;
       }
 
@@ -200,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
 ### Analyses Page
 ```dart
 import 'package:flutter/material.dart';
-import 'package:gem_kit/driver_behaviour.dart';
+import 'package:magiclane_maps_flutter/driver_behaviour.dart';
 import 'package:intl/intl.dart';
 import 'package:driver_behaviour/utils.dart';
 

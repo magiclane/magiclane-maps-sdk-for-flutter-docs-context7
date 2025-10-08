@@ -18,7 +18,7 @@ flutter:
     - assets/
 ```
 
-## How It Works
+## How it works
 
 The example app demonstrates the following key features:
 

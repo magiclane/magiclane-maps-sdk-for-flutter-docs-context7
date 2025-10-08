@@ -7,7 +7,7 @@ title: What Is Nearby
 
 This example demonstrates how to create a Flutter app that shows nearby landmarks based on the user’s current position using the Maps SDK for Flutter.
 
-## How It Works
+## How it works
 
 This example app demonstrates the following features:
 

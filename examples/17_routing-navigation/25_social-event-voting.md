@@ -7,7 +7,7 @@ title: Social Event Voting
 
 This guide will teach you how to confirm social reports submitted by other users.
 
-## How It Works
+## How it works
 
 The example app demonstrates the following key features:
 
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Save controller for further usage.
     _mapController = controller;
 
-    _mapController.registerTouchCallback((point) {
+    _mapController.registerOnTouch((point) {
       _mapController.setCursorScreenPosition(point);
     });
 
@@ -154,7 +154,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _navigationHandler = NavigationService.startSimulation(
       routes.mainRoute!,
-      null,
       onNavigationInstruction: (instruction, events) {},
       onDestinationReached: (landmark) => _stopSimulation(),
     );

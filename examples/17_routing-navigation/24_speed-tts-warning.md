@@ -7,7 +7,7 @@ title: Speed Tts Warning
 
 This guide will teach you how to navigate a route while receiving audio alerts when approaching a speed limit overlay.
 
-## How It Works
+## How it works
 
 The example app demonstrates the following key features:
 
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned(
               bottom: MediaQuery.of(context).padding.bottom + 10,
               left: 0,
-              child: BottomSpeedLimitPanel(speed: _currentSpeed!),
+              child: BottomAlarmPanel(speed: _currentSpeed!),
             ),
         ],
       ),
@@ -210,7 +210,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _navigationHandler = NavigationService.startSimulation(
       routes.mainRoute!,
-      null,
       onNavigationInstruction: (instruction, events) {
         setState(() {
           _isSimulationActive = true;
@@ -380,10 +379,10 @@ class TTSEngine {
 
 ### Bottom Speed Limit Panel
 ```dart
-class BottomSpeedLimitPanel extends StatelessWidget {
+class BottomAlarmPanel extends StatelessWidget {
   final int speed;
 
-  const BottomSpeedLimitPanel({super.key, required this.speed});
+  const BottomAlarmPanel({super.key, required this.speed});
 
   @override
   Widget build(BuildContext context) {
@@ -408,11 +407,7 @@ class BottomSpeedLimitPanel extends StatelessWidget {
         children: [
           Text(
             "Current speed limit: $speed km/h",
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 24,
-              fontWeight: FontWeight.w500,
-            ),
+            style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w500),
           ),
         ],
       ),

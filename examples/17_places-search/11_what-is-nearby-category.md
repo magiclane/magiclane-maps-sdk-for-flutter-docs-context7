@@ -7,7 +7,7 @@ title: What Is Nearby Category
 
 This example demonstrates how to create a Flutter app that shows nearby landmarks based on the user’s current position using the Maps SDK for Flutter.
 
-## How It Works
+## How it works
 
 This example app demonstrates the following features:
 
@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // On web platform permission are handled differently than other platforms.
       // The SDK handles the request of permission for location.
       final locationPermissionWeb =
-          await PositionService.requestLocationPermission;
+          await PositionService.requestLocationPermission();
       if (locationPermissionWeb == true) {
         _locationPermissionStatus = PermissionStatus.granted;
       } else {
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // After the permission was granted, we can set the live data source (in most cases the GPS).
       // The data source should be set only once, otherwise we'll get -5 error.
       if (!_hasLiveDataSource) {
-        PositionService.instance.setLiveDataSource();
+        PositionService.setLiveDataSource();
         _hasLiveDataSource = true;
       }
 
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onWhatIsNearbyButtonPressed(BuildContext context) {
     // Get the current position with no altitude
-    final currentPosition = PositionService.instance.position;
+    final currentPosition = PositionService.position;
 
     if (currentPosition == null) {
       ScaffoldMessenger.of(context).showSnackBar(

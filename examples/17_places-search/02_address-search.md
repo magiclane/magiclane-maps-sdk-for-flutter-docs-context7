@@ -7,7 +7,7 @@ title: Address Search
 
 This example demonstrates how to create a Flutter app that performs address searches and displays the results on a map using Maps SDK for Flutter.
 
-## How It Works
+## How it works
 
 The example app demonstrates the following features:
 

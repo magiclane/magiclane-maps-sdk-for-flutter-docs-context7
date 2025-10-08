@@ -7,7 +7,7 @@ title: Simulate Navigation
 
 In this guide, you will learn how to compute a route between a departure point and a destination point, render the route on an interactive map, and then simulate navigation along the route.
 
-## How It Works
+## How it works
 
 This example demonstrates the following features:
 
@@ -24,11 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Simulate Route',
-      home: MyHomePage(),
-    );
+    return const MaterialApp(debugShowCheckedModeBanner: false, title: 'Simulate Navigation', home: MyHomePage());
   }
 }
 ```
@@ -56,7 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _areRoutesBuilt = false;
   bool _isSimulationActive = false;
 
+  // We use the progress listener to cancel the route calculation.
   TaskHandler? _routingHandler;
+
+  // We use the progress listener to cancel the navigation.
   TaskHandler? _navigationHandler;
 
   @override
@@ -89,23 +88,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
         ],
       ),
-      body: Stack(children: [
-        GemMap(
-          key: ValueKey("GemMap"),
-          onMapCreated: _onMapCreated,
-          appAuthorization: projectApiToken,
-        ),
+      body: Stack(
+        children: [
+          GemMap(key: ValueKey("GemMap"), onMapCreated: _onMapCreated, appAuthorization: projectApiToken),
           if (_isSimulationActive)
             Positioned(
               top: 10,
               left: 10,
               child: Column(
                 children: [
-                  NavigationInstructionPanel(instruction: currentInstruction),
+                  BottomNavigationPanel(instruction: currentInstruction),
                   const SizedBox(height: 10),
-                  FollowPositionButton(
-                    onTap: () => _mapController.startFollowingPosition(),
-                  ),
+                  FollowPositionButton(onTap: () => _mapController.startFollowingPosition()),
                 ],
               ),
             ),
@@ -113,11 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned(
               bottom: MediaQuery.of(context).padding.bottom + 10,
               left: 0,
-              child: NavigationBottomPanel(
-                remainingDistance:
-                    currentInstruction.getFormattedRemainingDistance(),
-                eta: currentInstruction.getFormattedRemainingDuration(),
-                remainingDuration: currentInstruction.getFormattedETA(),
+              child: BottomNavigationPanel(
+                remainingDistance: getFormattedRemainingDistance(currentInstruction),
+                eta: getFormattedRemainingDistance(currentInstruction),
+                remainingDuration: getFormattedETA(currentInstruction),
               ),
             ),
         ],
@@ -130,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _mapController = controller;
   }
 
+  // Custom method for calling calculate route and displaying the results.
   void _onBuildRouteButtonPressed(BuildContext context) {
     // Define the departure.
     final departureLandmark = Landmark.withLatLng(latitude: 48.802081763044654, longitude: 2.12978950646124);
@@ -142,18 +136,29 @@ class _MyHomePageState extends State<MyHomePage> {
     _showSnackBar(context, message: 'The route is calculating.');
 
     // Calling the calculateRoute SDK method.
-    _routingHandler = RoutingService.calculateRoute(
-        [departureLandmark, destinationLandmark], routePreferences,
-        (err, routes) async {
+    // (err, results) - is a callback function that gets called when the route computing is finished.
+    // err is an error enum, results is a list of routes.
+    _routingHandler = RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (
+      err,
+      routes,
+    ) async {
+      // If the route calculation is finished, we don't have a progress listener anymore.
       _routingHandler = null;
+
       ScaffoldMessenger.of(context).clearSnackBars();
 
+      // If there aren't any errors, we display the routes.
       if (err == GemError.success) {
+        // Get the routes collection from map preferences.
         final routesMap = _mapController.preferences.routes;
-        for (final route in routes!) {
-          routesMap.add(route, route == routes.first, label: route.getMapLabel());
+
+        // Display the routes on map.
+        for (final route in routes) {
+          routesMap.add(route, route == routes.first, label: getMapLabel(route));
         }
-        _mapController.centerOnRoutes(routes);
+
+        // Center the camera on routes.
+        _mapController.centerOnRoutes(routes: routes);
       }
       setState(() {
         _areRoutesBuilt = true;
@@ -161,6 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // Method for starting the simulation and following the position,
   void _startSimulation() {
     final routes = _mapController.preferences.routes;
 
@@ -173,7 +179,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _navigationHandler = NavigationService.startSimulation(
       routes.mainRoute!,
-      null,
       onNavigationInstruction: (instruction, events) {
         setState(() {
           _isSimulationActive = true;
@@ -181,6 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
         currentInstruction = instruction;
       },
       onError: (error) {
+        // If the navigation has ended or if and error occurred while navigating, remove routes.
         setState(() {
           _isSimulationActive = false;
           _cancelRoute();
@@ -193,29 +199,41 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
 
+    // Set the camera to follow position.
     _mapController.startFollowingPosition();
   }
 
-  void _stopSimulation() {
-    NavigationService.cancelNavigation(_navigationHandler!);
-    _navigationHandler = null;
-    _cancelRoute();
-    setState(() => _isSimulationActive = false);
-  }
-
+  // Method for removing the routes from display,
   void _cancelRoute() {
+    // Remove the routes from map.
     _mapController.preferences.routes.clear();
+
     if (_routingHandler != null) {
+      // Cancel the navigation.
       RoutingService.cancelRoute(_routingHandler!);
       _routingHandler = null;
     }
+
     setState(() {
       _areRoutesBuilt = false;
     });
   }
 
+  // Method to stop the simulation and remove the displayed routes,
+  void _stopSimulation() {
+    // Cancel the navigation.
+    NavigationService.cancelNavigation(_navigationHandler!);
+    _navigationHandler = null;
+
+    _cancelRoute();
+
+    setState(() => _isSimulationActive = false);
+  }
+
+  // Method to show message in case calculate route is not finished,
   void _showSnackBar(BuildContext context, {required String message, Duration duration = const Duration(hours: 1)}) {
     final snackBar = SnackBar(content: Text(message), duration: duration);
+
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
@@ -227,6 +245,7 @@ Define a button that allows the user to recenter the map on their position.
 ```dart
 class FollowPositionButton extends StatelessWidget {
   const FollowPositionButton({super.key, required this.onTap});
+
   final VoidCallback onTap;
 
   @override
@@ -240,14 +259,22 @@ class FollowPositionButton extends StatelessWidget {
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           boxShadow: [
-            BoxShadow(color: Colors.grey.withOpacity(0.5), spreadRadius: 5, blurRadius: 7, offset: const Offset(0, 3)),
+            BoxShadow(
+              color: Colors.grey.withValues(alpha: 0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            ),
           ],
         ),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Icon(Icons.navigation),
-            Text('Recenter', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600)),
+            Text(
+              'Recenter',
+              style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+            ),
           ],
         ),
       ),
@@ -258,10 +285,10 @@ class FollowPositionButton extends StatelessWidget {
 
 ### Top Navigation Instruction Panel
 ```dart
-class NavigationInstructionPanel extends StatelessWidget {
+class BottomNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const NavigationInstructionPanel({super.key, required this.instruction});
+  const BottomNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {
@@ -293,7 +320,7 @@ class NavigationInstructionPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  instruction.getFormattedDistanceToNextTurn(),
+                  getFormattedDistanceToNextTurn(instruction),
                   textAlign: TextAlign.left,
                   style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
                   overflow: TextOverflow.ellipsis,

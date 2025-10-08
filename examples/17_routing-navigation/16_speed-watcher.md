@@ -7,7 +7,7 @@ title: Speed Watcher
 
 In this guide, you will learn how to monitor speed using an interactive map, calculate a route based on GPS data, and visualize navigation instructions.
 
-## How It Works
+## How it works
 
 This example demonstrates the following features:
 
@@ -154,7 +154,6 @@ void _startSimulation() {
 
     _navigationHandler = NavigationService.startSimulation(
       routes.mainRoute!,
-      null,
       onNavigationInstruction: (instruction, events) {
         _isSimulationActive = true;
 
@@ -205,7 +204,7 @@ class _SpeedIndicatorState extends State<SpeedIndicator> {
   @override
   void initState() {
     // Listen to the current position to detect the current speed and the speed limit.
-    PositionService.instance.addImprovedPositionListener((position) {
+    PositionService.addImprovedPositionListener((position) {
       if (mounted) {
         setState(() {
           _currentSpeed = position.speed;

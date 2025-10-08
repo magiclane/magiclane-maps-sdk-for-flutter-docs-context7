@@ -24,11 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Search Along Route',
-      home: MyHomePage(),
-    );
+    return const MaterialApp(debugShowCheckedModeBanner: false, title: 'Search Along Route', home: MyHomePage());
   }
 }
 
@@ -41,6 +37,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late GemMapController _mapController;
+
   bool _isSimulationActive = false;
   bool _areRoutesBuilt = false;
 
@@ -80,156 +77,146 @@ class _MyHomePageState extends State<MyHomePage> {
           if (_isSimulationActive)
             IconButton(
               onPressed: _stopSimulation,
-              icon: const Icon(
-                Icons.stop,
-                color: Colors.white,
-              ),
+              icon: const Icon(Icons.stop, color: Colors.white),
             ),
           if (!_areRoutesBuilt)
             IconButton(
               onPressed: () => _onBuildRouteButtonPressed(),
-              icon: const Icon(
-                Icons.route,
-                color: Colors.white,
-              ),
+              icon: const Icon(Icons.route, color: Colors.white),
             ),
         ],
       ),
-      body: GemMap(
-        key: ValueKey("GemMap"),
-        onMapCreated: _onMapCreated,
-        appAuthorization: projectApiToken,
-      ),
+      body: GemMap(key: ValueKey("GemMap"), onMapCreated: _onMapCreated, appAuthorization: projectApiToken),
     );
   }
-
-  void _onMapCreated(GemMapController controller) {
-    _mapController = controller;
-}
 ```
 
 ### Route calculation
 
 This section shows how to calculate a route between two landmarks and display it on the map.
 ```dart
-Future<void> _onBuildRouteButtonPressed() async {
-  // Define the departure.
-  final departureLandmark = Landmark.withLatLng(latitude: 37.77903, longitude: -122.41991);
+  // Compute & show route.
+  Future<void> _onBuildRouteButtonPressed() async {
+    // Define the departure.
+    final departureLandmark = Landmark.withLatLng(latitude: 37.77903, longitude: -122.41991);
 
-  // Define the destination.
-  final destinationLandmark = Landmark.withLatLng(latitude: 37.33619, longitude: -121.89058);
+    // Define the destination.
+    final destinationLandmark = Landmark.withLatLng(latitude: 37.33619, longitude: -121.89058);
 
-  // Define the route preferences.
-  final routePreferences = RoutePreferences();
-  _showSnackBar(context, message: 'The route is calculating.');
+    // Define the route preferences.
+    final routePreferences = RoutePreferences();
+    _showSnackBar(context, message: 'The route is calculating.');
 
-  _routingHandler =
-      RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (err, routes) async {
-    // If the route calculation is finished, we don't have a progress listener anymore.
-    _routingHandler = null;
+    _routingHandler = RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (
+      err,
+      routes,
+    ) async {
+      // If the route calculation is finished, we don't have a progress listener anymore.
+      _routingHandler = null;
 
-    ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).clearSnackBars();
 
-    // If there aren't any errors, we display the routes.
-    if (err == GemError.success) {
-      // Get the routes collection from map preferences.
-      final routesMap = _mapController.preferences.routes;
+      // If there aren't any errors, we display the routes.
+      if (err == GemError.success) {
+        // Get the routes collection from map preferences.
+        final routesMap = _mapController.preferences.routes;
 
-      // Display the routes on map.
-      for (final route in routes!) {
-        routesMap.add(route, route == routes.first, label: route.getMapLabel());
+        // Display the routes on map.
+        for (final route in routes) {
+          routesMap.add(route, route == routes.first, label: getMapLabel(route));
+        }
+
+        _mapController.centerOnRoute(routes.first);
       }
 
-      _mapController.centerOnRoute(routes.first);
-    }
-
-    setState(() {
-      _areRoutesBuilt = true;
+      setState(() {
+        _areRoutesBuilt = true;
+      });
     });
-  });
-}
+  }
 ```
 
 ### Navigation Simulation
 
 This section demonstrates how to start and stop a simulated navigation along the calculated route.
 ```dart
-void _startSimulation() {
-  if (_isSimulationActive) return;
-  if (!_areRoutesBuilt) return;
+  // Start simulated navigation.
+  void _startSimulation() {
+    if (_isSimulationActive) return;
+    if (!_areRoutesBuilt) return;
 
-  _mapController.preferences.routes.clearAllButMainRoute();
-  final routes = _mapController.preferences.routes;
+    _mapController.preferences.routes.clearAllButMainRoute();
+    final routes = _mapController.preferences.routes;
 
-  if (routes.mainRoute == null) {
-    _showSnackBar(context, message: "No main route available");
-    return;
-  }
-
-  _navigationHandler = NavigationService.startSimulation(
-    routes.mainRoute!,
-    null,
-    onNavigationInstruction: (instruction, events) {
-      setState(() {
-        _isSimulationActive = true;
-      });
-    },
-    onError: (error) {
-      // If the navigation has ended or if and error occurred while navigating, remove routes.
-      setState(() {
-        _isSimulationActive = false;
-        _cancelRoute();
-      });
-
-      if (error != GemError.cancel) {
-        _stopSimulation();
-      }
+    if (routes.mainRoute == null) {
+      _showSnackBar(context, message: "No main route available");
       return;
-    },
-  );
+    }
 
-  // Set the camera to follow position.
-  _mapController.startFollowingPosition();
+    _navigationHandler = NavigationService.startSimulation(
+      routes.mainRoute!,
+      onNavigationInstruction: (instruction, events) {
+        setState(() {
+          _isSimulationActive = true;
+        });
+      },
+      onError: (error) {
+        // If the navigation has ended or if and error occurred while navigating, remove routes.
+        setState(() {
+          _isSimulationActive = false;
+          _cancelRoute();
+        });
 
-  setState(() {
-    _isSimulationActive = true;
-  });
-}
+        if (error != GemError.cancel) {
+          _stopSimulation();
+        }
+        return;
+      },
+    );
 
-void _cancelRoute() {
-  // Remove the routes from map.
-  _mapController.preferences.routes.clear();
+    // Set the camera to follow position.
+    _mapController.startFollowingPosition();
 
-  if (_routingHandler != null) {
-    // Cancel the navigation.
-    RoutingService.cancelRoute(_routingHandler!);
-    _routingHandler = null;
+    setState(() {
+      _isSimulationActive = true;
+    });
   }
 
-  setState(() {
-    _areRoutesBuilt = false;
-  });
-}
+  void _cancelRoute() {
+    // Remove the routes from map.
+    _mapController.preferences.routes.clear();
 
-// Stop simulated navigation.
-void _stopSimulation() {
-  // Cancel the navigation.
-  NavigationService.cancelNavigation(_navigationHandler!);
-  _navigationHandler = null;
+    if (_routingHandler != null) {
+      // Cancel the navigation.
+      RoutingService.cancelRoute(_routingHandler!);
+      _routingHandler = null;
+    }
 
-  _cancelRoute();
+    setState(() {
+      _areRoutesBuilt = false;
+    });
+  }
 
-  setState(() {
-    _isSimulationActive = false;
-    _areRoutesBuilt = false;
-  });
-}
+  // Stop simulated navigation.
+  void _stopSimulation() {
+    // Cancel the navigation.
+    NavigationService.cancelNavigation(_navigationHandler!);
+    _navigationHandler = null;
+
+    _cancelRoute();
+
+    setState(() {
+      _isSimulationActive = false;
+      _areRoutesBuilt = false;
+    });
+  }
 ```
 
 ### Search Along Route
 
 The following code shows how to search for landmarks along the calculated route. The search results are printed to the console.
 ```dart
+// Search along route.
 void _searchAlongRoute() {
   if (!_areRoutesBuilt) return;
 
@@ -264,48 +251,37 @@ The result of the search operation is written in the console.
 
 Utility functions are defined to show messages and format route labels.
 ```dart
-  void _showSnackBar(
-    BuildContext context, {
-    required String message,
-    Duration duration = const Duration(hours: 1),
-  }) {
+  // Method to show message in case calculate route is not finished
+  void _showSnackBar(BuildContext context, {required String message, Duration duration = const Duration(hours: 1)}) {
     final snackBar = SnackBar(content: Text(message), duration: duration);
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+}
 
-// Define an extension for route for calculating the route label which will be displayed on map.
-extension RouteExtension on Route {
-  String getMapLabel() {
-    final totalDistance =
-        getTimeDistance().unrestrictedDistanceM +
-        getTimeDistance().restrictedDistanceM;
-    final totalDuration =
-        getTimeDistance().unrestrictedTimeS + getTimeDistance().restrictedTimeS;
+String getMapLabel(Route route) {
+  return '${convertDistance(route.getTimeDistance().totalDistanceM)} \n${convertDuration(route.getTimeDistance().totalTimeS)}';
+}
 
-    return '${_convertDistance(totalDistance)} \n${_convertDuration(totalDuration)}';
+// Utility function to convert the meters distance into a suitable format.
+String convertDistance(int meters) {
+  if (meters >= 1000) {
+    double kilometers = meters / 1000;
+    return '${kilometers.toStringAsFixed(1)} km';
+  } else {
+    return '${meters.toString()} m';
   }
+}
 
-  // Utility function to convert the meters distance into a suitable format.
-  String _convertDistance(int meters) {
-    if (meters >= 1000) {
-      double kilometers = meters / 1000;
-      return '${kilometers.toStringAsFixed(1)} km';
-    } else {
-      return '${meters.toString()} m';
-    }
-  }
+// Utility function to convert the seconds duration into a suitable format.
+String convertDuration(int seconds) {
+  int hours = seconds ~/ 3600; // Number of whole hours
+  int minutes = (seconds % 3600) ~/ 60; // Number of whole minutes
 
-  // Utility function to convert the seconds duration into a suitable format.
-  String _convertDuration(int seconds) {
-    int hours = seconds ~/ 3600; // Number of whole hours
-    int minutes = (seconds % 3600) ~/ 60; // Number of whole minutes
+  String hoursText = (hours > 0) ? '$hours h ' : ''; // Hours text
+  String minutesText = '$minutes min'; // Minutes text
 
-    String hoursText = (hours > 0) ? '$hours h ' : ''; // Hours text
-    String minutesText = '$minutes min'; // Minutes text
-
-    return hoursText + minutesText;
-  }
+  return hoursText + minutesText;
 }
 ```
 

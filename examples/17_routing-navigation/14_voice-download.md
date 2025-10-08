@@ -7,7 +7,7 @@ title: Voice Download
 
 In this guide, you will learn how to list the voice downloads available on the server, how to download a voice, and track the download progress.
 
-## How It Works
+## How it works
 
 The example app demonstrates the following features:
 
@@ -43,7 +43,7 @@ The list of voices available for download is obtained from the server using Cont
 Future<List<ContentStoreItem>> _getVoices() async {
   Completer<List<ContentStoreItem>> voicesList = Completer<List<ContentStoreItem>>();
   ContentStore.asyncGetStoreContentList(ContentType.voice, (err, items, isCached) {
-    if (err == GemError.success && items != null) {
+    if (err == GemError.success && items.isNotEmpty) {
       voicesList.complete(items);
     }
   });
@@ -82,7 +82,7 @@ This method initiates the voice download.
 ```dart
 void _downloadVoice() {
   widget.voice.asyncDownload(_onVoiceDownloadFinished,
-      onProgressCallback: _onVoiceDownloadProgressUpdated, allowChargedNetworks: true);
+      onProgress: _onVoiceDownloadProgressUpdated, allowChargedNetworks: true);
 }
 ```
 

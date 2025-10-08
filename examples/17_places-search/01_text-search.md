@@ -17,35 +17,41 @@ This example demonstrates the following features:
 
 This is the method to navigate to the search screen, defined in the SearchPage() widget, in search_page.dart
 ```dart
-// Custom method for navigating to search screen
-void _onSearchButtonPressed(BuildContext context) async {
-// Taking the coordinates at the center of the screen as reference coordinates for search.
- final x = MediaQuery.of(context).size.width / 2;
- final y = MediaQuery.of(context).size.height / 2;
- final mapCoords = _mapController.transformScreenToWgs(XyType(x: x.toInt(), y: y.toInt()));
+  // Custom method for navigating to search screen
+  void _onSearchButtonPressed(BuildContext context) async {
+    // Taking the coordinates at the center of the screen as reference coordinates for search.
+    final x = MediaQuery.of(context).size.width / 2;
+    final y = MediaQuery.of(context).size.height / 2;
+    final mapCoords = _mapController.transformScreenToWgs(
+      Point<int>(x.toInt(), y.toInt()),
+    );
 
-// Navigating to search screen. The result will be the selected search result(Landmark)
- final result = await Navigator.of(context).push(MaterialPageRoute<dynamic>(
-   builder: (context) => SearchPage(coordinates: mapCoords!),
- ));
+    // Navigating to search screen. The result will be the selected search result(Landmark)
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute<dynamic>(
+        builder: (context) => SearchPage(coordinates: mapCoords),
+      ),
+    );
 
- if (result is Landmark) {
-   // Retrieves the LandmarkStore with the given name.
-   var historyStore = LandmarkStoreService.getLandmarkStoreByName("History");
+    if (result is Landmark) {
+      // Retrieves the LandmarkStore with the given name.
+      var historyStore = LandmarkStoreService.getLandmarkStoreByName("History");
 
-   // If there is no LandmarkStore with this name, then create it.
-   historyStore ??= LandmarkStoreService.createLandmarkStore("History");
+      // If there is no LandmarkStore with this name, then create it.
+      historyStore ??= LandmarkStoreService.createLandmarkStore("History");
 
-   // Add the landmark to the store.
-   historyStore.addLandmark(result);
+      // Add the landmark to the store.
+      historyStore.addLandmark(result);
 
-   // Activating the highlight
-   _mapController.activateHighlight([result], renderSettings: RenderSettings());
+      // Activating the highlight
+      _mapController.activateHighlight([
+        result,
+      ], renderSettings: HighlightRenderSettings());
 
-   // Centering the map on the desired coordinates
-   _mapController.centerOnCoordinates(result.coordinates);
- }
-}
+      // Centering the map on the desired coordinates
+      _mapController.centerOnCoordinates(result.coordinates, zoomLevel: 70);
+    }
+  }
 ```
 
 As text is typed in the text field by the user, the _onSearchSubmitted() function is called, which creates a preferences instance and then the search() function is called.
@@ -79,18 +85,21 @@ _mapController.centerOnCoordinates(result.coordinates);
 Future<void> search(String text, Coordinates coordinates, {SearchPreferences? preferences}) async {
   Completer<List<Landmark>> completer = Completer<List<Landmark>>();
 
-// Calling the search method from the sdk.
-// (err, results) - is a callback function that calls when the computing is done.
-// err is an error code, results is a list of landmarks
+  // Calling the search method from the sdk.
+  // (err, results) - is a callback function that calls when the computing is done.
+  // err is an error code, results is a list of landmarks
   SearchService.search(text, coordinates, preferences: preferences, (err, results) async {
     // If there is an error or there aren't any results, the method will return an empty list.
-    if (err != GemError.success || results == null) {
+    if (err != GemError.success) {
       completer.complete([]);
       return;
     }
+
     if (!completer.isCompleted) completer.complete(results);
   });
+
   final result = await completer.future;
+
   setState(() {
     landmarks = result;
   });
@@ -115,27 +124,20 @@ class _SearchResultItemState extends State<SearchResultItem> {
       onTap: () => Navigator.of(context).pop(widget.landmark),
       leading: Container(
         padding: const EdgeInsets.all(8),
-        child:
-        widget.landmark.img.isValid ? Image.memory(widget.landmark.img.getRenderableImageBytes(size: Size(50, 50))!) : SizedBox(),
+        child: widget.landmark.img.isValid
+            ? Image.memory(widget.landmark.img.getRenderableImageBytes(size: Size(50, 50))!)
+            : SizedBox(),
       ),
       title: Text(
         widget.landmark.name,
         overflow: TextOverflow.fade,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
+        style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
         maxLines: 2,
       ),
       subtitle: Text(
-        '${widget.landmark.getFormattedDistance()} ${widget.landmark.getAddress()}',
+        '${getFormattedDistance(widget.landmark)} ${getAddress(widget.landmark)}',
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
+        style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
       ),
     );
   }

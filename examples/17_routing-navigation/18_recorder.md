@@ -7,7 +7,7 @@ title: Recorder
 
 This example demonstrates how to build a Flutter app using the Maps SDK to record and display the user's track.
 
-## How It Works
+## How it works
 
 The example app highlights the following features:
 
@@ -115,7 +115,7 @@ The following code centers the camera on the user's current position if location
 
     if (_locationPermissionStatus == PermissionStatus.granted) {
       if (!_hasLiveDataSource) {
-        PositionService.instance.setLiveDataSource();
+        PositionService.setLiveDataSource();
         _hasLiveDataSource = true;
       }
 
@@ -236,11 +236,11 @@ This code loads the last recorded track from device memory, retrieves the coordi
     // Center on recorder path
     _mapController.centerOnAreaRect(
       path.area,
-      viewRc: RectType(
-        x: _mapController.viewport.width ~/ 3,
-        y: _mapController.viewport.height ~/ 3,
-        width: _mapController.viewport.width ~/ 3,
-        height: _mapController.viewport.height ~/ 3,
+      viewRc: Rectangle<int>(
+        _mapController.viewport.width ~/ 3,
+        _mapController.viewport.height ~/ 3,
+        _mapController.viewport.width ~/ 3,
+        _mapController.viewport.height ~/ 3,
       ),
     );
 

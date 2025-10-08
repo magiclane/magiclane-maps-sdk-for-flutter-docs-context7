@@ -7,7 +7,7 @@ title: Route Alarms
 
 This example demonstrates how to build a Flutter app using the Maps SDK to calculate and navigate a route containing a social report and receive notifications.
 
-## How It Works
+## How it works
 
 The example app highlights the following features:
 
@@ -196,7 +196,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _navigationHandler = NavigationService.startSimulation(
       routes.mainRoute!,
-      null,
       onNavigationInstruction: (instruction, events) {
         setState(() {
           _isSimulationActive = true;
