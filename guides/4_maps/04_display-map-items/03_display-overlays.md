@@ -39,3 +39,7 @@ if(overlayInfo != null) {
 ### Enabling overlays
 
 In a similar way, the overlay can be enabled using the ``enableOverlay`` method by providing the overlay id. It also has an optional `categUid` parameter, which when left as default, it activates whole overlay rather than a specific category.
+
+## Relevant examples demonstrating overlays related features
+
+- [Create Custom Overlay](/examples/places-search/create-custom-overlay)

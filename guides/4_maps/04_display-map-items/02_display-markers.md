@@ -47,6 +47,7 @@ final markerCollection = MarkerCollection(markerType: MarkerType.point, name: "m
 markerCollection.add(marker);
 
 mapController.preferences.markers.add(markerCollection);
+controller.centerOnArea(markerCollection.area);
 ```
 
 The result will be the following:
@@ -55,7 +56,7 @@ By default, point-type markers appear as blue circles up to a specific zoom leve
 
 ### Polyline Type Marker
 
-This type of marker is designed to display a continuous line consisting of one or more connected straight-line segments. To use it, ensure the `MarkerRenderSettings` specifies `markerType` as `MarkerType.polyline`. It's important to note that markers can include multiple coordinates, which may or may not belong to the same part. Coordinates within the same part are connected by a polyline, which is red by default, while coordinates outside the part remain unconnected.
+This type of marker is designed to display a continuous line consisting of one or more connected straight-line segments. To use it, ensure the `MarkerCollection` specifies `markerType` as `MarkerType.polyline`. It's important to note that markers can include multiple coordinates, which may or may not belong to the same part. Coordinates within the same part are connected by a polyline, which is red by default, while coordinates outside the part remain unconnected.
 
 For more information, see [Markers section](/guides/maps/display-map-items/display-markers).
 
@@ -286,4 +287,6 @@ settings.image = GemImage(image: imageBytes, format: ImageFileFormat.png);
 mapController.preferences.markers.addList(list: markers, settings: settings, name: "Markers");
 ```
 
+## Relevant examples demonstrating markers related features
 
+- [Add markers](/examples/maps-3dscene/add-markers)

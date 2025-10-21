@@ -190,3 +190,11 @@ mapViewExtensions.stopTrackPositions();
 ```
 
 Calling the `trackedPositions` getter **after** the `stopTrackPositions` is called will result in returning an empty list.
+
+## Relevant examples demonstrating sensors and data source related features
+
+- [Recorder](/examples/routing-navigation/recorder)
+
+- [Record NMEA](/examples/routing-navigation/record-nmea)
+
+- [Recorder in Background](/examples/routing-navigation/background-location)

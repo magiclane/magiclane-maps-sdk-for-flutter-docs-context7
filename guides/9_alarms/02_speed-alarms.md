@@ -63,4 +63,6 @@ double currentThresholdInsideCity = alarmService.getOverSpeedThreshold(true);
 double currentThresholdOutsideCity = alarmService.getOverSpeedThreshold(false);
 ```
 
+## Relevant examples demonstrating speed alarms related features
 
+- [Speed TTS Warning](/examples/routing-navigation/speed-tts-warning)

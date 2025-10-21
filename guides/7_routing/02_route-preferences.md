@@ -7,6 +7,8 @@ title: Route Preferences
 
 Before computing a route, we need to specify some route options. 
 
+## Route Preferences structure
+
 The most generic supported route options are briefly presented in the following table.
 
 | Preference                          | Explanation                                            | Default Value                               |
@@ -114,6 +116,57 @@ There are also properties that can't be set and only can be obtained for a route
 |-------------------------------------|--------------------------------------------------------|---------------------------------------------|
 | routeResultType                     | Type of route result.                                  | RouteResultType.path                        |
 
+## Profiles structure
+
+### Car Profile
+
+The `CarProfile` class is responsible for defining car specific routing preferences.
+The available options are presented in the following table:
+
+| Member     | Type       | Default |                         Description                                                |
+|------------|------------|----------------------------------|-----------------------------------------------------------|
+| fuel       | FuelType   | petrol                           | Engine fuel type                                          |
+| mass       | int        | 0 - not considered in routing.   | Vehicle mass in kg.                                       |
+| maxSpeed   | double     | 0 - not considered in routing.   | Vehicle max speed in m/s. Not considered in routing.      |
+| plateNumber| string     | ""                               | Vehicle plate number.                                     |
+
+`FuelType` can have the following values: petrol, diesel, lpg (liquid petroleum gas), electric. 
+
+By default, all field except `fuel` have default value 0, meaning they are not considered in the routing. `fuel` by default is `FuelType.diesel`.
+
+## Truck Profile
+
+The `TruckProfile` class is responsible for defining truck specific routing preferences.
+The available options are presented in the following table:
+
+| Member      | Type     | Default                        | Description                                               |
+|--------------|----------|-------------------------------|-----------------------------------------------------------|
+| axleLoad     | int      | 0 - not considered in routing | Truck axle load in kg.                                    |
+| fuel         | FuelType | petrol                        | Engine fuel type.                                         |
+| height       | int      | 0 - not considered in routing | Truck height in cm.                                       |
+| length       | int      | 0 - not considered in routing | Truck length in cm.                                       |
+| mass         | int      | 0 - not considered in routing | Vehicle mass in kg.                                       |
+| maxSpeed     | double   | 0 - not considered in routing | Vehicle max speed in m/s.                                 |
+| width        | int      | 0 - not considered in routing | Truck width in cm.                                        |
+| plateNumber  | string   | ""                            | Vehicle plate number.                                     |
+
+## Electric Bike Profile
+
+The `ElectricBikeProfile` class is responsible for defining electric bike specific routing preferences.
+The available options are presented in the following table:
+
+| Member                | Type              | Default                      | Description                                                           |
+|------------------------|-------------------|------------------------------|-----------------------------------------------------------------------|
+| auxConsumptionDay      | double            | 0 - default value is used    | Bike auxiliary power consumption during day in Watts.                 |
+| auxConsumptionNight    | double            | 0 - default value is used    | Bike auxiliary power consumption during night in Watts.               |
+| bikeMass               | double            | 0 - default value is used    | Bike mass in kg.                                                     |
+| bikerMass              | double            | 0 - default value is used    | Biker mass in kg.                                                    |
+| ignoreLegalRestrictions| bool              | false                        | Ignore country-based legal restrictions related to e-bikes.          |
+| type                   | ElectricBikeType  | ElectricBikeType.none        | E-bike type.                                                         |
+| plateNumber            | string            | ""                           | Vehicle plate number.                                     |
+
+The `ElectricBikeProfile` class is encapsulated within the `BikeProfileElectricBikeProfile` class, together with the `BikeProfile` enum.
+
 ## Computing truck routes
 
 To compute routes for trucks we can write code like the following by initializing the `truckProfile` field of `RoutePreferences`:
@@ -150,10 +203,6 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
       // handle results
 });
 ```
-
-`FuelType` can have the following values: petrol, diesel, lpg (liquid petroleum gas), electric. 
-
-By default, all field except `fuel` have default value 0, meaning they are not considered in the routing. `fuel` by default is `FuelType.diesel`.
 
 ## Computing caravan routes
 
@@ -192,3 +241,15 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
 ```
 
 At least one of the fields `height`, `length`, `width` or `axleLoad` must be set to a non-zero value in order for the settings to be taken into account during routing. If all these fields are set to 0 then a normal car route will be calculated.
+
+## Relevant examples demonstrating routing related features
+
+- [Calculate Route](/examples/routing-navigation/calculate-route)
+
+- [Better Route Notification](/examples/routing-navigation/better-route-notification)
+
+- [Calculate Bike Route](/examples/routing-navigation/calculate-bike-route)
+
+- [Public Transit](/examples/routing-navigation/public-transit)
+
+- [Truck Profile](/examples/routing-navigation/truck-profile)

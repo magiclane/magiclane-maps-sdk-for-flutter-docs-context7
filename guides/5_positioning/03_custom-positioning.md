@@ -228,3 +228,5 @@ Otherwise there can be unexpected problems especially when trying to use other d
 ## Relevant example demonstrating custom positioning related features
 
 - [External Position Source Navigation](/examples/routing-navigation/external-position-source-navigation)
+
+- [Data Source Listeners](/examples/routing-navigation/datasource_listeners)

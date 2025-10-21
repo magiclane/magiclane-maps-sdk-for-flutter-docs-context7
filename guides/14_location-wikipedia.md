@@ -41,7 +41,7 @@ final requestListener = ExternalInfoService.requestWikiInfo(
 
 The `requestWikiInfo` returns a progress listener which can be used to cancel the request using the `cancelWikiInfo` method of the `ExternalInfoService` class.
 
-Wikipedia data is provided in the language specified in `SDKSettings`. Learn more about setting the SDK language [here](./2_get-started/05_internationalization.mdx).
+Wikipedia data is provided in the language specified in `SDKSettings`. Learn more about setting the SDK language [here](/guides/get-started/internationalization).
 
 The method provides a result based on the outcome of the operation:
 

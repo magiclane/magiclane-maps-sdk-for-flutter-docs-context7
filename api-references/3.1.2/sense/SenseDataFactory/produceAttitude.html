@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the produceAttitude method from the SenseDataFactory class, for the Dart programming language.">
+  <title>produceAttitude method - SenseDataFactory class - sense library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../sense/">sense.dart</a></li>
+    <li><a href="../../sense/SenseDataFactory-class.html">SenseDataFactory</a></li>
+    <li class="self-crumb">produceAttitude static method</li>
+  </ol>
+  <div class="self-name">produceAttitude</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="sense&#47;SenseDataFactory-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">produceAttitude</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="../../sense/Attitude-class.html">Attitude</a></span>
+<span class="name ">produceAttitude</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="produceAttitude-param-acquisitionTime"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">acquisitionTime</span>, </span></li>
+<li><span class="parameter" id="produceAttitude-param-roll"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">roll</span> = <span class="default-value">0.0</span>, </span></li>
+<li><span class="parameter" id="produceAttitude-param-pitch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">pitch</span> = <span class="default-value">0.0</span>, </span></li>
+<li><span class="parameter" id="produceAttitude-param-yaw"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">yaw</span> = <span class="default-value">0.0</span>, </span></li>
+<li><span class="parameter" id="produceAttitude-param-rollNoise"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">rollNoise</span> = <span class="default-value">0.0</span>, </span></li>
+<li><span class="parameter" id="produceAttitude-param-pitchNoise"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">pitchNoise</span> = <span class="default-value">0.0</span>, </span></li>
+<li><span class="parameter" id="produceAttitude-param-yawNoise"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">yawNoise</span> = <span class="default-value">0.0</span>, </span></li>
+<li><span class="parameter" id="produceAttitude-param-hasRollNoise"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">hasRollNoise</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="produceAttitude-param-hasPitchNoise"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">hasPitchNoise</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="produceAttitude-param-hasYawNoise"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">hasYawNoise</span> = <span class="default-value">false</span>, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Produces a new <a href="../../sense/Attitude-class.html">Attitude</a> from provided parameters</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static Attitude produceAttitude({
+  final DateTime? acquisitionTime,
+  final double roll = 0.0,
+  final double pitch = 0.0,
+  final double yaw = 0.0,
+  final double rollNoise = 0.0,
+  final double pitchNoise = 0.0,
+  final double yawNoise = 0.0,
+  final bool hasRollNoise = false,
+  final bool hasPitchNoise = false,
+  final bool hasYawNoise = false,
+}) {
+  return AttitudeImpl(
+    type: DataType.attitude,
+    acquisitionTime: acquisitionTime ?? DateTime.now(),
+    roll: roll,
+    pitch: pitch,
+    yaw: yaw,
+    rollNoise: rollNoise,
+    pitchNoise: pitchNoise,
+    yawNoise: yawNoise,
+    hasRollNoise: hasRollNoise,
+    hasPitchNoise: hasPitchNoise,
+    hasYawNoise: hasYawNoise,
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../sense/">sense</a></li>
+    <li><a href="../../sense/SenseDataFactory-class.html">SenseDataFactory</a></li>
+    <li class="self-crumb">produceAttitude static method</li>
+</ol>
+
+    <h5>SenseDataFactory class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.2
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

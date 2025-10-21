@@ -727,3 +727,7 @@ ActivityRecord activityRecord = metadata.activityRecord;
 - [Recorder Bookmarks](/examples/routing-navigation/recorder-bookmarks)
 
 - [Recorder NMEA](/examples/routing-navigation/record-nmea)
+
+- [Recorder In Background](/examples/routing-navigation/background-location)
+
+- [Send Debug Info](/examples/maps-3dscene/send-debug-info)

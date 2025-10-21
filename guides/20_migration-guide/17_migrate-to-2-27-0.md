@@ -73,12 +73,12 @@ TaskHandler? taskHandler = NavigationService.startNavigation(
 
 Remove the `onNavigationInstructionUpdate` callback and replace it with the new specialized callbacks. Remove the `autoPlaySound` parameter and use `SoundPlayingService` to control TTS playback.
 
-This change continues the deprecation added in the 2.11.0 release, replacing the `onNavigationInstructionUpdate` with more specialized callbacks. Check the [Migrate to 2.21.0](01_migrate-to-2-11-0.mdx) guide for more details.
+This change continues the deprecation added in the 2.11.0 release, replacing the `onNavigationInstructionUpdate` with more specialized callbacks. Check the [Migrate to 2.21.0](/guides/migration-guide/migrate-to-2-11-0) guide for more details.
 
 ## Removed the *ExternalPositionData* class and *positionFromExternalData* method from *SenseDataFactory* class
 
 Both were previously deprecated and are now removed. Use `SenseDataFactory.producePosition` instead to create positions for creating instances.
-This change continues the deprecation added in the 2.12.0 release. Check the [Migrate to 2.12.0](02_migrate-to-2-12-0.mdx) guide for more details.
+This change continues the deprecation added in the 2.12.0 release. Check the [Migrate to 2.12.0](/guides/migration-guide/migrate-to-2-12-0) guide for more details.
 
 Before:
 ```dart
@@ -116,7 +116,7 @@ The following properties can be used instead:
 | `angle`                | `mapAngle`                                 | `FollowPositionPreferences.setMapRotationMode` method |
 | `rotationAngle`        | `mapAngle`                                 | `FollowPositionPreferences` and `MapViewPreferences` classes |
 
-This continues the deprecation added in the 2.24.0 release. Check the [Migrate to 2.24.0](14_migrate-to-2-24-0.mdx) guide for more details.
+This continues the deprecation added in the 2.24.0 release. Check the [Migrate to 2.24.0](/guides/migration-guide/migrate-to-2-24-0) guide for more details.
 This change improves API consistency by using the angles names consistently across the SDK.
 
 ## Removed *isEmpty* getter in geographic area classes
@@ -198,7 +198,7 @@ SdkSettings.offBoardListener.registerOnConnectionStatusUpdated((isConnected){
 });
 ```
 
-This change continues the deprecation introduced in the 2.18.0 release. Check the [Migrate to 2.18.0](08_migrate-to-2-18-0.mdx) guide for more details.
+This change continues the deprecation introduced in the 2.18.0 release. Check the [Migrate to 2.18.0](/guides/migration-guide/migrate-to-2-18-0) guide for more details.
 
 ## Removed *horizontalaccuracy* and *verticalaccuracy* from *Coordinates*
 
@@ -229,7 +229,7 @@ RecorderConfiguration config = RecorderConfiguration(
 )
 ```
 
-This change continues the deprecation added in the 2.19.0 release. Check the [Migrate to 2.19.0](09_migrate-to-2-19-0.mdx) guide for more details.
+This change continues the deprecation added in the 2.19.0 release. Check the [Migrate to 2.19.0](/guides/migration-guide/migrate-to-2-19-0) guide for more details.
 
 ## The *refreshContentStore* method has been renamed to *refresh* on *ContentStore*
 

@@ -341,3 +341,5 @@ Data from the instruction list above is obtained via the following methods of `R
 - [Offline Routing](/examples/routing-navigation/offline-routing)
 
 - [Multi Map Routing](/examples/routing-navigation/multimap-routing)
+
+- [GPX Thumbnail Image](/examples/routing-navigation/gpx-thumbnail-image)

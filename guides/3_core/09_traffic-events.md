@@ -38,6 +38,10 @@ The `TrafficEvent` class has the following structure:
 | `impactZone`               | `TrafficEventImpactZone`     | Indicates if the event affects a point or area. |
 | `referencePoint`           | `Coordinates`                | The central coordinate for the event. Returns `(0,0)` for area events. |
 | `boundingBox`              | `RectangleGeographicArea`    | Geographical bounding box surrounding the event. |
+| `area`                     | `GeographicArea`             | The geographic area associated with the event (see `TrafficService.addPersistentRoadblockByArea`). If no area is provided, this is the same as `boundingBox`. |
+| `isAntiArea`               | `bool`                       | Check if the impact zone is the anti-area of the event area. Valid only for area impact zone. |
+| `isActive`                 | `bool`                       | Check if traffic event is active ( i.e. is started ). |
+| `isExpired`                | `bool`                       | Check if traffic event is expired ( i.e. is ended ). |
 | `description`              | `String`                     | Human-readable description of the traffic event. If it is a user-defined roadblock contains the id |
 | `eventClass`               | `TrafficEventClass`          | Classification of the traffic event. |
 | `eventSeverity`            | `TrafficEventSeverity`       | Severity level of the event. |

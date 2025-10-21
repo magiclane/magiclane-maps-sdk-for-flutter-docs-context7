@@ -208,7 +208,7 @@ While the download is in progress, you can retrieve details about the downloaded
 | `countryCodes`     | A list of country codes (ISO 3166-1 alpha-3) associated with the product. |
 | `language`         | The full language details for the product.                                   |
 
-Use the `ISOCodeConversions` class for conversions between the different types of codes. See the [internationalization documentation](../2_get-started/05_internationalization.mdx#iso-code-conversions) for more details.
+Use the `ISOCodeConversions` class for conversions between the different types of codes. See the [internationalization documentation](/guides/get-started/internationalization#iso-code-conversions) for more details.
 
 ## Download Content Store Item
 
@@ -268,6 +268,8 @@ Do not confuse the functionality provided by the `ContentStore` / `ContentStoreI
 
 See the [download individual map tiles documentation](../maps/adjust-map#download-individual-map-tiles) for more details about the `MapDownloaderService`.
 
+Also, do not confuse the `LandmarkStore` class with the `ContentStore` class. The `LandmarkStore` is a collection used for managing landmark data, while the `ContentStore` is a service used for managing offline map content.
+
 ## Downloading overlays
 
 Overlays can be downloaded for specific regions to enable offline functionality. To do this, you must first download a map region, after which the overlays become available for download within those offline areas. Downloading overlays for offline use is done through the `grabOverlayOfflineData` method of `OverlayService`.
@@ -295,8 +297,6 @@ OverlayService.disableOverlayOfflineDataGrabber(overlayUid);
 
 - Not all overlays support offline data grabbing. Use the `isOverlayOfflineDataGrabberSupported` method to check if a specific overlay supports this feature.
 
-- After completing the download, disable the offline data grabber using `disableOverlayOfflineDataGrabber` to prevent unnecessary resource usage.
-
 After downloading, the overlay items will be available in offline mode within the downloaded map regions. You can verify if the overlay data has been successfully downloaded if overlay items are visible inside the downloaded map region in offline mode.
 
 Ensure to enable the offline data grabber using `enableOverlayOfflineDataGrabber` before initiating the download process, otherwise, the the `onComplete` callback will return `GemError.activation` and method will return null instead of a `TaskHandler` object.
@@ -305,4 +305,16 @@ Call enableOverlayOfflineDataGrabber only with an overlay UID that supports offl
 
 Not all overlay types support offline functionality (eg. Alerts or Public Transit Stops). For instance, public transport stops will still require an internet connection to display the relevant data, thus will be rendered as landmarks instead of overlay items in offline mode.
 
-You can check if the overlay data grabber has been enabled for a specific overlay using the `isOverlayOfflineDataGrabberEnabled` method.
+You can check if the overlay data grabber has been enabled for a specific overlay using the `isOverlayOfflineDataGrabberEnabled` method. Keeping the grabber enabled will make the grabber to automatically start downloading overlay data when a new map region is downloaded or updated. This enables the user to have the latest offline overlay data available.
+
+## Relevant examples demonstrating content related features
+
+- [Offline Routing](/examples/routing-navigation/offline-routing)
+
+- [Map Download](/examples/maps-3dscene/map-download)
+
+- [Map Update](/examples/maps-3dscene/map-update)
+
+- [Voice Download](/examples/routing-navigation/voice-download)
+
+- [Assets Map Style](/examples/maps-3dscene/assets-map-styles)

@@ -76,3 +76,6 @@ Additionally, the API user can manually trigger the check by calling the `checkB
 Debug.checkBetterRoute();
 ```
 
+## Relevant examples demonstrating better route related features
+
+- [Better Route Notification](/examples/routing-navigation/better-route-notification)

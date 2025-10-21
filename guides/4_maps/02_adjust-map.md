@@ -63,6 +63,10 @@ controller.centerOnCoordinates(
 
 You can call the ``skipAnimation()`` method of ``GemMapController`` to bypass the animation. To check if an animation is in progress the `isAnimationInProgress` getter can be used. To check if the camera is moving (as a consequence of an animation or not), the `isCameraMoving` getter can be used.
 
+Do not confuse the `zoomLevel` with the `slippyZoomLevel`. The `slippyZoomLevel` is a value linked with the tile system.
+
+### Converting between screen and WGS coordinates
+
 In order to convert a screen position to WGS coordinates, the ``GemMapController.transformScreenToWgs()`` method is used:
 ```dart
 Coordinates coordsToCenter = mapController.transformScreenToWgs(Point(pos.x, pos.y));
@@ -101,7 +105,7 @@ mapController.centerOnCoordinates(
 );
 ```
 
-More parameters such as ``animation``, ``mapAngle``, ``viewAngle`` and ``slippyZoomLevel`` can be passed to the method in order to achieve a higher level of control.
+More parameters such as ``animation``, ``mapAngle``, ``viewAngle`` and ``zoomLevel`` can be passed to the method in order to achieve a higher level of control.
 
 ### Map centering on area
 
@@ -163,20 +167,22 @@ When applying padding, such as using the height of a Flutter panel, note that th
 
 ## Map zoom
 
-This is done throughout ``setZoomLevel`` method of ``MapViewPreferences`` from the ``GemMapController`` class in the following way:
+To get the current zoom level use the `zoomLevel` getter. A bigger value means the camera is closer to the terrain.
+Changing the zoom level is done throughout ``setZoomLevel`` method of ``MapViewPreferences`` from the ``GemMapController`` class in the following way:
 ```dart
+final int zoomLevel = mapController.zoomLevel;
 mapController.setZoomLevel(50);
 ```
-
-To get the current zoom level use the `zoomLevel` getter. A bigger value means the camera is closer to the terrain.
 
 The maximum and minimum allowed zoom levels can be accessed via the `maxZoomLevel` and `minZoomLevel` getters from the `GemMapController` class. This class also provides setters for these limits.
 In order to check if a particular zoom level can be applied, use the `canZoom` method. 
 
 ## Map rotation angle
 
-This is done throughout ``mapAngle`` setter of ``MapViewPreferences`` inside of ``GemMapController`` like so:
+To get the current rotation angle of the map, use the `mapAngle` getter from the `MapViewPreferences` class.
+Changing the rotation angle is done throughout ``mapAngle`` setter of ``MapViewPreferences`` inside of ``GemMapController`` like so:
 ```dart
+final double rotationAngle = mapController.preferences.mapAngle;
 mapController.preferences.mapAngle = 45;
 ```
 
@@ -186,7 +192,7 @@ Note that the rotation axis is always perpendicular to the ground and passes thr
 
 This operation can also be done via the `mapAngle` setter from the `GemMapController` class.
 
-## Map angle
+## Map view angle
 
 The camera can transform the flat 2D map into a 3D perspective, allowing you to view features like distant roads appearing on the horizon. By default, the camera has a top-down perspective (viewAngle = 90°).
 
@@ -194,7 +200,8 @@ In addition to adjusting the camera's view angle, you can modify its tilt angle.
 
 In order to change the view angle of camera you need to access the ``preferences`` field of ``GemMapController`` like so:
 ```dart
-mapController.preferences.viewAngle = 60;
+final double viewAngle = mapController.preferences.viewAngle;
+mapController.preferences.setViewAngle(45);
 ```
 
 To adjust the camera's perspective dynamically, you can utilize both the `tiltAngle` and `viewAngle` properties.
@@ -209,6 +216,7 @@ Keep in mind that adjusting the rotation value produces different outcomes depen
 
 Map perspective can be either two dimensional or three dimensional and can also be set by using ``MapViewPreferences`` method ``setMapViewPerspective``:
 ```dart
+final MapViewPerspective perspective = mapController.preferences.mapViewPerspective;
 mapController.preferences.setMapViewPerspective(MapViewPerspective.threeDimensional);
 ```
 
@@ -232,6 +240,7 @@ Building visibility can be controlled using the `buildingsVisibility` getter/set
 
 - `threeDimensional`: Displays buildings as 3D polygons with height.
 ```dart
+final BuildingsVisibility visibility = mapController.preferences.buildingsVisibility;
 mapController.preferences.buildingsVisibility = BuildingsVisibility.twoDimensional;
 ```
 

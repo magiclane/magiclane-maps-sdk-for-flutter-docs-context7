@@ -14,4 +14,9 @@ for (final instruction in route.segments.first.instructions) {
 }
 ```
 
-Only one instruction can be displayed at a time. To remove it, the displayed route which contains the instruction must be removed using either ``mapController.preferences.routes.clear`` or by specifying the route with ``mapController.preferences.routes.remove(route)``.
+In order to remove the instruction arrow from the map, use ``GemMapController.clearRouteInstruction()`` method.
+The route instruction arrow is automatically cleared when a new route instruction is centered on or when the route is cleared.
+
+## Relevant examples demonstrating route instructions related features
+
+- [Route Instructions](/examples/routing-navigation/route-instructions)

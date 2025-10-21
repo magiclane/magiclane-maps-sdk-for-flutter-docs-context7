@@ -89,14 +89,18 @@ Note that certain settings, such as language, overlay visibility, and position t
 
 - [Map Perspective](/examples/maps-3dscene/map-perspective)
 
-- [Center Coordinates](/examples/maps-3dscene/center-coordinates)
-
 - [Map Gestures](/examples/maps-3dscene/map-gestures)
+
+- [Map Styles](/examples/maps-3dscene/map-styles)
+
+- [Multiview Map](/examples/maps-3dscene/multiview-map)
+
+- [Overlapped Maps](/examples/maps-3dscene/overlapped-maps)
+
+- [Center Coordinates](/examples/maps-3dscene/center-coordinates)
 
 - [Landmarks Selection](/examples/maps-3dscene/map-selection)
 
 - [Display Cursor Street Name](/examples/places-search/display-cursor-street)
-
-- [Map Styles](/examples/maps-3dscene/map-styles)
 
 - [Assets Map Style](/examples/maps-3dscene/assets-map-styles)

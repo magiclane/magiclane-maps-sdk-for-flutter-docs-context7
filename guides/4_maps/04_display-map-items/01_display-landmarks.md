@@ -155,4 +155,6 @@ mapController.preferences.lmks
     .removeAllStoreCategories(GenericCategories.landmarkStoreId);
 ```
 
+## Relevant examples demonstrating landmarks related features
 
+- [Import Custom Landmarks](/examples/places-search/import-custom-landmarks)

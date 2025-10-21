@@ -335,4 +335,6 @@ Register the listener using the `persistentRoadblockListener` static setter of t
 TrafficService.persistentRoadblockListener = listener;
 ```
 
+## Relevant examples demonstrating roadblocks related features
 
+- [Draw roadblocks](/examples/maps-3dscene/draw-roadblock)

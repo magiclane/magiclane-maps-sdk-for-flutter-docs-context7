@@ -338,13 +338,13 @@ The reference coordinates used for search must be located within the `RectangleG
 ## Show the results on the map
 
 In most use cases the landmarks found by search are already present on the map.
-If the search was made on custom landmark stores see the [add map landmarks](../maps/display-map-items/display-landmarks#display-custom-landmarks) section for adding landmarks to the map.
+If the search was made on custom landmark stores see the [add map landmarks](/guides/maps/display-map-items/display-landmarks#display-custom-landmarks) section for adding landmarks to the map.
 
-To zoom to a landmark found via search, we can use ``GemMapController.centerOnCoordinates`` on the coordinates of the landmark found (``Landmark.coordinates``). See the documentation for [map centering](../maps/adjust-map#map-centering) for more info.
+To zoom to a landmark found via search, we can use ``GemMapController.centerOnCoordinates`` on the coordinates of the landmark found (``Landmark.coordinates``). See the documentation for [map centering](/guides/maps/adjust-map#map-centering) for more info.
 
 ## Change the language of the results
 
-The language of search results and category names is determined by the `SdkSettings.language` setting. Check the [the internationalization guide](../2_get-started/05_internationalization.mdx) section for more details.
+The language of search results and category names is determined by the `SdkSettings.language` setting. Check the [the internationalization guide](/guides/get-started/internationalization) section for more details.
 
 ## Relevant examples demonstrating search related features
 
@@ -352,9 +352,9 @@ The language of search results and category names is determined by the `SdkSetti
 
 - [Address Search](/examples/places-search/address-search)
 
-- [Search Location](/examples/places-search/search-location)
-
 - [Search Category](/examples/places-search/search-category)
+
+- [Search Location](/examples/places-search/search-location)
 
 - [What is Nearby](/examples/places-search/what-is-nearby)
 

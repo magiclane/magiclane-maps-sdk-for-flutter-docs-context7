@@ -11,7 +11,7 @@ The Maps SDK for Flutter enables the development of applications for Android and
 
 Flutter must be correctly installed and configured according to the requirements for each target platform. See the [Flutter Setup Guide](https://docs.flutter.dev/get-started/install) for more information.
 
-The minimum supported Dart version is 3.6.0 and the minimum supported Flutter version is 3.27.1.
+The minimum supported Dart version is 3.9.0 and the minimum supported Flutter version is 3.35.1.
 
 It is always advisable to use the latest stable versions of Dart and Flutter to ensure compatibility, performance, and access to the latest features. Additionally, it is best practice to use the Dart version bundled with Flutter to maintain consistency and avoid potential conflicts.
 

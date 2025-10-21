@@ -267,3 +267,9 @@ The Magic Lane Flutter SDK includes built-in resources such as icons and transla
 If the API user configures callbacks manually using the `setAllowConnection` method, resource updates can still be enabled by setting the optional `canDoAutoUpdateResources` parameter.
 
 Unlike other content types, updating these resources does not require a `ContentUpdater`, simplifying the process. By default, resource updates are enabled (`isAutoUpdateForResourcesEnabled` is true, and `canDoAutoUpdateResources` is true).
+
+## Relevant examples demonstrating content update related features
+
+- [Map Update](/examples/maps-3dscene/map-update)
+
+- [Map Style Update](/examples/maps-3dscene/map-style-update)

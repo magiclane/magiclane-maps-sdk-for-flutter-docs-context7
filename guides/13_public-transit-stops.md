@@ -218,3 +218,7 @@ The `PTStopInfo` class aggregates stop-related data including agencies, stops, a
 | `agencies`  | `List<PTAgency>` | Agencies serving the selected item |
 | `trips`     | `List<PTTrip>`   | Trips in which the selected item is involved |
 | `stops`     | `List<PTStop>`   | Stops associated with the trips |
+
+## Relevant examples demonstrating public transit related features
+
+- [Public Transit](/examples/routing-navigation/public-transit)

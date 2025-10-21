@@ -5,7 +5,7 @@ title: Advanced Features
 
 # Advanced features
 
-# Compute route ranges
+## Compute route ranges
 
 In order to compute a route range we need to:
 
@@ -280,4 +280,12 @@ final dataGpx = routes.first.exportAs(PathFileFormat.gpx);
 // You now have the full GPX as a string
 ```
 
+## Relevant examples demonstrating routing related features
 
+- [Finger Route](/examples/routing-navigation/finger-route)
+
+- [GPX Thumbnail Image](/examples/routing-navigation/gpx-thumbnail-image)
+
+- [GPX Routing Thumbnail Image](/examples/routing-navigation/gpx-routing-thumbnail-image)
+
+- [Range Finder](/examples/routing-navigation/range-finder)

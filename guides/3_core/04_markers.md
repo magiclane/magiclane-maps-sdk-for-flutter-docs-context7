@@ -17,6 +17,11 @@ By default, the map does not include any visual elements categorized as markers.
 
 Markers can be instantiated via:  
 1. **Default Initialization**: `Marker()` creates a basic marker object.  
+2. **Coordinates**: `Marker.fromCoordinates(List<Coordinates> coordinates)` creates a marker with specified coordinates.
+3. **Circle Area**: `Marker.fromCircleArea(Coordinates centerCoords, double radius)` creates a marker representing a circular area defined by its center and radius.
+4. **Circle Radii**: `Marker.fromCircleRadii({required final Coordinates centerCoords, required final double horizRadius, required final double vertRadius}) ` creates a marker representing an elliptical area defined by its center and horizontal and vertical radii.
+5. **Rectangle Area**: `Marker.fromRectangle(Coordinates topLeft, Coordinates bottomRight)` creates a marker representing a rectangular area defined by its top-left and bottom-right corners.
+6. **GeographicArea area**: `Marker.fromArea(GeographicArea area)` creates a marker representing a specified geographic area.
 
 Creating a marker does not automatically display it on the map. Ensure you set its coordinates and attach it to the desired map. Refer to the [Display markers guide](/guides/maps/display-map-items/display-markers) for detailed instructions.
 
@@ -40,9 +45,9 @@ A marker can be rendered in multiple ways on the map, either through default set
 
 - An image icon
 
-- A polygon drawn with a specific color, with a specific fill color, etc.
+- A polyline having an associated image at each point
 
-- A polygon having an associated image at each point
+- A polygon drawn with a specific color, with a specific fill color, etc.
 
 ## Customization options
 
@@ -62,14 +67,11 @@ Markers offer extensive customization options on the map, enabling developers to
  
 **MarkerSketches** are some predefined collections in the view. For each marker type, there is such a collection. Each element of the collection has a different render settings object. 
 
-Obviously, the regular list of markers has a more efficient rendering.
--->
-
 ## Interaction with Markers
 
 ### Selecting markers
 
-Markers are selectable by default, meaning user interactions, such as taps or clicks, can identify specific markers programmatically (e.g., through the function `cursorSelectionMarkers()`).
+Markers are selectable by default, meaning user interactions, such as taps or clicks, can identify specific markers programmatically (e.g., through the function `cursorSelectionMarkers` method of `GemView`).
 
 When cursor is hovering over a grouped marker cluster, the `cursorSelectionMarkers` method will return the `MarkerMatch` of **group head marker**. See more about group head markers at [Marker Clustering](/guides/maps/display-map-items/display-markers#marker-clustering).
 
@@ -185,4 +187,4 @@ MarkerCollection markerCollection = MarkerCollection(markerType: MarkerType.poin
 
 ### Usage
 
-The `MarkerCollection` class is used to display markers on the map.
+The `MarkerCollection` class is used to display markers on the map by adding them to the map's `MapViewMarkerCollections`. Each collection can hold multiple markers of the same type, allowing for organized management and rendering of markers on the map.

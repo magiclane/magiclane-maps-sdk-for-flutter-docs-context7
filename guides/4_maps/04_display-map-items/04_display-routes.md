@@ -72,3 +72,25 @@ final (startRouteVisibleIntervalMeters, endRouteVisibleIntervalMeters) = control
 
 You can also provide a custom screen region to the `getVisibleRouteInterval` method, instead of using the entire viewport.
 The method will return `(0,0)` if the route is not visible on the provided viewport/region of the viewport
+
+## Relevant examples demonstrating routing related features
+
+- [Calculate Route](/examples/routing-navigation/calculate-route)
+
+- [Route Profile](/examples/routing-navigation/route-profile)
+
+- [Route Instructions](/examples/routing-navigation/route-instructions)
+
+- [Finger Route](/examples/routing-navigation/finger-route)
+
+- [Range Finder](/examples/routing-navigation/range-finder)
+
+- [GPX Route](/examples/routing-navigation/gpx-route)
+
+- [Truck Profile](/examples/routing-navigation/truck-profile)
+
+- [Public Transit](/examples/routing-navigation/public-transit)
+
+- [Offline Routing](/examples/routing-navigation/offline-routing)
+
+- [Multi Map Routing](/examples/routing-navigation/multimap-routing)

@@ -18,3 +18,7 @@ mapController.centerOnArea(path.area);
 ```
 
 To remove all paths from ``GemMap`` use ``MapViewPathCollection.clear()``. To remove selectively, use ``MapViewPathCollection.remove(path)`` or ``MapViewPathCollection.removeAt(index)``.
+
+## Relevant examples demonstrating paths related features
+
+- [GPX Thumbnail Image](/examples/routing-navigation/gpx-thumbnail-image)

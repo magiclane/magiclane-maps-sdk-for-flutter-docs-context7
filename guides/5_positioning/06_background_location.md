@@ -66,3 +66,6 @@ To enable background location within our SDK, you’ll also need to initialize t
     }
 ```
 
+## Relevant example demonstrating background location related features
+
+- [Recorder In Background](/examples/routing-navigation/background-location)

@@ -185,6 +185,8 @@ There are two main ways of getting a navigation instruction:
  </tbody>
 </table>
 
+The field ``nextTurnInstruction`` provides a instruction in text format, suitable for displaying on UI. Please use the ``onTextToSpeechInstruction`` callback for getting a instruction suitable for text-to-speech.
+
 ## Turn details
 
 ### Next turn details
@@ -322,4 +324,4 @@ Below is an example of a rendered lane image:
 
 ## Change the language of the instructions
 
-The texts used in navigation instructions and related classes follow the language set in the SDK. See [the internationalization guide](../2_get-started/05_internationalization.mdx) for more details.
+The texts used in navigation instructions and related classes follow the language set in the SDK. See [the internationalization guide](/guides/get-started/internationalization) for more details.

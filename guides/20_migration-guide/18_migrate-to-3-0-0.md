@@ -35,6 +35,8 @@ This change improves discoverability (as the package is now on pub.dev) and simp
 
 The SDK is now available on pub.dev. Update your `pubspec.yaml` to use the new package source.
 
+### Pubspec changes
+
 Before:
 ```yaml
 dependencies:
@@ -47,6 +49,8 @@ After:
 dependencies:
   magiclane_maps_flutter: ^3.0.0
 ```
+
+### Android configuration changes
 
 Also update the `maven` block in your `android/build.gradle.kts` file to include the new Maven repository:
 
@@ -68,11 +72,10 @@ Make sure to run the following commands to update your dependencies:
 ```bash
 flutter clean
 flutter pub get
-cd ios
-pod install
 ```
 
 If errors persist on Android after making these changes, try opening the `android` folder in Android Studio and syncing the Gradle files.
+No additional code changes are needed for ios, besides updating the `iOS Deployment Target` in your Xcode project settings to at least `14.0`.
 See the [Getting Started](../../guides/get-started/integrate-sdk) guide for more details.
 
 ## Removed *instance* static property from the *PositionService* class

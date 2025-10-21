@@ -275,3 +275,9 @@ The `unregisterReportListener` method returns the following possible values:
 - `GemError.invalidInput` : Provided `OverlayItem` is not a social overlay item.
 
 - `GemError.notFound` : Listener was not registered for the report.
+
+## Relevant example demonstrating social reports features
+
+- [Social Report](/examples/maps-3dscene/social-report)
+
+- [Social Event Voting](/examples/routing-navigation/social-event-voting)

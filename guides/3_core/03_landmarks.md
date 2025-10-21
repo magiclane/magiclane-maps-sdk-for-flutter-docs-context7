@@ -352,14 +352,6 @@ The operations available within the `LandmarkBrowseSesssion` are:
 | `getLandmarkPosition(int landmarkId)` | `int` | Returns the 0-based index of a landmark by its ID, or a not-found code. |
 | `settings` | `LandmarkBrowseSessionSettings` (getter) | Gets the current session settings. Modifying this object does not affect the session. |
 
-## Notes
-
-- All interactions with the underlying native layer are mediated through `objectMethod`, which uses `_pointerId` to identify the native object.
-
-- This class extends `GemAutoreleaseObject`, implying that it participates in some form of memory/resource management, likely for native interop.
-
-- The class encapsulates a **read-only API**, with no mutators for changing session configuration after creation — configuration is likely passed at initialization via a
-
 ### Available operations
 
 The ``LandmarkStore`` instance provides the following operations for managing landmarks and categories:

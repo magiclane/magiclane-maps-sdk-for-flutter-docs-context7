@@ -234,3 +234,7 @@ mapSceneObject.visibility = false;
 ```
 
 The snippet above makes the position tracker invisible.
+
+## Relevant examples demonstrating custom position icon related features
+
+- [Custom Position Icon](/examples/maps-3dscene/custom-position-icon)

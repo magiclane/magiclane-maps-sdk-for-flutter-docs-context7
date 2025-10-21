@@ -64,3 +64,7 @@ Class responsible for containg weather parameter data.
 | `value` | `double` | Value |
 | `name` | `String` | Name translated according to the current SDK language |
 | `unit` | `String` | Unit |
+
+## Relevant example demonstrating weather related features
+
+- [Weather Forecast](/examples/places-search/weather-forecast)

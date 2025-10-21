@@ -376,8 +376,6 @@ Each ``SignpostItem`` has the following properties:
 | `hasAmbiguity`       | `bool`                        | Indicates if the item has ambiguity. Avoid using such items for TTS.                     |
 | `hasSameShieldLevel` | `bool`                        | Indicates if the road code item has the same shield level as its road.                   |
 
-The field ``nextTurnInstruction`` provides a instruction in text format, suitable for displaying on UI. Please use the ``onTextToSpeechInstruction`` callback for getting a instruction suitable for text-to-speech.
-
 ### Turn Details
 
 The ``TurnDetails`` class provides details such as:
@@ -430,4 +428,4 @@ In order to get the WGS Coordinates of the start and end of a `TollSection`, you
 
 ## Change the language of the instructions
 
-The texts used in route instructions and related classes follow the language set in the SDK. See [the internationalization guide](../2_get-started/05_internationalization.mdx) for more details.
+The texts used in route instructions and related classes follow the language set in the SDK. See [the internationalization guide](/guides/get-started/internationalization) for more details.

@@ -77,7 +77,7 @@ Always ensure that the selected `Voice` is compatible with the chosen `Language`
 
 #### Relevance
 
-- `Language` is relevant for both the built-in TTS system and custom solutions using the `onTextToSpeechInstruction` callback. See the [internationalization guide](../2_get-started/05_internationalization.mdx) for more info about the ``Language`` class.
+- `Language` is relevant for both the built-in TTS system and custom solutions using the `onTextToSpeechInstruction` callback. See the [internationalization guide](/guides/get-started/internationalization) for more info about the ``Language`` class.
 
 - `Voice` is relevant **only** for the built-in voice-guidance (using human and computer voices) playback.
 
@@ -174,7 +174,7 @@ The exact behavior depends on the device and its available text-to-speech capabi
 The TTS instructions can be provided by the `NavigationService` as strings in order to be further processed and played with external tools. For example, the [flutter_tts](https://pub.dev/packages/flutter_tts) package can be used for playing sound based on the TTS text instructions provided by the SDK. Other packages for TTS can also be used.
 The voice instructions strings will come on the ``onTextToSpeechInstruction`` callback set during navigation or simulation.
 
-Add ``flutter_tts`` as a dependency to the ``pubspec.yaml`` file of the project and run the ``dart pub get`` command to install the tts package.
+Add ``flutter_tts`` as a dependency to the ``pubspec.yaml`` file of the project and run the ``dart pub get`` command to install the ``flutter_tts`` package.
 
 We can use the ``onTextToSpeechInstruction`` callback of the ``startSimulation`` methods in the following way:
 ```dart
@@ -189,8 +189,8 @@ void simulationInstructionUpdated(NavigationInstruction instruction, Set<Navigat
 void textToSpeechInstructionUpdated(String ttsInstruction) {
   flutterTts.speak(ttsInstruction);
 }
-
 // highlight-end
+
 TaskHandler? taskHandler = NavigationService.startSimulation(
   route,
   onNavigationInstruction: simulationInstructionUpdated,
@@ -268,3 +268,9 @@ The method accepts an optional `severity` parameter, which determines whether th
 Make sure the provided string matches the voice language.
 
 Check the [speed warnings](../alarms/speed-alarms) and [landmark & overlay alarms](../alarms/landmark-and-overlay-alarms) docs to learn how to get notified about speed warnings and reports.
+
+## Relevant examples demonstrating voices related features
+
+- [Human Voices](/examples/routing-navigation/human-voices)
+
+- [Voice Download](/examples/routing-navigation/voice-download)

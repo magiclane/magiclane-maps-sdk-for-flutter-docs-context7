@@ -16,9 +16,71 @@ Update all applications to version 2.19.0 or later to access the newest map avai
 
 Legacy map formats will remain available until April 2027. However, the `registerOnWorldwideRoadMapSupportDisabled` callback will be triggered when using an older SDK.
 
-Due to improvements of our SDK and map data, we kindly ask you to update your applications and projects with any SDK revision released starting with October 2024 in order to continue using the online Magic Earth map-related services and to continue receiving map updates.
+Due to improvements of our SDK and map data, we kindly ask you to update your applications and projects with any SDK revision released starting with October 2024 in order to continue using the online Magic Lane map-related services and to continue receiving map updates.
 
-## [3.0.0] - 2025-10-02
+## [3.1.2] - 2025-10-17
+
+### Added
+
+- `clearRouteInstruction` method to the `MavView` class
+
+### Changed
+
+- `image` getter from the `OverlayItem` class is now deprecated and has been replaced with the `getImage` method
+
+### Fixed
+
+- Issues regarding callbacks in `startNavigation` and `startSimulation` methods from the `NavigationService` class
+
+## [3.1.1] - 2025-10-16
+
+### Added
+
+- `vehicleRegistration` getter in the `RoutePreferences` class
+
+### Fixed
+
+- Distribution via pub.dev now works without errors on iOS
+
+- `mapDetailsQualityLevel` setter from the `MapViewPreferences` no longer crashes on iOS
+
+- Swift Package Manager integration issues
+
+## [3.1.0] - 2025-10-16 [YANKED]
+
+### Note
+
+- Yanked because of Swift Package Manager (SPM) integration issues that make the project fail to build or run on iOS.
+
+### Added
+
+- `polygonArea` property to the `MapViewRenderInfo` class
+
+- `plateNumber` property to classes extending `VehicleRegistration`: `ElectricBikeProfile`, `ElectricBikeProfile`, `MotorVehicleProfile`, `CarProfile`, `TruckProfile`
+
+- `VehicleRegistration` class
+
+### Removed 
+
+- `area` and `areaSecond` members from the `MapViewRenderInfo` class are now deprecated
+
+### Changed
+
+- updated minimum SDK version to `3.9.0` and flutter version to `3.35.0`
+
+- added `scenicRoutingAttributes` and `utf8Strings` values to the `MapExtendedCapability` enum
+
+- the `area` property from the `MapViewRenderInfo` class changed from field to getter
+
+- `VehicleRegistration` is now base class for `ElectricBikeProfile` and `MotorVehicleProfile`
+
+### Fixed
+
+- the `onProgress` callback from the `asyncDownload` method from the `ContentStoreItem` now gets called when it should
+
+- the SDK language now matches the device language by default. The default voice is now a TTS computer voice matching the default SDK language
+
+## [3.0.0] - 2025-10-02 [YANKED]
 
 ### Added
 

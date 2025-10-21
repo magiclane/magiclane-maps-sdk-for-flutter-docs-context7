@@ -59,3 +59,9 @@ alarmListener.registerOnEnterDayMode(() {
 ```
 
 Only one callback per event can be assigned to a listener. For instance, if a new onEnterDayMode callback is registered using ``registerOnEnterDayMode``, only the most recently set callback will be invoked when the event occurs.
+
+## Relevant examples demonstrating alarms related features
+
+- [Areas Alarm](/examples/routing-navigation/areas-alarms)
+
+- [Route Alarm](/examples/routing-navigation/route-alarms)
