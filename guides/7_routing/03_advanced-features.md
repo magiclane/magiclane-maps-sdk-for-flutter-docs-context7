@@ -103,6 +103,15 @@ final taskHandler = RoutingService.calculateRoute(
 });
 ```
 
+The `Path` object associated to a path based landmark can be modified using the `trackData` setter available on the `Landmark` object.
+See the [Landmarks guide](../core/landmarks) for more details about this.
+
+When computing a route based on a path backed landmark **and** non-path backed landmarks, it is mandatory to set the `accurateTrackMatch` field from `RoutePreferences` to `true`. Otherwise, the routing computation will fail with a `GemError.unsupported` error.
+
+The `isTrackResume` field from `RoutePreferences` can also be set to configure the behaviour of the routing engine when one track based landmark is used as a waypoint toghether with other landmarks.
+If this field is set to `true`, the routing engine will try to match the entire track of the path based landmark.
+Otherwise, if set to `false`, only the end point of the track will be used as waypoints.
+
 ## Computing a route based on a GPX file
 
 You can compute a route based on a GPX file by using the `path based landmark` described in the previous section. The only difference is how we compute the `gemPath`.

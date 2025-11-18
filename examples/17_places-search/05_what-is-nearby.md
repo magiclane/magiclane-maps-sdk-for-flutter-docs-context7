@@ -59,6 +59,42 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  // The callback for when map is ready to use.
+  void _onMapCreated(GemMapController controller) async {
+    // Save controller for further usage.
+    _mapController = controller;
+
+    if (kIsWeb) {
+      // On web platform permission are handled differently than other platforms.
+      // The SDK handles the request of permission for location.
+      final locationPermssionWeb =
+          await PositionService.requestLocationPermission();
+      if (locationPermssionWeb == true) {
+        _locationPermissionStatus = PermissionStatus.granted;
+      } else {
+        _locationPermissionStatus = PermissionStatus.denied;
+      }
+    } else {
+      // For Android & iOS platforms, permission_handler package is used to ask for permissions.
+      _locationPermissionStatus = await Permission.locationWhenInUse.request();
+    }
+
+    if (_locationPermissionStatus == PermissionStatus.granted) {
+      // After the permission was granted, we can set the live data source (in most cases the GPS).
+      // The data source should be set only once, otherwise we'll get -5 error.
+      if (!_hasLiveDataSource) {
+        PositionService.setLiveDataSource();
+        _hasLiveDataSource = true;
+      }
+
+      // Optionally, we can set an animation
+      final animation = GemAnimation(type: AnimationType.linear);
+
+      // Calling the start following position SDK method.
+      _mapController.startFollowingPosition(animation: animation);
+    }
+  }
 ```
 
 ### Fetching Nearby Locations 

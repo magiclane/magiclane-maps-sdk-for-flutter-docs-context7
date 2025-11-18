@@ -131,20 +131,23 @@ void _presentLandmark(Landmark landmark) {
 }
 
 // Address search method.
-Future<Landmark?> _searchAddress(
-    {required Landmark landmark,
-    required AddressDetailLevel detailLevel,
-    required String text}) async {
+Future<Landmark?> _searchAddress({
+  required Landmark landmark,
+  required AddressDetailLevel detailLevel,
+  required String text,
+}) async {
   final completer = Completer<Landmark?>();
 
   // Calling the address search SDK method.
   // (err, results) - is a callback function that gets called when the search is finished.
   // err is an error enum, results is a list of landmarks.
-  GuidedAddressSearchService.search(text, landmark, detailLevel,
-      (err, results) {
+  GuidedAddressSearchService.search(text, landmark, detailLevel, (
+    err,
+    results,
+  ) {
     // If there is an error, the method will return a null list.
     if (err != GemError.success && err != GemError.reducedResult ||
-        results!.isEmpty) {
+        results.isEmpty) {
       completer.complete(null);
       return;
     }

@@ -23,7 +23,7 @@ This release adds the `LaneImg`, `AbstractGeometryImg`, `SignpostImg`, `RoadInfo
 
 Additionally, the new `RenderableImg` class wraps raw `Uint8List` image data and provides metadata such as width and height.
 
-See the [working with images](../get-started/usage-guidelines#working-with-images) page for more details about this change.
+See the [working with images](../core/images) page for more details about this change.
 
 Before:
 ```dart

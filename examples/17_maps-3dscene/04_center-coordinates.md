@@ -73,22 +73,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
 This code sets up the basic structure of the app, including the map and the app bar. It also provides a button in the app bar for centering the map on specific coordinates.
 ```dart
-// The callback for when map is ready to use.
-void _onMapCreated(GemMapController controller) async {
-  // Save controller for further usage.
-  _mapController = controller;
-}
-
 void _onCenterCoordinatesButtonPressed() {
   // Predefined coordinates for Rome, Italy.
-  final targetCoordinates =
-      Coordinates(latitude: 41.902782, longitude: 12.496366);
+  final targetCoordinates = Coordinates(
+    latitude: 41.902782,
+    longitude: 12.496366,
+  );
 
   // Create an animation (optional).
   final animation = GemAnimation(type: AnimationType.linear);
 
   // Use the map controller to center on coordinates.
-  _mapController.centerOnCoordinates(targetCoordinates, animation: animation);
+  _mapController.centerOnCoordinates(
+    targetCoordinates,
+    animation: animation,
+    zoomLevel: 60,
+  );
 }
 ```
 

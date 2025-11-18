@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the calculateRoute method from the RoutingService class, for the Dart programming language.">
+  <title>calculateRoute method - RoutingService class - routing library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../routing/">routing.dart</a></li>
+    <li><a href="../../routing/RoutingService-class.html">RoutingService</a></li>
+    <li class="self-crumb">calculateRoute static method</li>
+  </ol>
+  <div class="self-name">calculateRoute</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="routing&#47;RoutingService-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">calculateRoute</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="../../core/TaskHandler-class.html">TaskHandler</a>?</span>
+<span class="name ">calculateRoute</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="calculateRoute-param-waypoints"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../core/Landmark-class.html">Landmark</a></span>&gt;</span></span> <span class="parameter-name">waypoints</span>, </span></li>
+<li><span class="parameter" id="calculateRoute-param-routePreferences"><span class="type-annotation"><a href="../../routing/RoutePreferences-class.html">RoutePreferences</a></span> <span class="parameter-name">routePreferences</span>, </span></li>
+<li><span class="parameter" id="calculateRoute-param-onComplete"><span class="type-annotation">void</span> <span class="parameter-name">onComplete</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-err"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">err</span>, </span></li>
+<li><span class="parameter" id="param-routes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../core/Route-class.html">Route</a></span>&gt;</span></span> <span class="parameter-name">routes</span></span></li>
+</ol>)</span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Calculates routes between specified waypoints asynchronously.</p>
+<p>Initiates an asynchronous route calculation using the provided waypoints
+and preferences. The method returns immediately with a <a href="../../core/TaskHandler-class.html">TaskHandler</a> to
+monitor or cancel the operation. Results or errors are delivered through
+the <code>onComplete</code> callback.</p>
+<p>Requires at least 2 waypoints for path result types, or 1 waypoint for
+range result types (see <a href="../../routing/RouteResultType.html">RouteResultType</a> for details). The calculation can
+be done offline, depending on the passed <code>routePreferences</code> and the availability
+of downloaded map data.</p>
+<p>Returns <code>null</code> immediately only when the calculation cannot be initiated
+(invalid configuration detected synchronously). All other errors are
+delivered asynchronously through <code>onComplete</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>waypoints</code>: List of <a href="../../core/Landmark-class.html">Landmark</a> objects defining route start, end, and
+optional intermediate points. Must contain at least 2 waypoints for
+standard routes, or 1 waypoint for range calculations.</li>
+<li><code>routePreferences</code>: Configuration object specifying transport mode,
+route type, vehicle profile, restrictions, and calculation options.</li>
+<li><code>onComplete</code>: Callback invoked when calculation completes or fails.
+Called with:
+<ul>
+<li><a href="../../core/GemError.html">GemError.success</a> and non-empty <code>routes</code> list upon successful calculation.</li>
+<li><a href="../../core/GemError.html">GemError.notSupported</a> and empty <code>routes</code> if preferences contain
+unsupported configuration (e.g., invalid transport mode combination).</li>
+<li><a href="../../core/GemError.html">GemError.invalidInput</a> and empty <code>routes</code> if input is invalid
+(e.g., fewer than 2 waypoints for path result, or fewer than 1 for range result).</li>
+<li><a href="../../core/GemError.html">GemError.cancel</a> and empty <code>routes</code> if calculation was cancelled via
+<a href="../../routing/RoutingService/cancelRoute.html">cancelRoute</a> before completion.</li>
+<li><a href="../../core/GemError.html">GemError.waypointAccess</a> and empty <code>routes</code> if no route could be
+found with given preferences (e.g., destination unreachable, no roads nearby).</li>
+<li><a href="../../core/GemError.html">GemError.connectionRequired</a> and empty <code>routes</code> if online calculation
+is disabled (<a href="../../routing/RoutePreferences/allowOnlineCalculation.html">RoutePreferences.allowOnlineCalculation</a> = false) and
+offline map data is insufficient for calculation.</li>
+<li><a href="../../core/GemError.html">GemError.expired</a> and empty <code>routes</code> if offline map data is too old
+and no longer supported by online routing service.</li>
+<li><a href="../../core/GemError.html">GemError.routeTooLong</a> and empty <code>routes</code> if online calculation
+exceeded server timeout (typically &gt;1 minute, depending on server load).</li>
+<li><a href="../../core/GemError.html">GemError.invalidated</a> and empty <code>routes</code> if offline map data changed
+(downloaded, erased, or updated) during calculation.</li>
+<li><a href="../../core/GemError.html">GemError.noMemory</a> and empty <code>routes</code> if routing engine failed to
+allocate necessary memory for calculation.</li>
+</ul>
+</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<ul>
+<li><a href="../../core/TaskHandler-class.html">TaskHandler</a> if calculation was successfully initiated (use with
+<a href="../../routing/RoutingService/cancelRoute.html">cancelRoute</a>, <a href="../../routing/RoutingService/isCalculationRunning.html">isCalculationRunning</a>, <a href="../../routing/RoutingService/getRouteStatus.html">getRouteStatus</a>).</li>
+<li><code>null</code> if calculation could not be initiated due to invalid configuration
+detected immediately (error delivered via <code>onComplete</code>).</li>
+</ul>
+<h2 id="example">Example</h2>
+<pre class="language-dart"><code class="language-dart">TaskHandler? taskHandler = RoutingService.calculateRoute(
+  [departureLandmark, destinationLandmark],
+  routePreferences,
+  (err, routes) {
+    if (err == GemError.success) {
+      // Do something with the calculated routes
+    } else {
+      print('Error: $err');
+    }
+  }
+);
+</code></pre>
+<h2 id="see-also">See also:</h2>
+<ul>
+<li><a href="../../routing/RoutePreferences-class.html">RoutePreferences</a> - Configuration options for route calculation.</li>
+<li><a href="../../routing/RoutingService/cancelRoute.html">cancelRoute</a> - Cancels an ongoing calculation.</li>
+<li><a href="../../core/Route-class.html">Route</a> - Calculated route with instructions and time/distance data.</li>
+<li><a href="../../navigation/NavigationService-class.html">NavigationService</a> - Service for turn-by-turn navigation on routes.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static TaskHandler? calculateRoute(
+  final List&lt;Landmark&gt; waypoints,
+  final RoutePreferences routePreferences,
+  final void Function(GemError err, List&lt;Route&gt; routes) onComplete,
+) {
+  final EventDrivenProgressListener progListener =
+      EventDrivenProgressListener();
+  GemKitPlatform.instance.registerEventHandler(progListener.id, progListener);
+  final RouteList results = RouteList();
+
+  final LandmarkList waypointsList = LandmarkList.fromList(waypoints);
+
+  progListener.registerOnCompleteWithData((
+    final int err,
+    final String hint,
+    final Map&lt;dynamic, dynamic&gt; json,
+  ) {
+    GemKitPlatform.instance.unregisterEventHandler(progListener.id);
+
+    if (err == GemError.success.code) {
+      onComplete(GemErrorExtension.fromCode(err), results.toList());
+    } else {
+      onComplete(GemErrorExtension.fromCode(err), &lt;Route&gt;[]);
+    }
+  });
+
+  final OperationResult result = staticMethod(
+    &#39;RoutingService&#39;,
+    &#39;calculateRoute&#39;,
+    args: &lt;String, dynamic&gt;{
+      &#39;results&#39;: results.pointerId,
+      &#39;listener&#39;: progListener.id,
+      &#39;waypoints&#39;: waypointsList.pointerId,
+      &#39;routePreferences&#39;: routePreferences,
+    },
+  );
+
+  final GemError errorCode = GemErrorExtension.fromCode(result[&#39;result&#39;]);
+
+  if (errorCode != GemError.success) {
+    onComplete(errorCode, &lt;Route&gt;[]);
+    return null;
+  }
+
+  return TaskHandlerImpl(progListener.id);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../routing/">routing</a></li>
+    <li><a href="../../routing/RoutingService-class.html">RoutingService</a></li>
+    <li class="self-crumb">calculateRoute static method</li>
+</ol>
+
+    <h5>RoutingService class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.3
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

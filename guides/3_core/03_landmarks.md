@@ -13,6 +13,28 @@ A **landmark** is a predefined, permanent location that holds detailed informati
 
 A landmark's position is defined by its `coordinates`, which represent the centroid, and its `geographicArea`, representing the full boundary (e.g., circle, rectangle, or polygon). Since landmarks can correspond to buildings, roads, settlements, or regions, the geographic area can be complex. For specific bounding areas, the `getContourGeographicArea` method is used.
 
+In order to calculate the distance between two landmarks in meters, use the `distance` method from the `Coordinates` class, which computes the Haversine distance between the coordinates of the two landmarks.
+```dart
+final double distanceInMeters = landmark1.coordinates.distance(landmark2.coordinates);
+```
+
+Check the [Coordinates](./base-entities) guide for more details about the `distance` method.
+
+### Waypoint track data
+
+Some landmarks include a `trackData` attribute, which represents a sequence of geographic points (waypoints) that outline a path.
+The following operations are available for managing waypoint track data:
+
+- `hasTrackData` — returns `true` if the landmark contains track data.
+
+- `trackData` (getter) — returns the track as a `Path` object; returns an empty `Path` when no track is present.
+
+- `trackData` (setter) — replace the landmark's track with a provided `Path` (use the provided setter to persist changes).
+
+- `reverseTrackData()` — reverses the sequence of points in the waypoint track.
+
+The waypoint track data is used for path based routes. See the [Compute path based route](/guides/routing/advanced-features) guide for more details.
+
 #### Descriptive Information  
 
 Landmarks include attributes like `name`, `description`, and `author`. The name adapts to the SDK's language settings, ensuring localization where applicable.
@@ -162,6 +184,9 @@ Do not confuse the `getCategory` and `getGenericCategory` methods:
 **Landmark stores** are the most common collection of landmarks used for multiple purposes through the Maps SDK for Flutter. They are comprised of landmarks and landmarks categories. Each store has a unique `name` and `id`.
 
 Landmark stores are persistently saved on the device (a SQLite database file) and can be accessed across different sessions.
+
+Keep in mind that Landmark's coordinates are subject to floating-point precision limitations, which may affect exact positioning in certain scenarios.
+The coordinates of the landmarks stored within may have minor inaccuracies of a few centimeters to meters due to these limitations.
 
 ### Manage landmark stores
 

@@ -3,7 +3,7 @@ description: Documentation for Route Preferences
 title: Route Preferences
 ---
 
-# Handling RoutePreferences
+# Handling Route Preferences
 
 Before computing a route, we need to specify some route options. 
 

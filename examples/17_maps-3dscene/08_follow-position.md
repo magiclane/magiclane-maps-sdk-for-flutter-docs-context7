@@ -83,12 +83,22 @@ void _onMapCreated(GemMapController controller) async {
   _mapController = controller;
 }
 
+```
+
+dart
 void _onFollowPositionButtonPressed() async {
   if (kIsWeb) {
-    // On web platforms, permissions are handled differently.
-    _locationPermissionStatus = PermissionStatus.granted;
+    // On web platform permission are handled differently than other platforms.
+    // The SDK handles the request of permission for location.
+    final locationPermssionWeb =
+        await PositionService.requestLocationPermission();
+    if (locationPermssionWeb == true) {
+      _locationPermissionStatus = PermissionStatus.granted;
+    } else {
+      _locationPermissionStatus = PermissionStatus.denied;
+    }
   } else {
-    // Request location permission on Android and iOS platforms.
+    // For Android & iOS platforms, permission_handler package is used to ask for permissions.
     _locationPermissionStatus = await Permission.locationWhenInUse.request();
   }
 
@@ -108,6 +118,7 @@ void _onFollowPositionButtonPressed() async {
     setState(() {});
   }
 }
+
 ```
 
 This code handles the process of requesting location permissions, setting the GPS as the live data source, and starting the map’s follow position mode.

@@ -119,23 +119,27 @@ This code handles the calculation of routes between two landmarks, displays the 
     // (err, results) - is a callback function that gets called when the route computing is finished.
     // err is an error enum, results is a list of routes.
 
-    _routingHandler = RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (
-      err,
-      routes,
-    ) {
-      // If the route calculation is finished, we don't have a progress listener anymore.
-      _routingHandler = null;
-      ScaffoldMessenger.of(context).clearSnackBars();
+    _routingHandler = RoutingService.calculateRoute(
+      [departureLandmark, destinationLandmark],
+      routePreferences,
+      (err, routes) {
+        // If the route calculation is finished, we don't have a progress listener anymore.
+        _routingHandler = null;
+        ScaffoldMessenger.of(context).clearSnackBars();
 
-      // If there aren't any errors, we display the routes.
-      if (err == GemError.success) {
-        // Get the routes collection from map preferences.
-        final routesMap = _mapController.preferences.routes;
+        // If there aren't any errors, we display the routes.
+        if (err == GemError.success) {
+          // Get the routes collection from map preferences.
+          final routesMap = _mapController.preferences.routes;
 
-        // Display the routes on map.
-        for (final route in routes) {
-          routesMap.add(route, route == routes.first, label: getMapLabel(route));
-        }
+          // Display the routes on map.
+          for (final route in routes) {
+            routesMap.add(
+              route,
+              route == routes.first,
+              label: getMapLabel(route),
+            );
+          }
 
         // Center the camera on routes.
         _mapController.centerOnRoutes(routes: routes);

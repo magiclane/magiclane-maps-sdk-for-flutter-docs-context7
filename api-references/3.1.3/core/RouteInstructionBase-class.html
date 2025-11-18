@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the RouteInstructionBase class from the core library, for the Dart programming language.">
+  <title>RouteInstructionBase class - core library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../core/">core.dart</a></li>
+    <li class="self-crumb">RouteInstructionBase class</li>
+  </ol>
+  <div class="self-name">RouteInstructionBase</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="core&#47;core-library-sidebar.html"
+    data-below-sidebar="core&#47;RouteInstructionBase-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">RouteInstructionBase</span> class 
+ 
+    <span class="category routes-&-navigation cp-1 linked" title="This is part of the Routes & Navigation topic."><a href="../topics/Routes & Navigation-topic.html">Routes&nbsp;&&nbsp;Navigation</a></span>
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>A single route instruction used for route guidance.</p>
+<p><a href="../core/RouteInstructionBase-class.html">RouteInstructionBase</a> models one maneuver (for example, a turn, exit or follow-road instruction). It exposes
+the instruction location, localized text, images (turn images and realistic intersection renderings), signpost
+details and time/distance metrics used to present guidance to users and in UI lists. Instances are obtained from
+<a href="../core/RouteSegmentBase/instructions.html">RouteSegment.instructions</a> and should not be constructed directly.</p>
+<p>For real-time turn-by-turn updates use <a href="../navigation/NavigationInstruction-class.html">NavigationInstruction</a> which is produced during navigation.</p>
+<h2 id="see-also">See also:</h2>
+<ul>
+<li><a href="../core/RouteSegmentBase/instructions.html">RouteSegment.instructions</a> - Obtain instructions from a segment.</li>
+<li><a href="../navigation/NavigationInstruction-class.html">NavigationInstruction</a> - Real-time navigation instructions.</li>
+</ul>
+</section>
+
+
+    <section>
+      <dl class="dl-horizontal">
+        
+
+        
+        
+
+          <dt>Implementers</dt>
+          <dd><ul class="comma-separated clazz-relationships">
+              <li><a href="../core/PTRouteInstruction-class.html">PTRouteInstruction</a></li>
+              <li><a href="../core/RouteInstruction-class.html">RouteInstruction</a></li>
+          </ul></dd>
+
+        
+        
+
+
+      </dl>
+    </section>
+
+    
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="coordinates" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/coordinates.html">coordinates</a></span>
+  <span class="signature">&#8594; <a href="../core/Coordinates-class.html">Coordinates</a></span>
+  
+
+</dt>
+<dd>
+  Location coordinates for this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="countryCodeISO" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/countryCodeISO.html">countryCodeISO</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  ISO 3166-1 alpha-3 country code for the instruction location.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="exitDetails" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/exitDetails.html">exitDetails</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  Exit instruction text when this instruction is an exit.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="followRoadInstruction" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/followRoadInstruction.html">followRoadInstruction</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  Localized textual description for follow-road guidance associated with this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hasFollowRoadInfo" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/hasFollowRoadInfo.html">hasFollowRoadInfo</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Whether follow-road guidance information is available for this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="hasRoadInfo" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/hasRoadInfo.html">hasRoadInfo</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Whether road information (names, shields) is available for this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hasSignpostInfo" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/hasSignpostInfo.html">hasSignpostInfo</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Whether signpost information is available for this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hasTurnInfo" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/hasTurnInfo.html">hasTurnInfo</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Whether detailed turn information is available for this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="isCommon" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/isCommon.html">isCommon</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Whether this instruction belongs to a common-type segment (see <a href="../core/RouteSegmentBase/isCommon.html">RouteSegment.isCommon</a>).
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="isExit" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/isExit.html">isExit</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Whether this instruction represents a main-road exit maneuver.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="isFerry" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/isFerry.html">isFerry</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Whether this instruction involves a ferry crossing.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="isTollRoad" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/isTollRoad.html">isTollRoad</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Whether this instruction involves a tolled road.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="pointerId" class="property inherited">
+  <span class="name"><a href="../core/RouteInstructionBase/pointerId.html">pointerId</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The pointer ID of the native object
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="realisticNextTurnImg" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/realisticNextTurnImg.html">realisticNextTurnImg</a></span>
+  <span class="signature">&#8594; <a href="../core/AbstractGeometryImg-class.html">AbstractGeometryImg</a></span>
+  
+
+</dt>
+<dd>
+  Get the vectorial representation for the realistic next turn image as a <a href="../core/AbstractGeometryImg-class.html">AbstractGeometryImg</a>.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="remainingTravelTimeDistance" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/remainingTravelTimeDistance.html">remainingTravelTimeDistance</a></span>
+  <span class="signature">&#8594; <a href="../core/TimeDistance-class.html">TimeDistance</a></span>
+  
+
+</dt>
+<dd>
+  Remaining travel time and distance from this instruction to the route end.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="remainingTravelTimeDistanceToNextWaypoint" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/remainingTravelTimeDistanceToNextWaypoint.html">remainingTravelTimeDistanceToNextWaypoint</a></span>
+  <span class="signature">&#8594; <a href="../core/TimeDistance-class.html">TimeDistance</a></span>
+  
+
+</dt>
+<dd>
+  Remaining time/distance to the next waypoint from this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="roadInfo" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/roadInfo.html">roadInfo</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../core/RoadInfo-class.html">RoadInfo</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  Road information associated with this instruction (name, shield, attributes).
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="roadInfoImg" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/roadInfoImg.html">roadInfoImg</a></span>
+  <span class="signature">&#8594; <a href="../core/RoadInfoImg-class.html">RoadInfoImg</a></span>
+  
+
+</dt>
+<dd>
+  Get the signpost image as a <a href="../core/RoadInfoImg-class.html">RoadInfoImg</a>.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="signpostDetails" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/signpostDetails.html">signpostDetails</a></span>
+  <span class="signature">&#8594; <a href="../core/SignpostDetails-class.html">SignpostDetails</a></span>
+  
+
+</dt>
+<dd>
+  Detailed signpost information associated with this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="signpostInstruction" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/signpostInstruction.html">signpostInstruction</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  Localized text description for signpost guidance.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="timeDistanceToNextTurn" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/timeDistanceToNextTurn.html">timeDistanceToNextTurn</a></span>
+  <span class="signature">&#8594; <a href="../core/TimeDistance-class.html">TimeDistance</a></span>
+  
+
+</dt>
+<dd>
+  Distance and time to the next turn from this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="traveledTimeDistance" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/traveledTimeDistance.html">traveledTimeDistance</a></span>
+  <span class="signature">&#8594; <a href="../core/TimeDistance-class.html">TimeDistance</a></span>
+  
+
+</dt>
+<dd>
+  Distance/time metrics already traveled up to this instruction.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="turnDetails" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/turnDetails.html">turnDetails</a></span>
+  <span class="signature">&#8594; <a href="../core/TurnDetails-class.html">TurnDetails</a></span>
+  
+
+</dt>
+<dd>
+  Detailed information describing the upcoming turn.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="turnImg" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/turnImg.html">turnImg</a></span>
+  <span class="signature">&#8594; <a href="../core/Img-class.html">Img</a></span>
+  
+
+</dt>
+<dd>
+  Vector image representation of the turn symbol as an <a href="../core/Img-class.html">Img</a>.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="turnInstruction" class="property">
+  <span class="name"><a href="../core/RouteInstructionBase/turnInstruction.html">turnInstruction</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  Localized textual instruction for the turn.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="dispose" class="callable inherited">
+  <span class="name"><a href="../core/RouteInstructionBase/dispose.html">dispose</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Disposes the native object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="getRealisticNextTurnImage" class="callable">
+  <span class="name"><a href="../core/RouteInstructionBase/getRealisticNextTurnImage.html">getRealisticNextTurnImage</a></span><span class="signature">(<wbr>{<span class="parameter" id="getRealisticNextTurnImage-param-size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a>?</span> <span class="parameter-name">size</span>, </span><span class="parameter" id="getRealisticNextTurnImage-param-format"><span class="type-annotation"><a href="../core/ImageFileFormat.html">ImageFileFormat</a>?</span> <span class="parameter-name">format</span>, </span><span class="parameter" id="getRealisticNextTurnImage-param-renderSettings"><span class="type-annotation"><a href="../core/AbstractGeometryImageRenderSettings-class.html">AbstractGeometryImageRenderSettings</a></span> <span class="parameter-name">renderSettings</span> = <span class="default-value">const AbstractGeometryImageRenderSettings()</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a>?</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Retrieve a rasterized image for the realistic next-turn rendering.
+  
+
+</dd>
+
+        <dt id="getRoadInfoImage" class="callable">
+  <span class="name"><a href="../core/RouteInstructionBase/getRoadInfoImage.html">getRoadInfoImage</a></span><span class="signature">(<wbr>{<span class="parameter" id="getRoadInfoImage-param-size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a>?</span> <span class="parameter-name">size</span>, </span><span class="parameter" id="getRoadInfoImage-param-format"><span class="type-annotation"><a href="../core/ImageFileFormat.html">ImageFileFormat</a>?</span> <span class="parameter-name">format</span>, </span><span class="parameter" id="getRoadInfoImage-param-backgroundColor"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Color-class.html">Color</a></span> <span class="parameter-name">backgroundColor</span> = <span class="default-value">Colors.transparent</span>, </span><span class="parameter" id="getRoadInfoImage-param-allowResize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">allowResize</span> = <span class="default-value">false</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a>?</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Retrieve a raster image representing the road information (e.g., shield or icon).
+  
+
+</dd>
+
+        <dt id="getTurnImage" class="callable">
+  <span class="name"><a href="../core/RouteInstructionBase/getTurnImage.html">getTurnImage</a></span><span class="signature">(<wbr>{<span class="parameter" id="getTurnImage-param-size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Size-class.html">Size</a>?</span> <span class="parameter-name">size</span>, </span><span class="parameter" id="getTurnImage-param-format"><span class="type-annotation"><a href="../core/ImageFileFormat.html">ImageFileFormat</a>?</span> <span class="parameter-name">format</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a>?</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Retrieve a raster image representing the turn symbol.
+  
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="registerAutoReleaseObject" class="callable inherited">
+  <span class="name"><a href="../core/RouteInstructionBase/registerAutoReleaseObject.html">registerAutoReleaseObject</a></span><span class="signature">(<wbr><span class="parameter" id="registerAutoReleaseObject-param-pointerId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pointerId</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Registers an object for auto release.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../core/">core</a></li>
+    <li class="self-crumb">RouteInstructionBase class</li>
+</ol>
+
+    <h5>core library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.3
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

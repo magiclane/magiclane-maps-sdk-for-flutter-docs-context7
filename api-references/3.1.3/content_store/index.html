@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="content_store library API docs, for the Dart programming language.">
+  <title>content_store library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">content_store.dart</li>
+  </ol>
+  <div class="self-name">content_store</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar=""
+    data-below-sidebar="content_store&#47;content_store-library-sidebar.html">
+  
+    <div>
+      
+
+      <h1>
+        <span class="kind-library">content_store</span>
+        library 
+ 
+
+      </h1>
+    </div>
+
+    
+<section class="desc markdown">
+  <h1 id="content-store">Content Store</h1>
+<p>Provides access to the content store, enabling management, querying, and updating of downloadable content.
+This library covers the APIs for interacting with the GEM SDK's content store, including listing, updating,
+and tracking the status of downloadable content items.</p>
+<h2 id="main-features">Main features</h2>
+<ul>
+<li><a href="../content_store/ContentStore-class.html">ContentStore</a> – Abstract class for accessing and managing the content store (singleton-like API).</li>
+<li><a href="../content_store/ContentStoreItem-class.html">ContentStoreItem</a> – Represents an individual downloadable content item, with metadata and operations.</li>
+<li><a href="../content_store/ContentStoreItemStatus.html">ContentStoreItemStatus</a> – Enum of possible states for a content item (e.g., unavailable, completed, paused).</li>
+<li><a href="../content_store/ContentType.html">ContentType</a> – Enum of supported content types (e.g., maps, voices, car models).</li>
+<li><a href="../content_store/ContentUpdater-class.html">ContentUpdater</a> – Class for updating content items, with progress and error handling.</li>
+<li><a href="../content_store/ContentUpdaterStatus.html">ContentUpdaterStatus</a> – Enum of possible statuses for content update operations (e.g., idle, downloading, ready).</li>
+</ul>
+<h2 id="more-details">More details</h2>
+<ul>
+<li>See the <a href="https://developer.magiclane.com/docs/flutter/guides/category/offline">Offline documentation</a> for more information.</li>
+</ul>
+</section>
+
+
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+      <dl>
+          <dt id="ContentStore">
+  <span class="name "><a href="../content_store/ContentStore-class.html">ContentStore</a></span> 
+    <span class="category content cp-4 linked" title="This is part of the Content topic."><a href="../topics/Content-topic.html">Content</a></span>
+
+</dt>
+<dd>
+  Access and manage downloadable content provided by the content store.
+</dd>
+
+          <dt id="ContentStoreItem">
+  <span class="name "><a href="../content_store/ContentStoreItem-class.html">ContentStoreItem</a></span> 
+    <span class="category content cp-4 linked" title="This is part of the Content topic."><a href="../topics/Content-topic.html">Content</a></span>
+
+</dt>
+<dd>
+  A single downloadable content product managed by the <a href="../content_store/ContentStore-class.html">ContentStore</a>.
+</dd>
+
+          <dt id="ContentUpdater">
+  <span class="name "><a href="../content_store/ContentUpdater-class.html">ContentUpdater</a></span> 
+    <span class="category content cp-4 linked" title="This is part of the Content topic."><a href="../topics/Content-topic.html">Content</a></span>
+
+</dt>
+<dd>
+  Manages and applies updates for downloaded content in the content store.
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="enums">
+      <h2>Enums</h2>
+      <dl>
+          <dt id="ContentDownloadThreadPriority">
+  <span class="name "><a href="../content_store/ContentDownloadThreadPriority.html">ContentDownloadThreadPriority</a></span> 
+    <span class="category content cp-4 linked" title="This is part of the Content topic."><a href="../topics/Content-topic.html">Content</a></span>
+
+</dt>
+<dd>
+  Enumerates the priority levels for content download threads.
+</dd>
+
+          <dt id="ContentStoreItemStatus">
+  <span class="name "><a href="../content_store/ContentStoreItemStatus.html">ContentStoreItemStatus</a></span> 
+    <span class="category content cp-4 linked" title="This is part of the Content topic."><a href="../topics/Content-topic.html">Content</a></span>
+
+</dt>
+<dd>
+  Enumerates possible states for a <a href="../content_store/ContentStoreItem-class.html">ContentStoreItem</a> in the context of a download operation.
+</dd>
+
+          <dt id="ContentType">
+  <span class="name "><a href="../content_store/ContentType.html">ContentType</a></span> 
+    <span class="category content cp-4 linked" title="This is part of the Content topic."><a href="../topics/Content-topic.html">Content</a></span>
+
+</dt>
+<dd>
+  Downloadable content types managed by the Magic Lane SDK.
+</dd>
+
+          <dt id="ContentUpdaterStatus">
+  <span class="name "><a href="../content_store/ContentUpdaterStatus.html">ContentUpdaterStatus</a></span> 
+    <span class="category content cp-4 linked" title="This is part of the Content topic."><a href="../topics/Content-topic.html">Content</a></span>
+
+</dt>
+<dd>
+  Enumerates the possible statuses for a content updater operation.
+</dd>
+
+          <dt id="DataSavePolicy">
+  <span class="name "><a href="../content_store/DataSavePolicy.html">DataSavePolicy</a></span> 
+    <span class="category content cp-4 linked" title="This is part of the Content topic."><a href="../topics/Content-topic.html">Content</a></span>
+
+</dt>
+<dd>
+  Enumerates the data save policies for content downloads.
+</dd>
+
+      </dl>
+    </section>
+
+
+
+
+
+
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">content_store.dart</li>
+</ol>
+
+    <h5><span class="package-name">magiclane_maps_flutter</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/Core-topic.html">Core</a></li>
+        <li><a href="../topics/Routes & Navigation-topic.html">Routes&nbsp;&&nbsp;Navigation</a></li>
+        <li><a href="../topics/Places-topic.html">Places</a></li>
+        <li><a href="../topics/Weather-topic.html">Weather</a></li>
+        <li><a href="../topics/Content-topic.html">Content</a></li>
+        <li><a href="../topics/Sensor Data Source-topic.html">Sensor&nbsp;Data&nbsp;Source</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../content_store/">content_store</a></li>
+      <li><a href="../core/">core</a></li>
+      <li><a href="../driver_behaviour/">driver_behaviour</a></li>
+      <li><a href="../landmark_store/">landmark_store</a></li>
+      <li><a href="../map/">map</a></li>
+      <li><a href="../navigation/">navigation</a></li>
+      <li><a href="../position/">position</a></li>
+      <li><a href="../projections/">projections</a></li>
+      <li><a href="../routing/">routing</a></li>
+      <li><a href="../search/">search</a></li>
+      <li><a href="../sense/">sense</a></li>
+      <li><a href="../weather/">weather</a></li>
+</ol>
+
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <h5>content_store library</h5>
+  </div><!--/sidebar-offcanvas-right-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.3
+  </span>
+  <span> | Copyright (C) 1995-2025 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

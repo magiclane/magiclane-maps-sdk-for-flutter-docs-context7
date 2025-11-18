@@ -5,7 +5,7 @@ title: Get Started Search
 
 # Getting started with Search
 
-The Maps SDK for Flutter provides a flexible and robust search functionality, allowing the search of locations using text queries and coordinates:
+The Maps SDK for Flutter provides flexible and robust search functionality, allowing searching for locations using text queries and coordinates:
 
 - Text Search: Perform searches using a text query and geographic coordinates to prioritize results within a specific area.
 
@@ -149,35 +149,38 @@ As seen in the previous example, before searching we need to specify some `Searc
 ### Search by category
 
 The Maps SDK for Flutter allows the user to filter results based on the category.
-Some predefined categories are available and can be accessed using `GenericCategories.categories`.
 
-In the following example, we perform a search for a text query, limiting the results to the first two categories (e.g., gas stations and parking):
+Use the `GenericCategories.getCategory` static method to get a specific category by its identifier.
+The predefined categories ids are available in the `GenericCategoriesId` enum.
+
+In the following example, we perform a search, limiting the results to the "Food & Drink" and "Entertainment" categories.
 ```dart
-const textFilter = "Paris";
 final coords = Coordinates(latitude: 45, longitude: 10);
 final preferences = SearchPreferences(
   maxMatches: 40,
   allowFuzzyResults: true,
-  searchMapPOIs: true,
+  // Without the following line, other unrelated results that represent addresses may also be returned
   searchAddresses: false,
+  // Without the following line, other unrelated results that represent POIs may also be returned
+  searchMapPOIs: false,
 );
 
-final categories = GenericCategories.categories;
-final firstCategory = categories[0];
-final secondCategory = categories[1];
+final LandmarkCategory foodAndDrinkCategory = GenericCategories.getCategory(GenericCategoriesId.foodAndDrink.id)!;
+final LandmarkCategory entertainmentCategory = GenericCategories.getCategory(GenericCategoriesId.entertainment.id)!;
 
-preferences.landmarks.addStoreCategoryId(
-  firstCategory.landmarkStoreId,
-  firstCategory.id,
+final GemError error1 =
+    preferences.landmarks.addStoreCategoryId(
+  foodAndDrinkCategory.landmarkStoreId,
+  foodAndDrinkCategory.id,
 );
-preferences.landmarks.addStoreCategoryId(
-  secondCategory.landmarkStoreId,
-  secondCategory.id,
+final GemError error2 =
+    preferences.landmarks.addStoreCategoryId(
+  entertainmentCategory.landmarkStoreId,
+  entertainmentCategory.id,
 );
 
 TaskHandler? taskHandler = SearchService.searchAroundPosition(
   coords,
-  textFilter: textFilter,
   preferences: preferences,
   (err, results) async {
     if (err == GemError.success) {
@@ -193,7 +196,17 @@ TaskHandler? taskHandler = SearchService.searchAroundPosition(
 );
 ```
 
-Set the `searchAddresses` to false in order to filter non-relevant results.
+Set the `searchAddresses` and `searchMapPOIs` to `false` in order to filter non-relevant results.
+
+The complete list of predefined categories are available and can be accessed using the static `GenericCategories.categories` getter which returns a `List<LandmarkCategory>` collection.
+
+The `addStoreCategoryId` method returns a `GemError` value that can have the following values:
+
+- `GemError.success`: the category was added successfully.
+
+- `GemError.notFound`: the specified category or landmark store does not exist.
+
+The modified `SearchPreferences` with custom categories can be used in all search methods. 
 
 ### Search on custom landmarks
 
@@ -244,7 +257,7 @@ SearchService.search(
 
 The landmark store **retains** the landmarks added to it across sessions, until the app is **uninstalled**. This means a previously created landmark store with the same name might already exist in persistent storage and may contain pre-existing landmarks. For more details, refer to the [documentation on LandmarkStore](/guides/core/landmarks#landmark-stores).
 
-Set the `searchAddresses` and `searchMapPOIs` to false in order to filter non-relevant results.
+Set the `searchAddresses` and `searchMapPOIs` to `false` in order to filter non-relevant results.
 
 ### Search on overlays
 
@@ -282,10 +295,15 @@ TaskHandler? taskHandler = SearchService.search(
 );
 ```
 
-In order to convert the returned `Landmark` to a `OverlayItem` use the `overlayItem` getter of the `Landmark` class.
-This methods returns the associated `OverlayItem` if available, null otherwise.
+To convert the returned `Landmark` to an `OverlayItem`, use the `overlayItem` getter of the `Landmark` class.
+This method returns the associated `OverlayItem` if available; otherwise, it returns null.
 
 Set the `searchAddresses` and `searchMapPOIs` to false in order to filter non-relevant results.
+
+Overlay search requires the existence of a `GemMap` with a style that includes the overlay being searched.
+
+If the map is not initialized or the overlay is not part of the current map style, the `preferences.overlays.add` operation will fail with a `GemError.notFound` error, and the search will return `GemError.invalidInput` with no results.
+The default map style does include all common overlays.
 
 ## Search for location
 
@@ -318,19 +336,23 @@ TaskHandler? taskHandler = SearchService.searchAroundPosition(
 To limit the search to a specific area, provide a `RectangleGeographicArea` to the optional `locationHint` parameter.
 ```dart
 final coords = Coordinates(latitude: 41.68905, longitude: -72.64296);
+
 //highlight-start
 final searchArea = RectangleGeographicArea(
     topLeft: Coordinates(latitude: 41.98846, longitude: -73.12412),
     bottomRight: Coordinates(latitude: 41.37716, longitude: -72.02342));
 //highlight-end
-SearchService.search('N', coords, (err, result) {
-  successfulSearchCompleter.complete((err, result));
-},
-    preferences: SearchPreferences(maxMatches: 400),
-    //highlight-start
-    locationHint: searchArea,
-    //highlight-end
-    );
+
+SearchService.search('N',
+  coords,
+  (err, result) {
+    successfulSearchCompleter.complete((err, result));
+  },
+  preferences: SearchPreferences(maxMatches: 400),
+  //highlight-start
+  locationHint: searchArea,
+  //highlight-end
+);
 ```
 
 The reference coordinates used for search must be located within the `RectangleGeographicArea` provided to the `locationHint` parameter. Otherwise, the search will return an empty list.
@@ -344,7 +366,7 @@ To zoom to a landmark found via search, we can use ``GemMapController.centerOnCo
 
 ## Change the language of the results
 
-The language of search results and category names is determined by the `SdkSettings.language` setting. Check the [the internationalization guide](/guides/get-started/internationalization) section for more details.
+The language of search results and category names is determined by the `SdkSettings.language` setting. Check the [internationalization guide](/guides/get-started/internationalization) section for more details.
 
 ## Relevant examples demonstrating search related features
 

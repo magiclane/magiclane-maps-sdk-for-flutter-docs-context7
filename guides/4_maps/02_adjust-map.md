@@ -328,6 +328,23 @@ FollowPositionPreferences preferences = mapController.preferences.followPosition
 
 See the [customize follow position settings guide](../positioning/show-your-location-on-the-map#customize-follow-position-settings) for more details.
 
+Do not call methods on disposed `GemMapController` instances as it may lead to exceptions.
+If the `GemMap` widget is removed from the widget tree, ensure to avoid invoking any methods on its associated `GemMapController` or on the associated entities such as:
+
+- `MapViewPreferences`
+
+- `MapViewRoutesCollection`
+
+- `MapViewPathCollection`
+
+- `LandmarkStoreCollection`
+
+- `FollowPositionPreferences`
+
+- `MapViewExtensions`
+
+- `MapViewMarkerCollections`
+
 ## Relevant examples demonstrating map related features
 
 - [Map Compass](/examples/maps-3dscene/map-compass)

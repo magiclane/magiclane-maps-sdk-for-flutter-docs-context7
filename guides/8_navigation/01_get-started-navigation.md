@@ -324,10 +324,16 @@ After stopping the simulation the data source used in the position service is se
 The `exportAs` method serializes the current **navigation instruction** into a `Uint8List` data buffer.  
 For now, the only supported format is `PathFileFormat.packedGeometry`. 
 ```dart
-  final Uint8List bytes = instruction.exportAs(fileFormat: PathFileFormat.packedGeometry);
+final Uint8List bytes = instruction.exportAs(fileFormat: PathFileFormat.packedGeometry);
 ```
 
-`exportAs` only works with **`PathFileFormat.packedGeometry`**. Passing any other value will return an empty Uint8List. 
+`exportAs` only works with **`PathFileFormat.packedGeometry`**. Passing any other value will return an empty `Uint8List`. 
+
+## Navigation in background
+
+In order to use the navigation features while the app is in the background, additional setup is required for both iOS and Android platforms.
+
+Please refer to the [Background Location guide](../positioning/background-location) for detailed instructions on how to configure your app for background location updates on both iOS and Android.
 
 ## Relevant examples demonstrating navigation related features
 

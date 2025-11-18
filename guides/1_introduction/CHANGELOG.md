@@ -18,6 +18,70 @@ Legacy map formats will remain available until April 2027. However, the `registe
 
 Due to improvements of our SDK and map data, we kindly ask you to update your applications and projects with any SDK revision released starting with October 2024 in order to continue using the online Magic Lane map-related services and to continue receiving map updates.
 
+## [3.1.3] - 2025-11-13
+
+### Added
+
+- `ExternalImageQuality`, `AudioStreamType`, `EVChargingConnector`, `AudioCategory`, `RangeType` enums
+
+- `SoundSessionRequestPreferences`, `SoundPlayingPreferences`, `TtsLocalizationService`, `LocalizationService`, `Metrics`, `LogMark`, `RoundTripParameters`, `LocalizationStringIds` classes
+
+- `clearRouteInstruction` method to the `GemMapController` class
+
+- `applicationVersion` property to the `SdkSettings` class
+
+- `setProgressListener` method and `progressListener` property to the `ContentStoreItem` class
+
+- `clearRouteInstruction` method to the `GemView` class
+
+- `requestWikiImage` methods to the `ExternalInfo` class
+
+- `activeDurationMillis` getter to the `LogMetadata` class
+
+- `getSoundPlayingPreferences`, `setSoundPlayingPreferences` methods and `audioLowLatencyOutputFrameSize`, `nativeOutputSampleRate`, `ttsDefaultLanguage`, `soundSessionRequestPreferences` properties to the `SoundPlayingService` class
+
+- `registerOnInterruptionStarted`, `registerOnInterruptionEnded` methods and `isInterrupted` getter to the `SoundPlayingListener` class
+
+- `roundTripRange`, `roundTripRangeType`, `roundTripRandomSeed`, `roundTripParameters`, `isTrackResume` properties to the `RoutePreferences` class
+
+- `getReportSnapshot` method to the `SocialOverlay` class
+
+- `setTrackDataDepartureAndDestination`, `reverseTrackData` methods and `trackData`, `hasTrackData` properties to the `Landmark` class
+
+### Changed
+
+- `setSdkVersion` method from the `SdkSettings` class was deprecated and replaced with the `setApplicationVersion` method
+
+- `image` getter from `OverlayItem` class was deprecated and replaced with the `getImage` method
+
+- the return type of the `getNavigationRoute` method from the `NavigationService` class changed from `Route` to `Route?`
+
+- the `part` optional parameter from the `update` and `setCoordinates` methods from the `Marker` class has changed type from `int?` to `int`. The default value is now `0` instead of `null`
+
+- the camera now has a back into bounds animation when the `zoomLevel` is outside the allowed bounds
+
+- the `SoundMark` and `TextMark` now implement the newly added `LogMark` interface
+
+- the `LogMetrics` and `RecordMetrics` now implement the newly added `Metrics` interface
+
+- some members were made internal and others were deprecated
+
+- some classes were moved to new files to improve project structure
+
+### Fixed
+
+- `reset` method from the `TilesCollectionGeographicArea` now works as expected
+
+- `update` method from the `RouteBookmarks` class no longer resets the `RoutePreferences` when optional parameter is not passed.
+
+- `createStampUtc` getter from the `SafetyParameters` and `PublicTransportParameters` now has the correct value
+
+- operations on the `SoundPlayingService` now set the correct API error level in `ApiErrorService`
+
+- fix for some crashes on Android x32 regarding image retrieval
+
+- the SDK now receives the correct network type on Android
+
 ## [3.1.2] - 2025-10-17
 
 ### Added

@@ -197,4 +197,4 @@ Calling the `trackedPositions` getter **after** the `stopTrackPositions` is call
 
 - [Record NMEA](/examples/routing-navigation/record-nmea)
 
-- [Recorder in Background](/examples/routing-navigation/background-location)
+- [Recorder in Background](/examples/routing-navigation/background-recorder-with-foreground-service)

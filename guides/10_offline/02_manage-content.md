@@ -307,6 +307,11 @@ Not all overlay types support offline functionality (eg. Alerts or Public Transi
 
 You can check if the overlay data grabber has been enabled for a specific overlay using the `isOverlayOfflineDataGrabberEnabled` method. Keeping the grabber enabled will make the grabber to automatically start downloading overlay data when a new map region is downloaded or updated. This enables the user to have the latest offline overlay data available.
 
+## Download or update content in background
+
+To enable content updates and downloads while the app runs in the background, additional setup is required on both iOS and Android.
+Please configure your app to support foreground services to ensure these features work properly in the background.
+
 ## Relevant examples demonstrating content related features
 
 - [Offline Routing](/examples/routing-navigation/offline-routing)

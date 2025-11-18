@@ -36,12 +36,16 @@ final coordinates = Coordinates.fromLatLong(48.858844, 2.294351);
 ### Distance between coordinates
 
 To calculate the distance between two coordinates the `distance` method can be used. This method provides the distance between two coordinates in meters. It also takes into account the altitude if both coordinates have a value for this field.
+
+This method computes the Haversine distance, the shortest path over the Earth’s surface, and returns the result in meters.
 ```dart
 final coordinates1 = Coordinates(latitude: 48.858844, longitude: 2.294351);
 final coordinates2 = Coordinates(latitude: 48.854520, longitude: 2.299751);
 
 double distance = coordinates1.distance(coordinates2);
 ```
+
+The result represents the great-circle distance between the two geographic points and is different from the route distance that would be traveled along roads.
 
 ### Copy with meters offset
 
@@ -52,6 +56,12 @@ final coordinates2 = coordinates1.copyWithMetersOffset(metersLatitude: 5, meters
 ```
 
 The `copyWithMetersOffset` and `distance` methods may exhibit slight inaccuracies.
+
+Coordinates should not be compared using direct equality checks, as minor variations in floating-point precision can lead to inconsistent results.
+
+For example, a coordinate specified as **(48.858395, 2.294469)** may differ slightly from a stored value such as **(48.858394583109785, 2.294469162581987)** due to rounding or internal representation differences. These discrepancies are inherent to floating-point arithmetic and do not indicate a meaningful positional difference.
+
+To ensure reliable comparisons, coordinates should be evaluated using a small numerical tolerance (epsilon) rather than strict equality, preventing false negatives when identifying identical or near-identical geographic locations.
 
 ## Path
 

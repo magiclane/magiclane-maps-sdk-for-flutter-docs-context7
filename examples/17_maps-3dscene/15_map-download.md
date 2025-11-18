@@ -143,7 +143,7 @@ class _MapsItemState extends State<MapsItem> {
   void initState() {
     super.initState();
 
-    restartDownloadIfNecessary(mapItem, _onMapDownloadFinished, onProgress: _onMapDownloadProgressUpdated);
+    mapItem.setProgressListener(_onMapDownloadFinished, _onMapDownloadProgressUpdated);
   }
 
   @override
@@ -266,44 +266,6 @@ Uint8List? getImage(ContentStoreItem contentItem) {
   if (img == null) return null;
   if (!img.isValid) return null;
   return img.getRenderableImageBytes(size: Size(100, 100));
-}
-
-void restartDownloadIfNecessary(
-  ContentStoreItem contentItem,
-  void Function(GemError err) onCompleteCallback, {
-  void Function(int progress)? onProgress,
-}) {
-  //If the map is downloading pause and start downloading again
-  //so the progress indicator updates value from callback
-  if (getIsDownloadingOrWaiting(contentItem)) {
-    _pauseAndRestartDownload(contentItem, onCompleteCallback, onProgress: onProgress);
-  }
-}
-
-void _pauseAndRestartDownload(
-  ContentStoreItem contentItem,
-
-  void Function(GemError err) onCompleteCallback, {
-  void Function(int progress)? onProgress,
-}) {
-  final errCode = contentItem.pauseDownload(
-    onComplete: (err) {
-      if (err == GemError.success) {
-        // Download the map.
-        contentItem.asyncDownload(
-          onCompleteCallback,
-          onProgress: onProgress,
-          allowChargedNetworks: true,
-        );
-      } else {
-        print("Download pause for item ${contentItem.id} failed with code $err");
-      }
-    },
-  );
-
-  if (errCode != GemError.success) {
-    print("Download pause for item ${contentItem.id}  failed with code $errCode");
-  }
 }
 
 // Method to load the maps

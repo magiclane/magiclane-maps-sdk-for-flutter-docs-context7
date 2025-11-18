@@ -293,17 +293,17 @@ Here’s an example of how to access and use this information, focusing on some 
     <td>SignpostDetails</td>
     <td>Get extended signpost details.</td>
   </tr>
-      <tr>
+    <tr>
     <td>roadInfoImg</td>
     <td>RoadInfoImg</td>
-    <td>Get customizable road image. The user is resposible to check if the image is valid.</td>
+    <td>Get customizable road image. The user is responsible to check if the image is valid.</td>
   </tr>
-      <tr>
+    <tr>
     <td>turnImg</td>
     <td>Img</td>
-    <td>Get turn image. The user is resposible to check if the image is valid.</td>
+    <td>Get turn image. The user is responsible to check if the image is valid.</td>
   </tr>
-      <tr>
+    <tr>
     <td>realisticNextTurnImg</td>
     <td>AbstractGeometryImg</td>
     <td>Get customizable image for the realistic turn information. The user is resposible to check if the image is valid.</td>

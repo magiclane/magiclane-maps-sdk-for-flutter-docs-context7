@@ -148,6 +148,12 @@ driverBehaviour.eraseAnalysesOlderThan(DateTime.now().subtract(Duration(days: 30
 
 Driver behaviour analysis requires a properly configured DataSource. See the [Positioning guide](positioning/get-started-positioning) to set up your data pipeline. To ensure reliable results, make sure to start and stop the analysis appropriately and avoid frequent interruptions or overlapping sessions.
 
+## Enabling Background Location
+
+In order to use the driver behaviour features while the app is in the background, additional setup is required for both iOS and Android platforms.
+
+Please refer to the [Background Location guide](positioning/background-location) for detailed instructions on how to configure your app for background location updates on both iOS and Android.
+
 ## Relevant example demonstrating driver behavior-related features
 
 - [Driver Behaviour](/docs/flutter/examples/routing-navigation/driver-behaviour)

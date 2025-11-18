@@ -5,7 +5,7 @@ title: Development With Ai
 
 # Development with AI
 
-The Magic Lane SDK for Flutter includes specialized documentation designed for seamless integration with Large Language Models (LLMs) via the [Context7 MCP server](https://context7.com/magiclane-international/maps-sdk-for-flutter-docs-context7). This setup provides LLM-powered tools, such as GitHub Copilot, with direct access to SDK context and documentation, enabling developers to build AI-powered applications more efficiently.
+The Magic Lane SDK for Flutter includes specialized documentation designed for seamless integration with Large Language Models (LLMs) via the [Context7 MCP server](https://context7.com/magiclane/magiclane-maps-sdk-for-flutter-docs-context7). This setup provides LLM-powered tools, such as GitHub Copilot, with direct access to SDK context and documentation, enabling developers to build AI-powered applications more efficiently.
 
 This guide demonstrates how to use the Magic Lane SDK with GitHub Copilot in Visual Studio Code to streamline development and enhance productivity.
 
@@ -28,7 +28,7 @@ Ensure that the chat is set to **Agent mode**. Your first prompt should include 
 Always use context7 for each request. Do never assume the name of classes or methods.
 Use multiple requests to context7 if required.
 Check the classes or methods.
-Use just the Magic Lane Maps SDK for Flutter Documentation docs https://context7.com/magiclane-international/maps-sdk-for-flutter-docs-context7.
+Use the Magic Lane Maps SDK for Flutter Documentation docs: https://context7.com/magiclane/magiclane-maps-sdk-for-flutter-docs-context7
 
 [ENTER WHAT YOU NEED TO DO HERE]
 ```

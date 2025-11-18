@@ -54,11 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[900],
-        title: const Text('Assets Map Style', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Assets Map Style',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           if (!_isStyleLoaded)
             IconButton(
-              onPressed: _applyStyle,
+              onPressed: () => _applyStyle(),
               icon: Icon(Icons.map, color: Colors.white),
             ),
         ],
@@ -86,9 +89,13 @@ Future<void> _applyStyle() async {
   _showSnackBar(context, message: "The map style is loading.");
 
   await Future<void>.delayed(Duration(milliseconds: 250));
+
   final styleData = await _loadStyle();
 
-  _mapController.preferences.setMapStyleByBuffer(styleData, smoothTransition: true);
+  _mapController.preferences.setMapStyleByBuffer(
+    styleData,
+    smoothTransition: true,
+  );
 
   setState(() {
     _isStyleLoaded = true;
@@ -97,7 +104,11 @@ Future<void> _applyStyle() async {
   if (mounted) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
-  _mapController.centerOnCoordinates(Coordinates(latitude: 45, longitude: 20), zoomLevel: 25);
+
+  _mapController.centerOnCoordinates(
+    Coordinates(latitude: 45, longitude: 20),
+    zoomLevel: 25,
+  );
 }
 ```
 
