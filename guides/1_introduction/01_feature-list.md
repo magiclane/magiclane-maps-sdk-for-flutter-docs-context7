@@ -1,11 +1,11 @@
 ---
-description: Documentation for Feature List
+description: The Maps SDK for Flutter offers a powerful and comprehensive set of features
+  that enable developers to integrate seamless mapping and navigation experiences
+  into their applications
 title: Feature List
 ---
 
 # Feature list
-
-Current version: <strong>3.1.3</strong>, [View Release Notes](CHANGELOG)
 
 The Maps SDK for Flutter offers a powerful and comprehensive set of features that enable developers to integrate seamless mapping and navigation experiences into their applications. With a unique combination of capabilities, Magic Lane has turned the vision of advanced navigation into a reality:
 

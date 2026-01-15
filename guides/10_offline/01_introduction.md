@@ -5,43 +5,47 @@ title: Introduction
 
 # Introduction
 
-The Maps SDK for Flutter provides extensive offline functionality through its map download capabilities. Users can search for landmarks, calculate and navigate routes, and explore the map without requiring an active internet connection.
+The Maps SDK for Flutter provides offline functionality through map download capabilities.
 
-However, certain features, such as overlays, live traffic information and other online-dependent services, are unavailable in offline mode.
+Download maps for entire countries or specific regions to enable offline access. Users can search for landmarks, calculate routes, navigate, and explore maps without an internet connection.
 
-The SDK empowers users to download maps for entire countries or specific regions directly to their devices, enabling seamless offline access to essential features. Additionally, it allows users to update their downloaded maps, ensuring they always have access to the latest data and improvements for offline use.
+Overlays, live traffic information, and other online-dependent services are unavailable in offline mode.
 
-The SDK is designed to update downloaded maps automatically by default, ensuring users always have access to the latest data. New map versions are typically released every few weeks globally, providing regular enhancements and improvements.
+The SDK updates downloaded maps automatically by default. New map versions are released every few weeks globally, providing regular enhancements and improvements.
 
-Additionally, the SDK allows for user notifications about available updates, keeping them informed and in control. Developers can configure update preferences, such as restricting updates or downloads to Wi-Fi connections only, or permitting them over cellular data, offering flexibility based on user needs and network conditions.
+You can configure update preferences to restrict downloads to Wi-Fi connections only or permit cellular data usage. The SDK can also notify users about available updates.
 
-## SDK Features available offline
+## Offline feature availability
 
-### Core Entities
+### Core entities
 
-| Entity       | Offline Availability                                                                                                           |
+| Entity       | Offline availability                                                                                                           |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------|
-| [Base entities](../core/base-entities) | Fully operational in offline use cases, as they do not require an active internet connection.                      |
-| [Position](../core/positions)          | Partially available. Raw position data is always accessible, but map-matched position data is only available if the relevant region has been previously downloaded or cached. |
-| [Landmarks](../core/landmarks)         | Fully available in offline mode.                                                                                     |
-| [Markers](../core/markers)             | Fully available in offline mode.                                                                                     |
-| [Overlays](../core/overlays)           | Not available in offline mode.                                                                                       |
-| [Routes](../core/routes)               | Partially available. The `trafficEvents` getter will return an empty list when there is no internet connection.       |
-| [Navigation](../core/navigation-instructions) | Fully available in offline mode if navigation is started on an offline-calculated route.                              |
+| [Base entities](../core/base-entities) | ✓ Fully operational                      |
+| [Position](../core/positions)          | ⚠️ Partial - Raw position data is always accessible, but map-matched position data requires downloaded or cached regions |
+| [Landmarks](../core/landmarks)         | ✓ Fully available                                                                                    |
+| [Markers](../core/markers)             | ✓ Fully available                                                                                     |
+| [Overlays](../core/overlays)           | ✗ Not available                                                                                       |
+| [Routes](../core/routes)               | ⚠️ Partial - The `trafficEvents` getter returns an empty list without internet connection       |
+| [Navigation](../core/navigation-instructions) | ✓ Fully available if navigation starts on an offline-calculated route                             |
 
-Map tiles are automatically cached based on the user's location, camera position, and calculated routes to enhance performance and offline accessibility.
+Map tiles are automatically cached based on your location, camera position, and calculated routes to enhance performance and offline accessibility.
 
-### Map Controller
+### Map controller
 
-The `GemMapController` methods function as expected in offline mode. However, methods that request data from regions that are not covered or cached will return will return empty results (e.g., an empty list or an empty string, depending on the method). For instance, calling `GemMapController.getNearestLocations()` with `Coordinates` outside of covered areas will result in an empty list.
+The `GemMapController` methods function as expected in offline mode. Methods that request data from regions not covered or cached return empty results.
 
-### Map Styling
+**Example:** Calling `GemMapController.getNearestLocations()` with `Coordinates` outside covered areas returns an empty list.
 
-Setting a new map style is supported in offline mode, provided the style has been downloaded beforehand. Note that styles containing extensive data, such as Satellite and Weather styles, may not display meaningful information when offline.
+### Map styling
+
+You can set a new map style in offline mode if the style has been downloaded beforehand.
+
+Styles containing extensive data, such as Satellite and Weather styles, may not display meaningful information when offline.
 
 ### Services
 
-The following services are available offline only within downloaded map regions:
+The following services are available offline within downloaded map regions:
 
 - `RoutingService`
 
@@ -55,17 +59,27 @@ The following services are available offline only within downloaded map regions:
 
 - `PositionService`
 
-The remaining services such as `OverlayService` and `ContentStore` are **not supported** in offline mode.
+The following services are **not supported** in offline mode:
 
-Calling `SearchService.search` with queries outside of downloaded map regions will result in an `GemError.notFound`. Same goes for `RoutingService.calculateRoute`, which will return `GemError.activation`. Other services might return `GemError.connectionRequired`.
+- `OverlayService`
+
+- `ContentStore`
+
+**Error handling:**
+
+- `SearchService.search` with queries outside downloaded regions returns `GemError.notFound`
+
+- `RoutingService.calculateRoute` outside downloaded regions returns `GemError.activation`
+
+- Other services may return `GemError.connectionRequired`
 
 `AlarmService` has limited functionality during offline sessions, as overlay-related features are unavailable.
 
-### Sdk Settings
+### SDK settings
 
-Most fields and methods in `SdkSettings` function independently of the internet connection status, with the exception of authorization-related functionalities. The authorization with `GEM_TOKEN` **requires** an active internet connection. Consequently, you cannot authorize the Maps SDK for Flutter without being online. Invoking `SdkSettings.verifyAppAuthorization` will result in a `GemError.connectionRequired` error through its callback if there is no internet connection.
+Most fields and methods in `SdkSettings` function independently of internet connection status, except authorization-related functionalities.
 
-You can also retrieve certain SDK-related images in offline mode using the `SdkSettings.getImageById()` method, which accesses images stored in the `EngineMisc` enum.
+Authorization with `GEM_TOKEN` requires an active internet connection. You cannot authorize the Maps SDK for Flutter without being online. Invoking `SdkSettings.verifyAppAuthorization` returns `GemError.connectionRequired` if there is no internet connection.
 
 ## Relevant examples demonstrating offline related features
 

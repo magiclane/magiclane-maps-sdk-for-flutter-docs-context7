@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the centerOnCoordinates method from the GemView class, for the Dart programming language.">
+  <title>centerOnCoordinates method - GemView class - map library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../map/">map.dart</a></li>
+    <li><a href="../../map/GemView-class.html">GemView</a></li>
+    <li class="self-crumb">centerOnCoordinates method</li>
+  </ol>
+  <div class="self-name">centerOnCoordinates</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="map&#47;GemView-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">centerOnCoordinates</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype">void</span>
+<span class="name ">centerOnCoordinates</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="centerOnCoordinates-param-coords"><span class="type-annotation"><a href="../../core/Coordinates-class.html">Coordinates</a></span> <span class="parameter-name">coords</span>, {</span></li>
+<li><span class="parameter" id="centerOnCoordinates-param-zoomLevel"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">zoomLevel</span> = <span class="default-value">-1</span>, </span></li>
+<li><span class="parameter" id="centerOnCoordinates-param-screenPosition"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-math/Point-class.html">Point</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span>?</span> <span class="parameter-name">screenPosition</span>, </span></li>
+<li><span class="parameter" id="centerOnCoordinates-param-animation"><span class="type-annotation"><a href="../../map/GemAnimation-class.html">GemAnimation</a>?</span> <span class="parameter-name">animation</span>, </span></li>
+<li><span class="parameter" id="centerOnCoordinates-param-mapAngle"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">mapAngle</span>, </span></li>
+<li><span class="parameter" id="centerOnCoordinates-param-viewAngle"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">viewAngle</span>, </span></li>
+<li><span class="parameter" id="centerOnCoordinates-param-slippyZoomLevel"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">slippyZoomLevel</span> = <span class="default-value">-1.0</span>, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Centers the map view on specified WGS84 geographic coordinates.</p>
+<p>Positions the map so the specified <code>coords</code> appear at the target screen
+location with optional zoom level, rotation, and viewing angle adjustments.
+If no screen position is specified, the coordinates center at the current
+cursor position (defaulting to viewport center).</p>
+<p>The operation can be animated using the <code>animation</code> parameter for smooth
+transitions. Use <a href="../../map/GemView/skipAnimation.html">skipAnimation</a> to immediately complete any ongoing animation.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>coords</code>: The WGS84 coordinates (latitude, longitude, optional altitude) to center on</li>
+<li><code>zoomLevel</code>: Zoom level (higher values = more zoomed in). Use <code>-1</code> for automatic selection based on context. Defaults to <code>-1</code></li>
+<li><code>screenPosition</code>: Target screen position in physical pixels where the coordinates should project, relative to the map view's top-left corner. If <code>null</code>, uses the current cursor position. Defaults to <code>null</code></li>
+<li><code>animation</code>: Animation settings for the centering operation. If <code>null</code>, centering occurs instantly. Defaults to <code>null</code></li>
+<li><code>mapAngle</code>: Map rotation angle in degrees (0-360), where 0 represents north-up alignment. If <code>null</code>, rotation remains unchanged. Defaults to <code>null</code></li>
+<li><code>viewAngle</code>: Camera pitch angle in degrees (0-90), where 0 is top-down view and 90 is horizon view. If <code>null</code>, pitch remains unchanged. Defaults to <code>null</code></li>
+<li><code>slippyZoomLevel</code>: Tile-based zoom level for specific tile system compatibility. Use <code>-1.0</code> for automatic selection. Defaults to <code>-1.0</code></li>
+</ul>
+<h2 id="see-also">See also:</h2>
+<ul>
+<li><a href="../../map/GemView/centerOnArea.html">centerOnArea</a> - Center on a geographic area rectangle</li>
+<li><a href="../../map/GemView/centerOnAreaRect.html">centerOnAreaRect</a> - Center area within a specific screen rectangle</li>
+<li><a href="../../map/GemView/skipAnimation.html">skipAnimation</a> - Stop ongoing animations</li>
+<li><a href="../../map/GemView/transformWgsToScreen.html">transformWgsToScreen</a> - Convert geographic to screen coordinates</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void centerOnCoordinates(
+  final Coordinates coords, {
+  final int zoomLevel = -1,
+  final Point&lt;int&gt;? screenPosition,
+  final GemAnimation? animation,
+  double? mapAngle,
+  double? viewAngle,
+  final double slippyZoomLevel = -1.0,
+}) {
+  if (viewAngle != null &amp;&amp; (viewAngle - viewAngle.toInt() == 0)) {
+    viewAngle -= 0.0000000001;
+  }
+  if (mapAngle != null &amp;&amp; (mapAngle - mapAngle.toInt() == 0)) {
+    mapAngle -= 0.0000000001;
+  }
+  objectMethod(
+    _pointerId,
+    &#39;MapView&#39;,
+    &#39;centerOnCoordinates&#39;,
+    args: &lt;String, Object&gt;{
+      &#39;coords&#39;: coords,
+      &#39;zoomLevel&#39;: zoomLevel,
+      &#39;slippyZoomLevel&#39;: slippyZoomLevel,
+      if (screenPosition != null) &#39;xy&#39;: XyType&lt;int&gt;.fromPoint(screenPosition),
+      if (animation != null) &#39;animation&#39;: animation,
+      if (mapAngle != null) &#39;mapAngle&#39;: mapAngle,
+      if (viewAngle != null) &#39;viewAngle&#39;: viewAngle,
+    },
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../map/">map</a></li>
+    <li><a href="../../map/GemView-class.html">GemView</a></li>
+    <li class="self-crumb">centerOnCoordinates method</li>
+</ol>
+
+    <h5>GemView class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

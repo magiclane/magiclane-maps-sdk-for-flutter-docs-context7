@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="Position topic docs, for the Dart programming language.">
+  <title>Position topic - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Position topic</li>
+  </ol>
+  <div class="self-name">Position</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div id="dartdoc-main-content" class="main-content">
+  <h1><span class="kind-category">Position</span> topic</h1>
+  
+<section class="desc markdown">
+  <p>The Position system delivers reliable device location and enhanced, map-matched positioning for navigation and location-aware features. Obtain raw and improved locations, stream position updates, and replay or simulate recorded traces. Use these building blocks to implement accurate location tracking, speed-aware UI, playback-driven simulations, and robust position-based event handling in production Flutter apps.</p>
+<ul>
+<li><strong><code>GemPosition</code></strong>: The primary representation of a raw location sample provided by the SDK. It models sensor- or provider-sourced coordinates and basic accuracy metrics for direct use in simple location displays, telemetry, or diagnostic workflows. <code>GemPosition</code> is suitable when you need the original, unmodified location reading from the device or external data sources.</li>
+<li><strong><code>GemImprovedPosition</code></strong>: An enriched, map-matched position that extends raw samples with road-aware context such as posted speed limit, road modifiers, address information, and terrain data. <code>GemImprovedPosition</code> is the recommended class because it delivers stabilized coordinates and extra metadata.</li>
+<li><strong><code>PositionService</code></strong>: The central service for accessing current position data and registering listeners for position updates. It provides access to the latest raw and improved positions, manages data source selection (live GPS, playback, or external sources), and returns listener handles for subscription management.</li>
+<li><strong><code>GemPositionListener</code></strong>: The event listener abstraction that receives asynchronous position updates from the PositionService. It is used to subscribe to continuous raw or improved position streams and to implement custom handlers that react to location changes, quality variations, or map-matched events.</li>
+</ul>
+<p>Precise and context-aware positioning is foundational for safe and useful map and navigation experiences. The suite of position classes converts noisy sensor data into actionable, map-matched insights, enabling accurate turn guidance, speed-limit awareness, and event triggers. Prefer using <code>GemImprovedPosition</code> as it provides stabilized coordinates and additional road context.</p>
+<p>Learn more about positioning: <a href="https://developer.magiclane.com/docs/flutter/guides/category/positioning--sensors">https://developer.magiclane.com/docs/flutter/guides/category/positioning--sensors</a></p>
+</section>
+
+
+
+  <section class="summary offset-anchor" id="classes">
+    <h2>Classes</h2>
+    <dl>
+      <dt id="GemImprovedPosition">
+  <span class="name "><a href="../position/GemImprovedPosition-class.html">GemImprovedPosition</a></span> 
+    <span class="category position cp-3 linked" title="This is part of the Position topic."><a href="../topics/Position-topic.html">Position</a></span>
+
+</dt>
+<dd>
+  Enhanced position data with map-matched information and road-specific details.
+</dd>
+
+      <dt id="GemPosition">
+  <span class="name "><a href="../position/GemPosition-class.html">GemPosition</a></span> 
+    <span class="category position cp-3 linked" title="This is part of the Position topic."><a href="../topics/Position-topic.html">Position</a></span>
+
+</dt>
+<dd>
+  Represents raw GPS sensor data including geographical coordinates and movement information.
+</dd>
+
+      <dt id="GemPositionListener">
+  <span class="name "><a href="../sense/GemPositionListener-class.html">GemPositionListener</a></span> 
+    <span class="category position cp-3 linked" title="This is part of the Position topic."><a href="../topics/Position-topic.html">Position</a></span>
+
+</dt>
+<dd>
+  Position update callback interface for real-time location tracking.
+</dd>
+
+      <dt id="PositionService">
+  <span class="name "><a href="../sense/PositionService-class.html">PositionService</a></span> 
+    <span class="category position cp-3 linked" title="This is part of the Position topic."><a href="../topics/Position-topic.html">Position</a></span>
+
+</dt>
+<dd>
+  Provides access to device and custom position data and playback controls.
+</dd>
+
+    </dl>
+  </section>
+
+
+
+
+
+
+  <section class="summary offset-anchor" id="enums">
+    <h2>Enums</h2>
+    <dl>
+      <dt id="Provider">
+  <span class="name "><a href="../position/Provider.html">Provider</a></span> 
+    <span class="category position cp-3 linked" title="This is part of the Position topic."><a href="../topics/Position-topic.html">Position</a></span>
+
+</dt>
+<dd>
+  Represents the source of position data.
+</dd>
+
+    </dl>
+  </section>
+
+
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Position topic</li>
+</ol>
+
+  <h5><span class="package-name">magiclane_maps_flutter</span> <span class="package-kind">package</span></h5>
+  <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/Common-topic.html">Common</a></li>
+        <li><a href="../topics/Geographic-topic.html">Geographic</a></li>
+        <li><a href="../topics/Images-topic.html">Images</a></li>
+        <li><a href="../topics/Position-topic.html">Position</a></li>
+        <li><a href="../topics/Landmark Store-topic.html">Landmark&nbsp;Store</a></li>
+        <li><a href="../topics/Landmarks-topic.html">Landmarks</a></li>
+        <li><a href="../topics/Markers-topic.html">Markers</a></li>
+        <li><a href="../topics/Overlays-topic.html">Overlays</a></li>
+        <li><a href="../topics/Search-topic.html">Search</a></li>
+        <li><a href="../topics/Route-topic.html">Route</a></li>
+        <li><a href="../topics/Routing-topic.html">Routing</a></li>
+        <li><a href="../topics/Navigation-topic.html">Navigation</a></li>
+        <li><a href="../topics/Driver Behaviour-topic.html">Driver&nbsp;Behaviour</a></li>
+        <li><a href="../topics/Traffic & Roadblocks-topic.html">Traffic&nbsp;&&nbsp;Roadblocks</a></li>
+        <li><a href="../topics/Sound-topic.html">Sound</a></li>
+        <li><a href="../topics/Sensor Data Source-topic.html">Sensor&nbsp;Data&nbsp;Source</a></li>
+        <li><a href="../topics/Content-topic.html">Content</a></li>
+        <li><a href="../topics/Alarms-topic.html">Alarms</a></li>
+        <li><a href="../topics/Settings-topic.html">Settings</a></li>
+        <li><a href="../topics/Timezone-topic.html">Timezone</a></li>
+        <li><a href="../topics/Iso Code Conversions-topic.html">Iso&nbsp;Code&nbsp;Conversions</a></li>
+        <li><a href="../topics/Locale-topic.html">Locale</a></li>
+        <li><a href="../topics/Weather-topic.html">Weather</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../content_store/">content_store</a></li>
+      <li><a href="../core/">core</a></li>
+      <li><a href="../driver_behaviour/">driver_behaviour</a></li>
+      <li><a href="../landmark_store/">landmark_store</a></li>
+      <li><a href="../map/">map</a></li>
+      <li><a href="../navigation/">navigation</a></li>
+      <li><a href="../position/">position</a></li>
+      <li><a href="../projections/">projections</a></li>
+      <li><a href="../routing/">routing</a></li>
+      <li><a href="../search/">search</a></li>
+      <li><a href="../sense/">sense</a></li>
+      <li><a href="../weather/">weather</a></li>
+</ol>
+
+</div>
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  <h5>Position topic</h5>
+  <ol>
+
+    <li class="section-title"><a href="../topics/Position-topic.html#classes">Classes</a></li>
+      <li><a href="../position/GemImprovedPosition-class.html">GemImprovedPosition</a></li>
+      <li><a href="../position/GemPosition-class.html">GemPosition</a></li>
+      <li><a href="../sense/GemPositionListener-class.html">GemPositionListener</a></li>
+      <li><a href="../sense/PositionService-class.html">PositionService</a></li>
+
+    <li class="section-title"><a href="../topics/Position-topic.html#enums">Enums</a></li>
+      <li><a href="../position/Provider.html">Provider</a></li>
+
+
+
+
+
+
+
+
+</ol>
+
+</div>
+<!--/sidebar-offcanvas-right-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

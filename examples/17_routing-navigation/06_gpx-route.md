@@ -141,7 +141,7 @@ Future<void> _importGPX() async {
 
     // Process GPX data using your existing method
     final gemPath = Path.create(data: pathData, format: PathFileFormat.gpx);
-    landmarkList = gemPath.toLandmarkList();
+    landmarkList = gemPath.landmarkList;
   } else {
     //Read file from app documents directory
     final docDirectory = await getApplicationDocumentsDirectory();
@@ -158,7 +158,7 @@ Future<void> _importGPX() async {
 
     //Get landmarklist containing all GPX points from file.
     final gemPath = Path.create(data: pathData, format: PathFileFormat.gpx);
-    landmarkList = gemPath.toLandmarkList();
+    landmarkList = gemPath.landmarkList;
   }
 
   print("GPX Landmarklist size: ${landmarkList.length}");

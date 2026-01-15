@@ -5,20 +5,19 @@ title: Overlays
 
 # Overlays
 
-An `Overlay` is an additional map layer, either default or user-defined, with data stored on Magic Lane servers, accessible in **online** and **offline** modes, with few exceptions.
+An `Overlay` is an additional map layer with data stored on Magic Lane servers, accessible in online and offline modes. Overlays can be default or user-defined.
 
-In order to define overlay data, you can use the [Magic Lane Map Studio](https://developer.magiclane.com/documentation/OnlineStudio/guide_creating_a_style.html). It allows uploading data regarding the POIs and their corresponding categories and binary information (via `GeoJSON` format). An `Overlay` can have multiple associated categories and subcategories. A single item from an overlay is called an overlay item.
+Define overlay data using [Magic Lane Map Studio](https://developer.magiclane.com/documentation/OnlineStudio/guide_creating_a_style.html). Upload POI data, categories, and binary information via `GeoJSON` format. Overlays can have multiple categories and subcategories. A single item from an overlay is an overlay item.
 
-If the corresponding map region has been downloaded locally, overlays will not be available in offline mode, except if they are downloaded too. See the [Downloading overlays](/guides/offline/manage-content#downloading-overlays) guide for more details.
-Most overlay features can be used only when a ``GemMap`` widget is created and a style containing the overlay is applied.
+Overlays require downloading to work offline. See [Downloading overlays](/guides/offline/manage-content#download-overlays) for details. Most overlay features require a `GemMap` widget with a style containing the overlay.
+
+---
 
 ## OverlayInfo
 
-`OverlayInfo` is the class that contains information about an overlay.
+The `OverlayInfo` class contains information about an overlay.
 
-### OverlayInfo structure
-
-The class that contains information about an overlay is `OverlayInfo`. It has the following structure:
+### Structure
 
 <table>
   <thead>
@@ -64,15 +63,23 @@ The class that contains information about an overlay is `OverlayInfo`. It has th
 
 ### Usage
 
-The primary function of the `OverlayInfo` class is to provide the categories within an overlay. It also provides the `uid` of the overlay which can be used to filter the results of search and also can be used to toggle the visibility of the overlay on the map. Other fields can be displayed on the UI.
+Use `OverlayInfo` to:
+
+- Access categories within an overlay
+
+- Get the overlay `uid` for filtering search results
+
+- Toggle overlay visibility on the map
+
+- Display overlay information in the UI
+
+---
 
 ## OverlayCategory
 
-The ``OverlayCategory`` class represents hierarchical data related to overlay categories.
+The `OverlayCategory` class represents hierarchical data for overlay categories.
 
-### OverlayCategory structure
-
-The `OverlayCategory` has the following structure:
+### Structure
 
 <table>
   <thead>
@@ -118,15 +125,19 @@ The `OverlayCategory` has the following structure:
 
 ### Usage
 
-The `OverlayCategory` class provides the category `uid`, which can be utilized in various search functionalities to filter results. Additionally, the `uid` can be used to filter and manage overlay items that trigger alerts within the `AlarmService`.
+Use the category `uid` to:
 
-## OverlayItem 
+- Filter search results
 
-An `OverlayItem` represents a single item within an overlay. It contains specific information about that item but also about the overlay it is part of.
+- Filter and manage overlay items that trigger alerts in `AlarmService`
 
-### OverlayItem structure
+---
 
-The `OverlayItem` has the following structure:
+## OverlayItem
+
+An `OverlayItem` represents a single item within an overlay, containing information about the item and its parent overlay.
+
+### Structure
 
 <table>
   <thead>
@@ -200,99 +211,108 @@ The `OverlayItem` has the following structure:
   </tbody>
 </table>
 
-Avoid confusing the uid of `OverlayInfo`, `OverlayCategory`, and `OverlayItem`, as they each serve distinct purposes.
+Don't confuse the `uid` of `OverlayInfo`, `OverlayCategory`, and `OverlayItem`—each serves a distinct purpose.
 
-To check if a `OverlayItem` belongs to a `OverlayInfo`, use the `overlayUid` property, or retrieve the whole `OverlayInfo` object via the `overlayInfo` property.
+Check if an `OverlayItem` belongs to an `OverlayInfo` using the `overlayUid` property, or retrieve the full `OverlayInfo` object via the `overlayInfo` property.
 
-The `categoryId` getter returns the ID of the root category, which may not necessarily be the direct parent category of the `OverlayItem`.
+The `categoryId` getter returns the root category ID, not necessarily the direct parent category.
 
-To obtain the direct parent category, you can use the following snippet:
+Get the direct parent category:
 ```dart
 final int parentCategoryId = overlayItem.previewDataParameterList.findParameter('icon').value as int;
 ```
 
-Use the `getCategory` method from the parent `OverlayInfo` class to retrieve the `OverlayCategory` object corresponding to this ID.
+Use the `getCategory` method from the parent `OverlayInfo` class to retrieve the corresponding `OverlayCategory` object.
 
 ### Usage
 
-``OverlayItems`` can be selected from the map or be provided by the ``AlarmService`` on approach.  Other fields and information can be displayed on the UI.
+Select `OverlayItems` from the map or receive them from `AlarmService` on approach. Display overlay item fields and information in the UI.
 
-## Classification
+---
 
-There are a few types of predefined overlays:
+## Overlay Types
 
-  - Safety overlay
+Predefined overlay types:
 
-  - Public transport overlay
+- Safety overlay
 
-  - Social reports overlay
+- Public transport overlay
 
-The `CommonOverlayId` enum contains information about the ids of the predefined overlay categories. 
+- Social reports overlay
+
+The `CommonOverlayId` enum contains IDs for predefined overlay categories. 
 
 ### Safety Overlay
 
-These overlays represent speed limit cameras, red light controls and so on.
+Safety overlays represent speed limit cameras, red light controls, and similar items.
 
-For a speed limit, ``previewData`` might include information searchable by keys like:
+Speed limit `previewData` includes:
 
-- ``eStrDrivingDirection``: the driving direction on which the overlay item applies as string, eg. "Both Ways"
+- `eStrDrivingDirection` - Driving direction (e.g., "Both Ways")
 
-- ``speedValue``: value of maximum allowed speed as integer, eg. 50
+- `speedValue` - Maximum allowed speed (e.g., 50)
 
-- ``speedUnit``: unit of measurement for speed as string, eg "km/h"
+- `speedUnit` - Speed unit (e.g., "km/h")
 
-- ``Country``: country name where the overlay is reported as string, eg "FRA"
+- `Country` - Country code (e.g., "FRA")
 
 ### Public Transport Overlay
 
-This overlay is responsible for displaying public transport stations.
+This overlay displays public transport stations.
 
-For a bus station, ``previewData`` might include information searchable by keys like:
+Bus station `previewData` includes:
 
-- ``id``: unique overlay id as integer
+- `id` - Unique overlay ID
 
-- ``create_stamp_utc``: unix epoch time when overlay has been created as integer
+- `create_stamp_utc` - Unix epoch creation time
 
-- ``icon``: an array of 8-bit integeres representing icon data as `Uint8List`
+- `icon` - Icon data as `Uint8List`
 
-- ``name``: name of bus station as a string
+- `name` - Bus station name
 
-There are two types of public transport stops available on the map:
+Two types of public transport stops exist:
 
-- Bus station with schedule information, available on the map as overlay items.
+- Bus stations with schedule information (overlay items)
 
-- Bus station without schedule information, available on the map as landmarks.
+- Bus stations without schedule information (landmarks)
 
 ### Social Reports Overlay
 
-This overlay is responsible for displaying fixed cameras, construction sites and more.
+This overlay displays fixed cameras, construction sites, and user-reported events.
 
-For a construction report, ``previewData`` includes information searchable by keys like:
+Construction report `previewData` includes:
 
-- ``longitude``: value for longitude coordinate as double
+- `longitude` - Longitude coordinate
 
-- ``latitude``: value for latitude coordinates as double
+- `latitude` - Latitude coordinate
 
-- ``owner_name``: user's name that reported the event as string
+- `owner_name` - User who reported the event
 
-- ``score``: likes (confirmations) offered by other users
+- `score` - Confirmations from other users
 
-- ``location_address``: address of reported location as string, it contains street, city and country
+- `location_address` - Location address (street, city, country)
 
-The ``SocialOverlay`` static class is responsible for generating, updating, and deleting social reports. It includes several static methods designed to perform these operations efficiently.
+The `SocialOverlay` static class generates, updates, and deletes social reports through static methods.
 
-## Interaction with Overlays
+---
+
+## Work with Overlays
 
 ### OverlayService
 
-The `OverlayService` is a key component for managing overlays in the Maps SDK.
-It provides methods to retrieve, enable, disable, and manage overlay data, both online and offline.
+The `OverlayService` manages overlays in the Maps SDK, providing methods to retrieve, enable, disable, and manage overlay data online and offline.
 
-#### Retrieving overlay info with OverlayService
+#### Retrieve Overlay Information
 
-You can retrieve the list of all available overlays for the current map style using the `getAvailableOverlays` method from the `OverlayService`.
-This method returns a `(OverlayCollection, bool)` tuple. The `OverlayCollection` object contains the available overlays, and the `bool` indicates that some information is not available and will be downloaded when network is available.
-If not all overlay information is available onboard, a notification will be sent when it will be downloaded via a call to the callback provided as a parameter to the `onCompleteDownload` method.
+Retrieve all available overlays for the current map style using `getAvailableOverlays`.
+
+This method returns an `(OverlayCollection, bool)` tuple:
+
+- `OverlayCollection` - Contains available overlays
+
+- `bool` - Indicates if some information is unavailable and will download when network is available
+
+Receive a notification when missing information downloads via the `onCompleteDownload` callback.
 ```dart
 final Completer<GemError> completer = Completer<GemError>();
 final (OverlayCollection, bool) availableOverlays = 
@@ -304,18 +324,17 @@ await completer.future;
 OverlayCollection collection = availableOverlays.$1;
 ```
 
-The `OverlayCollection` class contains methods and getters such as:
+The `OverlayCollection` class provides:
 
-- **size**: returns the size of the collection.
+- `size` - Returns collection size
 
-- **getOverlayAt**: returns the `OverlayInfo` at a specified index and null if it doesn't exist.
+- `getOverlayAt` - Returns `OverlayInfo` at specified index (null if it doesn't exist)
 
-- **getOverlayById**: returns an `OverlayInfo` by a given id.
+- `getOverlayById` - Returns `OverlayInfo` by ID
 
-#### Enabling and disabling overlays
+#### Enable and Disable Overlays
 
-You can enable or disable overlays on the map using the `enableOverlay` and `disableOverlay`  methods from the `OverlayService`.
-Check whether an overlay is enabled or disabled using the `isOverlayEnabled` method.
+Enable or disable overlays using `enableOverlay` and `disableOverlay` methods. Check overlay status with `isOverlayEnabled`.
 ```dart
 final int overlayUid = CommonOverlayId.safety.id;
 
@@ -332,27 +351,31 @@ final bool isEnabled = OverlayService.isOverlayEnabled(overlayUid);
 The `enableOverlay`, `disableOverlay`, and `isOverlayEnabled` methods can also take an optional `categUid` parameter to enable, disable, or check the status of a specific category within an overlay.
 By default, if no category ID is provided, the entire overlay is affected.
 
-### Selecting overlay items
+## Select overlay items
 
-Overlay items are selectable. When user taps or clicks, you can identify specific overlay items programmatically (e.g., through the function `cursorSelectionOverlayItems()`). Please refer to the [Map Selection Functionality](/guides/maps/interact-with-map#map-selection-functionality) guide for more details.
+Overlay items are selectable. Identify specific items programmatically when users tap or click using `cursorSelectionOverlayItems()`. See [Map Selection Functionality](/guides/maps/interact-with-map#select-map-elements) for details.
 
-### Searching overlay items
+### Search Overlay Items
 
-Overlays are searchable. This can be done in multiple ways, the most common being to set the right properties in the search preferences when performing a regular search. More details can be found within the [Get started with Search](/guides/search/get-started-search) guide.
+Overlays are searchable. Set the right properties in search preferences when performing a search. See [Get started with Search](/guides/search/get-started-search) for details.
 
-### Calculating route with overlay items
+### Calculate Routes
 
-Overlay items are **not** designed for route calculation and navigation.
+Overlay items are **not designed for route calculation**.
 
-Create a new landmark using the overlay item's relevant coordinates and a representative name, then utilize this object for routing purposes.
+For routing, create a landmark using the overlay item's coordinates and a representative name.
 
-### Displaying overlay item information
+### Display Overlay Item Information
 
-Overlay items can contain additional information that can be displayed to the user.
-This information can be accessed using the `previewDataParameterList` getter, the `getPreviewParametersAs` method or accessing the `previewUrl` getter that returns a URL that can be opened in a web browser to present more details about the item.
+Overlay items contain additional information for display. Access this information using:
 
-The `previewData` getter which provides more information structured inside a `SearchableParametersList`, information which depend on the overlay type.
-We can iterate through all the parameters (which are of type `GemParameter`) within a `SearchableParameterList` in the following way:
+- `previewDataParameterList` getter
+
+- `getPreviewParametersAs` method
+
+- `previewUrl` getter (returns a URL for more details in a web browser)
+
+The `previewData` getter provides information structured in a `SearchableParametersList`, varying by overlay type. Iterate through parameters (type `GemParameter`):
 ```dart
 SearchableParameterList parameters = overlayItem.previewDataParameterList;
 for (GemParameter param in parameters){
@@ -370,10 +393,9 @@ for (GemParameter param in parameters){
 }
 ```
 
-The `previewData` returned is not available if the parent map tile is disposed.
-Please get the preview data before further interactions with a the map.
+The `previewData` is unavailable if the parent map tile is disposed. Get preview data before further map interactions.
 
-In order to obtain preview data in a more structured way, you can use the `getPreviewParametersAs` getter, which allows you to retrieve the data as a specific class based on the overlay type. Below is an example of how to use it for different overlay types:
+Obtain structured preview data using the `getPreviewParametersAs` getter, which retrieves data as a specific class based on overlay type:
 ```dart
 if (overlayItem.overlayUid == CommonOverlayId.publicTransport.id) {
   PublicTransportParameters? parameters =
@@ -412,13 +434,14 @@ if (overlayItem.overlayUid == CommonOverlayId.socialReports.id) {
 }
 ```
 
-In order to retrieve the image associated with an overlay item, you can use the `img` property of the `OverlayItem` class. 
+Retrieve the image associated with an overlay item using the `img` property.
 
-### Get notifications when approaching overlay items
+### Proximity Alarms
 
-Alarms can be configured to notify users when they approach specific overlay items from selected overlays.
-See the [Landmarks and overlay alarms](/guides/alarms/landmark-and-overlay-alarms) guide for more details about implementing this feature.
+Configure alarms to notify users when approaching specific overlay items. See [Landmarks and overlay alarms](/guides/alarms/landmark-and-overlay-alarms) for implementation details.
 
-### Activate highlights
+### Highlight Overlay Items
 
-Overlay Items can be highlighted using the `activateHighlightOverlayItems` method provided by the `GemMapController` class.
+Highlight overlay items using the `activateHighlightOverlayItems` method from the `GemMapController` class.
+
+---

@@ -5,11 +5,13 @@ title: Get Started
 
 # Get started with maps
 
-The Maps SDK for Flutter delivers powerful mapping capabilities, enabling developers to effortlessly integrate dynamic map views into their applications. Core features include embedding and customizing map views, controlling displayed locations, and fine-tuning map properties. At the center of the mapping API is the `GemMap`, a subclass of `StatefulWidget`, offering a wide range of configurable options.
+Learn how to display a map view and use the `GemMapController` to enable additional map functionalities.
+
+---
 
 ## Display a map
 
-The following code demonstrates how to show a map view. This is the ``main.dart`` file.
+The `GemMap` widget, a subclass of `StatefulWidget`, provides powerful mapping capabilities with a wide range of configurable options. The following code demonstrates how to display a map view in your `main.dart` file:
 ```dart
 import 'package:flutter/material.dart';
 
@@ -69,7 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-The `GemMap` widget includes a callback, ``onMapCreated``, which is triggered once the map has finished initializing. It also provides a ``GemMapController`` to enable additional map functionalities. 
+---
+
+## Use the map controller
+
+The `GemMap` widget includes an `onMapCreated` callback, which is triggered once the map has finished initializing. This callback provides a `GemMapController` to enable additional map functionalities.
 ```dart
 const GemMap(
   appAuthorization: projectApiToken,
@@ -79,9 +85,11 @@ const GemMap(
 ),
 ```
 
-Multiple ``GemMap`` widgets can be instantiated within a single application, allowing for the display of different data on each map. Each ``GemMap`` is independently controlled via its respective ``GemMapController``.
+Multiple `GemMap` widgets can be instantiated within a single application, allowing you to display different data on each map. Each `GemMap` is independently controlled via its respective `GemMapController`.
 
-Note that certain settings, such as language, overlay visibility, and position tracking, are shared across all GemMap instances within the application.
+Certain settings, such as language, overlay visibility, and position tracking, are shared across all `GemMap` instances within the application.
+
+---
 
 ## Relevant examples demonstrating map related features
 

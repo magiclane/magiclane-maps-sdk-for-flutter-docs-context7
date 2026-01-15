@@ -5,30 +5,29 @@ title: Traffic Events
 
 # Traffic Events
 
-The Maps SDK for Flutter provides real-time information about traffic events, such as delays, which can occur in various forms.
+The Maps SDK for Flutter provides real-time information about traffic events such as delays, roadworks, and accidents.
 
-When enabled and supported by the applied map style, traffic events are visually represented on the map as red overlays on affected road segments.
+When enabled and supported by your map style, traffic events appear as red overlays on affected road segments.
 
-Based on the source of the event:
+**Event sources:**
 
-- Most traffic events are provided by the Magic Lane servers if online and provide up-to-date traffic data
+- **Magic Lane servers** - Provide up-to-date traffic data when online
 
-- The user can add custom user-defined roadblocks in order to blacklist certain road segments or areas.
+- **User-defined roadblocks** - Blacklist specific road segments or areas
 
-Based on the impact zone:
+**Impact zones:**
 
-- The traffic event can be a path-based traffic area, following the shape of a road.
+- **Path-based** - Follows the shape of a road
 
-- The traffic event can be an area-based traffic area, including a larger geographic area.
+- **Area-based** - Covers a larger geographic area
 
-The central class for handling both traffic events and roadblocks is `TrafficEvent`. Instances of this class can be obtained either through user interaction with the map (e.g., selecting a road segment) or as part of user-defined roadblock operations.
-For route-specific traffic data, the SDK provides the `RouteTrafficEvent` class, which extends `TrafficEvent` by including detailed information relevant to a specific route. These events are provided by the route.
+The central class for handling traffic events and roadblocks is `TrafficEvent`. You can obtain instances through user interaction with the map or as part of roadblock operations. For route-specific traffic data, use the `RouteTrafficEvent` class, which extends `TrafficEvent` with detailed route information.
 
 Traffic events, including delays and user-defined roadblocks, are fully integrated into the routing and navigation logic. This ensures that calculated routes dynamically account for traffic conditions and any restricted segments.
 
 ## TrafficEvent structure
 
-The `TrafficEvent` class has the following structure:
+The `TrafficEvent` class contains the following members:
 
 | Member                     | Type                         | Description |
 |----------------------------|------------------------------|-------------|
@@ -54,9 +53,11 @@ The `TrafficEvent` class has the following structure:
 | `endTime`                  | `DateTime?`                  | UTC end time of the traffic event, if available. |
 | `hasOppositeSibling`       | `bool`                       | Returns `true` if a sibling event exists in the opposite direction. Relevant for path-based events. |
 
-## RouteTrafficEvent structure
+---
 
-The `RouteTrafficEvent` class extends `TrafficEvent` with the following members:
+## Understand RouteTrafficEvent structure
+
+The `RouteTrafficEvent` class extends `TrafficEvent` with route-specific information:
 
 | Member                      | Type                                | Description |
 |-----------------------------|-------------------------------------|-------------|
@@ -68,24 +69,42 @@ The `RouteTrafficEvent` class extends `TrafficEvent` with the following members:
 | `asyncUpdateToFromData()`   | `void Function(GemError)`           | Asynchronously updates the `from` and `to` landmarks' address and description info from the server. |
 | `cancelUpdate()`            | `void`                              | Cancels the pending async update request for landmark data. |
 
-## Usage
+---
 
-- Used to provide traffic information about a route. See the [Get ETA and Traffic information guide](../routing/get-started-routing#get-eta-and-traffic-information) for more details.
+## Use traffic events
 
-- Used to implement user-defined roadblocks. See the [Get ETA and Traffic information guide](../navigation/roadblocks) for more details.
+Traffic events provide insights into road conditions, delays, and closures:
 
-Traffic events provide insights into road conditions, delays, closures, and more. Some events provided by the `TrafficEventClass` are: 
+- **Route traffic information** - See the [Get ETA and Traffic information guide](../routing/get-started-routing#retrieve-time-and-distance-information)
 
-- trafficRestrictions
+- **User-defined roadblocks** - See the [Roadblocks guide](../navigation/roadblocks)
 
-- roadworks
+### Event classifications
 
-- parking
+The `TrafficEventClass` provides the following event types:
 
-- delays
+- `trafficRestrictions`
 
-- accidents
+- `roadworks`
 
-- roadConditions
+- `parking`
 
-`TrafficEventSeverity` possible values are: stationary, queuing, slowTraffic, possibleDelay, unknown.
+- `delays`
+
+- `accidents`
+
+- `roadConditions`
+
+### Severity levels
+
+The `TrafficEventSeverity` enum includes:
+
+- `stationary`
+
+- `queuing`
+
+- `slowTraffic`
+
+- `possibleDelay`
+
+- `unknown`

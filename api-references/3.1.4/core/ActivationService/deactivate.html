@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the deactivate method from the ActivationService class, for the Dart programming language.">
+  <title>deactivate method - ActivationService class - core library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../core/">core.dart</a></li>
+    <li><a href="../../core/ActivationService-class.html">ActivationService</a></li>
+    <li class="self-crumb">deactivate static method</li>
+  </ol>
+  <div class="self-name">deactivate</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="core&#47;ActivationService-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">deactivate</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="../../core/TaskHandler-class.html">TaskHandler</a>?</span>
+<span class="name ">deactivate</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="deactivate-param-applicationId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">applicationId</span>, </span></li>
+<li><span class="parameter" id="deactivate-param-licenseKey"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">licenseKey</span>, </span></li>
+<li><span class="parameter" id="deactivate-param-productId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">productId</span> = <span class="default-value">ProductID.core</span>, </span></li>
+<li><span class="parameter" id="deactivate-param-onComplete"><span>required</span> <span class="type-annotation">void</span> <span class="parameter-name">onComplete</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-error"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">error</span>, </span></li>
+<li><span class="parameter" id="param-hint"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">hint</span></span></li>
+</ol>), </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Deactivates a product previously activated with a license key.</p>
+<p>Initiates a deactivation request for <code>licenseKey</code> and <code>productId</code>. The
+asynchronous <code>onComplete</code> callback reports the final result and a <code>hint</code>
+string explaining errors or next steps.</p>
+<p>Do not confuse deactivation with deletion of an activation record on the device.
+Deactivation notifies the activation service that the license is no longer
+in use on this device, allowing it to be reactivated elsewhere if the
+license terms permit. Deletion simply removes the activation record locally
+without notifying the activation service.</p>
+<p>After deactivation, the <a href="../../core/ActivationInfo/status.html">ActivationInfo.status</a> of the corresponding activation
+will be updated to reflect the deactivated state.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>applicationId</code>: The application identifier owning the activation.</li>
+<li><code>licenseKey</code>: The license key (UUID v4) to deactivate.</li>
+<li><code>productId</code>: The product identifier to deactivate. Defaults to <a href="../../core/ProductID/core-constant.html">ProductID.core</a>.</li>
+<li><code>onComplete</code>: Callback invoked on completion. The callback receives:
+<ul>
+<li><a href="../../core/GemError.html">GemError.success</a>: Deactivation succeeded.</li>
+<li><a href="../../core/GemError.html">GemError.required</a>: No internet; Try again later or complete the deactivation offline.
+Follow the steps from the manual for manual offline deactivation.</li>
+<li><a href="../../core/GemError.html">GemError.invalidInput</a>: Invalid input; check the hint for details.</li>
+<li><a href="../../core/GemError.html">GemError.io</a>: IO error when accessing license file from disk.</li>
+<li><a href="../../core/GemError.html">GemError.noMemory</a>: Allocation failed on the platform.</li>
+<li><a href="../../core/GemError.html">GemError.networkFailed</a>: Network request failed to start.</li>
+</ul>
+</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<ul>
+<li><a href="../../core/TaskHandler-class.html">TaskHandler</a>: A task handle when the deactivation request started successfully, otherwise <code>null</code>.</li>
+</ul>
+<h2 id="also-see">Also see:</h2>
+<ul>
+<li><a href="../../core/ActivationService/activate.html">activate</a> - Perform activation.</li>
+<li><a href="../../core/ActivationService/getActivationsForProduct.html">getActivationsForProduct</a> - Retrieve activation information.</li>
+<li><a href="../../core/ActivationService/deleteActivation.html">deleteActivation</a> - Deletes an activation record from local storage.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static TaskHandler? deactivate({
+  required final String applicationId,
+  required final String licenseKey,
+  final String productId = ProductID.core,
+  required final void Function(GemError error, String hint) onComplete,
+}) {
+  final EventDrivenProgressListener progListener =
+      EventDrivenProgressListener();
+  GemKitPlatform.instance.registerEventHandler(progListener.id, progListener);
+
+  progListener.registerOnCompleteWithData((
+    final int err,
+    final String hint,
+    final Map&lt;dynamic, dynamic&gt; json,
+  ) {
+    GemKitPlatform.instance.unregisterEventHandler(progListener.id);
+    onComplete(GemErrorExtension.fromCode(err), hint);
+  });
+
+  final OperationResult resultString = staticMethod(
+    &#39;ActivationService&#39;,
+    &#39;deactivate&#39;,
+    args: &lt;String, dynamic&gt;{
+      &#39;applicationId&#39;: applicationId,
+      &#39;licenseKey&#39;: licenseKey,
+      &#39;productId&#39;: productId,
+      &#39;listener&#39;: progListener.id,
+    },
+  );
+
+  final GemError errorCode = GemErrorExtension.fromCode(
+    resultString[&#39;result&#39;],
+  );
+
+  if (errorCode != GemError.success) {
+    return null;
+  }
+
+  return TaskHandlerImpl(progListener.id);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../core/">core</a></li>
+    <li><a href="../../core/ActivationService-class.html">ActivationService</a></li>
+    <li class="self-crumb">deactivate static method</li>
+</ol>
+
+    <h5>ActivationService class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

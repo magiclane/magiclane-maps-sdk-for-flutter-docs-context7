@@ -5,22 +5,24 @@ title: Location Wikipedia
 
 # Location Wikipedia
 
-Landmarks can include Wikipedia data such as title, image title, URL, description, page summary, language, and more. To demonstrate how to retrieve Wikipedia information, we introduce the `ExternalInfo` class, which handles Wikipedia data.
+Landmarks can include Wikipedia data such as title, image title, URL, description, page summary, and language. The `ExternalInfo` class handles Wikipedia data and is provided by the `ExternalInfoService` class.
 
-Objects of type `ExternalInfo` are provided by the `ExternalInfoService` class.
+---
 
-## Check if Wikipedia data is available
+## Check Wikipedia Data Availability
 
-Use the static `hasWikiInfo` method of the `ExternalInfoService` class to check if a landmark has wikipedia data available:
+Use the `hasWikiInfo` method to check if a landmark has Wikipedia data:
 ```dart
 final bool hasExternalInfo = ExternalInfoService.hasWikiInfo(landmark);
 ```
 
-Make sure the wikipedia related fields from the `extraInfo` property of the `Landmark` object are not tempered with if changes are made to the landmark data.
+Do not modify Wikipedia-related fields in the `extraInfo` property when changing landmark data.
 
-## ExternalInfo class
+---
 
-This class provides Wikipedia information for a landmark. An `ExternalInfo` object is obtained using the static method `requestWikiInfo` of the `ExternalInfoService` class.
+## Get Wikipedia Information
+
+Obtain an `ExternalInfo` object using the `requestWikiInfo` method:
 ```dart
 final requestListener = ExternalInfoService.requestWikiInfo(
   landmark,
@@ -39,27 +41,29 @@ final requestListener = ExternalInfoService.requestWikiInfo(
 );
 ```
 
-The `requestWikiInfo` returns a progress listener which can be used to cancel the request using the `cancelWikiInfo` method of the `ExternalInfoService` class.
+The `requestWikiInfo` returns a progress listener that can cancel the request using the `cancelWikiInfo` method.
 
-Wikipedia data is provided in the language specified in `SDKSettings`. Learn more about setting the SDK language [here](/guides/get-started/internationalization).
+Wikipedia data is provided in the language specified in `SDKSettings`. See [Internationalization](/guides/get-started/internationalization) for details.
 
-The method provides a result based on the outcome of the operation:
+**Results:**
 
-- On success returns `GemError.success` and a non-null `ExternalInfo` object.
+- **Success:** Returns `GemError.success` and a non-null `ExternalInfo` object
 
-- On failure returns a null `ExternalInfo` object and one of the following `GemError` values:
+- **Failure:** Returns null `ExternalInfo` and one of these errors:
 
-  - `GemError.invalidInput` : The specified landmark does not contain Wikipedia-related information.
+  - `GemError.invalidInput` - Landmark does not contain Wikipedia information
 
-  - `GemError.connection` : No internet connection is available.
+  - `GemError.connection` - No internet connection available
 
-  - `GemError.notFound` : Wikipedia information could not be retrieved for the given landmark.
+  - `GemError.notFound` - Wikipedia information could not be retrieved
 
-  - `GemError.general` : An unspecified error occurred.
+  - `GemError.general` - Unspecified error occurred
 
-## Wikipedia image data
+---
 
-The `ExternalInfo` class provides the following details regarding images:
+## Get Wikipedia Image Data
+
+Access image details from the `ExternalInfo` class:
 ```dart
 final int imgCount = externalInfo.imagesCount;
 final String imageUrl = externalInfo.getWikiImageUrl(0);
@@ -67,7 +71,7 @@ final String imageDescription = externalInfo.getWikiImageDescription(0);
 final String imageTitle = externalInfo.getWikiImageTitle(0);
 ```
 
-Detailed informations about an image can be retrieved using the `requestWikiImageInfo` method:
+Retrieve detailed image information using the `requestWikiImageInfo` method:
 ```dart
 final imageInfoListener = externalInfo.requestWikiImageInfo(
   imageIndex: 0,
@@ -82,7 +86,28 @@ final imageInfoListener = externalInfo.requestWikiImageInfo(
 );
 ```
 
-The `requestWikiImageInfo` method return a progress listener which can be used to cancel the request using the `cancelWikiImageInfoRequest` method.
+The `requestWikiImageInfo` method returns a progress listener that can cancel the request using the `cancelWikiImageInfoRequest` method.
+
+For getting the image data itself, use the `requestWikiImage` method to obtain a `Img` instance. The `ExternalImageQuality` enum allows specifying the desired image quality.
+```dart
+final imageDataListener = externalInfo.requestWikiImage(
+  imageIndex: 0,
+  quality: ExternalImageQuality.highImageQuality,
+  onComplete: (GemError error, Img? image) {
+    if (error != GemError.success) {
+      showSnackbar("Error getting wiki image: $error");
+      return;
+    }
+
+    // Do something with image...
+  },
+);
+```
+
+It is recommended to use the `requestWikiImageInfo` method instead of using the `getWikiImageUrl` image URL directly.
+The `getWikiImageUrl` method provides a URL to the original image, which may have a very large size.
+
+---
 
 ## Relevant example demonstrating Wikipedia-related features
 

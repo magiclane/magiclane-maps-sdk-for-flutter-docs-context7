@@ -5,23 +5,31 @@ title: Navigation Instructions
 
 # Navigation instructions
 
-The Maps SDK for Flutter offers comprehensive real-time navigation guidance, providing detailed information on the current and upcoming route, including road details, street names, speed limits, and turn directions. It delivers essential data such as remaining travel time, distance to destination, and upcoming turn or road information, ensuring users receive accurate, timely instructions. Designed for both navigation and simulation scenarios, this feature enhances the overall user experience by supporting smooth and efficient route planning and execution.
+The Maps SDK for Flutter provides real-time navigation guidance with detailed route information, including road details, street names, speed limits, and turn directions. You receive essential data such as remaining travel time, distance to destination, and upcoming maneuvers.
 
-The main class responsible for turn-by-turn live navigation. guidance is the ``NavigationInstruction`` class.
+The main class responsible for turn-by-turn navigation guidance is the `NavigationInstruction` class.
 
-It is important to distinguish between ``NavigationInstruction`` and ``RouteInstruction``. ``NavigationInstruction`` offers real-time, turn-by-turn navigation based on the user's current position and is relevant only during navigation or simulation. In contrast, ``RouteInstruction`` provides an overview of the entire route available as soon as the route is calculated and the list of instructions do not change as the user navigates on the route.
+Distinguish between `NavigationInstruction` and `RouteInstruction`. `NavigationInstruction` offers real-time, turn-by-turn guidance based on your current position and is relevant only during active navigation or simulation. In contrast, `RouteInstruction` provides an overview of the entire route available immediately after calculation, with instructions that remain static throughout navigation.
 
-## Instantiating navigation instructions
+---
 
-Navigation instructions cannot be directly instantiated. Instead, they must be provided by the SDK while navigating. For detailed guidance on how to navigate on routes, refer to the [Getting Started with Navigation Guide](/guides/navigation/get-started-navigation).
+## Get navigation instructions
 
-There are two main ways of getting a navigation instruction:
+You cannot directly instantiate navigation instructions. The SDK provides them during active navigation. For detailed guidance, see the [Getting Started with Navigation Guide](/guides/navigation/get-started-navigation).
 
-- `NavigationInstruction` instances can be obtained via the callback provided as parameters to the ``startNavigation`` and ``startSimulation`` methods. 
+There are two ways to get navigation instructions:
 
-- The ``NavigationService`` class provides a ``getNavigationInstruction`` method which returns the currently available navigation instruction. Make sure navigation/simulation is active before using the method provided above.
+- **Via callback** - `NavigationInstruction` instances are provided through callbacks in the `startNavigation` and `startSimulation` methods
 
-## NavigationInstruction structure
+- **Via service** - The `NavigationService` class provides a `getNavigationInstruction` method that returns the current navigation instruction
+
+Ensure navigation or simulation is active before calling `getNavigationInstruction`.
+
+---
+
+## Understand the structure
+
+The `NavigationInstruction` class contains the following members:
 
 <table>
  <thead>
@@ -185,13 +193,15 @@ There are two main ways of getting a navigation instruction:
  </tbody>
 </table>
 
-The field ``nextTurnInstruction`` provides a instruction in text format, suitable for displaying on UI. Please use the ``onTextToSpeechInstruction`` callback for getting a instruction suitable for text-to-speech.
+The `nextTurnInstruction` field provides text suitable for UI display. Use the `onTextToSpeechInstruction` callback for text-to-speech output.
 
-## Turn details
+---
 
-### Next turn details
+## Access turn details
 
-The following snippet shows how to extract detailed instructions for the next turn along the route. It’s typically used in the navigation UI to show users the upcoming maneuver. You may also use this to provide turn-by-turn instructions with images or detailed text for navigation display:
+### Get next turn details
+
+Extract detailed instructions for the next turn along the route. Use this information in your navigation UI to display upcoming maneuvers with images or detailed text:
 ```dart
 // If hasNextTurnInfo is false some details are not available
 bool hasNextTurnInfo = navigationInstruction.hasNextTurnInfo;
@@ -219,11 +229,11 @@ if (hasNextTurnInfo) {
 }
 ```
 
-See the [TurnDetails](/guides/core/routes#turn-details) guide for more details about the fields within the `TurnDetails` class.
+See the [TurnDetails](/guides/core/routes#turn-details) guide for more details.
 
-### Next next turn details
+### Get next-next turn details
 
-Details about the subsequent turn (i.e., the turn following the next one) can be crucial for certain use cases, such as providing a preview of upcoming maneuvers. These details can be accessed in a similar manner:
+Access details about the turn following the next one to provide a preview of upcoming maneuvers:
 ```dart
 // If hasNextNextTurnInfo is false some details are not available
 bool hasNextNextTurnInfo = navigationInstruction.hasNextNextTurnInfo;
@@ -237,14 +247,17 @@ if (hasNextNextTurnInfo) {
 }
 ```
 
-The ``hasNextNextTurnInfo`` might be false if the next instruction is the destination.
-The same operations discussed earlier for the next turn details can also be applied to the subsequent turn details.
+The `hasNextNextTurnInfo` returns false if the next instruction is the destination.
 
-## Street information
+You can apply the same operations from next turn details to next-next turn details.
 
-### Current street information
+---
 
-The following snippet shows how to get information about the current road:
+## Get street information
+
+### Access current street details
+
+Retrieve information about the current road:
 ```dart
 // Current street name
 String currentStreetName = navigationInstruction.currentStreetName;
@@ -259,13 +272,15 @@ String countryCode = navigationInstruction.currentCountryCodeISO;
 DriveSide driveDirection = navigationInstruction.driveSide;
 ```
 
-It is important to note that some streets may not have an assigned name. In such cases, ``currentStreetName`` will return an empty string. The ``RoadInfo`` class offers additional details, including the road name and shield type, which correspond to the official codes or names assigned to a road.
+Some streets may not have an assigned name. In such cases, `currentStreetName` returns an empty string.
 
-For example, the `currentStreetName` might return "Bloomsbury Street," while the `roadname` field in the associated RoadInfo instance could provide the official designation, such as "A400." This distinction ensures comprehensive road identification.
+The `RoadInfo` class provides additional details, including the road name and shield type, which correspond to official road codes.
 
-### Next & next next street information
+For example, `currentStreetName` might return "Bloomsbury Street," while the `roadname` field in the associated `RoadInfo` instance provides the official designation, such as "A400."
 
-Information about the next street, as well as the street following it (next-next street), can also be retrieved. These details include the street name, type, and other associated metadata, enabling enhanced navigation and situational awareness:
+### Access next & next-next street details
+
+Retrieve information about the next street and the street following it:
 ```dart
 // Street name
 String nextStreetName = navigationInstruction.nextStreetName;
@@ -279,15 +294,17 @@ List<RoadInfo> nextNextRoadInformation = navigationInstruction.nextNextRoadInfor
 String nextCountryCodeISO = navigationInstruction.nextCountryCodeISO;
 ```
 
-The fields associated with these streets retain the same meanings as discussed earlier about the current street.
+These fields have the same meanings as the current street fields.
 
-Ensure that ``hasNextTurnInfo`` and ``hasNextNextTurnInfo`` are true before attempting to access the respective fields. This verification prevents errors and ensures the availability of reliable data for the requested information.
+Ensure `hasNextTurnInfo` and `hasNextNextTurnInfo` are true before accessing the respective fields. This prevents errors and ensures data availability.
 
-## Speed limit information
+---
 
-The NavigationInstruction class not only provides information about the current road's speed limit but also offers details about upcoming speed limits within a specified distance, assuming the user adheres to the recommended navigation route.
+## Get speed limit information
 
-The following snippet demonstrates how to retrieve these details and handle various scenarios appropriately:
+The `NavigationInstruction` class provides information about the current road's speed limit and upcoming speed limits within a specified distance.
+
+Retrieve speed limit details and handle various scenarios:
 ```dart
 // The current street speed limit in m/s (0 if not available)
 double currentStreetSpeedLimit = navigationInstruction.currentStreetSpeedLimit;
@@ -312,16 +329,18 @@ if (distanceToNextSpeedLimitChange == 0 && nextSpeedLimitValue == 0) {
 }
 ```
 
-## Lane image
+---
 
-The lane image can be used to more effectively illustrate the correct lane for upcoming turns, providing clearer guidance:
+## Display lane guidance
+
+Use the lane image to illustrate the correct lane for upcoming turns:
 ```dart
 final LaneImg laneImage = navigationInstruction.laneImage;
 final Uint8List? laneImageData = laneImage.getRenderableImageBytes(size: Size(500, 300), format: ImageFileFormat.png);
 ```
 
-Below is an example of a rendered lane image:
+---
 
-## Change the language of the instructions
+## Change instruction language
 
-The texts used in navigation instructions and related classes follow the language set in the SDK. See [the internationalization guide](/guides/get-started/internationalization) for more details.
+Navigation instruction texts follow the language set in the SDK. See [the internationalization guide](/guides/get-started/internationalization) for more details.

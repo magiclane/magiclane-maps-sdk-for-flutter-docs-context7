@@ -5,6 +5,8 @@ title: Get Started Routing
 
 # Get started with routing
 
+This guide explains how to calculate routes, customize routing preferences, retrieve turn-by-turn instructions, and access detailed route information including terrain profiles and traffic events.
+
 Here’s a quick overview of what you can do with routing:
 
 - Calculate routes from a start point to a destination.
@@ -21,9 +23,11 @@ Here’s a quick overview of what you can do with routing:
 
 - Access detailed route profiles for further analysis.
 
+---
+
 ## Calculate routes
 
-You can calculate a route with the code below. This route is navigable, which means that later it is possible to do a navigation/ simulation on it.
+Calculate a navigable route between a start point and destination. The route can be used for navigation or simulation.
 ```dart
 // Define the departure.
 final departureLandmark =
@@ -49,9 +53,10 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
     });
 ```
 
-The `RoutingService.calculateRoute` method returns `null` only when the computation fails to initiate. In such cases, calling `RouteService.cancelRoute(taskHandler)` is not possible. Error details will be delivered through the `onComplete` function of the `RoutingService.calculateRoute` method.
+The `RoutingService.calculateRoute` method returns `null` only when the computation fails to initiate. In such cases, calling `RouteService.cancelRoute(taskHandler)` is not possible. Error details are delivered through the `onComplete` function.
 
-The `err` provided by the callback function can have the following values:
+The callback function's `err` parameter can return these values:
+
 <table>
 <tr>
 <th>Value</th>
@@ -91,16 +96,20 @@ The `err` provided by the callback function can have the following values:
 </tr>
 </table>
 
-The previous example shows how to define your start and end points, set route preferences, and handle the callback for results. If needed, you can cancel the ongoing computation:
+Cancel an ongoing route computation if needed:
 ```dart
 RoutingService.cancelRoute(taskHandler);
 ```
 
-When the route is canceled, the callback will return `err` = `GemError.cancel`.
+When the route is canceled, the callback returns `err` = `GemError.cancel`.
 
-## Get ETA and traffic information
+---
 
-Once the route is computed, you can retrieve additional details like the estimated time of arrival (ETA) and traffic information. Here’s how you can access these:
+## Retrieve time and distance information
+
+Access estimated time of arrival (ETA), distance, and traffic details for computed routes.
+
+Get time and distance information using the `Route.getTimeDistance` method:
 ```dart
 TimeDistance td = route.getTimeDistance(activePart: false);
 
@@ -119,11 +128,13 @@ final totalRemainDistance = remainTd.totalDistanceM;
 final totalRemainDuration = remainTd.totalTimeS;
 ```
 
-By using the method `Route.getTimeDistance` we can get the time and distance for a route. If the `activePart` parameter is `false`, it means the distance is computed for the entire route initially computed, otherwise it is computed only for the active part (the part still remaining to be navigated). The default value for this parameter is `true`.
+Set `activePart` to `false` to compute time and distance for the entire route, or `true` (default) for only the remaining portion.
 
-In the example `unrestricted` means the part of the route that is on public property and `restricted` the part of the route that is on private property. Time is measured in seconds and distance in meters.
+**Unrestricted** refers to public property routes, while **restricted** refers to private property routes. Time is measured in seconds and distance in meters.
 
-If you want to gather traffic details, you can do so like this:
+### Access traffic events
+
+Retrieve traffic event details for the route:
 ```dart
 List<RouteTrafficEvent> trafficEvents = route.trafficEvents;
 
@@ -138,11 +149,15 @@ for (final event in trafficEvents) {
 }
 ```
 
-Check the [Traffic Events guide](../core/traffic-events) for more details.
+See the [Traffic Events guide](../core/traffic-events) for detailed information.
 
-## Display routes on map
+---
 
-After calculating the routes, they are not automatically displayed on the map. To visualize and center the map on the route, refer to the [display routes on maps](/guides/maps/display-map-items/display-routes) related documentation. The Maps SDK for Flutter offers extensive customization options, allowing for flexible preferences to tailor the display to your needs.
+## Display routes on the map
+
+Routes are not automatically displayed after calculation. Visualize routes on the map using the display methods.
+
+Refer to the [display routes on maps](/guides/maps/display-map-items/display-routes) guide for visualization and customization options.
 
 ## Get the Terrain Profile
 
@@ -157,9 +172,9 @@ final routePreferences = RoutePreferences(
 );
 ```
 
-Setting the ``BuildTerrainProfile`` with the ``enable`` flag set to true to the preferences used within ``calculateRoute`` is mandatory for getting route terrain profile data.
+Set `BuildTerrainProfile` with `enable` flag to true in the preferences for `calculateRoute` to retrieve terrain profile data.
 
-Later, use the profile for elevation data or other terrain-related details:
+Access elevation and terrain data from the profile:
 ```dart
 RouteTerrainProfile? terrainProfile = route.terrainProfile;
 
@@ -201,21 +216,23 @@ if (terrainProfile != null) {
 }
 ```
 
-`RoadType` possible values are: motorways, stateRoad, road, street, cycleway, path, singleTrack.
+**RoadType** values: `motorways`, `stateRoad`, `road`, `street`, `cycleway`, `path`, `singleTrack`.
 
-`SurfaceType` possible values are: asphalt, paved, unpaved, unknown.
+**SurfaceType** values: `asphalt`, `paved`, `unpaved`, `unknown`.
 
-For more information see the [Route Profile example](/examples/routing-navigation/route-profile).
+See the [Route Profile example](/examples/routing-navigation/route-profile) for detailed information.
 
-## Get the route segments and instructions
+---
 
-Once a route has been successfully computed, you can retrieve a detailed list of its `segments`. Each segment represents the portion of the route between two consecutive waypoints and includes its own set of `route instructions`.
+## Retrieve route instructions
 
-For instance, if a route is computed with five waypoints, it will consist of four segments, each with distinct instructions.
+Access detailed turn-by-turn instructions and segment information for computed routes.
 
-In the case of public transit routes, segments can represent either pedestrian paths or public transit sections.
+Each **segment** represents the route portion between consecutive waypoints and includes its own set of instructions. A route with five waypoints contains four segments, each with distinct instructions.
 
-Here’s an example of how to access and use this information, focusing on some key `RouteInstruction` properties:
+For public transit routes, segments represent either pedestrian paths or transit sections.
+
+Key **RouteInstruction** properties:
 
 <table>
   <tr>
@@ -310,15 +327,17 @@ Here’s an example of how to access and use this information, focusing on some 
   </tr>
 </table>
 
-Data from the instruction list above is obtained via the following methods of `RouteInstruction`:
+Access instruction data using these **RouteInstruction** methods:
 
--  `turnInstruction` : Bear left onto A 5.
+-  `turnInstruction`: Bear left onto A 5
 
--  `followRoadInstruction` : Follow A 5 for 132m.
+-  `followRoadInstruction`: Follow A 5 for 132m
 
--  `traveledTimeDistance.totalDistanceM` : 6.2km. (after formatting to km)
+-  `traveledTimeDistance.totalDistanceM`: 6.2km (after formatting)
 
--  `turnDetails.abstractGeometryImg.getRenderableImageBytes(renderSettings: AbstractGeometryImageRenderSettings(),size: Size(100, 100))` : Instruction image or null when image is invalid.
+-  `turnDetails.abstractGeometryImg.getRenderableImageBytes(renderSettings: AbstractGeometryImageRenderSettings(),size: Size(100, 100))`: Instruction image or null when invalid
+
+---
 
 ## Relevant examples demonstrating routing related features
 

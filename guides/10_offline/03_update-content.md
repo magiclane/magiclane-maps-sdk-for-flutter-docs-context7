@@ -5,10 +5,13 @@ title: Update Content
 
 # Update Content
 
-The Magic Lane SDK allows updating downloaded content to stay synchronized with the latest map data. New map versions are released every few weeks.
-The update operation supports the `roadMap`, `viewStyleLowRes`, and `viewStyleHighRes` content types. This article focuses on the `roadMap` type, as it is the most common use case. Updating styles mostly follows the same process.
+The Magic Lane SDK allows updating downloaded content to stay synchronized with the latest map data.
 
-The SDK requires all road map content store items to have the same version. It is not possible to have multiple `roadMap` items with different versions, meaning partial updates of individual items are not supported.
+New map versions are released every few weeks. The update operation supports the `roadMap`, `viewStyleLowRes`, and `viewStyleHighRes` content types. This guide focuses on the `roadMap` type, as it is the most common use case.
+
+The SDK requires all road map content store items to have the same version. Partial updates of individual items are not supported.
+
+## Content store status
 
 Based on the client's content version relative to the newest available release, it can be in one of three states, as defined by the `ContentStoreStatus` enum:
 
@@ -22,22 +25,25 @@ The Magic Lane servers support online operations for the most up-to-date version
 
 The Magic Lane Flutter SDK is designed for seamless automatic updates by default, ensuring compatibility with the latest map data with minimal effort from the API user. If manual map update management is not required for your use case, no additional configuration is needed.
 
-After installation, the app includes a default map version of type `expiredData`, which contains no available content. Therefore, an update—either manually triggered or performed automatically—is required before the app can be used.
-Internet access is required for the initial use of the app.
+After installation, the app includes a default map version of type `expiredData`, which contains no available content. An update—either manually triggered or performed automatically—is required before the app can be used. Internet access is required for the initial use of the app.
+
+---
 
 ## Update process overview
 
-1. The map update process is initiated by the API user or the SDK automatically starts the download process.
-2. The process downloads the newer data in background ensuring the full usability of the current ( old ) map dataset for browsing, search and navigation. The content is downloaded in a close-to-current user position order, i.e. nearby maps are downloaded first.
+The update process follows these steps:
+
+1. The map update process is initiated by the API user or the SDK automatically starts the download process
+2. The process downloads the newer data in background ensuring the full usability of the current (old) map dataset for browsing, search and navigation. The content is downloaded in a close-to-current user position order—nearby maps are downloaded first
 3. Once all new version data is downloaded:
 
-    - If the auto-update feature is enabled, then the update is automatically applied
+    - If the auto-update feature is enabled, the update is automatically applied
 
-    - If the user initiated the update manually, the API user is notified and the update is applied by replacing the files is an atomic operation
+    - If the user initiated the update manually, the API user is notified and the update is applied by replacing the files in an atomic operation
 
-If the user's storage size does not allow the existence of the old and new dataset at the same time, the update required an additional step:
+If the storage size does not allow the existence of both the old and new dataset at the same time, an additional step is required:
 
-4. The remaining offline maps which did not download because of the out-of-space exception should be downloaded by the API user by an usual call to the `ContentStoreItem.asyncDownload`.
+4. The remaining offline maps that did not download because of the out-of-space exception should be downloaded by calling `ContentStoreItem.asyncDownload`
 
 The auto-update behavior is different between the Magic Lane SDKs:
 
@@ -47,9 +53,11 @@ The auto-update behavior is different between the Magic Lane SDKs:
 
 - The iOS SDK does not provide an auto-update mechanism
 
-## Listen for the auto-update completion
+---
 
-The `registerOnAutoUpdateComplete` method from the `OffBoardListener` class can be used to listen for auto-update completion events.
+## Listen for auto-update completion
+
+Use the `registerOnAutoUpdateComplete` method from the `OffBoardListener` class to listen for auto-update completion events.
 ```dart
 SdkSettings.offBoardListener.registerOnAutoUpdateComplete((ContentType type, GemError error) {
     if (error == GemError.success) {
@@ -60,13 +68,15 @@ SdkSettings.offBoardListener.registerOnAutoUpdateComplete((ContentType type, Gem
 });
 ```
 
-The callback will be triggered for each type of content when the auto update process finishes (only for types configured to auto update).
+The callback is triggered for each content type when the auto-update process finishes (only for types configured to auto-update).
 
-If the auto-update fails then the API user is responsible to treat this case and trigger an update manually if needed.
+If the auto-update fails, you are responsible for handling this case and triggering an update manually if needed.
 
-## Disable automatic updates
+---
 
-By default, automatic updates are enabled for road maps and styles. You can configure this behavior using the `AutoUpdateSettings` class, which can be passed to the `GemKit.initialize` method at the start of the application.
+## Configure automatic updates
+
+By default, automatic updates are enabled for road maps and styles. Configure this behavior using the `AutoUpdateSettings` class, which can be passed to the `GemKit.initialize` method at the start of the application.
 
 Automatic updates can be customized individually for each content type:
 ```dart
@@ -81,7 +91,7 @@ await GemKit.initialize(
     autoUpdateSettings: settings);
 ```
 
-The auto update settings can also be configured later in the application in the `OffBoardListener` class:
+You can also configure auto-update settings later in the application using the `OffBoardListener` class:
 ```dart
 // Via the AutoUpdateSettings object
 SdkSettings.offBoardListener.autoUpdateSettings = AutoUpdateSettings(
@@ -94,15 +104,17 @@ SdkSettings.offBoardListener.autoUpdateSettings = AutoUpdateSettings(
 SdkSettings.offBoardListener.isAutoUpdateForRoadMapEnabled = true;
 ```
 
-If the auto update settings have been changed via the `SdkSettings.offBoardListener` object then a call to the `SdkSettings.autoUpdate()` is required in order to check for new updates and automatically download and apply.
+If you change auto-update settings via the `SdkSettings.offBoardListener` object, call `SdkSettings.autoUpdate()` to check for new updates and automatically download and apply them.
 
-If the update has already been done for a specific type, the auto update configuration for that type is no longer taken into account. It is not possible to return to an older version if an update has been applied.
+If the update has already been completed for a specific type, the auto-update configuration for that type is no longer taken into account. You cannot return to an older version once an update has been applied.
 
 The `AutoUpdateSettings` class also includes the `AutoUpdateSettings.allDisabled()` and `AutoUpdateSettings.allEnabled()` constructors for quickly disabling or enabling all updates.
 
+---
+
 ## Listen for map updates
 
-You can listen for map updates by calling the `registerOnWorldwideRoadMapSupportStatus` method and providing a callback.
+Listen for map updates by calling the `registerOnWorldwideRoadMapSupportStatus` method and providing a callback.
 ```dart
 SdkSettings.offBoardListener.registerOnWorldwideRoadMapSupportStatus((status){
         switch (status) {
@@ -122,7 +134,7 @@ SdkSettings.offBoardListener.registerOnWorldwideRoadMapSupportStatus((status){
     );
 ```
 
-The SDK may automatically trigger the map version check at an appropriate moment. To manually force the check, you can call the `checkForUpdate` method from the `ContentStore`:
+The SDK may automatically trigger the map version check at an appropriate moment. To manually force the check, call the `checkForUpdate` method from the `ContentStore`:
 ```dart
 final GemError checkUpdateCode = ContentStore.checkForUpdate(ContentType.roadMap);
 print('Check for update result code $checkUpdateCode');
@@ -130,12 +142,13 @@ print('Check for update result code $checkUpdateCode');
 
 The `checkForUpdate` method returns `GemError.success` if the check has been initiated and `GemError.connectionRequired` if no internet connection is available.
 
-If the `checkForUpdate` method is provided with the `ContentType.roadMap` argument, then the `onWorldwideRoadMapSupportStatusCallback` will be called.
-If other values are supplied to the `checkForUpdate` method (such as map styles), then the response will be returned via the `onAvailableContentUpdateCallback` callback.
+If the `checkForUpdate` method is provided with the `ContentType.roadMap` argument, the `onWorldwideRoadMapSupportStatusCallback` will be called. If other values are supplied (such as map styles), the response will be returned via the `onAvailableContentUpdateCallback` callback.
 
-## Create content updater
+---
 
-To update the road maps, you must instantiate a `ContentUpdater` object. This object manages all operations related to the update process:
+## Create a content updater
+
+Instantiate a `ContentUpdater` object to update road maps. This object manages all operations related to the update process:
 ```dart
 final (contentUpdater, contentUpdaterCreationError) = ContentStore.createContentUpdater(ContentType.roadMap);
 
@@ -147,28 +160,31 @@ if (contentUpdaterCreationError != GemError.success && contentUpdaterCreationErr
 
 The `createContentUpdater` method returns a `ContentUpdater` instance along with an error code indicating the status of the updater creation for the specified `ContentType`:
 
-- If the error code is `GemError.success`, the `ContentUpdater` was successfully created and is ready for use.
+- If the error code is `GemError.success`, the `ContentUpdater` was successfully created and is ready for use
 
-- If the error code is `GemError.exist`, a `ContentUpdater` for the specified `ContentType` already exists, and the existing instance is returned. This instance remains valid and can be used.
+- If the error code is `GemError.exist`, a `ContentUpdater` for the specified `ContentType` already exists, and the existing instance is returned. This instance remains valid and can be used
 
-- If the error code corresponds to any other `GemError` value, the `ContentUpdater` instantiation has failed, and the returned object is not usable.
+- If the error code corresponds to any other `GemError` value, the `ContentUpdater` instantiation has failed, and the returned object is not usable
+
+---
 
 ## Start the update
 
-In order to start the update process, you can call the `update` method from the `ContentUpdater` object created earlier.
+Call the `update` method from the `ContentUpdater` object to start the update process.
+
 The `update` method accepts the following parameters:
 
-- a boolean indicating whether the update can proceed on networks that may incur additional charges. If false, the update will only run on free networks, such as Wi-Fi.
+- A boolean indicating whether the update can proceed on networks that may incur additional charges. If false, the update will only run on free networks, such as Wi-Fi
 
-- a callback named `onStatusUpdated` that will be `triggered` when the update status changes, providing information through the `ContentUpdaterStatus` parameter.
+- A callback named `onStatusUpdated` that is triggered when the update status changes, providing information through the `ContentUpdaterStatus` parameter
 
-- a callback named `onProgressUpdated` that will be triggered when the update progresses, supplying an integer value between 0 and 100 to indicate completion percentage.
+- A callback named `onProgressUpdated` that is triggered when the update progresses, supplying an integer value between 0 and 100 to indicate completion percentage
 
-- a callback named `onComplete` that will be triggered with the update result at the end of the update process (after calling `apply` or if the update fails earlier). The most common error codes are:
+- A callback named `onComplete` that is triggered with the update result at the end of the update process (after calling `apply` or if the update fails earlier). The most common error codes are:
 
-    - `GemError.success` if the update was successful.
+    - `GemError.success` if the update was successful
 
-    - `GemError.inUse` if the update is already running and could not be started.
+    - `GemError.inUse` if the update is already running and could not be started
 
     - `GemError.notSupported` if the update operation is not supported for the given content type
 
@@ -176,7 +192,7 @@ The `update` method accepts the following parameters:
 
     - `GemError.io` if an error regarding file operations occurred
 
-The method returns a non-null `ProgressListener` if the update process has been successfully started or `null` if the update couldn't be started (case in which the `onComplete` will be called with the error code). 
+The method returns a non-null `ProgressListener` if the update process has been successfully started or `null` if the update couldn't be started (in which case the `onComplete` will be called with the error code). 
 ```dart
 final ProgressListener? listener = contentUpdater.update(
     true, // <-  Allow update on charge network
@@ -214,9 +230,11 @@ The `ContentUpdaterStatus` enum provided by the `onStatusUpdated` method has the
 | `complete`                  | The update process has finished successfully. The `onComplete` callback is also triggered with `GemError.success` |
 | `error`                     | The update process encountered an error. The `onComplete` callback is also triggered with the appropriate error code |
 
-## ContentStore details
+---
 
-Details about the `ContentUpdater` objects can be got via the provided getters:
+## Get ContentUpdater details
+
+Get details about the `ContentUpdater` object using the provided getters:
 ```dart
 final ContentUpdaterStatus status = contentUpdater.status;
 final int progress = contentUpdater.progress;
@@ -225,13 +243,15 @@ final bool canApplyUpdate =  contentUpdater.canApply;
 final bool isUpdateStarted = contentUpdater.isStarted;
 ```
 
-## Finish the update process
+---
 
-Once `onStatusUpdated` is called with a `ContentUpdaterStatus` value of `fullyReady` or `partiallyReady`, the update can be applied using the `apply` method of the `ContentUpdater` class.
+## Apply the update
 
-- if the status is `fullyReady`, all items have been downloaded.
+Once `onStatusUpdated` is called with a `ContentUpdaterStatus` value of `fullyReady` or `partiallyReady`, apply the update using the `apply` method of the `ContentUpdater` class.
 
-- if the status is `partiallyReady`, only a subset of the items has been downloaded. Applying the update will remove outdated items that were not fully downloaded, restricting offline functionality to the updated content only. The remaining items will continue downloading.
+- If the status is `fullyReady`, all items have been downloaded
+
+- If the status is `partiallyReady`, only a subset of the items has been downloaded. Applying the update will remove outdated items that were not fully downloaded, restricting offline functionality to the updated content only. The remaining items will continue downloading
 ```dart
 onStatusUpdated: (ContentUpdaterStatus status) {
     print("OnStatusUpdated with code $status");
@@ -250,23 +270,27 @@ onStatusUpdated: (ContentUpdaterStatus status) {
 
 The `apply` method returns:
 
-- `GemError.success` if the update was applied successfully.
+- `GemError.success` if the update was applied successfully
 
-- `GemError.upToDate` if the update is already up to date and no changes were made.
+- `GemError.upToDate` if the update is already up to date and no changes were made
 
-- `GemError.invalidated` if the update operation has not been started successfully via the `update` method.
+- `GemError.invalidated` if the update operation has not been started successfully via the `update` method
 
-- `GemError.io` if an error regarding the file system occurred while updating the content.
+- `GemError.io` if an error regarding the file system occurred while updating the content
 
-The `onComplete` will also be triggered with the appropriate error code.
+The `onComplete` callback is also triggered with the appropriate error code.
+
+---
 
 ## Update resources
 
-The Magic Lane Flutter SDK includes built-in resources such as icons and translations. Automatic updates for these resources can be enabled or disabled by setting the `isAutoUpdateForResourcesEnabled` field within the `AutoUpdateSettings` object passed to `GemKit.initialize`.
+The Magic Lane Flutter SDK includes built-in resources such as icons and translations. Enable or disable automatic updates for these resources by setting the `isAutoUpdateForResourcesEnabled` field within the `AutoUpdateSettings` object passed to `GemKit.initialize`.
 
-If the API user configures callbacks manually using the `setAllowConnection` method, resource updates can still be enabled by setting the optional `canDoAutoUpdateResources` parameter.
+If you configure callbacks manually using the `setAllowConnection` method, resource updates can still be enabled by setting the optional `canDoAutoUpdateResources` parameter.
 
-Unlike other content types, updating these resources does not require a `ContentUpdater`, simplifying the process. By default, resource updates are enabled (`isAutoUpdateForResourcesEnabled` is true, and `canDoAutoUpdateResources` is true).
+Unlike other content types, updating these resources does not require a `ContentUpdater`. By default, resource updates are enabled (`isAutoUpdateForResourcesEnabled` is true, and `canDoAutoUpdateResources` is true).
+
+---
 
 ## Relevant examples demonstrating content update related features
 

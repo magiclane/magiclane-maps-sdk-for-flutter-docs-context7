@@ -5,26 +5,29 @@ title: Route Bookmarks
 
 # Route Bookmarks
 
-The `RouteBookmarks` class provides a way to store, manage, and retrieve collections of routes as bookmarks between application sessions.
-This is useful for applications that need to save user trips, import/export routes, or manage multiple planned journeys.
+This guide explains how to store, manage, and retrieve route collections as bookmarks between application sessions.
 
-## Creating a RouteBookmarks collection
+---
 
-To create a new bookmarks collection, use the static `RouteBookmarks.create` method and provide a unique name:
+## Create a bookmarks collection
+
+Create a new bookmarks collection using the `RouteBookmarks.create` method with a unique name:
 ```dart
 final bookmarks = RouteBookmarks.create('my_trips');
 ```
 
-If a collection with the same name already exists, it will be opened instead.
+If a collection with the same name exists, it opens the existing collection.
 
-The file path of the bookmarks collection can be accessed using the `filePath` property:
+Access the file path using the `filePath` property:
 ```dart
 String path = bookmarks.filePath;
 ```
 
-## Adding Routes
+---
 
-Add a new route to the collection using the `add` method. You must provide a unique route name and a list of waypoints. Optionally, you can include route preferences and specify whether to overwrite an existing route with the same name.
+## Add routes
+
+Add a route to the collection using the `add` method. Provide a unique name and waypoints list. Optionally include route preferences and specify whether to overwrite existing routes.
 ```dart
 bookmarks.add(
   'Home to Office',
@@ -34,21 +37,23 @@ bookmarks.add(
 );
 ```
 
-The `add` method takes the following parameters:
+**Parameters:**
 
-- `name` (`String`): The unique name for the route.
+- **`name`** - Unique route name
 
-- `waypoints` (`List<Landmark>`): The list of landmarks defining the route.
+- **`waypoints`** - List of landmarks defining the route
 
-- `preferences` (`RoutePreferences?`): Optional route preferences.
+- **`preferences`** - Optional route preferences
 
-- `overwrite` (`bool`): If `true`, if there is already a route with the same name it will be replaced. The default value is `false`.
+- **`overwrite`** - Replace existing route with same name (default: `false`)
 
 If a route with the same name exists and `overwrite` is `false`, the operation fails.
 
-## Importing Routes
+---
 
-You can import multiple routes from a file using `addTrips`. The method returns the number of imported routes or `GemError.invalidInput.code` if the import fails.
+## Import routes from files
+
+Import multiple routes from a file using `addTrips`. Returns the number of imported routes or `GemError.invalidInput.code` on failure.
 ```dart
 final int count = bookmarks.addTrips('/path/to/bookmarks_file');
 if (count == GemError.invalidInput.code){
@@ -58,30 +63,34 @@ if (count == GemError.invalidInput.code){
 }
 ```
 
-## Exporting a Route
+---
 
-Export a specific route to a file using `exportToFile`. Provide the route index and the destination file path.
+## Export routes to files
+
+Export a specific route to a file using `exportToFile` with the route index and destination path.
 ```dart
 final result = bookmarks.exportToFile(0, '/path/to/exported_route');
 showSnackbar('Export completed with result: $result');
 ```
 
-This method returns:
+**Return values:**
 
-- `GemError.success` on success.
+- **`GemError.success`** - Export successful
 
-- `GemError.notFound` if the route does not exist.
+- **`GemError.notFound`** - Route does not exist
 
-- `GemError.io` if the file cannot be created.
+- **`GemError.io`** - File cannot be created
 
-## Accessing Routes
+---
 
-To get the number of routes in the collection, use the `size` property:
+## Access route details
+
+Get the number of routes in the collection using the `size` property:
 ```dart
 final int count = bookmarks.size;
 ```
 
-To get details of a specific route by its index, use the following methods:
+Get details of a specific route by index:
 ```dart
 String? name = bookmarks.getName(0);
 List<Landmark>? waypoints = bookmarks.getWaypoints(0);
@@ -89,45 +98,43 @@ RoutePreferences? prefs = bookmarks.getPreferences(0);
 DateTime? timestamp = bookmarks.getTimestamp(0);
 ```
 
-The methods return `null` if the index is out of bounds or if the requested data is unavailable.
-The `getTimestamp` method returns the date and time when the route was added/modified.
+Methods return `null` if the index is out of bounds or data is unavailable. The `getTimestamp` method returns when the route was added or modified.
 
-To find the index of a route by its name, use the `find` method:
-```dart
-final index = bookmarks.find('Home to Office');
-```
-
-The `find` method returns:
-
-- The route index if found (positive value).
-
-- GemError.internalAbort.code if not found.
-
-- GemError.notFound.code if the route is not found.
-
-You can change the sort order of the bookmarks using the `sortOrder` property:
+Find the index of a route by name using the `find` method:
 ```dart
 final int index = bookmarks.find('Home to Office');
-if (index > 0) {
+if (index >= 0) {
     showSnackbar('Route found at index $index.');
 } else {
     showSnackbar('Error finding route: $index');
 }
 ```
 
-The available sort orders are:
+**Return values:**
 
-  - `RouteBookmarksSortOrder.sortByDate` (default): Most recent first.
+- Route index if found (positive value)
 
-  - `RouteBookmarksSortOrder.sortByName`: Alphabetical order.
+- `GemError.notFound.code` if not found
 
-Enable or disable auto-delete mode using the `autoDeleteMode` property.
+### Sort bookmarks
 
-When enabled, the bookmarks database is deleted when the object is destroyed.
+Change the sort order using the `sortOrder` property:
 
-## Updating Routes
+**Available sort orders:**
 
-In order to update an existing route, use the `update` method with the route index and new details:
+- **`RouteBookmarksSortOrder.sortByDate`** (default) - Most recent first
+
+- **`RouteBookmarksSortOrder.sortByName`** - Alphabetical order
+
+### Configure auto-delete mode
+
+Enable or disable auto-delete mode using the `autoDeleteMode` property. When enabled, the bookmarks database is deleted when the object is destroyed.
+
+---
+
+## Update routes
+
+Update an existing route using the `update` method with the route index and new details:
 ```dart
 bookmarks.update(
     0,
@@ -137,16 +144,18 @@ bookmarks.update(
 );
 ```
 
-The `update` method only modifies the provided fields, leaving others unchanged.
+The `update` method only modifies provided fields, leaving others unchanged.
 
-## Removing Routes
+---
 
-To remove a route by its index, use the `remove` method:
+## Remove routes
+
+Remove a route by index using the `remove` method:
 ```dart
 bookmarks.remove(0);
 ```
 
-To clear all routes from the collection, use the `clear` method:
+Clear all routes from the collection using the `clear` method:
 ```dart
 bookmarks.clear();
 ```

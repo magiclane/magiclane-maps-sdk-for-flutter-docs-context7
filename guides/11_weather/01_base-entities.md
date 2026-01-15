@@ -5,11 +5,15 @@ title: Base Entities
 
 # Base Entities
 
-Weather-related functionalities are organized into distinct classes, each designed to encapsulate specific weather data. These include `LocationForecast`, `Conditions`, and `Parameter`. This document provides a detailed explanation of each class and its purpose.
+Weather-related functionalities are organized into distinct classes, each designed to encapsulate specific weather data.
 
-## LocationForecast class
+The main classes include `LocationForecast`, `Conditions`, and `Parameter`. This guide provides a detailed explanation of each class and its purpose.
 
-This class is responsible for retaining data such as the forecast update datetime, the geographic location and forecast data.
+---
+
+## LocationForecast
+
+The `LocationForecast` class retains data such as the forecast update datetime, the geographic location, and forecast data.
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -17,9 +21,11 @@ This class is responsible for retaining data such as the forecast update datetim
 | `coord` | `Coordinates` | Geographic location |
 | `forecast` | `List<Conditions>` | Forecast data |
 
-## Conditions class
+---
 
-This class is responsible with retaining weather conditions for a given timestamp.
+## Conditions
+
+The `Conditions` class retains weather conditions for a given timestamp.
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -33,7 +39,7 @@ This class is responsible with retaining weather conditions for a given timestam
 
 ### PredefinedParameterTypeValues
 
-This class contains the common values for `Parameter.type` and `Conditions.type`.
+The `PredefinedParameterTypeValues` class contains the common values for `Parameter.type` and `Conditions.type`.
 
 | Property | Description | Unit |
 |----------|-------------|------|
@@ -54,9 +60,11 @@ This class contains the common values for `Parameter.type` and `Conditions.type`
 
 The `WeatherService` may return data with varying property types, depending on data availability. A response might include only a subset of the values listed above.
 
-## Parameter class
+---
 
-Class responsible for containg weather parameter data.
+## Parameter
+
+The `Parameter` class contains weather parameter data.
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -65,6 +73,8 @@ Class responsible for containg weather parameter data.
 | `name` | `String` | Name translated according to the current SDK language |
 | `unit` | `String` | Unit |
 
-## Relevant example demonstrating weather related features
+---
+
+## Related examples
 
 - [Weather Forecast](/examples/places-search/weather-forecast)

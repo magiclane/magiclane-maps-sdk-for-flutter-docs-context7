@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the updateReport method from the SocialOverlay class, for the Dart programming language.">
+  <title>updateReport method - SocialOverlay class - routing library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../routing/">routing.dart</a></li>
+    <li><a href="../../routing/SocialOverlay-class.html">SocialOverlay</a></li>
+    <li class="self-crumb">updateReport static method</li>
+  </ol>
+  <div class="self-name">updateReport</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="routing&#47;SocialOverlay-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">updateReport</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="../../core/ProgressListener-class.html">ProgressListener</a>?</span>
+<span class="name ">updateReport</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="updateReport-param-item"><span>required</span> <span class="type-annotation"><a href="../../map/OverlayItem-class.html">OverlayItem</a></span> <span class="parameter-name">item</span>, </span></li>
+<li><span class="parameter" id="updateReport-param-params"><span>required</span> <span class="type-annotation"><a href="../../core/SearchableParameterList-class.html">SearchableParameterList</a></span> <span class="parameter-name">params</span>, </span></li>
+<li><span class="parameter" id="updateReport-param-onComplete"><span class="type-annotation">void</span> <span class="parameter-name">onComplete</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-error"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">error</span></span></li>
+</ol>)?, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Modifies parameters of an existing owned report.</p>
+<p>Updates custom parameters for a report created by the current user, such
+as location address or other metadata. The <code>params</code> structure must follow
+the format from <a href="../../map/OverlayItem/previewDataParameterList.html">OverlayItem.previewDataParameterList</a>. Only the original
+report creator has authority to update their reports.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>item</code>: The social report <a href="../../map/OverlayItem-class.html">OverlayItem</a> to update. Must be created by
+the current user.</li>
+<li><code>params</code>: Updated parameters following the structure from
+<code>OverlayItem.previewDataParameterList</code>. Use keys from
+<a href="../../map/PredefinedOverlayGenericParametersIds-class.html">PredefinedOverlayGenericParametersIds</a> and <a href="../../routing/PredefinedReportParameterKeys-class.html">PredefinedReportParameterKeys</a>.</li>
+<li><code>onComplete</code>: Callback invoked when operation completes or fails.
+Called with:
+<ul>
+<li><a href="../../core/GemError.html">GemError.success</a> when report is successfully updated.</li>
+<li><a href="../../core/GemError.html">GemError.invalidInput</a> if <code>item</code> is not a social report overlay item
+or <code>params</code> structure is ill-formatted.</li>
+</ul>
+</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<ul>
+<li><a href="../../core/ProgressListener-class.html">ProgressListener</a> if operation was successfully initiated (use with <a href="../../routing/SocialOverlay/cancel.html">cancel</a>).</li>
+<li><code>null</code> if operation could not be started.</li>
+</ul>
+<h2 id="see-also">See also:</h2>
+<ul>
+<li><a href="../../routing/SocialOverlay/deleteReport.html">deleteReport</a> - Permanently removes owned report.</li>
+<li><a href="../../routing/PredefinedReportParameterKeys-class.html">PredefinedReportParameterKeys</a> - Standard parameter keys for reports.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static ProgressListener? updateReport({
+  required final OverlayItem item,
+  required final SearchableParameterList params,
+  void Function(GemError error)? onComplete,
+}) {
+  final EventDrivenProgressListener progListener =
+      EventDrivenProgressListener();
+  GemKitPlatform.instance.registerEventHandler(progListener.id, progListener);
+
+  progListener.registerOnCompleteWithData((final int err, _, _) {
+    GemKitPlatform.instance.unregisterEventHandler(progListener.id);
+    onComplete?.call(GemErrorExtension.fromCode(err));
+  });
+
+  final OperationResult result = staticMethod(
+    &#39;SocialOverlay&#39;,
+    &#39;updateReport&#39;,
+    args: &lt;String, dynamic&gt;{
+      &#39;item&#39;: item.pointerId,
+      &#39;listener&#39;: progListener.id,
+      &#39;params&#39;: params.pointerId,
+    },
+  );
+
+  final GemError error = GemErrorExtension.fromCode(result[&#39;result&#39;]);
+  if (error != GemError.scheduled) {
+    GemKitPlatform.instance.unregisterEventHandler(progListener.id);
+    onComplete?.call(error);
+    return null;
+  }
+
+  return progListener;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../routing/">routing</a></li>
+    <li><a href="../../routing/SocialOverlay-class.html">SocialOverlay</a></li>
+    <li class="self-crumb">updateReport static method</li>
+</ol>
+
+    <h5>SocialOverlay class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

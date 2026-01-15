@@ -5,159 +5,174 @@ title: Internationalization
 
 # Internationalization
 
-The Magic Lane SDK for Flutter provides extensive multilingual and localization support, ensuring seamless integration for global applications.
-By supporting a wide range of localizations, the SDK helps applications meet internationalization standards, enhance user engagement, and reduce friction for end-users across different markets.
+The Magic Lane SDK for Flutter provides multilingual and localization support for global applications. Configure language settings, text-to-speech instructions, units of measurement, and number formats to match your users' preferences.
+
+---
 
 ## Set the SDK language
 
-To configure the SDK's language, select a language from the ``SdkSettings.languageList`` getter and assign it using the ``SdkSettings.language`` setter.
+Configure the SDK's language by selecting a language from the `SdkSettings.languageList` getter and assigning it using the `SdkSettings.language` setter.
 ```dart
 Language? engLang = SdkSettings.getBestLanguageMatch("eng");
 SdkSettings.language = engLang!;
 ```
 
-The `languagecode` follows the [ISO 639-3 standard](https://iso639-3.sil.org/code_tables/639/data). Multiple variants may exist for a single language code. Further filtering can be applied using the `regionCode` field within the `Language` object, which adheres to the [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) standard.
+The `languagecode` follows the [ISO 639-3 standard](https://iso639-3.sil.org/code_tables/639/data). Multiple variants may exist for a single language code. Filter further using the `regionCode` field within the `Language` object, which adheres to the [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) standard.
 
-By default, the SDK language is set to the device's preferred language (first one in the hierarchy).
+By default, the SDK language is set to the device's preferred language.
 
-This operation modifies affects the following:
+**What's affected by the SDK language setting:**
 
-- **Landmark search results** : the displayed names of landmarks.
+- **Landmark search results** - displayed names of landmarks
 
-- **Overlay items** : names and details shown on the map and in search results.
+- **Overlay items** - names and details shown on the map and in search results
 
-- **Landmark category** : the displayed names.
+- **Landmark categories** - displayed names
 
-- **Overlay** : the displayed names.
+- **Overlays** - displayed names
 
-- **Navigation and routing instructions** : text-based instructions intended for on-screen display.  
+- **Navigation and routing instructions** - text-based instructions for on-screen display (text-to-speech instructions remain unaffected)
 
-  *(Text-to-speech instructions remain unaffected.)*
+- **`name` field of `GemParameter` objects** - returned by weather forecasts, overlay item previews, traffic event previews, content store parameters, route extra information, and data source parameters
 
-- **`name` field of `GemParameter` objects** returned by operations such as:
+- **Content store item names** - names of downloadable road maps and styles
 
-  - Weather forecasts
+- **Wikipedia external information** - titles, descriptions, and localized URLs
 
-  - Overlay item previews
+---
 
-  - Traffic event previews
+## Set text-to-speech language
 
-  - Content store parameters
+The TTS (text-to-speech) instruction language is managed separately from the SDK language. You can change between a wide selection of voices.
 
-  - Route extra information
+The SDK language and TTS language are not automatically synchronized. Keep these settings in sync based on your use case.
 
-  - Data source parameters
+See the [voice guidance guide](../navigation/voice-guidance) for more details.
 
-- **Content store item names** : names of downloadable road maps and styles.
+---
 
-- **Wikipedia external information** : titles, descriptions, and localized URLs.
+## Configure map language
 
-## Set the text to speech instructions language
+Set the map language to display location names consistently worldwide or in their native language.
 
-The language of the TTS instructions is different from the SDK language and are managed separately. More details can be found inside the [voice guidance guide](../navigation/voice-guidance). It is also possible to change between a wide selection of voices.
-
-The SDK Language and the TTS language are not automatically sincronized. It is the API user's responsability to keep these settings in sync, depending on the usecase.
-
-## Map language
-
-To ensure the map uses the same language all over the world, use the following code:
+### Use automatic translation
 ```dart
 SdkSettings.mapLanguage = MapLanguage.automatic;
 ```
 
-To show location names in their native language (where available) for the respective region, use this code:
+### Use native language
+
+Display location names in their native language for the respective region:
 ```dart
 SdkSettings.mapLanguage = MapLanguage.native;
 ```
 
-For example, if the SDK language is set to English:
+**Example:**
 
-- When MapLanguage is set to automatic, landmarks like Beijing are translated and displayed on the map as “Beijing.”
+When the SDK language is set to English:
 
-- When MapLanguage is set to native, landmarks remain in their local language and are displayed as “北京市.”
+- `MapLanguage.automatic` - displays "Beijing"
 
-## Set the unit of measurement
+- `MapLanguage.native` - displays "北京市"
 
-In order to change between the different unit systems use the `unitSystem` property of the `SdkSettings` class.
+---
 
-The following unit systems are supported:
+## Configure units of measurement
 
-| Unit         | Distance               | Temperature       |
-|--------------|------------------------|-------------------|
-| `metric`     | Kilometers and meters  | Celsius degrees   |
-| `imperialUK` | Miles and yards        | Celsius degrees   |
-| `imperialUS` | Miles and feet         | Farenheit degrees |
+Change between different unit systems using the `unitSystem` property of the `SdkSettings` class.
 
-This change will affect:
+**Supported unit systems:**
 
-- The values for distance interpolated in strings (both intended for display and TTS) such as navigation and routing instructions
+| Unit         | Distance               | Temperature |
+|--------------|------------------------|-------------|
+| `metric`     | Kilometers and meters  | Celsius     |
+| `imperialUK` | Miles and yards        | Celsius     |
+| `imperialUS` | Miles and feet         | Fahrenheit  |
 
-- The values provided by the map scale
+**What's affected:**
 
-- The values for temperature used in weather forecasts
+- Distance values in navigation and routing instructions (display and TTS)
 
-Keep in mind that all values returned by numeric getters and required by numeric setters are expressed using SI (International System) units, regardless of the `unitSystem` setting:
+- Map scale values
 
-- meters for distance
+- Temperature values in weather forecasts
 
-- seconds for time
+All numeric getters and setters use SI (International System) units, regardless of the `unitSystem` setting:
 
-- kilogrames for mass
+- Distance - meters
 
-- meters per second for speed
+- Time - seconds
 
-- watts for power
+- Mass - kilograms
 
-Exceptions to this convention are explicitly documented in the API reference and user guide.
-For example, the `TruckProfile` class uses centimeters for its dimension properties instead of SI units.
+- Speed - meters per second
+
+- Power - watts
+
+Exceptions to this convention are documented in the API reference and user guide. For example, the `TruckProfile` class uses centimeters for dimension properties.
+
+---
 
 ## DateTime convention
 
 Most members returning a `DateTime` value use the UTC time zone.
 
-A notable exception includes the `PTStopTime.departureTime`, `PTTrip.tripDate`, `PTTrip.departureTime` and `RoutingPreferences.timestamp` members. These members return the **local time** of the trip’s location, but with the `isUtc` flag set to `true`.
+The following members return **local time** with the `isUtc` flag set to `true`:
 
-These exceptions are documented in both the API reference and the user guide.
+- `PTStopTime.departureTime`
+
+- `PTTrip.tripDate`
+
+- `RoutingPreferences.timestamp`
+
+These exceptions are documented in the API reference and user guide.
 
 Use the `TimezoneService` class to convert between UTC and local time zones. See the [TimezoneService guide](../timezone-service) for more details.
 
-## Number separators
+---
 
-Numbers can be formatted using custom characters for decimal and digit group separators.  
-These settings are controlled via the `SdkSettings` class.
+## Configure number separators
 
-### Set the decimal separator
+Format numbers using custom characters for decimal and digit group separators. Configure these settings via the `SdkSettings` class.
 
-The **decimal separator** divides the whole and fractional parts of a number.  
+### Set decimal separator
 
-Use the `decimalSeparator` property of the `SdkSettings` class to set a character used as a decimal separator.
+The **decimal separator** divides the whole and fractional parts of a number.
 
-### Set the digit group separator 
-
-The digit group separator is used to group large numbers (e.g., separating thousands).
-
-Use the `digitGroupSeparator` property of the `SdkSettings` class to set a character used as a digit group separator.
-
-## ISO Code Conversions
-
-Various methods require and provide different standards of ISO codes. 
-Use the `ISOCodeConversions` class to convert country or language codes between formats.
-
-For country codes, use the static `ISOCodeConversions.convertCountryIso` method.
-For language codes, use `ISOCodeConversions.convertLanguageIso` method.
-
-For example:
+Use the `decimalSeparator` property of the `SdkSettings` class:
 ```dart
-// Converting conutry ISO from ISO 3166-1 alpha-2 to ISO 3166-1 alpha-3
+SdkSettings.decimalSeparator = ',';
+```
+
+### Set digit group separator
+
+The **digit group separator** groups large numbers (e.g., separating thousands).
+
+Use the `digitGroupSeparator` property of the `SdkSettings` class:
+```dart
+SdkSettings.digitGroupSeparator = '.';
+```
+
+---
+
+## Convert ISO codes
+
+Convert country or language codes between ISO formats using the `ISOCodeConversions` class.
+
+- **Country codes** - use `ISOCodeConversions.convertCountryIso`
+
+- **Language codes** - use `ISOCodeConversions.convertLanguageIso`
+```dart
+// Convert country ISO from ISO 3166-1 alpha-2 to alpha-3
 final res1 = ISOCodeConversions.convertCountryIso("BR", ISOCodeType.iso_3); // BRA
 
-// Converting conutry ISO from ISO 3166-1 alpha-3 to ISO 3166-1 alpha-2
+// Convert country ISO from ISO 3166-1 alpha-3 to alpha-2
 final res2 = ISOCodeConversions.convertCountryIso("BRA", ISOCodeType.iso_2); // BR
 
-// Converting language ISO from ISO 3166-1 alpha-3 to ISO 3166-1 alpha-2
+// Convert language ISO from ISO 639-3 to ISO 639-1
 final res3 = ISOCodeConversions.convertLanguageIso("hun", ISOCodeType.iso_2); // hu
 
-// Converting language ISO from ISO 3166-1 alpha-2 to ISO 3166-1 alpha-3
+// Convert language ISO from ISO 639-1 to ISO 639-3
 final res4 = ISOCodeConversions.convertLanguageIso("hu", ISOCodeType.iso_3); // hun
 ```
 

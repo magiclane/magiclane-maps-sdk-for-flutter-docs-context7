@@ -5,23 +5,17 @@ title: Search Geocoding Features
 
 # Search & Geocoding features
 
-The Maps SDK for Flutter provides geocoding and reverse geocoding capabilities. Key features include:
+This guide explains how to use geocoding and reverse geocoding features to convert coordinates to addresses and vice versa, search along routes, and implement auto-suggestions.
 
-- Reverse Geocoding: Transform geographic coordinates into comprehensive address details, such as country, city, street name, postal code, and more.
+---
 
-- Geocoding: Locate specific places (e.g., cities, streets, or house numbers) based on address components.
+## Convert coordinates to addresses
 
-- Route-Based Search: Perform searches along predefined routes to identify landmarks and points of interest.
+Transform geographic coordinates into detailed address information including country, city, street name, and postal code.
 
-- Wikipedia Integration: Access Wikipedia descriptions and related information for identified landmarks.
+Search around a coordinate to get the corresponding address. The **AddressInfo** object contains information about the country, city, street name, street number, postal code, state, district, and country code.
 
-- Auto-Suggestion Implementation: Utilize Flutter's SearchBar widget to dynamically generate search suggestions as users type.
-
-## Reverse geocode coordinates to address
-
-Given a coordinate, we can get the corresponding address by searching around the given location and getting the `AddressInfo` associated with the nearest Landmark found nearby. The AddressInfo provides information about the country, city, street name, street number, postal code, state, district, country code, and other relevant information.
-
-Fields from an ``AddressInfo`` object can be accessed via the ``getField`` method or can be automatically converted to a string containing the address info using the `format` method.
+Access individual fields using the `getField` method, or convert the entire address to a formatted string using the `format` method.
 ```dart
 final SearchPreferences prefs = SearchPreferences(thresholdDistance: 50);
 Coordinates coordinates = Coordinates(
@@ -52,19 +46,19 @@ SearchService.searchAroundPosition(
 );
 ```
 
-## Geocode address to location
+---
 
-The Maps SDK for Flutter provides geocoding capabilities to convert addresses into geographic coordinates.
-Adresses represent a tree-like structure, where each node is a `Landmark` with a specific `AddressDetailLevel`.
-At the root of the tree, we have the country-level landmarks, followed by other levels such as cities, streets, and house numbers.
+## Convert addresses to coordinates
 
-The address structure is not the same in all countries. For example, some countries do not have states or provinces.
+Convert address components into geographic coordinates using a hierarchical structure.
 
-Use the `getNextAddressDetailLevel` method from the `GuidedAddressSearchService` class to get the next available levels in the address hierarchy.
+Addresses follow a tree-like structure where each node is a **Landmark** with a specific `AddressDetailLevel`. The hierarchy starts with country-level landmarks, followed by cities, streets, and house numbers.
 
-### Search countries by name
+The address structure varies by country. Some countries do not have states or provinces. Use the `getNextAddressDetailLevel` method from the `GuidedAddressSearchService` class to get the next available levels in the address hierarchy.
 
-It is possible to do a search at a country level. In this case you can use code like the following:
+### Search for countries
+
+Search at the country level to find the parent landmark for hierarchical address searches.
 ```dart
   GuidedAddressSearchService.searchCountries("Germany", (err, result) {
     if (err != GemError.success && err != GemError.reducedResult) {
@@ -79,15 +73,15 @@ It is possible to do a search at a country level. In this case you can use code 
   });
 ```
 
-This can provide the parent landmark for the other `GuidedAddressSearchService` methods.
+This method restricts results to country-level landmarks and works with flexible search terms regardless of language.
 
-It does a search restricted to country-level results. This allows the use of more flexible search terms as it works regardless of the language.
+### Navigate the address hierarchy
 
-### Search the hierarchical address structure
+Search through the address structure from country to house number using parent landmarks and detail levels.
 
-We will create the example in two steps. First, we create a function that for a parent landmark, an `AddressDetailLevel` and a text returns the children having the required detail level and matching the text.
+Create a function that accepts a parent landmark, an `AddressDetailLevel`, and a text string to return matching child landmarks.
 
-The possible values for `AddressDetailLevel` are: noDetail, country, state, county, district, city, settlement, postalCode, street, streetSection, streetLane, streetAlley, houseNumber, crossing.
+**AddressDetailLevel** values: `noDetail`, `country`, `state`, `county`, `district`, `city`, `settlement`, `postalCode`, `street`, `streetSection`, `streetLane`, `streetAlley`, `houseNumber`, `crossing`.
 ```dart
 // Address search method.
 Future<Landmark?> searchAddress({
@@ -117,7 +111,7 @@ Future<Landmark?> searchAddress({
 }
 ```
 
-Using the function above, we can look for the children landmarks following the conditions:
+Use this function to search for child landmarks step by step:
 ```dart
 final countryLandmark =
         GuidedAddressSearchService.getCountryLevelItem('ESP');
@@ -151,20 +145,27 @@ if (houseNumberLandmark == null) return;
 showSnackbar('House number: ${houseNumberLandmark.name}');
 ```
 
-The `getCountryLevelItem` method returns the root node corresponding to the specified country based on the provided country code. If the country code is invalid, the function will return null.
-The `searchCountries` method can also be used.
+The `getCountryLevelItem` method returns the root node for the specified country code. If the country code is invalid, it returns null. Alternatively, use the `searchCountries` method.
 
-## Geocode location to Wikipedia
+---
 
-A useful functionality when looking for something, is to obtain the content of a Wikipedia page for a specific text filter. This can be done by a normal search, followed by a call to `ExternalInfoService.requestWikiInfo`.
+## Access Wikipedia information
 
-See the [Location Wikipedia guide](../location-wikipedia) for more info.
+Retrieve Wikipedia content for search results to provide additional context about landmarks.
 
-## Get auto-suggestions
+Perform a standard search, then call `ExternalInfoService.requestWikiInfo` to get Wikipedia descriptions for identified landmarks.
 
-Auto-suggestions can be implemented by calling ``SearchService.search`` with the text filter set to the current text from the flutter SearchBar widget when the field value is changed. A simple example is demonstrated below:
+See the [Location Wikipedia guide](../location-wikipedia) for detailed information.
 
-AutoSuggestionSearchWidget is a widget that contains the search bar:
+---
+
+## Implement auto-suggestions
+
+Provide real-time search suggestions using Flutter's SearchBar widget.
+
+Call `SearchService.search` with the current text when the search field value changes. This example shows a basic implementation:
+
+**AutoSuggestionSearchWidget** contains the search bar:
 ```dart
 class AutoSuggestionSearchWidget extends StatefulWidget {
   const AutoSuggestionSearchWidget({super.key});
@@ -233,9 +234,9 @@ class _AutoSuggestionSearchWidgetState
 }
 ```
 
-The preferences with ``allowFuzzyResults`` set to true allows for partial match during search. The ``refCoordinates`` might be replaced with a more suitable value, such as the user current position or the map viewport center. More information about the SearchBar widget can be found in the [Flutter documentation](https://api.flutter.dev/flutter/material/SearchBar-class.html).
+Set `allowFuzzyResults` to true for partial match support. Replace `refCoordinates` with the user's current position or map viewport center for better results. Learn more about the SearchBar widget in the [Flutter documentation](https://api.flutter.dev/flutter/material/SearchBar-class.html).
 
-The ``SearchSuggestion`` is a simple widget that displays the landmark name and completes the SearchBar text with the selected landmark name:
+**SearchSuggestion** displays the landmark name and updates the SearchBar text when selected:
 ```dart
 class SearchSuggestion extends StatelessWidget {
   final Landmark landmark;
@@ -255,11 +256,15 @@ class SearchSuggestion extends StatelessWidget {
 }
 ```
 
-The SearchSuggestion widget can be modified to display the icon of the landmark, address and any relevant details depending on the usecase.
+Customize the SearchSuggestion widget to display landmark icons, addresses, or other relevant details based on your use case.
 
-## Search along a route
+---
 
-It is possible also to do a search along a route, not based on some coordinates. In this case you can use code like the following:
+## Search along routes
+
+Find landmarks and points of interest along a predefined route.
+
+Use `SearchService.searchAlongRoute` to search for landmarks within a specified distance from the route:
 ```dart
 TaskHandler? taskHandler = SearchService.searchAlongRoute(
     route,
@@ -280,4 +285,4 @@ TaskHandler? taskHandler = SearchService.searchAlongRoute(
 );
 ```
 
-We can set a custom value for ``SearchPreferences.thresholdDistance`` in order to specify the maximum distance to the route for the landmarks to be searched. Other ``SearchPreferences`` fields can be specified depending on the usecase.
+Set `SearchPreferences.thresholdDistance` to specify the maximum distance from the route for landmarks to be included. Configure other `SearchPreferences` fields based on your use case.

@@ -5,25 +5,19 @@ title: Get Started Positioning
 
 # Get started with positioning
 
-The Positioning module enables your application to obtain and utilize location data, serving as the foundation for features like navigation, tracking, and location-based services. This data can be sourced either from the device's GPS or from a custom data source, offering flexibility to suit diverse application needs.
+The Positioning module provides location data for navigation, tracking, and location-based services. Use GPS data from the device or integrate custom location data from external sources.
 
-Using the Positioning module, you can:
+---
 
-- Leverage real GPS data: Obtain highly accurate, real-time location updates directly from the device's built-in GPS sensor.
+## Grant permissions
 
-- Integrate custom location data: Configure the module to use location data provided by external sources, such as mock services or specialized hardware.
+### Step 1: Add application location permissions
 
-In the following sections, you will learn how to grant the necessary location permissions for your app, set up live data sources, and manage location updates effectively. Additionally, we will explore how to customize the position tracker to align with your application's design and functionality requirements. This comprehensive guide will help you integrate robust and flexible positioning capabilities into your app.
-
-## Granting permissions
-
-### Add application location permissions
-
-Location permissions must be configured based on the platform the application is running on. Below are the steps to enable location permissions for Android and iOS:
+Configure location permissions based on the platform:
 
 <Tabs>
 <TabItem value="android" label="Android" default>
-    In order to give the application the location permission on Android, you need to alter the `android/app/main/AndroidManifest.xml` and add the following permissions within the `<manifest>` block:
+    Add the following permissions to `android/app/main/AndroidManifest.xml` within the `<manifest>` block:
     
 ```xml
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -31,11 +25,11 @@ Location permissions must be configured based on the platform the application is
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     ```
 
-    More information about permissions can be found in the  [Android Manifest documentation](https://developer.android.com/reference/android/Manifest.permission).
+    More information about permissions can be found in the [Android Manifest documentation](https://developer.android.com/reference/android/Manifest.permission).
 
 </TabItem>
 <TabItem value="ios" label="IOS" default>
-    On iOS, you need to adapt the `ios/Runner/Info.plist` by adding the following lines of code within the `<dict>` block:
+    Add the following lines to `ios/Runner/Info.plist` within the `<dict>` block:
 
     
 ```xml
@@ -65,13 +59,11 @@ Location permissions must be configured based on the platform the application is
 </TabItem>
 </Tabs>
 
-### Get user consent
+### Step 2: Get user consent
 
-Defining location permissions in the application, as explained in the previous section, is a mandatory step.
+Use the [permission_handler](https://pub.dev/packages/permission_handler) plugin to request and manage location permissions:
 
-Afterward, we can utilize the [permission_handler](https://pub.dev/packages/permission_handler) plugin to programmatically request and manage location permissions within the application:
-
-Ensure that you follow the [platform specific setup](https://pub.dev/packages/permission_handler#setup) for the permission_handler package to correctly configure permissions for your application.
+Follow the [platform specific setup](https://pub.dev/packages/permission_handler#setup) for the permission_handler package to correctly configure permissions for your application.
 ```dart
 // For Android & iOS platforms, permission_handler package is used to ask for permissions.
 final locationPermissionStatus = await Permission.locationWhenInUse.request();
@@ -95,37 +87,36 @@ if (locationPermissionStatus == PermissionStatus.permanentlyDenied) {
 }
 ```
 
-In the previous code, we request the `locationWhenInUse` permission. If the user grants it, we notify the engine to use real GPS positions for navigation by calling `setLiveDataSource` on the `PositionService` instance.
+The code requests the `locationWhenInUse` permission. If granted, call `setLiveDataSource` on the `PositionService` instance to use real GPS positions for navigation.
 
-If the live data source is set and the right permissions are granted, the position cursor should be visible on the map as an arrow.
+When the live data source is set and permissions are granted, the position cursor appears on the map as an arrow.
 
-:::tip[tip]
+For debugging, use the Android Emulator's [extended controls](https://developer.android.com/studio/run/emulator-extended-controls) to mock the current position. On real devices, use apps like [Mock Locations](https://play.google.com/store/apps/details?id=ru.gavrikov.mocklocations) to simulate location data.
 
-For debugging purposes, the Android Emulator's [extended controls](https://developer.android.com/studio/run/emulator-extended-controls) can be used to mock the current position.
-On a real device, apps such as [Mock Locations](https://play.google.com/store/apps/details?id=ru.gavrikov.mocklocations) can be utilized to simulate location data.
+On iOS (simulators and devices), mock the location from Xcode for GPX replay. See more [here](https://developer.apple.com/documentation/xcode/simulating-location-in-tests).
 
-On iOS (simulators and devices) the location can be mocked from XCode, allowing for GPX replay. See more [here](https://developer.apple.com/documentation/xcode/simulating-location-in-tests). 
+If the location permission popup doesn't appear, verify the platform-specific setup is correct. Check the `permission_handler` package documentation and issue tracker.
 
-If the popup for asking for location permissions does not appear, make sure the platform specific setup is done correctly. Check the `permission_handler` package documentation and issue tracker for help.
+---
 
 ## Receive location updates
 
-To receive updates about changes in the current position, we can register a callback function using the ``addImprovedPositionListener`` and ``addPositionListener`` methods. The given listener will be called continuously as new updates about current position are made.
+Register a callback function using the `addImprovedPositionListener` and `addPositionListener` methods to receive position updates. The listener is called continuously as new position data becomes available.
 
-Consult the [Positions guide](/guides/core/positions) for more information about the `GemPosition` class and the differences between raw positions and map matched position.
+Consult the [Positions guide](/guides/core/positions) for more information about the `GemPosition` class and the differences between raw positions and map-matched positions.
 
 ### Raw positions
 
-To listen for raw position updates (as they are pushed to the data source or received via the sensors), the ``addPositionListener`` method can be used:
+Use the `addPositionListener` method to listen for raw position updates as they're pushed to the data source or received via sensors:
 ```dart
 PositionService.addPositionListener((GemPosition position) {
     // Process the position
 });
 ```
 
-### Map matched positions
+### Map-matched positions
 
-The ``addImprovedPositionListener`` method is used to register a callback to receive map matched positions.
+Use the `addImprovedPositionListener` method to register a callback for map-matched positions:
 ```dart
 PositionService.addImprovedPositionListener((GemImprovedPosition position) {
     // Current coordinates
@@ -153,11 +144,13 @@ PositionService.addImprovedPositionListener((GemImprovedPosition position) {
 });
 ```
 
-During simulation, the positions provided through the ``addImprovedPositionListener`` and ``addPositionListener`` methods correspond to the simulated locations generated as part of the navigation simulation process.
+During simulation, the positions provided through the `addImprovedPositionListener` and `addPositionListener` methods correspond to the simulated locations generated as part of the navigation simulation process.
+
+---
 
 ## Get current location
 
-To retrieve the current location, we can use the ``position`` getter from the ``PositionService`` class. This method returns a ``GemPosition`` object containing the latest location information or ``null`` if no position data is available. This method is useful for accessing the most recent position data without registering for continuous updates.
+Use the `position` getter from the `PositionService` class to retrieve the current location. This returns a `GemPosition` object with the latest location information or `null` if no position data is available. Use this to access the most recent position without registering for continuous updates:
 ```dart
 GemPosition? position = PositionService.position;
 
@@ -168,7 +161,9 @@ if (position == null) {
 }
 ```
 
-A similar getter is provided for map-matched positions: `improvedPosition` and returns `GemImprovedPosition?` instead of `GemPosition?`.
+A similar getter is provided for map-matched positions: `improvedPosition` returns `GemImprovedPosition?` instead of `GemPosition?`.
+
+---
 
 ## Relevant examples demonstrating positioning related features
 

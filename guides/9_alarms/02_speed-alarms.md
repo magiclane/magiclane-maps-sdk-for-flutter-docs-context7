@@ -5,9 +5,15 @@ title: Speed Alarms
 
 # Speed warnings
 
-The SDK provides features for monitoring and notifying users about speed limits and violations. You can configure alerts for when a user exceeds the speed limit, when the speed limit changes on the new road segment with respect to the previous, and when the user returns to a normal speed range (onNormalSpeed). The SDK also allows you to set customizable thresholds for speed violations, which can be adjusted for both city and non-city areas. These features help provide timely and relevant speed-related notifications based on the user's location and current speed.
+This guide explains how to configure speed limit monitoring and receive notifications about speed violations and speed limit changes.
 
-## Configure the speed limit listeners
+---
+
+The SDK monitors and notifies you about speed limits and violations. You can configure alerts for when a user exceeds the speed limit, when the speed limit changes on a new road segment, and when the user returns to a normal speed range. You can set customizable thresholds for speed violations, which can be adjusted for both city and non-city areas. These features provide timely speed-related notifications based on the user's location and current speed.
+
+---
+
+## Configure speed limit listeners
 ```dart
 AlarmListener alarmListener = AlarmListener(
     onHighSpeed: (limit, insideCityArea) {
@@ -37,17 +43,21 @@ AlarmListener alarmListener = AlarmListener(
 AlarmService alarmService = AlarmService(alarmListener);
 ```
 
-The ``onHighSpeed`` will continuously send notifications while the user exceeds with a given threshold the maximum speed limit for the current road section.
-The ``onSpeedLimit`` will be triggered once the current road section has a different speed than the previous road section.
-The ``onNormalSpeed`` will be triggered once the user speed becomes within the limit of the maximum speed limit for the current road section.
+The `onHighSpeed` callback continuously sends notifications while the user exceeds the maximum speed limit for the current road section by a given threshold.
 
-Although the parameter is named ``insideCityArea``, it refers to areas with generally lower speed limits, such as cities, towns, villages, or similar settlements, regardless of their classification.
+The `onSpeedLimit` callback is triggered when the current road section has a different speed limit than the previous road section.
+
+The `onNormalSpeed` callback is triggered when the user speed returns within the limit of the maximum speed limit for the current road section.
+
+Although the parameter is named `insideCityArea`, it refers to areas with generally lower speed limits, such as cities, towns, villages, or similar settlements, regardless of their classification.
 
 The `limit` parameter provided to `onSpeedLimit` will be 0 if the matched road section does not have a maximum speed limit available or if no road could be found.
 
-## Set the threshold for speed
+---
 
-The threshold for the maximum speed excess that triggers the ``onHighSpeed`` callback can be configured as follows:
+## Set speed threshold
+
+The threshold for the maximum speed excess that triggers the `onHighSpeed` callback can be configured as follows:
 ```dart
 // Trigger onHighSpeed when the speed limit is exceeded by 1 m/s inside a city area
 alarmService.setOverSpeedThreshold(threshold: 1, insideCityArea: true);    
@@ -55,13 +65,17 @@ alarmService.setOverSpeedThreshold(threshold: 1, insideCityArea: true);
 alarmService.setOverSpeedThreshold(threshold: 3, insideCityArea: true);
 ```
 
-## Get the threshold for the speed
+---
 
-The configured threshold can be accessed as follows:
+## Get speed threshold
+
+To access the configured threshold:
 ```dart
 double currentThresholdInsideCity = alarmService.getOverSpeedThreshold(true);
 double currentThresholdOutsideCity = alarmService.getOverSpeedThreshold(false);
 ```
+
+---
 
 ## Relevant examples demonstrating speed alarms related features
 

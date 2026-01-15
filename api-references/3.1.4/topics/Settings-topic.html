@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="Settings topic docs, for the Dart programming language.">
+  <title>Settings topic - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Settings topic</li>
+  </ol>
+  <div class="self-name">Settings</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div id="dartdoc-main-content" class="main-content">
+  <h1><span class="kind-category">Settings</span> topic</h1>
+  
+<section class="desc markdown">
+  <p>Use this module to configure global SDK behaviour, persistence of lightweight application settings, network policy, debug diagnostics, and platform capabilities. The Settings area exposes programmatic access to runtime SDK flags, persisted key/value storage, offboard update listeners, and diagnostic helpers useful for building resilient map, navigation, and content-enabled apps.</p>
+<ul>
+<li><strong><code>SdkSettings</code></strong>: Central SDK configuration surface for global runtime flags and preferences. Use this to read and set unit systems, language, app identity, network allowances, and to query build-time capabilities exposed by the SDK.</li>
+<li><strong><code>SettingsService</code></strong>: Local key/value persistence for application settings. Use it to store typed values, retrieve defaults, and persist small pieces of state that need to survive app restarts.</li>
+<li><strong><code>NetworkProvider</code></strong>: Abstraction for querying and managing network availability and status. Use it to determine whether offboard services can be reached and to trigger refreshes when connectivity changes.</li>
+<li><strong><code>OffBoardListener</code></strong>: Central event listener for offboard content and network events. Use it to register callbacks for content update status, connection changes, and worldwide roadmap capability notifications.</li>
+<li><strong><code>Debug</code></strong>: Diagnostic utilities and fine-grained logging controls. Use it to toggle logging levels and to retrieve low-level app I/O and service diagnostics during development or troubleshooting.</li>
+</ul>
+<p>Settings APIs combine to provide a predictable configuration surface and small persistent store for application needs. Together they let apps enforce consistent presentation (units, language), manage network and update policies safely, gather diagnostic information for troubleshooting, and persist small user preferences without pulling in a heavyweight storage dependency.</p>
+<p>Prefer <code>SdkSettings</code> for global SDK-level flags that affect core features such as unit formatting, language selection, and allowable network behavior. Use <code>SettingsService</code> for app-level key/value persistence of small items (user preferences, counters, last-sync timestamps). Register an <code>OffBoardListener</code> to receive content update and connection events and coordinate background refreshes via <code>NetworkProvider</code>. Enable <code>Debug</code> logging selectively in development.</p>
+</section>
+
+
+
+  <section class="summary offset-anchor" id="classes">
+    <h2>Classes</h2>
+    <dl>
+      <dt id="Debug">
+  <span class="name "><a href="../core/Debug-class.html">Debug</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Provides debugging utilities for memory monitoring, logging, and SDK configuration.
+</dd>
+
+      <dt id="ExpiredContent">
+  <span class="name "><a href="../core/ExpiredContent-class.html">ExpiredContent</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Expired Content
+</dd>
+
+      <dt id="MountInfo">
+  <span class="name "><a href="../core/MountInfo-class.html">MountInfo</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Information about a storage mount point used by the application.
+</dd>
+
+      <dt id="NetworkProvider">
+  <span class="name "><a href="../core/NetworkProvider-class.html">NetworkProvider</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Network access customization and notification hooks.
+</dd>
+
+      <dt id="OffBoardListener">
+  <span class="name "><a href="../core/OffBoardListener-class.html">OffBoardListener</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Listener receiving offboard/content-related events from the SDK.
+</dd>
+
+      <dt id="ProxyDetails">
+  <span class="name "><a href="../core/ProxyDetails-class.html">ProxyDetails</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Proxy information used for HTTPS/HTTP proxy callbacks and configuration.
+</dd>
+
+      <dt id="SdkSettings">
+  <span class="name "><a href="../core/SdkSettings-class.html">SdkSettings</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  SDK-level configuration and utility methods.
+</dd>
+
+      <dt id="SettingsService">
+  <span class="name "><a href="../core/SettingsService-class.html">SettingsService</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Service for storing persistent key/value application settings.
+</dd>
+
+    </dl>
+  </section>
+
+
+
+
+
+
+  <section class="summary offset-anchor" id="enums">
+    <h2>Enums</h2>
+    <dl>
+      <dt id="AppTheme">
+  <span class="name "><a href="../core/AppTheme.html">AppTheme</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Application theme selection used for images and text rendering.
+</dd>
+
+      <dt id="ContentStoreStatus">
+  <span class="name "><a href="../core/ContentStoreStatus.html">ContentStoreStatus</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  The status for <a href="../content_store/ContentStore-class.html">ContentStore</a> data.
+</dd>
+
+      <dt id="GemDumpSdkLevel">
+  <span class="name "><a href="../core/GemDumpSdkLevel.html">GemDumpSdkLevel</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Defines verbosity levels for crash report logs sent to Magic Lane servers.
+</dd>
+
+      <dt id="GemLoggingLevel">
+  <span class="name "><a href="../core/GemLoggingLevel.html">GemLoggingLevel</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Defines logging levels for SDK debug output to console.
+</dd>
+
+      <dt id="MapLanguage">
+  <span class="name "><a href="../core/MapLanguage.html">MapLanguage</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Map language selection options.
+</dd>
+
+      <dt id="NavigationModifiers">
+  <span class="name "><a href="../core/NavigationModifiers.html">NavigationModifiers</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Modifies navigation behavior for debugging and testing purposes.
+</dd>
+
+      <dt id="OnlineRestrictions">
+  <span class="name "><a href="../core/OnlineRestrictions.html">OnlineRestrictions</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Represents online restrictions using bitwise flags.
+</dd>
+
+      <dt id="ProxyType">
+  <span class="name "><a href="../core/ProxyType.html">ProxyType</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Proxy type enumeration.
+</dd>
+
+      <dt id="Reason">
+  <span class="name "><a href="../core/Reason.html">Reason</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Error reason type
+</dd>
+
+      <dt id="RoutingAlgoModifiers">
+  <span class="name "><a href="../core/RoutingAlgoModifiers.html">RoutingAlgoModifiers</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Modifies routing algorithm behavior for debugging and testing purposes.
+</dd>
+
+      <dt id="SdkCapability">
+  <span class="name "><a href="../core/SdkCapability.html">SdkCapability</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Enumerates the possible capabilities included in this SDK build.
+</dd>
+
+      <dt id="ServiceGroupType">
+  <span class="name "><a href="../core/ServiceGroupType.html">ServiceGroupType</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Service group enum, including map tiles, traffic, terrain.
+</dd>
+
+      <dt id="UnitSystem">
+  <span class="name "><a href="../core/UnitSystem.html">UnitSystem</a></span> 
+    <span class="category settings cp-19 linked" title="This is part of the Settings topic."><a href="../topics/Settings-topic.html">Settings</a></span>
+
+</dt>
+<dd>
+  Unit system used for textual and spoken measurements.
+</dd>
+
+    </dl>
+  </section>
+
+
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Settings topic</li>
+</ol>
+
+  <h5><span class="package-name">magiclane_maps_flutter</span> <span class="package-kind">package</span></h5>
+  <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/Common-topic.html">Common</a></li>
+        <li><a href="../topics/Geographic-topic.html">Geographic</a></li>
+        <li><a href="../topics/Images-topic.html">Images</a></li>
+        <li><a href="../topics/Position-topic.html">Position</a></li>
+        <li><a href="../topics/Landmark Store-topic.html">Landmark&nbsp;Store</a></li>
+        <li><a href="../topics/Landmarks-topic.html">Landmarks</a></li>
+        <li><a href="../topics/Markers-topic.html">Markers</a></li>
+        <li><a href="../topics/Overlays-topic.html">Overlays</a></li>
+        <li><a href="../topics/Search-topic.html">Search</a></li>
+        <li><a href="../topics/Route-topic.html">Route</a></li>
+        <li><a href="../topics/Routing-topic.html">Routing</a></li>
+        <li><a href="../topics/Navigation-topic.html">Navigation</a></li>
+        <li><a href="../topics/Driver Behaviour-topic.html">Driver&nbsp;Behaviour</a></li>
+        <li><a href="../topics/Traffic & Roadblocks-topic.html">Traffic&nbsp;&&nbsp;Roadblocks</a></li>
+        <li><a href="../topics/Sound-topic.html">Sound</a></li>
+        <li><a href="../topics/Sensor Data Source-topic.html">Sensor&nbsp;Data&nbsp;Source</a></li>
+        <li><a href="../topics/Content-topic.html">Content</a></li>
+        <li><a href="../topics/Alarms-topic.html">Alarms</a></li>
+        <li><a href="../topics/Settings-topic.html">Settings</a></li>
+        <li><a href="../topics/Timezone-topic.html">Timezone</a></li>
+        <li><a href="../topics/Iso Code Conversions-topic.html">Iso&nbsp;Code&nbsp;Conversions</a></li>
+        <li><a href="../topics/Locale-topic.html">Locale</a></li>
+        <li><a href="../topics/Weather-topic.html">Weather</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../content_store/">content_store</a></li>
+      <li><a href="../core/">core</a></li>
+      <li><a href="../driver_behaviour/">driver_behaviour</a></li>
+      <li><a href="../landmark_store/">landmark_store</a></li>
+      <li><a href="../map/">map</a></li>
+      <li><a href="../navigation/">navigation</a></li>
+      <li><a href="../position/">position</a></li>
+      <li><a href="../projections/">projections</a></li>
+      <li><a href="../routing/">routing</a></li>
+      <li><a href="../search/">search</a></li>
+      <li><a href="../sense/">sense</a></li>
+      <li><a href="../weather/">weather</a></li>
+</ol>
+
+</div>
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  <h5>Settings topic</h5>
+  <ol>
+
+    <li class="section-title"><a href="../topics/Settings-topic.html#classes">Classes</a></li>
+      <li><a href="../core/Debug-class.html">Debug</a></li>
+      <li><a href="../core/ExpiredContent-class.html">ExpiredContent</a></li>
+      <li><a href="../core/MountInfo-class.html">MountInfo</a></li>
+      <li><a href="../core/NetworkProvider-class.html">NetworkProvider</a></li>
+      <li><a href="../core/OffBoardListener-class.html">OffBoardListener</a></li>
+      <li><a href="../core/ProxyDetails-class.html">ProxyDetails</a></li>
+      <li><a href="../core/SdkSettings-class.html">SdkSettings</a></li>
+      <li><a href="../core/SettingsService-class.html">SettingsService</a></li>
+
+    <li class="section-title"><a href="../topics/Settings-topic.html#enums">Enums</a></li>
+      <li><a href="../core/AppTheme.html">AppTheme</a></li>
+      <li><a href="../core/ContentStoreStatus.html">ContentStoreStatus</a></li>
+      <li><a href="../core/GemDumpSdkLevel.html">GemDumpSdkLevel</a></li>
+      <li><a href="../core/GemLoggingLevel.html">GemLoggingLevel</a></li>
+      <li><a href="../core/MapLanguage.html">MapLanguage</a></li>
+      <li><a href="../core/NavigationModifiers.html">NavigationModifiers</a></li>
+      <li><a href="../core/OnlineRestrictions.html">OnlineRestrictions</a></li>
+      <li><a href="../core/ProxyType.html">ProxyType</a></li>
+      <li><a href="../core/Reason.html">Reason</a></li>
+      <li><a href="../core/RoutingAlgoModifiers.html">RoutingAlgoModifiers</a></li>
+      <li><a href="../core/SdkCapability.html">SdkCapability</a></li>
+      <li><a href="../core/ServiceGroupType.html">ServiceGroupType</a></li>
+      <li><a href="../core/UnitSystem.html">UnitSystem</a></li>
+
+
+
+
+
+
+
+
+</ol>
+
+</div>
+<!--/sidebar-offcanvas-right-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

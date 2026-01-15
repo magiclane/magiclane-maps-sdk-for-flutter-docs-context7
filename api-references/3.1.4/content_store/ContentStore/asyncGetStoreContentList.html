@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the asyncGetStoreContentList method from the ContentStore class, for the Dart programming language.">
+  <title>asyncGetStoreContentList method - ContentStore class - content_store library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../content_store/">content_store.dart</a></li>
+    <li><a href="../../content_store/ContentStore-class.html">ContentStore</a></li>
+    <li class="self-crumb">asyncGetStoreContentList static method</li>
+  </ol>
+  <div class="self-name">asyncGetStoreContentList</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="content_store&#47;ContentStore-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">asyncGetStoreContentList</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="../../core/ProgressListener-class.html">ProgressListener</a>?</span>
+<span class="name ">asyncGetStoreContentList</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="asyncGetStoreContentList-param-type"><span class="type-annotation"><a href="../../content_store/ContentType.html">ContentType</a></span> <span class="parameter-name">type</span>, </span></li>
+<li><span class="parameter" id="asyncGetStoreContentList-param-onComplete"><span class="type-annotation">void</span> <span class="parameter-name">onComplete</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-err"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">err</span>, </span></li>
+<li><span class="parameter" id="param-items"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../content_store/ContentStoreItem-class.html">ContentStoreItem</a></span>&gt;</span></span> <span class="parameter-name">items</span>, </span></li>
+<li><span class="parameter" id="param-isCached"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isCached</span></span></li>
+</ol>)</span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Asynchronously request the online store content list for a specific content type.</p>
+<p>Call this method when an active internet connection is available and the offline
+data on the device is not expired. Results are delivered through the provided
+completion callback.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>type</code>: The <a href="../../content_store/ContentType.html">ContentType</a> to request (for example <a href="../../content_store/ContentType.html">ContentType.roadMap</a> or
+<a href="../../content_store/ContentType.html">ContentType.viewStyleHighRes</a>).</li>
+<li><code>onComplete</code>: Required callback invoked when the operation completes. The function is
+called with:
+<ul>
+<li><code>err</code> — a <a href="../../core/GemError.html">GemError</a> indicating the operation result (for example <code>GemError.success</code>,
+<code>GemError.noConnection</code>, etc.).</li>
+<li><code>items</code> — a <code>List&lt;ContentStoreItem&gt;</code> containing the retrieved items when <code>err</code> is
+<code>GemError.success</code>, or an empty list on error.</li>
+<li><code>isCached</code> — <code>true</code> when the returned list was retrieved from a local cache, otherwise
+<code>false</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>A <a href="../../core/ProgressListener-class.html">ProgressListener</a> to monitor or cancel the request if it started successfully, or
+<code>null</code> when the request could not be started (for example when offline and no cached data is valid).</li>
+</ul>
+<h2 id="see-also">See also:</h2>
+<ul>
+<li><a href="../../content_store/ContentStore/getStoreContentList.html">getStoreContentList</a> - Synchronously retrieve the last cached online content list.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static ProgressListener? asyncGetStoreContentList(
+  final ContentType type,
+  final void Function(
+    GemError err,
+    List&lt;ContentStoreItem&gt; items,
+    bool isCached,
+  )
+  onComplete,
+) {
+  final EventDrivenProgressListener progListener =
+      EventDrivenProgressListener();
+  final OperationResult resultString = staticMethod(
+    &#39;ContentStore&#39;,
+    &#39;asyncGetStoreContentList&#39;,
+    args: &lt;String, dynamic&gt;{&#39;type&#39;: type.id, &#39;listener&#39;: progListener.id},
+  );
+
+  if (resultString.containsKey(&#39;gemApiError&#39;)) {
+    final int errorCode = resultString[&#39;gemApiError&#39;] as int;
+    final GemError error = GemErrorExtension.fromCode(errorCode);
+    if (error != GemError.success) {
+      onComplete(error, &lt;ContentStoreItem&gt;[], false);
+      return null;
+    }
+  }
+
+  progListener.registerOnCompleteWithData((
+    final int err,
+    final String hint,
+    final Map&lt;dynamic, dynamic&gt; json,
+  ) {
+    if (err == 0) {
+      final OperationResult contentStoreListString = staticMethod(
+        &#39;ContentStore&#39;,
+        &#39;getStoreContentList&#39;,
+        args: type.id,
+      );
+      final int listId =
+          contentStoreListString[&#39;result&#39;][&#39;contentStoreListId&#39;];
+      final bool isCached = contentStoreListString[&#39;result&#39;][&#39;isCached&#39;];
+      onComplete(
+        GemErrorExtension.fromCode(0),
+        ContentStoreItemList.init(listId).toList(),
+        isCached,
+      );
+    } else {
+      onComplete(
+        GemErrorExtension.fromCode(err),
+        &lt;ContentStoreItem&gt;[],
+        false,
+      );
+    }
+  });
+  GemKitPlatform.instance.registerEventHandler(progListener.id, progListener);
+  return progListener;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../content_store/">content_store</a></li>
+    <li><a href="../../content_store/ContentStore-class.html">ContentStore</a></li>
+    <li class="self-crumb">asyncGetStoreContentList static method</li>
+</ol>
+
+    <h5>ContentStore class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

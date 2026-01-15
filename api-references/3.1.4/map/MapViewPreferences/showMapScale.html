@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the showMapScale property from the MapViewPreferences class, for the Dart programming language.">
+  <title>showMapScale property - MapViewPreferences class - map library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../map/">map.dart</a></li>
+    <li><a href="../../map/MapViewPreferences-class.html">MapViewPreferences</a></li>
+    <li class="self-crumb">showMapScale property</li>
+  </ol>
+  <div class="self-name">showMapScale</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="map&#47;MapViewPreferences-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-property">showMapScale</span> property 
+</h1></div>
+
+    
+
+    
+        
+  <section id="getter">
+    <section class="multi-line-signature">
+      
+      <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+      get
+      <span class="name ">showMapScale</span>
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Check whether the map scale is shown.</p>
+<h2 id="returns">Returns</h2>
+<p>True if the map scale is shown, false otherwise.</p>
+<h2 id="see-also">See also:</h2>
+<ul>
+<li><a href="../../map/MapViewPreferences/areMapScalesDrawnByUser.html">areMapScalesDrawnByUser</a> - Check rendering mode.</li>
+<li><a href="../../map/MapViewPreferences/mapScalePosition.html">mapScalePosition</a> - Get the scale position.</li>
+</ul>
+</section>
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">bool get showMapScale {
+  final OperationResult resultString = objectMethod(
+    _pointerId,
+    &#39;MapViewPreferences&#39;,
+    &#39;isMapScaleShown&#39;,
+    dependencyId: _mapPointerId,
+  );
+
+  return resultString[&#39;result&#39;];
+}</code></pre>
+</section>
+
+  </section>
+
+
+        
+  <section id="setter">
+    <section class="multi-line-signature">
+      
+      set
+      <span class="name ">showMapScale</span>
+      <span class="signature">(<wbr><span class="parameter" id="showMapScale=-param-value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">value</span></span>)</span>
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Show or hide the map scale.</p>
+<p>Controls whether the map scale bar is displayed on the map. The scale bar
+shows the correspondence between screen distance and real-world distance
+at the current zoom level. When <a href="../../map/MapViewPreferences/areMapScalesDrawnByUser.html">areMapScalesDrawnByUser</a> is false (the
+default), the SDK automatically draws the scale. When true, you must
+provide rendering instructions via <a href="../../map/GemMapController/registerOnRenderMapScale.html">GemMapController.registerOnRenderMapScale</a>.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>value</code>: (bool) True to show the map scale, false to hide it.</li>
+</ul>
+<h2 id="see-also">See also:</h2>
+<ul>
+<li><a href="../../map/MapViewPreferences/showMapScale.html">showMapScale</a> getter - Check current visibility.</li>
+<li><a href="../../map/MapViewPreferences/areMapScalesDrawnByUser.html">areMapScalesDrawnByUser</a> - Control SDK vs. custom rendering.</li>
+<li><a href="../../map/MapViewPreferences/mapScalePosition.html">mapScalePosition</a> - Position the scale on screen.</li>
+<li><a href="../../map/GemMapController/registerOnRenderMapScale.html">GemMapController.registerOnRenderMapScale</a> - Custom scale rendering.</li>
+</ul>
+</section>
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">set showMapScale(final bool value) {
+  objectMethod(
+    _pointerId,
+    &#39;MapViewPreferences&#39;,
+    &#39;showMapScale&#39;,
+    args: value,
+    dependencyId: _mapPointerId,
+  );
+}</code></pre>
+</section>
+
+  </section>
+
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../map/">map</a></li>
+    <li><a href="../../map/MapViewPreferences-class.html">MapViewPreferences</a></li>
+    <li class="self-crumb">showMapScale property</li>
+</ol>
+
+  <h5>MapViewPreferences class</h5>
+  <div id="dartdoc-sidebar-left-content"></div>
+</div><!--/.sidebar-offcanvas-->
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

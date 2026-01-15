@@ -5,101 +5,113 @@ title: Markers
 
 # Markers
 
-A **marker** is a visual representation (such as an icon or a geometry, like a polyline or polygon) placed at a specific geographic location on a map to indicate an important point of interest, event, or location.
+A **marker** is a visual element placed at a geographic location to indicate a point of interest. Markers can be icons, polylines, or polygons representing temporary or user-defined locations, waypoints, or annotations.
 
-Markers can represent temporary or user-specified points on the map, such as user-defined locations, waypoints, or temporary annotations. While they are often represented by icons, they can also take the form of more complex geometries, like lines or shapes, depending on the context or requirements.
+Markers contain basic metadata like position, title, and description. The map does not include markers by default—you must create and add them.
 
-Markers typically contain only basic metadata, such as their position, title, or description, without extensive associated details.
+---
 
-By default, the map does not include any visual elements categorized as markers. Users have the ability to create and add markers to the map as needed.
+## Create Markers
 
-## Instantiating Markers
+Create markers using one of these methods:
 
-Markers can be instantiated via:  
-1. **Default Initialization**: `Marker()` creates a basic marker object.  
-2. **Coordinates**: `Marker.fromCoordinates(List<Coordinates> coordinates)` creates a marker with specified coordinates.
-3. **Circle Area**: `Marker.fromCircleArea(Coordinates centerCoords, double radius)` creates a marker representing a circular area defined by its center and radius.
-4. **Circle Radii**: `Marker.fromCircleRadii({required final Coordinates centerCoords, required final double horizRadius, required final double vertRadius}) ` creates a marker representing an elliptical area defined by its center and horizontal and vertical radii.
-5. **Rectangle Area**: `Marker.fromRectangle(Coordinates topLeft, Coordinates bottomRight)` creates a marker representing a rectangular area defined by its top-left and bottom-right corners.
-6. **GeographicArea area**: `Marker.fromArea(GeographicArea area)` creates a marker representing a specified geographic area.
+- **Default**: `Marker()` - Creates a basic marker object
 
-Creating a marker does not automatically display it on the map. Ensure you set its coordinates and attach it to the desired map. Refer to the [Display markers guide](/guides/maps/display-map-items/display-markers) for detailed instructions.
+- **Coordinates**: `Marker.fromCoordinates(List<Coordinates> coordinates)` - Creates a marker with specified coordinates
+
+- **Circle area**: `Marker.fromCircleArea(Coordinates centerCoords, double radius)` - Creates a circular marker
+
+- **Ellipse area**: `Marker.fromCircleRadii({required Coordinates centerCoords, required double horizRadius, required double vertRadius})` - Creates an elliptical marker
+
+- **Rectangle area**: `Marker.fromRectangle(Coordinates topLeft, Coordinates bottomRight)` - Creates a rectangular marker
+
+- **Geographic area**: `Marker.fromArea(GeographicArea area)` - Creates a marker from a geographic area
+
+Creating a marker does not automatically display it on the map. Set its coordinates and attach it to the map. See [Display markers](/guides/maps/display-map-items/display-markers) for instructions.
+
+---
 
 ## Marker Structure
 
-A marker can contain multiple coordinates, which can be organized into different parts. If no part is specified, the coordinates are added to a default part, indexed as 0. Each part is rendered differently based on the marker type.
+Markers contain multiple coordinates organized into parts. Without a specified part, coordinates are added to the default part (index 0). Each part renders differently based on marker type.
 
-### Types of Markers
+### Marker Types
 
-There are 3 types of markers:
+Three marker types are available:
 
-- **Point markers** (each part is a group of points - array of coordinates)
+- **Point markers** - Each part is a group of points (array of coordinates)
 
-- **Polyline markers** (each part is a polyline - array of coordinates)
+- **Polyline markers** - Each part is a polyline (array of coordinates)
 
-- **Polygon markers** (each part is a polygon - array of coordinates)
+- **Polygon markers** - Each part is a polygon (array of coordinates)
 
-The marker has methods for managing and manipulating markers on a map, including operations such as adding, updating, and deleting coordinates or parts.
+Markers provide methods for adding, updating, and deleting coordinates or parts.
 
-A marker can be rendered in multiple ways on the map, either through default settings or user-specified rendering options:
+### Rendering Options
 
-- An image icon
+Markers render using default settings or custom options:
 
-- A polyline having an associated image at each point
+- Image icon
 
-- A polygon drawn with a specific color, with a specific fill color, etc.
+- Polyline with associated images at each point
 
-## Customization options
+- Polygon with specific colors and fill
 
-Markers offer extensive customization options on the map, enabling developers to tailor their appearance and behavior. Customizable features include:
+## Customize Markers
 
-- **Colors**: Modify the fill color, contour color, and text color to match the desired style.
+Markers offer extensive customization options:
 
-- **Sizes**: Adjust dimensions such as line width, label size, and margins to fit specific requirements.
+- **Colors** - Modify fill color, contour color, and text color
 
-- **Labeling and Positioning**: Define custom labeling modes, reposition item or group labels, and adjust the alignment of labels and images relative to geographic coordinates.
+- **Sizes** - Adjust line width, label size, and margins
 
-- **Grouping Behavior**: Configure how multiple markers are grouped when located in proximity.
+- **Labels and positioning** - Define labeling modes, reposition labels, and adjust alignment
 
-- **Icons**: Customize icons for individual markers or groups, including options for image fit and alignment.
+- **Grouping behavior** - Configure how markers group when in proximity
 
-- **Polyline and Polygon Textures**: Apply unique textures to polylines and polygons for enhanced visualization.
- 
-**MarkerSketches** are some predefined collections in the view. For each marker type, there is such a collection. Each element of the collection has a different render settings object. 
+- **Icons** - Customize icons for individual markers or groups, including image fit and alignment
+
+- **Textures** - Apply unique textures to polylines and polygons
+
+**MarkerSketches** are predefined collections in the view. Each marker type has a collection, and each element has different render settings.
+
+--- 
 
 ## Interaction with Markers
 
-### Selecting markers
+### Select Markers
 
-Markers are selectable by default, meaning user interactions, such as taps or clicks, can identify specific markers programmatically (e.g., through the function `cursorSelectionMarkers` method of `GemView`).
+Markers are selectable by default. User interactions like taps identify markers programmatically using the `cursorSelectionMarkers` method of `GemView`.
 
-When cursor is hovering over a grouped marker cluster, the `cursorSelectionMarkers` method will return the `MarkerMatch` of **group head marker**. See more about group head markers at [Marker Clustering](/guides/maps/display-map-items/display-markers#marker-clustering).
+When hovering over a grouped marker cluster, `cursorSelectionMarkers` returns the `MarkerMatch` of the group head marker. See [Marker Clustering](/guides/maps/display-map-items/display-markers/#marker-clustering) for details.
 
-The result is a list of matches. The match contains detailed information about the match:
+The result is a list of matches containing:
 
-- the marker type
+- Marker type
 
-- the collection of the marker
+- Marker collection
 
-- the marker index in the collection
+- Marker index in the collection
 
-- the part index inside the marker
+- Part index inside the marker
 
-### Searching markers
+### Search Markers
 
 Markers are **not searchable**.
 
-### Calculating route with marker
+### Calculate Routes
 
-Markers are **not** designed for route calculation.
+Markers are **not designed for route calculation**.
 
-To enable route calculation and navigation, create a new landmark using the relevant coordinates of the marker and a representative name and use that object for routing.
+For route calculation, create a landmark using the marker's coordinates and a representative name.
+
+---
 
 ## MarkerCollection
 
-The `MarkerCollection` class is the main collection holding markers. All the markers within a collection have the same type and are styled in the same way. 
+The `MarkerCollection` class holds markers of the same type and style.
 
-### MarkerCollection structure and operations
+### Structure and Operations
 
 <table>
   <thead>
@@ -178,13 +190,18 @@ The `MarkerCollection` class is the main collection holding markers. All the mar
   </tbody>
 </table>
 
-### Instantiating MarkerCollections
+### Create MarkerCollection
 
-A marker collection is created by providing the name and the marker type:
+Create a marker collection:
 ```dart
-MarkerCollection markerCollection = MarkerCollection(markerType: MarkerType.point, name: "myCollection");
+MarkerCollection markerCollection = MarkerCollection(
+  markerType: MarkerType.point,
+  name: "myCollection"
+);
 ```
 
 ### Usage
 
-The `MarkerCollection` class is used to display markers on the map by adding them to the map's `MapViewMarkerCollections`. Each collection can hold multiple markers of the same type, allowing for organized management and rendering of markers on the map.
+Display markers on the map by adding collections to the map's `MapViewMarkerCollections`. Each collection holds multiple markers of the same type for organized management and rendering.
+
+---

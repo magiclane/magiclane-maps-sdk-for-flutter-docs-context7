@@ -5,25 +5,33 @@ title: Positions
 
 # Positions
 
-The `GemPosition` and `GemImprovedPosition` classes provide a comprehensive representation of geographical and movement data for GPS-based systems. They include details like coordinates, speed, altitude, direction, and accuracy, along with road-related metadata such as speed limits and modifiers. With robust support for position quality assessment and timestamped data, it is well-suited for navigation and sensor-driven applications.
+This page covers position data representation using `GemPosition` and `GemImprovedPosition` classes for GPS-based systems.
 
-Do not confuse the `Coordinates` and `Position` classes. The `Coordinates` class represents geographic locations using latitude, longitude and altitude, and is widely used throughout the Maps SDK for Flutter. In contrast, the `GemPosition` and `GemImprovedPosition` classes contain additional data from device sensors, and are primarily used to represent the user's location and movement details.
+---
 
-## Instantiating GemPositions
+Don't confuse `Coordinates` with `Position` classes. The `Coordinates` class represents geographic locations (latitude, longitude, altitude) and is widely used throughout the SDK. In contrast, `GemPosition` and `GemImprovedPosition` classes contain additional sensor data and primarily represent the user's location and movement details.
 
-The `GemPosition` class can be instantiated using the provided methods within the `SenseDataFactory` class. Additionally, it can be accessed through the methods exposed by the Maps SDK for Flutter. For more details, refer to the [Get Started with Positioning](/guides/positioning/get-started-positioning) guide.
+## Create positions
+
+Instantiate the `GemPosition` class using methods in the `SenseDataFactory` class. You can also access it through methods exposed by the Maps SDK for Flutter.
+
+For more details, refer to the [Get Started with Positioning](/guides/positioning/get-started-positioning) guide.
+
+---
 
 ## Raw position data
 
-Raw position data represents unprocessed data from the GPS sensors of devices. It provides basic information. It corresponds to the `GemPosition` interface.
+Raw position data represents unprocessed GPS sensor data from devices. It corresponds to the `GemPosition` interface.
 
 ## Map matched position data
 
-Map matching is a method in location-based services that aligns raw GPS data with a digital map, correcting inaccuracies by snapping the position to the nearest logical location, such as roads. It corresponds with the `GemImprovedPosition` interface.
+Map matching aligns raw GPS data with a digital map, correcting inaccuracies by snapping the position to the nearest logical location (such as roads). It corresponds to the `GemImprovedPosition` interface.
 
-## Raw position data vs map matched position data
+---
 
-The Map Matched positions provide more information, as it can be seen in the table below: 
+## Compare position types
+
+Map matched positions provide more information than raw positions:
 
 | Attribute               | Raw | Map Matched | When is available     | Description
 |------------------------ | --- | ----------- | --------------------- | -------------
@@ -46,6 +54,6 @@ The Map Matched positions provide more information, as it can be seen in the tab
 | terrainSlope            | ❌  | ✅          | hasTerrainData        | The current terrain slope in degrees. Positive values for ascent, negative values for descent.
 | address                 | ❌  | ✅          | always                | The current address.
 
-The ``speedLimit`` field may not always have a value, even if the position is map matched. This can happen if data is unavailable for the current road segment or if the position is not on a road. In such cases, the ``speedLimit`` field will be set to 0.
+The `speedLimit` field may not always have a value, even if the position is map matched. This can happen if data is unavailable for the current road segment or if the position is not on a road. In such cases, the `speedLimit` field will be set to 0.
 
-One common use case for ``speed`` and ``speedLimit`` is to check if a user is exceeding the legal speed limit. The  ``AlarmService`` class offers a reliable solution for this scenario. Refer to the [speed warnings guide](../alarms/speed-alarms) for more details.
+To check if a user is exceeding the legal speed limit, use the `AlarmService` class. Refer to the [speed warnings guide](../alarms/speed-alarms) for more details.

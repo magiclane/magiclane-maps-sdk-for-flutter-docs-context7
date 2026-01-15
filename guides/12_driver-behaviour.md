@@ -5,13 +5,15 @@ title: Driver Behaviour
 
 # Driver Behaviour
 
-The Driver Behaviour feature enables the analysis and scoring of a driver's behavior during a trip, identifying risky driving patterns and summarizing them with safety scores. This feature tracks both real-time and session-level driving events, such as harsh braking, cornering, or ignoring traffic signs, and evaluates overall risk using multiple criteria.
+The Driver Behaviour feature analyzes and scores driver behavior during trips, identifying risky patterns and providing safety scores. It tracks real-time and session-level driving events such as harsh braking, cornering, or ignoring traffic signs.
 
-This data can be used to offer user feedback, identify unsafe habits, and assess safety levels over time. All information is processed using on-device sensor data (via the configured `DataSource`) and optionally matched to the road network if `useMapMatch` is enabled.
+Use this data to provide user feedback, identify unsafe habits, and assess safety levels over time. All information is processed using on-device sensor data via the configured `DataSource` and optionally matched to the road network when `useMapMatch` is enabled.
 
-## Starting and Stopping Analysis
+---
 
-To use the Driver Behaviour module, a session must be started using the `startAnalysis` method of the `DriverBehaviour` object. The session is closed using `stopAnalysis`, which returns a `DriverBehaviourAnalysis` instance representing the complete analysis.
+## Start and Stop Analysis
+
+Start a session using the `startAnalysis` method of the `DriverBehaviour` object. Stop the session using `stopAnalysis`, which returns a `DriverBehaviourAnalysis` instance.
 ```dart
 final driverBehaviour = DriverBehaviour(
   dataSource: myDataSource,
@@ -30,11 +32,13 @@ if (result == null){
 }
 ```
 
-All `DriverBehaviourAnalysis` instances expose an `isValid` getter to determine whether the analysis is valid. Always verify this property before accessing or relying on the data it contains.
+All `DriverBehaviourAnalysis` instances expose an `isValid` getter. Verify this property before accessing the data.
 
-##  Inspecting a Driving Session
+---
 
-The result returned by stopAnalysis() (or via getLastAnalysis()) contains aggregate and detailed information on the trip:
+## Inspect Driving Session Summary
+
+The result returned by `stopAnalysis()` or `lastAnalysis` getter contains aggregate and detailed trip information:
 ```dart
 if (result == null) {
   print("The analysis is invalid and cannot be used");
@@ -62,11 +66,13 @@ double fatigue = scores.fatigueScore;
 double overallScore = scores.aggregateScore;
 ```
 
-Each score ranges from 0 (unsafe) to 100 (safe). A score of -1 means invalid or unavailable.
+Each score ranges from 0 (unsafe) to 100 (safe). A score of -1 indicates invalid or unavailable data.
 
-##  Inspecting a Driving Session
+---
 
-Use the `drivingEvents` property of the session result to access discrete driving incidents that were detected:
+## Inspect Driving Events
+
+Use the `drivingEvents` property to access detected driving incidents:
 ```dart
 List<MappedDrivingEvent> events = result.drivingEvents;
 for (final event in events) {
@@ -74,9 +80,11 @@ for (final event in events) {
 }
 ```
 
-Event types are defined by the DrivingEvent enum:
+---
 
 ## Driving Event Types
+
+Event types are defined by the `DrivingEvent` enum:
 
 | Enum Value            | Description                     |
 |-----------------------|---------------------------------|
@@ -91,18 +99,22 @@ Event types are defined by the DrivingEvent enum:
 | `tailgating`          | Tailgating                      |
 | `ignoringSigns`       | Ignoring traffic signs          |
 
-## Real-time Feedback
+---
 
-If the analysis is ongoing, you can fetch real-time scores using:
+## Get Real-time Feedback
+
+Fetch real-time scores during ongoing analysis:
 ```dart
-DrivingScores? instantScores = driverBehaviour.getInstantaneousScores();
+DrivingScores? instantScores = driverBehaviour.instantaneousScores;
 ```
 
-These reflect the user's current behavior and are useful for immediate in-app feedback.
+These scores reflect current driver behavior and provide immediate in-app feedback.
+
+---
 
 ## Stop Analysis and Get Last Analysis
 
-To stop an ongoing analysis you can use:
+Stop an ongoing analysis:
 ```dart
 DriverBehaviourAnalysis? analysis = driverBehaviour.stopAnalysis();
 if (analysis == null) {
@@ -111,7 +123,7 @@ if (analysis == null) {
 }
 ```
 
-You can also retrieve the last completed analysis:
+Retrieve the last completed analysis:
 ```dart
 DriverBehaviourAnalysis? lastAnalysis = driverBehaviour.getLastAnalysis();
 if (lastAnalysis == null) {
@@ -120,14 +132,16 @@ if (lastAnalysis == null) {
 }
 ```
 
+---
+
 ## Retrieve Past Analyses
 
-All completed sessions are stored locally and accessible via:
+Access all completed sessions stored locally:
 ```dart
-List<DriverBehaviourAnalysis> pastSessions = driverBehaviour.getAllDriverBehaviourAnalyses();
+List<DriverBehaviourAnalysis> pastSessions = driverBehaviour.allDriverBehaviourAnalyses;
 ```
 
-You can also obtain a combined analysis over a time interval:
+Obtain a combined analysis over a time interval:
 ```dart
 DateTime start = DateTime.now().subtract(Duration(days: 7));
 DateTime end = DateTime.now();
@@ -135,24 +149,32 @@ DateTime end = DateTime.now();
 DriverBehaviourAnalysis? combined = driverBehaviour.getCombinedAnalysis(start, end);
 ```
 
+---
+
 ## Analyses Storage Location
 
-Driver behaviour analyses are stored locally on the device. Inside the app’s directory, a folder named **`DriverBehaviour`** is created (at the same level as `Data`).  
+Analyses are stored locally on the device in a **`DriverBehaviour`** folder inside the app's directory (at the same level as `Data`).
 
-## Data Cleanup
+---
 
-To save space or comply with privacy policies, older sessions can be erased:
+## Clean Up Data
+
+Erase older sessions to save space or comply with privacy policies:
 ```dart
 driverBehaviour.eraseAnalysesOlderThan(DateTime.now().subtract(Duration(days: 30)));
 ```
 
-Driver behaviour analysis requires a properly configured DataSource. See the [Positioning guide](positioning/get-started-positioning) to set up your data pipeline. To ensure reliable results, make sure to start and stop the analysis appropriately and avoid frequent interruptions or overlapping sessions.
+Driver behaviour analysis requires a properly configured `DataSource`. See the [Positioning guide](positioning/get-started-positioning) to set up your data pipeline. Start and stop the analysis appropriately and avoid frequent interruptions or overlapping sessions.
 
-## Enabling Background Location
+---
 
-In order to use the driver behaviour features while the app is in the background, additional setup is required for both iOS and Android platforms.
+## Enable Background Location
 
-Please refer to the [Background Location guide](positioning/background-location) for detailed instructions on how to configure your app for background location updates on both iOS and Android.
+To use driver behaviour features while the app is in the background, configure both iOS and Android platforms.
+
+Refer to the [Background Location guide](positioning/background-location) for detailed configuration instructions.
+
+---
 
 ## Relevant example demonstrating driver behavior-related features
 

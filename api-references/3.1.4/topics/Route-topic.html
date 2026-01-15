@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="Route topic docs, for the Dart programming language.">
+  <title>Route topic - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Route topic</li>
+  </ol>
+  <div class="self-name">Route</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div id="dartdoc-main-content" class="main-content">
+  <h1><span class="kind-category">Route</span> topic</h1>
+  
+<section class="desc markdown">
+  <p>Inspect and manage navigable routes for mapping and turn-by-turn navigation. This module provides route models, segment and instruction objects, terrain and elevation helpers, and persistent bookmarks so apps can calculate routes, present turn‑by‑turn guidance, analyze terrain, and store/recall saved routes for later use.</p>
+<ul>
+<li><strong><code>RouteBase</code></strong>: Abstract surface shared by concrete route implementations. Use this to access common route analysis helpers such as sampling coordinates, exporting route data, and querying geometry or metrics across route types.</li>
+<li><strong><code>Route</code></strong>: Represents a computed navigable route produced by the routing engine. Use this class as the primary route model when presenting geometry, metrics and metadata to users; it aggregates segments, instructions, waypoints and traffic information needed for rendering and navigation.</li>
+<li><strong><code>RouteSegment</code></strong>: A contiguous portion of a route between two waypoints. Segments contain geometry, time/distance metrics and an ordered list of instructions used for UI displays and analysis.</li>
+<li><strong><code>RouteInstruction</code></strong>: A single maneuver or guidance step inside a segment. Instructions carry localized text, signpost and turn imagery, and time/distance metadata for building instruction lists and map centering.</li>
+<li><strong><code>OTRoute</code></strong>: Over‑track route variant backed by a detailed track. Use this when you need precise path representation rather than only routes calculated based on waypoints.</li>
+<li><strong><code>PTRoute</code></strong>: Public‑transport specific route representation exposing transit metadata like fares, frequency and ticket information.</li>
+<li><strong><code>PTRouteSegment</code></strong>: Public‑transport segment type with transit-specific metadata such as platform, agency and schedule cues for presenting trip details.</li>
+<li><strong><code>PTRouteInstruction</code></strong>: Instruction variant for public transport segments carrying platform and schedule details.</li>
+<li><strong><code>RouteTerrainProfile</code></strong>: Terrain and elevation model for a route. Provides elevation samples, climb and steep sections, surface and road‑type sections to support elevation-aware rendering and measurements.</li>
+<li><strong><code>TimeDistanceCoordinate</code></strong>: Timestamped coordinate with associated distance from an origin.</li>
+<li><strong><code>RouteBookmarks</code></strong>: Persistent collection for saved routes (bookmarks). Use this to store, import, export and manage named route entries for reuse by users.</li>
+<li><strong><code>RouteListener</code></strong>: Event listener for route-related runtime events. Attach to a route to receive asynchronous notifications about traffic updates and route diagnostics.</li>
+<li><strong><code>SignpostDetails</code></strong>: Structured signpost rendering and semantic details returned by instructions; contains color hints, rendered imagery and a list of semantic signpost items.</li>
+<li><strong><code>SignpostItem</code></strong>: A semantic element of a signpost such as text fragments, pictograms or shields; used by signpost rendering and accessibility features.</li>
+</ul>
+<p>Route components form a clear workflow: compute routes with the routing service, inspect <code>Route</code> instances for segments and instructions, sample coordinates or terrain when needed, and attach listeners or persist favorites using the bookmarks API. Together these pieces provide the data and events required for map rendering, turn‑by‑turn navigation and transit-aware experiences.</p>
+<p>Learn more about routes: <a href="https://developer.magiclane.com/docs/flutter/guides/core/routes">https://developer.magiclane.com/docs/flutter/guides/core/routes</a></p>
+</section>
+
+
+
+  <section class="summary offset-anchor" id="classes">
+    <h2>Classes</h2>
+    <dl>
+      <dt id="ClimbSection">
+  <span class="name "><a href="../core/ClimbSection-class.html">ClimbSection</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Climb section describing an ascending segment of the route.
+</dd>
+
+      <dt id="OTRoute">
+  <span class="name "><a href="../core/OTRoute-class.html">OTRoute</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Over-track (OT) route representation.
+</dd>
+
+      <dt id="PTAlert">
+  <span class="name "><a href="../core/PTAlert-class.html">PTAlert</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Public transport alert.
+</dd>
+
+      <dt id="PTBuyTicketInformation">
+  <span class="name "><a href="../core/PTBuyTicketInformation-class.html">PTBuyTicketInformation</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Buy-ticket information for a public transport route.
+</dd>
+
+      <dt id="PTRoute">
+  <span class="name "><a href="../core/PTRoute-class.html">PTRoute</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Public transport route.
+</dd>
+
+      <dt id="PTRouteInstruction">
+  <span class="name "><a href="../core/PTRouteInstruction-class.html">PTRouteInstruction</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Public transport route instruction.
+</dd>
+
+      <dt id="PTRouteSegment">
+  <span class="name "><a href="../core/PTRouteSegment-class.html">PTRouteSegment</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Public transport route segment.
+</dd>
+
+      <dt id="PTTranslation">
+  <span class="name "><a href="../core/PTTranslation-class.html">PTTranslation</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Public transport translation.
+</dd>
+
+      <dt id="RoadTypeSection">
+  <span class="name "><a href="../core/RoadTypeSection-class.html">RoadTypeSection</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Road type section describing the classification of the road for a segment.
+</dd>
+
+      <dt id="Route">
+  <span class="name "><a href="../core/Route-class.html">Route</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  A computed navigable route.
+</dd>
+
+      <dt id="RouteBase">
+  <span class="name "><a href="../core/RouteBase-class.html">RouteBase</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  <a href="../core/RouteBase-class.html">RouteBase</a> defines the common API surface for computed routes. It exposes geometry, time/distance metrics,
+terrain profiles, segments, instructions, traffic and toll information, and helpers to export or sample route data.
+</dd>
+
+      <dt id="RouteBookmarks">
+  <span class="name "><a href="../routing/RouteBookmarks-class.html">RouteBookmarks</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Manages a persistent collection of saved routes (bookmarks).
+</dd>
+
+      <dt id="RouteInstruction">
+  <span class="name "><a href="../core/RouteInstruction-class.html">RouteInstruction</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  A single route step inside a route segment.
+</dd>
+
+      <dt id="RouteInstructionBase">
+  <span class="name "><a href="../core/RouteInstructionBase-class.html">RouteInstructionBase</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  A single route instruction used for route guidance.
+</dd>
+
+      <dt id="RouteListener">
+  <span class="name "><a href="../routing/RouteListener-class.html">RouteListener</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Listener for events related to a computed route.
+</dd>
+
+      <dt id="RouteSegment">
+  <span class="name "><a href="../core/RouteSegment-class.html">RouteSegment</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  A single portion of a computed route between two consecutive waypoints.
+</dd>
+
+      <dt id="RouteSegmentBase">
+  <span class="name "><a href="../core/RouteSegmentBase-class.html">RouteSegmentBase</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  A contiguous portion of a computed route between two waypoints.
+</dd>
+
+      <dt id="RouteTerrainProfile">
+  <span class="name "><a href="../core/RouteTerrainProfile-class.html">RouteTerrainProfile</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Terrain information for a calculated route.
+</dd>
+
+      <dt id="SignpostDetails">
+  <span class="name "><a href="../core/SignpostDetails-class.html">SignpostDetails</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Signpost rendering and semantic details.
+</dd>
+
+      <dt id="SignpostItem">
+  <span class="name "><a href="../core/SignpostItem-class.html">SignpostItem</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Element of a rendered signpost.
+</dd>
+
+      <dt id="SteepSection">
+  <span class="name "><a href="../core/SteepSection-class.html">SteepSection</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Steep section indicating an abrupt elevation change category.
+</dd>
+
+      <dt id="SurfaceSection">
+  <span class="name "><a href="../core/SurfaceSection-class.html">SurfaceSection</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Surface section describing surface type changes along the route.
+</dd>
+
+      <dt id="TimeDistanceCoordinate">
+  <span class="name "><a href="../core/TimeDistanceCoordinate-class.html">TimeDistanceCoordinate</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Timestamped geographic coordinate with associated relative distance.
+</dd>
+
+    </dl>
+  </section>
+
+
+
+
+
+
+  <section class="summary offset-anchor" id="enums">
+    <h2>Enums</h2>
+    <dl>
+      <dt id="GetWaypointsOptions">
+  <span class="name "><a href="../core/GetWaypointsOptions.html">GetWaypointsOptions</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Options selecting which set of waypoints to return from <a href="../core/RouteBase/getWaypoints.html">RouteBase.getWaypoints</a>.
+</dd>
+
+      <dt id="Grade">
+  <span class="name "><a href="../core/Grade.html">Grade</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Climb difficulty categories (UCI-based).
+</dd>
+
+      <dt id="RealtimeStatus">
+  <span class="name "><a href="../core/RealtimeStatus.html">RealtimeStatus</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Status of real-time information.
+</dd>
+
+      <dt id="RoadShieldType">
+  <span class="name "><a href="../core/RoadShieldType.html">RoadShieldType</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Road shield classification used for route-number items.
+</dd>
+
+      <dt id="RoadType">
+  <span class="name "><a href="../core/RoadType.html">RoadType</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Road classification for a route section.
+</dd>
+
+      <dt id="RouteBookmarksSortOrder">
+  <span class="name "><a href="../routing/RouteBookmarksSortOrder.html">RouteBookmarksSortOrder</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Sort order options for <a href="../routing/RouteBookmarks-class.html">RouteBookmarks</a>.
+</dd>
+
+      <dt id="RouteStatus">
+  <span class="name "><a href="../core/RouteStatus.html">RouteStatus</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Routing service status values describing route computation state.
+</dd>
+
+      <dt id="SignpostConnectionInfo">
+  <span class="name "><a href="../core/SignpostConnectionInfo.html">SignpostConnectionInfo</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Signpost connection information.
+</dd>
+
+      <dt id="SignpostItemType">
+  <span class="name "><a href="../core/SignpostItemType.html">SignpostItemType</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Signpost item type.
+</dd>
+
+      <dt id="SignpostPictogramType">
+  <span class="name "><a href="../core/SignpostPictogramType.html">SignpostPictogramType</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Signpost pictogram type.
+</dd>
+
+      <dt id="StepType">
+  <span class="name "><a href="../core/StepType.html">StepType</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Unit used for sampling steps in time-distance coordinate generation.
+</dd>
+
+      <dt id="SurfaceType">
+  <span class="name "><a href="../core/SurfaceType.html">SurfaceType</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Surface material/type for a route segment.
+</dd>
+
+      <dt id="TransitType">
+  <span class="name "><a href="../core/TransitType.html">TransitType</a></span> 
+    <span class="category route cp-10 linked" title="This is part of the Route topic."><a href="../topics/Route-topic.html">Route</a></span>
+
+</dt>
+<dd>
+  Type of transit.
+</dd>
+
+    </dl>
+  </section>
+
+
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Route topic</li>
+</ol>
+
+  <h5><span class="package-name">magiclane_maps_flutter</span> <span class="package-kind">package</span></h5>
+  <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/Common-topic.html">Common</a></li>
+        <li><a href="../topics/Geographic-topic.html">Geographic</a></li>
+        <li><a href="../topics/Images-topic.html">Images</a></li>
+        <li><a href="../topics/Position-topic.html">Position</a></li>
+        <li><a href="../topics/Landmark Store-topic.html">Landmark&nbsp;Store</a></li>
+        <li><a href="../topics/Landmarks-topic.html">Landmarks</a></li>
+        <li><a href="../topics/Markers-topic.html">Markers</a></li>
+        <li><a href="../topics/Overlays-topic.html">Overlays</a></li>
+        <li><a href="../topics/Search-topic.html">Search</a></li>
+        <li><a href="../topics/Route-topic.html">Route</a></li>
+        <li><a href="../topics/Routing-topic.html">Routing</a></li>
+        <li><a href="../topics/Navigation-topic.html">Navigation</a></li>
+        <li><a href="../topics/Driver Behaviour-topic.html">Driver&nbsp;Behaviour</a></li>
+        <li><a href="../topics/Traffic & Roadblocks-topic.html">Traffic&nbsp;&&nbsp;Roadblocks</a></li>
+        <li><a href="../topics/Sound-topic.html">Sound</a></li>
+        <li><a href="../topics/Sensor Data Source-topic.html">Sensor&nbsp;Data&nbsp;Source</a></li>
+        <li><a href="../topics/Content-topic.html">Content</a></li>
+        <li><a href="../topics/Alarms-topic.html">Alarms</a></li>
+        <li><a href="../topics/Settings-topic.html">Settings</a></li>
+        <li><a href="../topics/Timezone-topic.html">Timezone</a></li>
+        <li><a href="../topics/Iso Code Conversions-topic.html">Iso&nbsp;Code&nbsp;Conversions</a></li>
+        <li><a href="../topics/Locale-topic.html">Locale</a></li>
+        <li><a href="../topics/Weather-topic.html">Weather</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../content_store/">content_store</a></li>
+      <li><a href="../core/">core</a></li>
+      <li><a href="../driver_behaviour/">driver_behaviour</a></li>
+      <li><a href="../landmark_store/">landmark_store</a></li>
+      <li><a href="../map/">map</a></li>
+      <li><a href="../navigation/">navigation</a></li>
+      <li><a href="../position/">position</a></li>
+      <li><a href="../projections/">projections</a></li>
+      <li><a href="../routing/">routing</a></li>
+      <li><a href="../search/">search</a></li>
+      <li><a href="../sense/">sense</a></li>
+      <li><a href="../weather/">weather</a></li>
+</ol>
+
+</div>
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  <h5>Route topic</h5>
+  <ol>
+
+    <li class="section-title"><a href="../topics/Route-topic.html#classes">Classes</a></li>
+      <li><a href="../core/ClimbSection-class.html">ClimbSection</a></li>
+      <li><a href="../core/OTRoute-class.html">OTRoute</a></li>
+      <li><a href="../core/PTAlert-class.html">PTAlert</a></li>
+      <li><a href="../core/PTBuyTicketInformation-class.html">PTBuyTicketInformation</a></li>
+      <li><a href="../core/PTRoute-class.html">PTRoute</a></li>
+      <li><a href="../core/PTRouteInstruction-class.html">PTRouteInstruction</a></li>
+      <li><a href="../core/PTRouteSegment-class.html">PTRouteSegment</a></li>
+      <li><a href="../core/PTTranslation-class.html">PTTranslation</a></li>
+      <li><a href="../core/RoadTypeSection-class.html">RoadTypeSection</a></li>
+      <li><a href="../core/Route-class.html">Route</a></li>
+      <li><a href="../core/RouteBase-class.html">RouteBase</a></li>
+      <li><a href="../routing/RouteBookmarks-class.html">RouteBookmarks</a></li>
+      <li><a href="../core/RouteInstruction-class.html">RouteInstruction</a></li>
+      <li><a href="../core/RouteInstructionBase-class.html">RouteInstructionBase</a></li>
+      <li><a href="../routing/RouteListener-class.html">RouteListener</a></li>
+      <li><a href="../core/RouteSegment-class.html">RouteSegment</a></li>
+      <li><a href="../core/RouteSegmentBase-class.html">RouteSegmentBase</a></li>
+      <li><a href="../core/RouteTerrainProfile-class.html">RouteTerrainProfile</a></li>
+      <li><a href="../core/SignpostDetails-class.html">SignpostDetails</a></li>
+      <li><a href="../core/SignpostItem-class.html">SignpostItem</a></li>
+      <li><a href="../core/SteepSection-class.html">SteepSection</a></li>
+      <li><a href="../core/SurfaceSection-class.html">SurfaceSection</a></li>
+      <li><a href="../core/TimeDistanceCoordinate-class.html">TimeDistanceCoordinate</a></li>
+
+    <li class="section-title"><a href="../topics/Route-topic.html#enums">Enums</a></li>
+      <li><a href="../core/GetWaypointsOptions.html">GetWaypointsOptions</a></li>
+      <li><a href="../core/Grade.html">Grade</a></li>
+      <li><a href="../core/RealtimeStatus.html">RealtimeStatus</a></li>
+      <li><a href="../core/RoadShieldType.html">RoadShieldType</a></li>
+      <li><a href="../core/RoadType.html">RoadType</a></li>
+      <li><a href="../routing/RouteBookmarksSortOrder.html">RouteBookmarksSortOrder</a></li>
+      <li><a href="../core/RouteStatus.html">RouteStatus</a></li>
+      <li><a href="../core/SignpostConnectionInfo.html">SignpostConnectionInfo</a></li>
+      <li><a href="../core/SignpostItemType.html">SignpostItemType</a></li>
+      <li><a href="../core/SignpostPictogramType.html">SignpostPictogramType</a></li>
+      <li><a href="../core/StepType.html">StepType</a></li>
+      <li><a href="../core/SurfaceType.html">SurfaceType</a></li>
+      <li><a href="../core/TransitType.html">TransitType</a></li>
+
+
+
+
+
+
+
+
+</ol>
+
+</div>
+<!--/sidebar-offcanvas-right-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

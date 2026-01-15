@@ -5,13 +5,15 @@ title: Custom Positioning
 
 # Custom positioning
 
-The Maps SDK for Flutter allows setting custom data source with the PositionService to dynamically manage and simulate location data. This approach allows for external or simulated positioning data, providing flexibility beyond traditional GPS signals, and is ideal for testing or custom tracking solutions.
+Set a custom data source with the PositionService to dynamically manage and simulate location data. Use external or simulated positioning data instead of traditional GPS signals—ideal for testing or custom tracking solutions.
 
-Utilizing a custom data source eliminates the need for the previously discussed location permission management.
+Using a custom data source eliminates the need for location permission management.
+
+---
 
 ## Create custom data source
 
-The following code snippet illustrates how to integrate a custom data source with the PositionService to manage and simulate location data dynamically. Instead of relying on real GPS signals, the custom data source provides flexibility by allowing external or simulated position data to be used in the application.
+Integrate a custom data source with the PositionService to manage and simulate location data. The custom data source allows external or simulated position data instead of real GPS signals:
 ```dart
 // Create a custom data source.
 final dataSource = DataSource.createExternalDataSource([DataType.position]);
@@ -66,25 +68,27 @@ while (true) {
 }
 ```
 
-How It Works:
+**How it works:**
 
-- **Creating and Registering a Custom Data Source**: A custom DataSource object is created and configured to handle position data. This data source is registered with the PositionService, overriding the default GPS-based data provider. This allows the application to retrieve location updates from the custom source.
+- **Create and register a custom data source** - Create a custom DataSource object configured to handle position data. Register it with the PositionService, overriding the default GPS-based data provider
 
-- **Starting the Data Source**: The custom data source is activated by calling the start() method. Once started, it becomes ready to accept and process location data that is pushed into it.
+- **Start the data source** - Activate the custom data source by calling the `start()` method. Once started, it's ready to accept and process location data
 
-- **Pushing Initial Position Data**: An initial position is sent to the data source using the pushData method. This data includes details such as latitude, longitude, altitude, heading, speed, and a timestamp. It acts as a starting point for tracking the location.
+- **Push initial position data** - Send an initial position to the data source using the `pushData` method. This includes latitude, longitude, altitude, heading, speed, and timestamp
 
-- **Enabling Map Follow Mode**: The startFollowingPosition method ensures the map camera follows the position tracker. As the custom data source provides new position updates, the map view adjusts automatically to keep the position tracker in focus.
+- **Enable map follow mode** - The `startFollowingPosition` method ensures the map camera follows the position tracker. The map view adjusts automatically as new position updates arrive
 
-- **Updating Location Data in Real-Time**: A loop continuously generates and pushes simulated position updates to the data source at regular intervals (every 50 milliseconds). These updates include coordinates, heading, and speed. This dynamic update mechanism allows the application to simulate movement or integrate location data from custom sources, such as a mock GPS or external tracking systems.
+- **Update location data in real-time** - A loop continuously generates and pushes simulated position updates at regular intervals (every 50 milliseconds). This allows the application to simulate movement or integrate location data from custom sources
+
+---
 
 ## Improve custom data source positions
 
-While providing latitude, longitude, and timestamp may suffice for some use cases, this data may not offer sufficient accuracy, particularly during navigation. In such cases, the system might occasionally register incorrect turns or unexpected deviations. To improve precision, the ``heading`` field of ``ExternalPositionData`` is utilized to indicate the direction of movement, which is factored into the positioning calculations.
+While latitude, longitude, and timestamp may suffice for some use cases, this data may not offer sufficient accuracy during navigation. The system might occasionally register incorrect turns or unexpected deviations. To improve precision, use the `heading` field of `ExternalPositionData` to indicate the direction of movement, which is factored into positioning calculations.
 
 ### Calculate heading
 
-A simple function to calculate the heading knowing the current coordinate and the next coordinate is presented below:
+Calculate the heading using the current coordinate and the next coordinate:
 ```dart
 double _getHeading(Coordinates from, Coordinates to) {
   final dx = to.longitude - from.longitude;
@@ -101,7 +105,7 @@ double _getHeading(Coordinates from, Coordinates to) {
 
 ### Calculate speed
 
-The ``speed`` field from the ``ExternalPositionData`` can be computed using by dividing the distance between the two coordinates by the duration of the movement between the two coordinates. The distance can be computed using the ``distance`` method from the ``Coordinate`` class. 
+Compute the `speed` field from the `ExternalPositionData` by dividing the distance between two coordinates by the duration of movement between them. Calculate the distance using the `distance` method from the `Coordinate` class: 
 ```dart
 double _getSpeed(Coordinates from, Coordinates to, DateTime timestampAtFrom, DateTime timestampAtTo) {
   final timeDiff = timestampAtTo.difference(timestampAtFrom).inSeconds;
@@ -115,11 +119,13 @@ double _getSpeed(Coordinates from, Coordinates to, DateTime timestampAtFrom, Dat
 }
 ```
 
-If the coordinates to be pushed in the custom data source are not known they can be extrapolated based on the previous values.
+If the coordinates to be pushed in the custom data source are not known, extrapolate them based on previous values.
 
-## Remove the custom datasource
+---
 
-To remove the data source once we don't need it anymore, we can proceed in the following way:
+## Remove the custom data source
+
+Remove the data source when no longer needed:
 ```dart
 DataSource dataSource = DataSource.createExternalDataSource([DataType.position]);
 
@@ -140,12 +146,13 @@ dataSource.stop();
 PositionService.removeDataSource();
 ```
 
-It's important to stop the data source and remove it from the position service once work is finished with it.
-Otherwise there can be unexpected problems especially when trying to use other data sources (live or custom). 
+Stop the data source and remove it from the position service when finished. Otherwise, unexpected problems can occur when trying to use other data sources (live or custom).
+
+---
 
 ## Create simulation data source
 
-The following code snippet illustrates how to integrate a simulation data source with the PositionService to manage and simulate location data dynamically. Instead of relying on real GPS signals, the simulation data source provides flexibility by following a given route. This kind of data source behaves as a route simulation.
+Integrate a simulation data source with the PositionService to simulate location data by following a given route. This data source behaves as a route simulation:
 ```dart
 // Create a simulation data source.
 final dataSource = DataSource.createSimulationDataSource(route);
@@ -158,15 +165,17 @@ dataSource.start();
 
 ```
 
-How It Works:
+**How it works:**
 
-- **Creating and Registering a Custom Data Source**: A custom DataSource object is created and configured to handle position data. This data source is registered with the PositionService, overriding the default GPS-based data provider. This allows the application to retrieve location updates from the custom source.
+- **Create and register a simulation data source** - Create a DataSource object configured to handle position data. Register it with the PositionService, overriding the default GPS-based data provider
 
-- **Starting the Data Source**: The custom data source is activated by calling the start() method. Once started, it starts simulating the given route.
+- **Start the data source** - Activate the data source by calling the `start()` method. Once started, it begins simulating the given route
 
-## Remove the simulation datasource
+---
 
-To remove the data source once we don't need it anymore, we can proceed in the following way:
+## Remove the simulation data source
+
+Remove the data source when no longer needed:
 ```dart
 DataSource dataSource = DataSource.createSimulationDataSource(route);
 PositionService.setExternalDataSource(dataSource);
@@ -181,12 +190,13 @@ dataSource.stop();
 PositionService.removeDataSource();
 ```
 
-It's important to stop the data source and remove it from the position service once work is finished with it.
-Otherwise there can be unexpected problems especially when trying to use other data sources (live or custom). 
+Stop the data source and remove it from the position service when finished. Otherwise, unexpected problems can occur when trying to use other data sources (live or custom).
+
+---
 
 ## Create log data source
 
-The following code snippet illustrates how to integrate a log data source with the PositionService to manage and simulate location data dynamically. Instead of relying on real GPS signals, the log data source provides flexibility by mirroring a given log file. This enables the application to replay location data from a stable and predefined log, ensuring uniformity across different runs.
+Integrate a log data source with the PositionService to replay location data from a predefined log file. This enables the application to replay location data, ensuring uniformity across different runs:
 ```dart
 // Create a simulation data source.
 final dataSource = DataSource.createLogDataSource(logFile);
@@ -196,17 +206,19 @@ PositionService.setExternalDataSource(dataSource);
 
 ```
 
-The log data source will start automatically when created, so there is no need to call the start() method.
+The log data source starts automatically when created. No need to call the `start()` method.
 
-How It Works:
+**How it works:**
 
-- **Creating and Registering a Custom Data Source**: A custom DataSource object is created and configured to handle position data. This data source is registered with the PositionService, overriding the default GPS-based data provider. This allows the application to retrieve location updates from the custom source.
+- **Create and register a log data source** - Create a DataSource object configured to handle position data. Register it with the PositionService, overriding the default GPS-based data provider
 
-- **Starting the Data Source**: The custom data source is activated by calling the start() method. Once started, it starts simulating the recorded data.
+- **Start the data source** - The data source activates automatically and begins replaying the recorded data
 
-## Remove the log datasource
+---
 
-To remove the data source once we don't need it anymore, we can proceed in the following way:
+## Remove the log data source
+
+Remove the data source when no longer needed:
 ```dart
 DataSource dataSource = DataSource.createLogDataSource(logFile);
 PositionService.setExternalDataSource(dataSource);
@@ -220,10 +232,11 @@ dataSource.stop();
 PositionService.removeDataSource();
 ```
 
-The log data source cannot be of type `.gm`. Using this file type is not supported in the public SDK. You can use another format, such as `gpx`, `nmea` or `kml`, that can be exported from the `.gm` file.
+The log data source cannot be of type `.gm`. This file type is not supported in the public SDK. Use another format, such as `gpx`, `nmea`, or `kml`, that can be exported from the `.gm` file.
 
-It's important to stop the data source and remove it from the position service once work is finished with it.
-Otherwise there can be unexpected problems especially when trying to use other data sources (live or custom). 
+Stop the data source and remove it from the position service when finished. Otherwise, unexpected problems can occur when trying to use other data sources (live or custom).
+
+---
 
 ## Relevant example demonstrating custom positioning related features
 

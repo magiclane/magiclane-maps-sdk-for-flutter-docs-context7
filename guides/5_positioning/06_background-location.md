@@ -5,17 +5,15 @@ title: Background Location
 
 # Background Location
 
-Some use cases require location access even when the app is in the background. In such cases, you'll need to configure both **iOS** and **Android** platforms appropriately. The SDK supports this scenario, but platform permissions and services must be correctly set up for it to work.
+Some use cases require location access when the app is in the background. To enable this, configure both **iOS** and **Android** platforms with the appropriate permissions and services.
 
-We recommend enabling background location support if your application includes features like recording, navigation, or content download (especially for maps, which can be quite large and may take a while to fetch).
+Enable background location support for features like recording, navigation, or content download (maps can be large and take time to fetch).
 
-## Platform Specific Configurations
+---
 
-The following sections outline the necessary steps to enable background location tracking on both iOS and Android platforms.
+## Configure iOS
 
-### iOS Setup
-
-On iOS, you will need to update your `Info.plist` to request permission for background location access.
+Update your `Info.plist` to request permission for background location access:
 ```xml
 <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 <string>Location is needed for map localization and navigation.</string>
@@ -28,13 +26,15 @@ On iOS, you will need to update your `Info.plist` to request permission for back
 </array>
 ```
 
-### Android Setup
+---
 
-You'll need to declare permissions in your manifest, and then implement a foreground service to keep location updates alive.
+## Configure Android
 
-#### Required AndroidManifest Changes
+Declare permissions in your manifest and implement a foreground service to keep location updates alive.
 
-Make sure you include the necessary permissions and service declarations in your `AndroidManifest.xml`.
+### Add required permissions
+
+Include the necessary permissions and service declarations in your `AndroidManifest.xml`:
 ```xml
 <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 <!-- Needed for foreground service -->
@@ -43,19 +43,23 @@ Make sure you include the necessary permissions and service declarations in your
 <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 ```
 
-On Android 10+ (API level 29+), you also need to request **ACCESS_BACKGROUND_LOCATION** explicitly at runtime. Make sure to handle this in your app's permission request flow.
+On Android 10+ (API level 29+), request **ACCESS_BACKGROUND_LOCATION** explicitly at runtime in your app's permission request flow.
 
-You should create a foreground service on Android to ensure that location updates continue when the app is in the background. Failing to do so may result in the operating system terminating your app's background processes, leading to loss of location updates.
+### Implement a foreground service
 
-#### Foreground Service Implementation
+Android requires a foreground service to run background location tracking. Without it, the operating system may terminate your app's background processes, leading to loss of location updates.
 
-Android won’t let you run background location tracking unless you create a foreground service. Here you can find more about foreground services: [Background Location Example](https://developer.android.com/guide/components/foreground-services).
+Create a foreground service on Android to ensure location updates continue when the app is in the background.
 
-You can find a sample implementation of a foreground service in the [Recorder in Background example](/examples/routing-navigation/background-recorder-with-foreground-service).
+Learn more about foreground services: [Background Location Example](https://developer.android.com/guide/components/foreground-services).
 
-## Sensor Configuration
+Find a sample implementation in the [Recorder in Background example](/examples/routing-navigation/background-recorder-with-foreground-service).
 
-To enable background location within our SDK, you’ll also need to initialize the sensor configuration accordingly in your Flutter code.
+---
+
+## Configure sensor settings
+
+Enable background location in the SDK by initializing the sensor configuration in your Flutter code:
 ```dart
 final dataSource = DataSource.createLiveDataSource();
 
@@ -74,6 +78,8 @@ if (err != GemError.success) {
 }
 ```
 
-## Relevant example demonstrating background location related features
+---
+
+## Relevant examples demonstrating background location related features
 
 - [Recorder In Background](/examples/routing-navigation/background-recorder-with-foreground-service)

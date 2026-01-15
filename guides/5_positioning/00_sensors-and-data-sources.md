@@ -5,13 +5,13 @@ title: Sensors And Data Sources
 
 # Sensors and data sources
 
-This section provides an overview of how the Maps Flutter SDK integrates with various sensors and external data sources to enhance map functionality and interactivity. From GPS and compass data to accelerometer readings and custom telemetry inputs, the SDK is designed to support a wide range of sensor-driven scenarios. 
+The Maps Flutter SDK integrates with device sensors and external data sources to enhance map functionality. Use GPS, compass, accelerometer, and custom telemetry to build navigation apps, augmented reality layers, and location-aware services.
 
-You'll learn how to access and configure these inputs, how the SDK responds to real-time changes, and how to incorporate your own data streams into the mapping experience. Whether you're building navigation apps, augmented reality layers, or location-aware services, this section will guide you through the sensor and data integration process.
+---
 
 ## Sensor types
 
-The supported sensor data types can be summarized in the following table:
+The SDK supports the following sensor data types:
 
 | **Type**              | **Description** |
 |-----------------------|-----------------|
@@ -35,64 +35,66 @@ The supported sensor data types can be summarized in the following table:
 
 More details about the `Position` and `ImprovedPosition` classes are available [here](../core/positions).
 
-When using DataType values, ensure that the specific types are supported on the target platform.
-Attempting to create data sources or recordings with unsupported types may result in failures.
+Ensure that the specific `DataType` values are supported on the target platform. Attempting to create data sources or recordings with unsupported types may result in failures.
+
+---
 
 ## Working with data sources
 
-A simplified view of the main classes used to work with data sources can be seen in the following diagram:
+The main classes for working with data sources:
 
-There are multiple possible data types, represented by the `DataType` enum. Each sensor value is stored in a class that is derived from `SenseData`. Two such classes are `GemPosition` and `Acceleration`.
+The `DataType` enum represents multiple data types. Each sensor value is stored in a class derived from `SenseData`, such as `GemPosition` and `Acceleration`.
 
-If you want to create objects of these types, a helper class `SenseDataFactory` is provided. This class has static methods like `producePosition`, `produceAcceleration` that can create custom sensor data. In principle, this will only be necessary if you want to create a custom data source that will be fed with custom data.
+Use the `SenseDataFactory` helper class to create objects of these types. This class provides static methods like `producePosition` and `produceAcceleration` to create custom sensor data. You'll need this only when creating a custom data source with custom data.
 
-You can create a `DataSource` by using one of the static methods:
+### Create a data source
 
-- `createLiveDataSource`: Creates a data source that collects data from the device’s built-in sensors in real time. This is the most common use case for applications relying on actual sensor input.
+Create a `DataSource` using one of these static methods:
 
-- `createExternalDataSource`: Creates a custom data source that accepts user-supplied data. You can feed data into this source via the `pushData` method. Note that `pushData` will return `false` if used with a non-external source.
+- `createLiveDataSource` - Collects data from the device's built-in sensors in real time. Most common for applications relying on actual sensor input
 
-- `createLogDataSource`: Creates a data source that replays data from a previously recorded session (log file: gpx, nmea). This is useful for debugging, training, or offline data processing. See the [Recorder docs](./recorder) for information about recording data.
+- `createExternalDataSource` - Accepts user-supplied data. Feed data into this source via the `pushData` method. Note that `pushData` returns `false` if used with a non-external source
 
-- `createSimulationDataSource`: Creates a data source that simulates movement along a specified route. It can be used for UI prototyping, testing, or feature validation without relying on real-world movement.
+- `createLogDataSource` - Replays data from a previously recorded session (log file: gpx, nmea). Useful for debugging, training, or offline data processing. See the [Recorder docs](./recorder) for recording data
 
-The first two types (live and external) are categorized under `DataSourceType.live`, whereas the latter two (log and simulation) fall under `DataSourceType.playback`.
+- `createSimulationDataSource` - Simulates movement along a specified route. Use for UI prototyping, testing, or feature validation without real-world movement
 
-By default, a data source starts automatically upon creation. However, it's possible that it hasn't fully initialized by the time you obtain the data source object.
+The first two types (live and external) are categorized under `DataSourceType.live`. The latter two (log and simulation) fall under `DataSourceType.playback`.
 
-If you add a `DataSourceListener` immediately after acquiring the data source, there's a chance you'll miss the initial "playing status changed" notification that indicates the data source has started—since it may already be in the started state when the listener is attached.
+By default, a data source starts automatically upon creation. However, it may not be fully initialized when you obtain the data source object.
 
-### Configuring and Controlling a Data Source
+If you add a `DataSourceListener` immediately after acquiring the data source, you may miss the initial "playing status changed" notification—the data source may already be in the started state when the listener is attached.
 
-Once created, a data source can be stopped or started using the appropriate control methods:
+### Configure and control a data source
+
+Stop or start a data source using the control methods:
 ```dart
 dataSource.stop();
 // ...
 dataSource.start();
 ```
 
-You can also configure a data source’s behavior using methods like:
+Configure a data source's behavior using these methods:
 
-- `setConfiguration`: to set the sampling rate or data filtering behavior.
+- `setConfiguration` - Set the sampling rate or data filtering behavior
 
-- `setMockPosition`: to simulate location updates.
+- `setMockPosition` - Simulate location updates
 
-The `setMockPosition` method is only available for live data sources and supports only the `DataType.position` type.
-To mock other data types, use an external `DataSource`.
+The `setMockPosition` method is only available for live data sources and supports only the `DataType.position` type. To mock other data types, use an external `DataSource`.
 
-### Using `DataSourceListener`
+### Use DataSourceListener
 
-To receive updates from a data source, you can register a `DataSourceListener`. This listener allows you to react to various events such as:
+Register a `DataSourceListener` to receive updates from a data source. React to various events:
 
-- Changes in the playing status of the data source.
+- Changes in the playing status
 
-- Interruptions in data flow (e.g., sensor stopped, app went to background, etc.).
+- Interruptions in data flow (e.g., sensor stopped, app went to background)
 
-- New sensor data becoming available.
+- New sensor data becoming available
 
-- Progress updates during playback.
+- Progress updates during playback
 
-You can create a listener using the factory constructor and pass the appropriate callbacks:
+Create a listener using the factory constructor and pass the appropriate callbacks:
 ```dart
 final listener = DataSourceListener(
   onPlayingStatusChanged: (dataType, status) {
@@ -110,21 +112,23 @@ final listener = DataSourceListener(
 );
 ```
 
-Once created, this listener can be registered with a `DataSource`, for a specific `DataType` (in this case the position):
+Register this listener with a `DataSource` for a specific `DataType` (in this case the position):
 ```dart
 myDataSource.addListener(DataType.position, listener);
 ```
 
-Later, you can remove the listener when it’s no longer needed:
+Remove the listener when no longer needed:
 ```dart
 myDataSource.removeListener(DataType.position, listener);
 ```
 
-## Using the `Playback` interface
+---
 
-The `Playback` interface allows you to control data sources that support playback functionality—specifically those of type `DataSourceType.playback`, such as *log files* or *simulated route replays*. **It is not compatible with live or custom data sources**.
+## Use the Playback interface
 
-To access a `Playback` instance, you can check the type of the data source and retrieve it accordingly:
+The `Playback` interface controls data sources that support playback functionality—specifically those of type `DataSourceType.playback`, such as log files or simulated route replays. **It is not compatible with live or custom data sources**.
+
+Access a `Playback` instance by checking the data source type:
 ```dart
 if(myDataSource.dataSourceType == DataSourceType.playback) {
   final playback = myDataSource.playback!;
@@ -135,21 +139,21 @@ if(myDataSource.dataSourceType == DataSourceType.playback) {
 }
 ```
 
-As shown above, playback-enabled data sources can be paused and resumed. Additionally, you can adjust the playback speed by setting a `speedMultiplier`, which must fall within the range defined by `Playback.minSpeedMultiplier` and `Playback.maxSpeedMultiplier`.
+Playback-enabled data sources can be paused and resumed. Adjust the playback speed by setting a `speedMultiplier`, which must fall within the range defined by `Playback.minSpeedMultiplier` and `Playback.maxSpeedMultiplier`.
 
-To control playback position, use `Playback.currentPosition`, which represents the elapsed time in milliseconds from the beginning of the log or simulation. This allows you to skip to any point in the playback.
+Control playback position using `Playback.currentPosition`, which represents the elapsed time in milliseconds from the beginning of the log or simulation. This allows you to skip to any point in the playback.
 
-You also have access to supplementary metadata, such as:
+Access supplementary metadata:
 
-- `Playback.logPath` – the path to the log file being executed
+- `Playback.logPath` - Path to the log file being executed
 
-- `Playback.route` – the route being simulated (if applicable)
+- `Playback.route` - Route being simulated (if applicable)
 
-## Tracking positions
+---
 
-Positions from a `DataSource` can be tracked on a map by rendering a marker polyline between relevant map links points. This is done by using the `MapViewExtensions` class member of `GemMapController`.
+## Track positions
 
-The following code illustrates the functionality shown in the screenshot above.
+Track positions from a `DataSource` on a map by rendering a marker polyline between relevant map link points. Use the `MapViewExtensions` class member of `GemMapController`.
 ```dart
 final mapViewExtensions = controller.extensions;
 
@@ -169,16 +173,16 @@ mapViewExtensions.stopTrackPositions();
 
 | **Method**                    |                 **Parameters**                      | **Return type**            |
 |-------------------------------|-----------------------------------------------------|----------------------------|
-| **startTrackPositions**       |     - `updatePositionMs`: The tracked position collection update frequency. High frequency may decrease rendering performances on low end devices  - `MarkerCollectionRenderSettings`: The markers collection rendering settings in the map view   - `DataSource?`: The DataSource object which positions are tracked |     `GemError`             |
+| **startTrackPositions**       |     - `updatePositionMs` - Tracked position collection update frequency. High frequency may decrease rendering performance on low-end devices  - `MarkerCollectionRenderSettings` - Markers collection rendering settings in the map view   - `DataSource?` - DataSource object which positions are tracked |     `GemError`             |
 | **stopTrackPositions**        |                                                   |     - `GemError.success` on success    - `GemError.notFound` if tracking is not started    |
 | **isTrackedPositions**        |                                                   |        `bool`              |
 | **trackedPositions**       |                                                   |     `List<Coordinates>`    |
 
-If the `dataSource` parameter is left null, tracking will use the current `DataSource` set in `PositionService`. If no `DataSource` is set in `PositionService`, `GemError.notFound` will be returned.
+If the `dataSource` parameter is left null, tracking uses the current `DataSource` set in `PositionService`. If no `DataSource` is set in `PositionService`, `GemError.notFound` is returned.
 
-### Getting tracked positions
+### Get tracked positions
 
-After calling `MapViewExtensions.startTrackPositions`, you can retrieve the tracked positions later using `trackedPositions` getter. This method returns a list of Coordinates that are used to render the path polyline on `GemMap`.
+Retrieve tracked positions using the `trackedPositions` getter after calling `MapViewExtensions.startTrackPositions`. This returns a list of `Coordinates` used to render the path polyline on `GemMap`.
 ```dart
 final mapViewExtensions = controller.extensions;
 
@@ -189,7 +193,9 @@ mapViewExtensions.trackedPositions;
 mapViewExtensions.stopTrackPositions();
 ```
 
-Calling the `trackedPositions` getter **after** the `stopTrackPositions` is called will result in returning an empty list.
+Calling the `trackedPositions` getter **after** `stopTrackPositions` returns an empty list.
+
+---
 
 ## Relevant examples demonstrating sensors and data source related features
 

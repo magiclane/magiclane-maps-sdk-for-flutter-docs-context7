@@ -5,31 +5,29 @@ title: Recorder
 
 # Recorder
 
-The **Recorder** module is a comprehensive tool designed for managing sensor data recording.
+The Recorder module manages sensor data recording with configurable parameters through `RecorderConfiguration`:
 
-The Recorder supports a wide range of configurable parameters through the `RecorderConfiguration`, allowing developers to tailor recording behavior to specific application needs. Features include:
+- **Customizable storage options** - Define log directories, manage disk space, and specify recording duration
 
-- **Customizable storage options**: Define log directories, manage disk space, and specify the duration of recordings.
+- **Data type selection** - Specify which data types (video, audio, or sensor data) to record
 
-- **Data type selection**: Specify which data types (e.g., video, audio, or sensor data) to record.
+- **Video and audio options** - Set video resolution, enable/disable audio recording, and manage chunk durations. Record sensor data only, sensor data + video, sensor data + audio, or all three
 
-- **Video and audio options**: Set video resolution, enable/disable audio recording, and manage chunk durations. It's possible to record only sensor data, sensor data + video, sensor data + audio or sensor data + video + audio.
+Control the recording lifecycle:
 
-The Recorder provides comprehensive methods to control the recording lifecycle:
+- Start, stop, pause, and resume recordings
 
-- **Start, stop, pause, and resume** recordings.
+- Automatic restarts for continuous recording with chunked durations
 
-- Automatic restarts for continuous recording with chunked durations.
+The Recorder supports various transportation modes (car, pedestrian, bike), enabling detailed analysis and classification based on context. Set disk space limits to prevent overwhelming device storage—logs are automatically managed based on retention thresholds.
 
-The Recorder supports various transportation modes (e.g., car, pedestrian, bike), enabling detailed analysis and classification of recordings based on context.
+The main classes used by the Recorder:
 
-To prevent overwhelming the device's storage, the Recorder allows for setting disk space limits and automatically manages logs based on specified retention thresholds.
-
-In the following class diagram you can see the main classes used by the `Recorder` and the relationships between them:
+---
 
 ## Initialize the Recorder
 
-The Recorder cannot be directly instantiated. Instead, the `create` method is used to obtain a configured Recorder instance.
+Use the `create` method to obtain a configured Recorder instance:
 ```dart
 RecorderConfiguration recorderConfiguration = RecorderConfiguration(
    dataSource: dataSource,
@@ -40,9 +38,9 @@ RecorderConfiguration recorderConfiguration = RecorderConfiguration(
 Recorder recorder = Recorder.create(recorderConfiguration);
 ```
 
-If the `dataSource`, `logsDir` and `recordedTypes` parameters are not populated with valid data, the `startRecording` method will return `GemError.invalidInput` and no data will be recorded.
+If the `dataSource`, `logsDir`, and `recordedTypes` parameters are not populated with valid data, the `startRecording` method returns `GemError.invalidInput` and no data is recorded.
 
-### Configure the `RecorderConfiguration`
+### Configure the RecorderConfiguration
 
 | Recorder configuration attribute             | Description
 |--------------------------------------------- | -----------------------------------------------------------------------------
@@ -61,18 +59,17 @@ If the `dataSource`, `logsDir` and `recordedTypes` parameters are not populated 
 | deleteOlderThanKeepMin                       | Older logs that exceeds minimum kept seconds threshold should be deleted
 | transportMode                                | The transport mode
 
-If the log duration is shorter than `minDurationSeconds` the `stopRecording` method of `Recorder` will not save the recording and will return `GemError.recordedLogTooShort`.
+If the log duration is shorter than `minDurationSeconds`, the `stopRecording` method does not save the recording and returns `GemError.recordedLogTooShort`.
 
-The `GemError.recordedLogTooShort` error may also occur if an insufficient number of positions were emitted, even when the duration between `startRecording` and `stopRecording` exceeds `minDurationSeconds`. To test the recording functionality, you can create a custom external `DataSource` and push custom positions. Refer to the [custom positioning guide](./custom-positioning) for more details. The external `DataSource` created needs to be provided to the `RecorderConfiguration` object.
+The `GemError.recordedLogTooShort` error may also occur if an insufficient number of positions were emitted, even when the duration between `startRecording` and `stopRecording` exceeds `minDurationSeconds`. To test recording functionality, create a custom external `DataSource` and push custom positions. Refer to the [custom positioning guide](./custom-positioning) for details. The external `DataSource` must be provided to the `RecorderConfiguration` object.
 
-The `GemError.general` result might be returned if the application has been sent to background without making the required configuration. See the [record while app is in background](#record-while-app-is-in-background) section below.
+The `GemError.general` result might be returned if the application has been sent to background without the required configuration. See the [record while app is in background](#record-while-app-is-in-background) section below.
 
-Be aware that if `minChunkDuration` is set too high, it may cause `GemError.noDiskSpace` since the SDK will determine how much space is required for the entire chunk. 
+If `minChunkDuration` is set too high, it may cause `GemError.noDiskSpace` since the SDK determines how much space is required for the entire chunk.
 
-Always ensure that the `DataType` values passed to the `recordedTypes` parameter are supported by the target platform.
-For example, specifying `DataType.nmeaChunk` on iOS will cause the `startRecording` method to return a `GemError.invalidInput`. See more details about sensor types [here](./sensors-and-data-sources#sensor-types). 
+Ensure that the `DataType` values passed to the `recordedTypes` parameter are supported by the target platform. For example, specifying `DataType.nmeaChunk` on iOS causes the `startRecording` method to return `GemError.invalidInput`. See more details about sensor types [here](./sensors-and-data-sources#sensor-types).
 
-The [path_provider](https://pub.dev/packages/path_provider) package can be used to obtain a valid path to save recordings. The following snippet shows how to obtain a valid folder path in a platform independent way:
+Use the [path_provider](https://pub.dev/packages/path_provider) package to obtain a valid path to save recordings. The following snippet shows how to obtain a valid folder path in a platform-independent way:
 ```dart
 Future<String> getTracksPath() async {
    // Requires the path_provider package
@@ -82,7 +79,7 @@ Future<String> getTracksPath() async {
 }
 ```
 
-The `videoQuality` parameter is based on the `Resolution` enum defined below. Each value represents a standard video resolution that affects recording quality and storage requirements.
+The `videoQuality` parameter is based on the `Resolution` enum. Each value represents a standard video resolution that affects recording quality and storage requirements.
 
 ### Camera Resolutions
 
@@ -96,9 +93,7 @@ The `videoQuality` parameter is based on the `Resolution` enum defined below. Ea
 | `Resolution.uhd4K2160p`  | Ultra HD (4K)         | 3840 × 2160          |
 | `Resolution.uhd8K4320p`  | Ultra HD (8K)         | 7680 × 4320          |
 
-:::tip[Estimated storage usage]
-
-The actual disk usage depends on platform and encoding settings, but here are rough size estimates used internally by the SDK for calculating space requirements:
+The actual disk usage depends on platform and encoding settings. Here are rough size estimates used internally by the SDK for calculating space requirements:
 
 | Resolution        | Approx. Bytes/sec | Approx. MB/min |
 |------------------|-------------------|----------------|
@@ -113,25 +108,19 @@ The actual disk usage depends on platform and encoding settings, but here are ro
 
 ### Recording lifecycle
 
-1. **Starting the Recorder**:
+1. **Start the Recorder** - Call the `startRecording` method to initiate recording. The recorder transitions to the `recording` state
 
-   - Call the `startRecording` method to initiate recording. The recorder transitions to the `recording` state.
+2. **Pause and resume** - Use `pauseRecording` and `resumeRecording` to manage interruptions
 
-2. **Pausing and Resuming**:
+3. **Chunked recordings** - If a chunk duration is set in the configuration, the recording automatically stops when the duration is reached. A new recording begins seamlessly if continuous recording is enabled, ensuring uninterrupted data capture
 
-   - Use `pauseRecording` and `resumeRecording` to manage interruptions.
+4. **Stop the Recorder** - The `stopRecording` method halts recording, and the system ensures logs meet the configured minimum duration before saving them as `.gm` files inside `logsDir`
 
-3. **Chunked Recordings**:
+---
 
-   - If a chunk duration is set in the configuration, the recording automatically stops when the duration is reached. A new recording will begin seamlessly if continuous recording is enabled, ensuring uninterrupted data capture.
+## Use the Recorder
 
-4. **Stopping the Recorder**:
-
-   - The `stopRecording` method halts recording, and the system ensures logs meet the configured minimum duration before saving them as .gm files inside `logsDir`.
-
-## How to use the Recorder
-
-The following sections will present some use cases for the recorder, demonstrating its functionality in different scenarios.
+The following sections present use cases for the recorder:
 ```dart
 String tracksPath = await _getTracksPath();
 DataSource? dataSource = DataSource.createLiveDataSource();
@@ -163,15 +152,15 @@ if (errorStop != GemError.success) {
 }
 ```
 
-The `Recorder` will only save data explicitly defined in the `recordedTypes` list, any other data will be ignored.
+The `Recorder` only saves data explicitly defined in the `recordedTypes` list. Any other data is ignored.
 
-The `startRecording` and `stopRecording` methods must be awaited to ensure proper execution. Otherwise it may lead to unexpected behavior.
+The `startRecording` and `stopRecording` methods must be awaited to ensure proper execution. Otherwise, unexpected behavior may occur.
 
-:::tip[tip]
+Request permission for location usage before starting a recorder.
 
-Don't forget to request permission for location usage before starting a recorder.
+---
 
-## Recorder Permissions
+## Recorder permissions
 
 <Tabs>
 <TabItem value="android" label="Android" default>
@@ -230,21 +219,23 @@ More info: [Apple App Privacy & Permissions](https://developer.apple.com/documen
 </TabItem>
 </Tabs>
 
-## Record Metrics
+---
 
-The `RecordMetrics` object provides **performance metrics** for a recorded activity.
+## Record metrics
+
+The `RecordMetrics` object provides performance metrics for a recorded activity.
 
 Available only when the recorder is in `RecorderStatus.recording` status.
 
-Users can access:
+Access these metrics:
 
-- `distanceMeters` → The total distance traveled in meters.  
+- `distanceMeters` - Total distance traveled in meters
 
-- `elevationGainMeters` → The total elevation gain in meters.  
+- `elevationGainMeters` - Total elevation gain in meters
 
-- `avgSpeedMps` → The average speed in meters per second.  
+- `avgSpeedMps` - Average speed in meters per second
 
-These values allow you to analyze ride or workout performance, monitor progress, and build custom dashboards or statistics.
+Use these values to analyze ride or workout performance, monitor progress, and build custom dashboards or statistics.
 ```dart
 GemError errorStart = await recorder.startRecording();
 if (errorStart != GemError.success) {
@@ -259,13 +250,13 @@ print("Distance in meters: ${metrics.distanceMeters}");
 print("Elevation gain: ${metrics.elevationGainMeters}");
 ```
 
-:::tip[tip]
+The metrics reset at the start of each recording. Once the recording stops, the collected data is available in LogMetadata.
 
-The metrics reset at the start of each recording, and once the recording is stopped, the collected data is available in LogMetadata.
+---
 
 ## Record audio
 
-The recorder also supports audio recording. To enable this functionality, set the `enableAudio` parameter in the `RecorderConfiguration` to true and invoke the `startAudioRecording` method from the `Recorder` class. To stop the audio recording, use the `stopAudioRecording` method. The following code snippet illustrates this process:
+Enable audio recording by setting the `enableAudio` parameter in the `RecorderConfiguration` to true. Call the `startAudioRecording` method from the `Recorder` class to start, and use `stopAudioRecording` to stop:
 ```dart
 RecorderConfiguration recorderConfiguration = RecorderConfiguration(
    dataSource: dataSource,
@@ -296,15 +287,15 @@ if (errorStop != GemError.success) {
 }
 ```
 
-:::tip[tip]
+Audio recording results in a log file of type `.mp4`. This file also contains the binary data of a `.gm` file and is accessible by system players.
 
-The audio recording will result in a log file of type `.mp4`. This file also contains the binary data of a `.gm` file, but it is accessible by system players.
+Request permission for microphone usage when setting the `enableAudio` parameter to `true`.
 
-Don't forget to request permission for microphone usage if you set the `enableAudio` parameter to `true`.
+---
 
 ## Record video
 
-The recorder also supports video recording. To enable this functionality, add `DataType.camera` to the `recordedTypes` and set the `videoQuality` parameter in the `RecorderConfiguration` to your desired resolution, we recommend using `Resolution.hd720p`. The video recording starts at the call of the `startRecording` method and stops at the `stopRecording` method. The following code snippet illustrates this process:
+Enable video recording by adding `DataType.camera` to the `recordedTypes` and setting the `videoQuality` parameter in the `RecorderConfiguration` to your desired resolution (we recommend `Resolution.hd720p`). Video recording starts when calling `startRecording` and stops at `stopRecording`:
 ```dart
 RecorderConfiguration recorderConfiguration = RecorderConfiguration(
    dataSource: dataSource,
@@ -329,23 +320,21 @@ if (errorStop != GemError.success) {
 }
 ```
 
-:::tip[tip]
+Camera recording results in a log file of type `.mp4`. This file also contains the binary data of a `.gm` file and is accessible by system players.
 
-The camera recording will result in a log file of type `.mp4`. This file also contains the binary data of a `.gm` file, but it is accessible by system players.
+Request permission for camera usage when adding the `DataType.camera` parameter to `recordedTypes`.
 
-Don't forget to request permission for camera usage if you add the `DataType.camera` parameter to `recordedTypes`.
+When `chunkDuration` is set, the SDK checks available disk space before starting the recording.
 
-:::caution If using `chunkDuration`
+If there isn't enough space to store an entire chunk (based on the selected resolution), the recorder does not start and returns `GemError.noDiskSpace`.
 
-When `chunkDuration` is set, the SDK will **check available disk space before starting the recording**.
+Estimate required storage ahead of time. See [Camera Resolutions](#camera-resolutions) for expected sizes.
 
-If there isn't enough space to store an entire chunk (based on the selected resolution), the recorder will not start and will return `GemError.noDiskSpace`.
+---
 
-Make sure to estimate required storage ahead of time. See [Camera Resolutions](#camera-resolutions) for expected sizes.
+## Record multimedia
 
-## Record multimedia 
-
-To record a combination of audio, video and sensors you can do that by setting up the `RecorderConfiguration` with all the desired functionalities. The following code snippet illustrates this process:
+Record a combination of audio, video, and sensors by setting up the `RecorderConfiguration` with all desired functionalities:
 ```dart
 RecorderConfiguration recorderConfiguration = RecorderConfiguration(
    dataSource: dataSource,
@@ -377,15 +366,15 @@ if (errorStop != GemError.success) {
 }
 ```
 
-:::tip[tip]
+Audio recording results in a log file of type `.mp4`. This file also contains the binary data of a `.gm` file and is accessible by system players.
 
-The audio recording will result in a log file of type `.mp4`. This file also contains the binary data of a `.gm` file, but it is accessible by system players.
+Request permission for camera and microphone usage when setting the `enableAudio` parameter to `true` and adding the `DataType.camera` parameter to `recordedTypes`.
 
-Don't forget to request permission for camera and microphone usage if you set the `enableAudio` parameter to `true` and add the `DataType.camera` parameter to `recordedTypes`.
+---
 
 ## Background Location Recording
 
-To enable **location recording while the app is in background**, the `allowsBackgroundLocationUpdates` flag must be enabled on the `PositionSensorConfiguration` of the data source. You must also update the Android and iOS platform-specific configuration files.
+Enable location recording while the app is in background by enabling the `allowsBackgroundLocationUpdates` flag on the `PositionSensorConfiguration` of the data source. Update the Android and iOS platform-specific configuration files.
 
 ### Dart Example
 ```dart
@@ -418,9 +407,9 @@ if (errorStart != GemError.success) {
 <Tabs>
 <TabItem value="android" label="Android" default>
 
-### Android Manifest
+### Android manifest
 
-Add the following permissions to your `android/app/src/main/AndroidManifest.xml`:
+Add the following permissions to `android/app/src/main/AndroidManifest.xml`:
 ```xml
 <!-- Foreground location -->
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -430,11 +419,9 @@ Add the following permissions to your `android/app/src/main/AndroidManifest.xml`
 <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 ```
 
-:::tip[tip]
-
 To record while the app is in background, ensure the device/battery settings allow background activity.
 
-### Runtime Permission
+### Runtime permission
 
 On Android 6.0+ (API 23+), background location requires runtime permissions. Use [`permission_handler`](https://pub.dev/packages/permission_handler):
 ```dart
@@ -466,35 +453,29 @@ Add the following entries to your `ios/Runner/Info.plist` inside the `<dict>` bl
 
 If the `allowsBackgroundLocationUpdates` flag is not enabled and the app is backgrounded during recording, calling `stopRecording` may result in `GemError.general`.
 
-## Related
+---
 
-- [Recorder setup](#initialize-the-recorder)
+## Recorder bookmarks and metadata
 
-- [Permissions](#recorder-permissions)
+The SDK uses the proprietary `.gm` file format for recordings, offering advantages over standard file types:
 
-- [Platform-specific examples](/examples/routing-navigation/recorder)
+- Supports multiple data types, including acceleration, rotation, and more
 
-## Recorder Bookmarks and Metadata
+- Allows embedding custom user data in binary format
 
-The SDK utilizes the proprietary `.gm` file format for recordings, offering several advantages over standard file types:
+- Enables automatic storage management by the SDK to optimize space usage
 
-- Supports multiple data types, including acceleration, rotation, and more.
+Recordings are saved as `.gm` or `.mp4` files by the Recorder. The `RecorderBookmarks` class manages recordings, including exporting `.gm` or `.mp4` files to other formats such as `.gpx`, importing external formats, and converting them to `.gm` for seamless SDK integration.
 
-- Allows embedding custom user data in binary format.
+The `LogMetadata` class provides an object-oriented representation of a `.gm` or `.mp4` file, offering features such as retrieving start and end timestamps, coordinates, and path details at varying levels of precision.
 
-- Enables automatic storage management by the SDK to optimize space usage.
+Use the `RecorderBookmarks` class for enhanced log management:
 
-Recordings are saved as `.gm` or `.mp4` files by the Recorder. The `RecorderBookmarks` class provides functionality for managing recordings, including exporting `.gm` or `.mp4` files to other formats such as `.gpx`, as well as importing external formats and converting them to `.gm` for seamless SDK integration.
+- **Export and import logs** - Convert logs to/from different formats such as GPX, NMEA, and KML
 
-Additionally, the `LogMetadata` class serves as an object-oriented representation of a `.gm` or `.mp4` file, offering features such as retrieving start and end timestamps, coordinates, and path details at varying levels of precision.
+- **Log metadata** - Retrieve details like start and end timestamps, transport mode, and size
 
-The `RecorderBookmarks` class for enhanced log management:
-
-- **Export and Import Logs**: Convert logs to/from different formats such as GPX, NMEA, and KML.
-
-- **Log Metadata**: Retrieve details like start and end timestamps, transport mode and size.
-
-In the following class diagram you can see the main classes used by the `RecorderBookmarks` and the relationships between them:
+The main classes used by the RecorderBookmarks:
 
 ### Export logs
 ```dart
@@ -519,17 +500,15 @@ if (exportLogError != GemError.success) {
 }
 ```
 
-The resulting file will be `My_File_Name.gpx`. If the name of the exported file is **not specified**, then the log name will be used.
+The resulting file is `My_File_Name.gpx`. If the name of the exported file is not specified, the log name is used.
 
 Exporting a `.gm` file to other formats may result in data loss, depending on the data types supported by each format.
 
-:::tip[tip]
-
-The exported file will be in the same directory as the original log file.
+The exported file is saved in the same directory as the original log file.
 
 ### Import logs
 
-Importing logs involves loading a standard file format (such as `gpx`, `nmea` or `kml`) into a `.gm` file, enabling it to be processed further.
+Import logs by loading a standard file format (such as `gpx`, `nmea`, or `kml`) into a `.gm` file for further processing:
 ```dart
 GemError importError = bookmarks.importLog("path/to/file", importedFileName: "My_File_Name");
 if (importError != GemError.success) {
@@ -539,7 +518,7 @@ if (importError != GemError.success) {
 
 ### Access metadata
 
-Each log contains metadata accessible through the `LogMetadata` class.
+Access metadata for each log through the `LogMetadata` class:
 ```dart
 RecorderBookmarks? bookmarks = RecorderBookmarks.create(logsDir);
 if(bookmarks != null) {
@@ -547,44 +526,43 @@ if(bookmarks != null) {
 }
 ```
 
-The `getLogMetadata` method will return `null` if the log file does not exist inside the `logsDir` directory or if the log file is not a valid `.gm` file.
+The `getLogMetadata` method returns `null` if the log file does not exist inside the `logsDir` directory or if the log file is not a valid `.gm` file.
 
 The metadata within a `LogMetadata` object contains:
 
-- **startPosition / endPosition**: Geographic coordinates for the log's beginning and end.
+- **startPosition / endPosition** - Geographic coordinates for the log's beginning and end
 
-- **getUserMetadata / addUserMetadata**: Store and retrieve additional data using a key-value approach.
+- **getUserMetadata / addUserMetadata** - Store and retrieve additional data using a key-value approach
 
-- **preciseRoute**: A comprehensive list of all recorded coordinates, capturing the highest level of detail possible.
+- **preciseRoute** - Comprehensive list of all recorded coordinates, capturing the highest level of detail possible
 
-- **route**: A list of route coordinates spaced at least 20 meters apart, with a three-second recording delay between each coordinate.
+- **route** - List of route coordinates spaced at least 20 meters apart, with a three-second recording delay between each coordinate
 
-- **transportMode**: ``RecordingTransportMode`` of recording.
+- **transportMode** - `RecordingTransportMode` of recording
 
-- **startTimestampInMillis / endTimestampInMillis**: Timestamp of the first/last sensor data. 
+- **startTimestampInMillis / endTimestampInMillis** - Timestamp of the first/last sensor data
 
-- **durationMillis**: Log duration.
+- **durationMillis** - Log duration
 
-- **isProtected**: Check if a log file is protected. Protected logs will not be automatically deleted after `keepMinSeconds` specified in `RecorderConfiguration`.
+- **isProtected** - Check if a log file is protected. Protected logs are not automatically deleted after `keepMinSeconds` specified in `RecorderConfiguration`
 
-- **logSize**: Get the log size in bytes.
+- **logSize** - Log size in bytes
 
-- **isDataTypeAvailable**: Verify if a data type is produced by the log file.
+- **isDataTypeAvailable** - Verify if a data type is produced by the log file
 
-- **soundMarks**: A list of recorded soundmarks.
+- **soundMarks** - List of recorded soundmarks
 
-- **activityRecord**: The recorded activity details.
+- **activityRecord** - Recorded activity details
 
-- **logMetrics**: Basic metrics about the recorded log.
+- **logMetrics** - Basic metrics about the recorded log
 
-To visualize the recorded route, a `Path` object can be constructed using the route coordinates from the `LogMetadata`. This path can then be displayed on a map. For more details, refer to the documentation on the [path entity](/guides/core/base-entities#path) and [display paths](/guides/maps/display-map-items/display-paths).
+To visualize the recorded route, construct a `Path` object using the route coordinates from the `LogMetadata`. Display this path on a map. For more details, refer to the documentation on the [path entity](/guides/core/base-entities#path) and [display paths](/guides/maps/display-map-items/display-paths).
 
 ### Custom user metadata
 
-Users can add custom metadata to a log either during recording or after it has been completed. This is done using the `addUserMetadata` method, available in both the `Recorder` and `LogMetadata` classes.
-The method requires a `String` key and the associated data as a `Uint8List`.
+Add custom metadata to a log during recording or after completion using the `addUserMetadata` method, available in both the `Recorder` and `LogMetadata` classes. The method requires a `String` key and the associated data as a `Uint8List`.
 
-To retrieve previously added metadata, use the `getUserMetadata` method of the `LogMetadata` class.
+Retrieve previously added metadata using the `getUserMetadata` method of the `LogMetadata` class:
 ```dart
 LogMetadata? logMetadata = recorderBookmarks!.getLogMetadata(logPath);
 
@@ -604,10 +582,11 @@ Uint8List? encodedTextGot = logMetadata?.getUserMetadata("textData");
 String? textData = encodedTextGot != null ? utf8.decode(encodedTextGot) : null;
 ```
 
+---
+
 ## Record while app is in background
 
-The recording might fail with error code `GemError.general` when calling `stopRecording` if the app is sent to the background during the recording.
-Set `positionActivity` to true on the `PositionActivity` associated to the data source before instantiating the `Recorder`:
+Recording might fail with error code `GemError.general` when calling `stopRecording` if the app is sent to background during recording. Set `positionActivity` to true on the `PositionActivity` associated with the data source before instantiating the `Recorder`:
 ```dart
 DataSource dataSource = DataSource.createLiveDataSource()!;
 
@@ -628,9 +607,9 @@ Recorder _recorder = Recorder.create(
 );
 ```
 
-#### For iOS:
+### iOS configuration
 
-Make sure you add the `NSLocationAlwaysUsageDescription` and `UIBackgroundModes` keys into the `Info.plist` file, within the `<dict>` block:
+Add the `NSLocationAlwaysUsageDescription` and `UIBackgroundModes` keys to the `Info.plist` file, within the `<dict>` block:
 ```xml
 <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 <string>Location is needed for map localization and navigation.</string>
@@ -645,13 +624,15 @@ and
 </array>
 ```
 
-#### For Android:
+### Android configuration
 
-In the app's manifest file add the `ACCESS_BACKGROUND_LOCATION` permission.
+Add the `ACCESS_BACKGROUND_LOCATION` permission to the app's manifest file.
+
+---
 
 ## ActivityRecord
 
-The `ActivityRecord` class captures details about a recorded activity, including descriptions, sport type, effort level, and visibility settings. It ensures comprehensive metadata for recorded sessions.
+The `ActivityRecord` class captures details about a recorded activity, including descriptions, sport type, effort level, and visibility settings.
 
 ### Attributes
 
@@ -698,9 +679,9 @@ if (errorStop != GemError.success) {
 }
 ```
 
-Call this method while recording, calling it after stopping will not affect the existing recordings.
+Call this method while recording. Calling it after stopping does not affect existing recordings.
 
-### Getting the activity record
+### Get the activity record
 ```dart
 final bookmarks = RecorderBookmarks.create(tracksPath);
 if (bookmarks == null){
@@ -719,6 +700,8 @@ if (metadata == null) {
 
 ActivityRecord activityRecord = metadata.activityRecord;
 ```
+
+---
 
 ## Relevant example demonstrating recorder related features
 

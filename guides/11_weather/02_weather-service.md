@@ -5,11 +5,13 @@ title: Weather Service
 
 # Weather Service
 
-The `WeatherService` class contains methods for getting the current, hourly and daily forecasts.
+The `WeatherService` class provides methods for retrieving current, hourly, and daily weather forecasts.
+
+---
 
 ## Get Current Weather Forecast
 
-To retrieve the current weather forecast, use the static `getCurrent` method of the `WeatherService` class. Provide the coordinates for the desired location, and the forecast will be returned through the `onComplete`. The following example demonstrates how to fetch the current forecast for Paris coordinates.
+Use the `getCurrent` method to retrieve the current weather forecast. Provide coordinates for the desired location, and the forecast will be returned through `onComplete`.
 ```dart
     final locationCoordinates = Coordinates(
       latitude: 48.864716,
@@ -28,13 +30,15 @@ To retrieve the current weather forecast, use the static `getCurrent` method of 
     showSnackbar("Forecast lenght list: ${currentForecast.length}");
 ```
 
-The API user is responsible for verifying whether the `LocationForecast` contains any `Conditions`, and whether each `Condition` includes a `Parameter`. If data is unavailable for the specified location and time, the API may return empty lists of`Condition`s or `Parameters`s.
+Verify that `LocationForecast` contains `Conditions` and each `Condition` includes a `Parameter`. If data is unavailable for the specified location and time, the API may return empty lists.
 
-The result will contain as many `LocationForecast` objects as the list size of given coordinates to `coords` parameter.
+The result contains as many `LocationForecast` objects as coordinates provided to the `coords` parameter.
+
+---
 
 ## Get Hourly Weather Forecast
 
-To retrieve the hourly weather forecast, use the static `getHourlyForecast` method of the `WeatherService` class. Provide the coordinates for the desired location, and the forecast will be returned through the `onComplete`. The following example demonstrates how to fetch the hourly forecast for Paris coordinates.
+Use the `getHourlyForecast` method to retrieve hourly weather forecasts. Specify the number of hours and coordinates for the desired location.
 ```dart
   final locationCoordinates = Coordinates(
     latitude: 48.864716,
@@ -55,13 +59,13 @@ To retrieve the hourly weather forecast, use the static `getHourlyForecast` meth
   showSnackbar("Forecast lenght list: ${hourlyForecast.length}");
 ```
 
-You'll need to provide the number of hours for which the forecast is requested.
+The number of requested hours must not exceed 240. Exceeding this limit results in an empty response and a `GemError.outOfRange` error.
 
-The number of requested hours must not exceed 240. Exceeding this limit will result in an empty response and an error of type `GemError.outOfRange`.
+---
 
-## Get the Daily Forecast
+## Get Daily Weather Forecast
 
-To retrieve the daily weather forecast, use the static `getDailyForecast` method of the `WeatherService` class. Provide the coordinates for the desired location, and the forecast will be returned through the `onComplete`. The following example demonstrates how to fetch the daily forecast for Paris coordinates.
+Use the `getDailyForecast` method to retrieve daily weather forecasts. Specify the number of days and coordinates for the desired location.
 ```dart
   final locationCoordinates = Coordinates(
     latitude: 48.864716,
@@ -82,13 +86,13 @@ To retrieve the daily weather forecast, use the static `getDailyForecast` method
   showSnackbar("Forecast lenght list: ${dailyForecast.length}");
 ```
 
-You'll need to provide the number of days for which the forecast is requested.
+The number of requested days must not exceed 10. Exceeding this limit results in an empty response and a `GemError.outOfRange` error.
 
-The number of requested days must not exceed 10. Exceeding this limit will result in an empty response and an error of type `GemError.outOfRange`.
+---
 
-## Get the Weather Forecast
+## Get Weather Forecast with Duration
 
-To retrieve the weather forecast at whatever time and coordinates, use the static `getForecast` method of `WeatherService` class. You'll need to provide a list of `WeatherDurationCoordinates`, and the `onComplete` will retrieve as many `locationForecasts` as the size of `WeatherDurationCoordinates` list.
+Use the `getForecast` method to retrieve weather forecasts for specific times and coordinates. Provide a list of `WeatherDurationCoordinates`, and `onComplete` returns as many `LocationForecast` objects as items in the list.
 ```dart
 final weatherCompleter = Completer<List<LocationForecast>>();
 
@@ -110,7 +114,9 @@ final forecast = await weatherCompleter.future;
 showSnackbar("Forecast lenght list: ${forecast.length}");
 ```
 
-The `duration` parameter in `WeatherDurationCoordinates` specifies the time offset into the future for which the forecast is requested.
+The `duration` parameter in `WeatherDurationCoordinates` specifies the time offset into the future for the forecast.
+
+---
 
 ## Relevant example demonstrating weather related features
 

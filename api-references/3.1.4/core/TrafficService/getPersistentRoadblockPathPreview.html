@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the getPersistentRoadblockPathPreview method from the TrafficService class, for the Dart programming language.">
+  <title>getPersistentRoadblockPathPreview method - TrafficService class - core library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../core/">core.dart</a></li>
+    <li><a href="../../core/TrafficService-class.html">TrafficService</a></li>
+    <li class="self-crumb">getPersistentRoadblockPathPreview static method</li>
+  </ol>
+  <div class="self-name">getPersistentRoadblockPathPreview</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="core&#47;TrafficService-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">getPersistentRoadblockPathPreview</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype">(<span class="field"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../core/Coordinates-class.html">Coordinates</a></span>&gt;</span></span>, </span><span class="field"><span class="type-annotation"><a href="../../core/UserRoadblockPathPreviewCoordinate-class.html">UserRoadblockPathPreviewCoordinate</a></span>, </span><span class="field"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span></span>)</span>
+<span class="name ">getPersistentRoadblockPathPreview</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="getPersistentRoadblockPathPreview-param-from"><span>required</span> <span class="type-annotation"><a href="../../core/UserRoadblockPathPreviewCoordinate-class.html">UserRoadblockPathPreviewCoordinate</a></span> <span class="parameter-name">from</span>, </span></li>
+<li><span class="parameter" id="getPersistentRoadblockPathPreview-param-to"><span>required</span> <span class="type-annotation"><a href="../../core/Coordinates-class.html">Coordinates</a></span> <span class="parameter-name">to</span>, </span></li>
+<li><span class="parameter" id="getPersistentRoadblockPathPreview-param-transportMode"><span>required</span> <span class="type-annotation"><a href="../../routing/RouteTransportMode.html">RouteTransportMode</a></span> <span class="parameter-name">transportMode</span>, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Returns a preview of a persistent roadblock path between two coordinates.</p>
+<p>The preview is calculated for the specified <code>transportMode</code> and returns
+the list of coordinates representing the suggested path, a preview
+coordinate to indicate the next likely roadblock match, and a <a href="../../core/GemError.html">GemError</a>
+describing success or any failure.</p>
+<p>The <code>from</code> parameter should be obtained from a previous call to this method
+or created via <a href="../../core/UserRoadblockPathPreviewCoordinate/UserRoadblockPathPreviewCoordinate.fromCoordinates.html">UserRoadblockPathPreviewCoordinate.fromCoordinates</a> for
+the initial call.</p>
+<p>At the end of the operation, the returned coordinates can be used to
+create a path <a href="../../core/TrafficEvent-class.html">TrafficEvent</a> representing the roadblock via the
+<a href="../../core/TrafficService/addPersistentRoadblockByCoordinates.html">addPersistentRoadblockByCoordinates</a> method.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>from</code>: The starting <a href="../../core/UserRoadblockPathPreviewCoordinate-class.html">UserRoadblockPathPreviewCoordinate</a>.</li>
+<li><code>to</code>: The destination <a href="../../core/Coordinates-class.html">Coordinates</a> for the preview.</li>
+<li><code>transportMode</code>: The <a href="../../routing/RouteTransportMode.html">RouteTransportMode</a> used for routing the preview.</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<ul>
+<li>A tuple containing:
+<ul>
+<li><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List&lt;Coordinates&gt;</a>: The path preview coordinates ordered from <code>from</code> to <code>last</code>.</li>
+<li><a href="../../core/UserRoadblockPathPreviewCoordinate-class.html">UserRoadblockPathPreviewCoordinate</a>: The suggested preview coordinate.</li>
+<li><a href="../../core/GemError.html">GemError</a>: An error code indicating success or failure.</li>
+</ul>
+</li>
+</ul>
+<h2 id="example">Example</h2>
+<p>Create a new <a href="../../core/UserRoadblockPathPreviewCoordinate-class.html">UserRoadblockPathPreviewCoordinate</a> for the starting point:</p>
+<pre class="language-dart"><code class="language-dart">UserRoadblockPathPreviewCoordinate preview = UserRoadblockPathPreviewCoordinate.fromCoordinates(startCoordinates);
+</code></pre>
+<p>Call the method to get the subsequent <a href="../../core/UserRoadblockPathPreviewCoordinate-class.html">UserRoadblockPathPreviewCoordinate</a> based on the previous one:</p>
+<pre class="language-dart"><code class="language-dart">final (coordinates, newPreviewStart, previewError) =
+  TrafficService.getPersistentRoadblockPathPreview(
+  from: preview,
+  to: nextCoordinates,
+  transportMode: RouteTransportMode.car,
+);
+
+if (previewError == GemError.success) {
+  preview = newPreviewStart;
+}
+</code></pre>
+<h2 id="also-see">Also see:</h2>
+<ul>
+<li><a href="../../core/TrafficService/addPersistentRoadblockByCoordinates.html">addPersistentRoadblockByCoordinates</a> to create a persistent roadblock
+ using the returned coordinates.</li>
+<li><a href="../../core/UserRoadblockPathPreviewCoordinate/UserRoadblockPathPreviewCoordinate.fromCoordinates.html">UserRoadblockPathPreviewCoordinate.fromCoordinates</a> to create the initial preview coordinate.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static (List&lt;Coordinates&gt;, UserRoadblockPathPreviewCoordinate, GemError)
+getPersistentRoadblockPathPreview({
+  required UserRoadblockPathPreviewCoordinate from,
+  required Coordinates to,
+  required RouteTransportMode transportMode,
+}) {
+  final OperationResult resultString = staticMethod(
+    &#39;TrafficService&#39;,
+    &#39;getPersistentRoadblockPathPreview&#39;,
+    args: &lt;String, dynamic&gt;{
+      &#39;from&#39;: from,
+      &#39;to&#39;: to,
+      &#39;transportMode&#39;: transportMode.id,
+    },
+  );
+
+  final List&lt;Coordinates&gt; coordinates =
+      (resultString[&#39;result&#39;][&#39;coords&#39;] as List&lt;dynamic&gt;)
+          .map((dynamic e) =&gt; Coordinates.fromJson(e))
+          .toList();
+  final UserRoadblockPathPreviewCoordinate previewCoordinate =
+      UserRoadblockPathPreviewCoordinate.fromJson(
+        resultString[&#39;result&#39;][&#39;preview&#39;],
+      );
+  final GemError error = GemErrorExtension.fromCode(
+    resultString[&#39;result&#39;][&#39;error&#39;],
+  );
+
+  return (coordinates, previewCoordinate, error);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../core/">core</a></li>
+    <li><a href="../../core/TrafficService-class.html">TrafficService</a></li>
+    <li class="self-crumb">getPersistentRoadblockPathPreview static method</li>
+</ol>
+
+    <h5>TrafficService class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

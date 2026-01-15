@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="Sound topic docs, for the Dart programming language.">
+  <title>Sound topic - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Sound topic</li>
+  </ol>
+  <div class="self-name">Sound</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div id="dartdoc-main-content" class="main-content">
+  <h1><span class="kind-category">Sound</span> topic</h1>
+  
+<section class="desc markdown">
+  <p>Use this module to manage audio playback, text‑to‑speech (TTS), and sound preferences inside apps that use the Magic Lane Maps SDK for Flutter. The sound APIs provide a high‑level service for playing voice guidance and alert sounds, a listener to observe playback lifecycle and interruptions, and a set of preference and session types for fine‑grained control of audio focus, routing and volumes.</p>
+<ul>
+<li><strong><code>SoundPlayingService</code></strong>: The central static service for playing TTS and sound resources. Use it to trigger synthesized speech or play sound assets and to configure global playback routing, volumes and session preferences.</li>
+<li><strong><code>SoundPlayingPreferences</code></strong>: Typed model that holds per‑severity playback settings. Use it to store volume, maximum play time, audio stream selection and focus delays for informational vs. warning alerts.</li>
+<li><strong><code>SoundSessionRequestPreferences</code></strong>: Model for audio session request behaviour. Use it to define audio category, desired output, focus delay and exclusivity when requesting platform audio focus.</li>
+<li><strong><code>SoundPlayingListener</code></strong>: Event listener singleton that reports playback lifecycle and interruption events. Use it to register callbacks for start/stop events, volume key changes, and system audio interruptions.</li>
+</ul>
+<p>The sound APIs enable reliable voice guidance and alert playback by centralizing audio control, preferences, and lifecycle events. Together they let apps play TTS and sounds consistently across platforms, respect system interruptions, and tune behavior per alert severity to provide a robust, user-friendly audio experience.</p>
+<p>Prefer <code>SoundPlayingService</code> for all app-level playback actions so routing, focus and preference handling remain consistent. Configure <code>SoundPlayingPreferences</code> for different alert severities and persist changes through the service. Register <code>SoundPlayingListener</code> early to respond to start/stop events and to gracefully handle system interruptions; use <code>SoundSessionRequestPreferences</code> when you need precise control over audio focus and exclusive sessions. Keep volume changes and focus requests minimal on foreground UI threads and avoid long-running synchronous audio operations.</p>
+<p>Learn more about sound and voice guidance: <a href="https://developer.magiclane.com/docs/flutter/guides/navigation/voice-guidance">https://developer.magiclane.com/docs/flutter/guides/navigation/voice-guidance</a></p>
+</section>
+
+
+
+  <section class="summary offset-anchor" id="classes">
+    <h2>Classes</h2>
+    <dl>
+      <dt id="SoundPlayingListener">
+  <span class="name "><a href="../core/SoundPlayingListener-class.html">SoundPlayingListener</a></span> 
+    <span class="category sound cp-15 linked" title="This is part of the Sound topic."><a href="../topics/Sound-topic.html">Sound</a></span>
+
+</dt>
+<dd>
+  Listener for events related to sound playback and text-to-speech.
+</dd>
+
+      <dt id="SoundPlayingPreferences">
+  <span class="name "><a href="../core/SoundPlayingPreferences-class.html">SoundPlayingPreferences</a></span> 
+    <span class="category sound cp-15 linked" title="This is part of the Sound topic."><a href="../topics/Sound-topic.html">Sound</a></span>
+
+</dt>
+<dd>
+  Preferences controlling how the SDK plays sounds and TTS.
+</dd>
+
+      <dt id="SoundPlayingService">
+  <span class="name "><a href="../core/SoundPlayingService-class.html">SoundPlayingService</a></span> 
+    <span class="category sound cp-15 linked" title="This is part of the Sound topic."><a href="../topics/Sound-topic.html">Sound</a></span>
+
+</dt>
+<dd>
+  High-level static API for playing sounds and TTS through the SDK.
+</dd>
+
+      <dt id="SoundSessionRequestPreferences">
+  <span class="name "><a href="../core/SoundSessionRequestPreferences-class.html">SoundSessionRequestPreferences</a></span> 
+    <span class="category sound cp-15 linked" title="This is part of the Sound topic."><a href="../topics/Sound-topic.html">Sound</a></span>
+
+</dt>
+<dd>
+  Preferences used when requesting an audio session from the platform.
+</dd>
+
+    </dl>
+  </section>
+
+
+
+
+
+
+  <section class="summary offset-anchor" id="enums">
+    <h2>Enums</h2>
+    <dl>
+      <dt id="AlertSeverity">
+  <span class="name "><a href="../core/AlertSeverity.html">AlertSeverity</a></span> 
+    <span class="category sound cp-15 linked" title="This is part of the Sound topic."><a href="../topics/Sound-topic.html">Sound</a></span>
+
+</dt>
+<dd>
+  Alert severity levels used for sound-related settings.
+</dd>
+
+      <dt id="AudioCategory">
+  <span class="name "><a href="../core/AudioCategory.html">AudioCategory</a></span> 
+    <span class="category sound cp-15 linked" title="This is part of the Sound topic."><a href="../topics/Sound-topic.html">Sound</a></span>
+
+</dt>
+<dd>
+  Audio category type used when requesting an audio session.
+</dd>
+
+      <dt id="AudioOutput">
+  <span class="name "><a href="../core/AudioOutput.html">AudioOutput</a></span> 
+    <span class="category sound cp-15 linked" title="This is part of the Sound topic."><a href="../topics/Sound-topic.html">Sound</a></span>
+
+</dt>
+<dd>
+  Audio output type.
+</dd>
+
+      <dt id="AudioStreamType">
+  <span class="name "><a href="../core/AudioStreamType.html">AudioStreamType</a></span> 
+    <span class="category sound cp-15 linked" title="This is part of the Sound topic."><a href="../topics/Sound-topic.html">Sound</a></span>
+
+</dt>
+<dd>
+  Audio stream type used for playback.
+</dd>
+
+      <dt id="SoundPlayType">
+  <span class="name "><a href="../core/SoundPlayType.html">SoundPlayType</a></span> 
+    <span class="category sound cp-15 linked" title="This is part of the Sound topic."><a href="../topics/Sound-topic.html">Sound</a></span>
+
+</dt>
+<dd>
+  Specifies the type of media the sound engine is currently playing.
+Provides the currently active media type used by the SDK sound engine.
+Use <a href="../core/SoundPlayingListener/soundPlayType.html">SoundPlayingListener.soundPlayType</a> to read the current value.
+</dd>
+
+    </dl>
+  </section>
+
+
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Sound topic</li>
+</ol>
+
+  <h5><span class="package-name">magiclane_maps_flutter</span> <span class="package-kind">package</span></h5>
+  <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/Common-topic.html">Common</a></li>
+        <li><a href="../topics/Geographic-topic.html">Geographic</a></li>
+        <li><a href="../topics/Images-topic.html">Images</a></li>
+        <li><a href="../topics/Position-topic.html">Position</a></li>
+        <li><a href="../topics/Landmark Store-topic.html">Landmark&nbsp;Store</a></li>
+        <li><a href="../topics/Landmarks-topic.html">Landmarks</a></li>
+        <li><a href="../topics/Markers-topic.html">Markers</a></li>
+        <li><a href="../topics/Overlays-topic.html">Overlays</a></li>
+        <li><a href="../topics/Search-topic.html">Search</a></li>
+        <li><a href="../topics/Route-topic.html">Route</a></li>
+        <li><a href="../topics/Routing-topic.html">Routing</a></li>
+        <li><a href="../topics/Navigation-topic.html">Navigation</a></li>
+        <li><a href="../topics/Driver Behaviour-topic.html">Driver&nbsp;Behaviour</a></li>
+        <li><a href="../topics/Traffic & Roadblocks-topic.html">Traffic&nbsp;&&nbsp;Roadblocks</a></li>
+        <li><a href="../topics/Sound-topic.html">Sound</a></li>
+        <li><a href="../topics/Sensor Data Source-topic.html">Sensor&nbsp;Data&nbsp;Source</a></li>
+        <li><a href="../topics/Content-topic.html">Content</a></li>
+        <li><a href="../topics/Alarms-topic.html">Alarms</a></li>
+        <li><a href="../topics/Settings-topic.html">Settings</a></li>
+        <li><a href="../topics/Timezone-topic.html">Timezone</a></li>
+        <li><a href="../topics/Iso Code Conversions-topic.html">Iso&nbsp;Code&nbsp;Conversions</a></li>
+        <li><a href="../topics/Locale-topic.html">Locale</a></li>
+        <li><a href="../topics/Weather-topic.html">Weather</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../content_store/">content_store</a></li>
+      <li><a href="../core/">core</a></li>
+      <li><a href="../driver_behaviour/">driver_behaviour</a></li>
+      <li><a href="../landmark_store/">landmark_store</a></li>
+      <li><a href="../map/">map</a></li>
+      <li><a href="../navigation/">navigation</a></li>
+      <li><a href="../position/">position</a></li>
+      <li><a href="../projections/">projections</a></li>
+      <li><a href="../routing/">routing</a></li>
+      <li><a href="../search/">search</a></li>
+      <li><a href="../sense/">sense</a></li>
+      <li><a href="../weather/">weather</a></li>
+</ol>
+
+</div>
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  <h5>Sound topic</h5>
+  <ol>
+
+    <li class="section-title"><a href="../topics/Sound-topic.html#classes">Classes</a></li>
+      <li><a href="../core/SoundPlayingListener-class.html">SoundPlayingListener</a></li>
+      <li><a href="../core/SoundPlayingPreferences-class.html">SoundPlayingPreferences</a></li>
+      <li><a href="../core/SoundPlayingService-class.html">SoundPlayingService</a></li>
+      <li><a href="../core/SoundSessionRequestPreferences-class.html">SoundSessionRequestPreferences</a></li>
+
+    <li class="section-title"><a href="../topics/Sound-topic.html#enums">Enums</a></li>
+      <li><a href="../core/AlertSeverity.html">AlertSeverity</a></li>
+      <li><a href="../core/AudioCategory.html">AudioCategory</a></li>
+      <li><a href="../core/AudioOutput.html">AudioOutput</a></li>
+      <li><a href="../core/AudioStreamType.html">AudioStreamType</a></li>
+      <li><a href="../core/SoundPlayType.html">SoundPlayType</a></li>
+
+
+
+
+
+
+
+
+</ol>
+
+</div>
+<!--/sidebar-offcanvas-right-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

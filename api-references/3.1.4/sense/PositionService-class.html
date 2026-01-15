@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the PositionService class from the sense library, for the Dart programming language.">
+  <title>PositionService class - sense library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../sense/">sense.dart</a></li>
+    <li class="self-crumb">PositionService class</li>
+  </ol>
+  <div class="self-name">PositionService</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="sense&#47;sense-library-sidebar.html"
+    data-below-sidebar="sense&#47;PositionService-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">PositionService</span> class 
+    <a href="https://dart.dev/language/class-modifiers#abstract" class="feature feature-abstract" title="This type can not be directly constructed.">abstract</a>
+ 
+    <span class="category position cp-3 linked" title="This is part of the Position topic."><a href="../topics/Position-topic.html">Position</a></span>
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Provides access to device and custom position data and playback controls.</p>
+<p>The <a href="../sense/PositionService-class.html">PositionService</a> exposes static helpers to obtain the current device
+position, register continuous position listeners, and manage the position
+data source (live GPS, playback logs, or custom external sources). Use
+listeners created with <a href="../sense/PositionService/addPositionListener.html">addPositionListener</a> or
+<a href="../sense/PositionService/addImprovedPositionListener.html">addImprovedPositionListener</a> to receive continuous updates.</p>
+<p>Raw positions are direct GPS fixes (latitude, longitude, altitude, speed, bearing,
+accuracy, timestamp) with no map context. See <a href="../position/GemPosition-class.html">GemPosition</a> for details. The
+<a href="../sense/PositionService/addPositionListener.html">addPositionListener</a> method provides these raw position updates.</p>
+<p>Improved (map-matched) positions are post‑processed, smoothed and snapped to the road
+network or known paths, may include road metadata (road id, speed limit, modifiers).
+See <a href="../position/GemImprovedPosition-class.html">GemImprovedPosition</a> for details. The <a href="../sense/PositionService/addImprovedPositionListener.html">addImprovedPositionListener</a> method provides
+these improved position updates.</p>
+<p>For one-off reads use the <a href="../sense/PositionService/position.html">position</a> and <a href="../sense/PositionService/improvedPosition.html">improvedPosition</a> getters. Playback controls
+are available via <a href="../sense/PositionService/playback.html">playback</a> when the active <a href="../sense/DataSource-class.html">DataSource</a> supports it.</p>
+<p>Data can come from the device GPS (live) or from custom/log data sources.</p>
+<p><strong>VERY IMPORTANT:</strong> Make sure the application has the required location
+permissions before setting the live data source. See the
+<a href="https://pub.dev/packages/permission_handler">permission_handler package</a>
+for more details on requesting location permissions in Flutter. Platform
+specific setup is required on Android and iOS to request location permissions.</p>
+<h2 id="example">Example</h2>
+<pre class="language-dart"><code class="language-dart">final locationPermissionStatus = await Permission.locationWhenInUse.request();
+if (locationPermissionStatus == PermissionStatus.granted) {
+  GemError setLiveDataSourceError = PositionService.setLiveDataSource();
+  if (setLiveDataSourceError == GemError.success) {
+    print("Live data source set successfully");
+  } else {
+    print("Failed to set live data source: $setLiveDataSourceError");
+  }
+
+  PositionService.addImprovedPositionListener((GemPosition position) {
+    // Handle improved position updates
+  });
+} else {
+  print("Location permission denied");
+}
+</code></pre>
+<h2 id="see-also">See also:</h2>
+<ul>
+<li><a href="../sense/GemPositionListener-class.html">GemPositionListener</a> - Listener returned by addPositionListener methods.</li>
+<li><a href="../sense/DataSource-class.html">DataSource</a> - Represents an external or playback data source.</li>
+<li><a href="../sense/Playback-class.html">Playback</a> - Controls log/simulation playback when available.</li>
+</ul>
+</section>
+
+
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+    <dl class="constructor-summary-list">
+        <dt id="PositionService.new" class="callable">
+          <span class="name"><a href="../sense/PositionService/PositionService.html">PositionService</a></span><span class="signature">()</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section class="summary offset-anchor" id="static-properties">
+    <h2>Static Properties</h2>
+    <dl class="properties">
+        <dt id="improvedPosition" class="property">
+  <span class="name"><a href="../sense/PositionService/improvedPosition.html">improvedPosition</a></span>
+  <span class="signature">&#8594; <a href="../position/GemImprovedPosition-class.html">GemImprovedPosition</a>?</span>
+  
+
+</dt>
+<dd>
+  Returns the most recent map-matched (improved) position, or null.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="playback" class="property">
+  <span class="name"><a href="../sense/PositionService/playback.html">playback</a></span>
+  <span class="signature">&#8594; <a href="../sense/Playback-class.html">Playback</a>?</span>
+  
+
+</dt>
+<dd>
+  Returns a <a href="../sense/Playback-class.html">Playback</a> controller when the active data source supports it.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="position" class="property">
+  <span class="name"><a href="../sense/PositionService/position.html">position</a></span>
+  <span class="signature">&#8594; <a href="../position/GemPosition-class.html">GemPosition</a>?</span>
+  
+
+</dt>
+<dd>
+  Returns the most recent raw position sample, or null if unavailable.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="sourceType" class="property">
+  <span class="name"><a href="../sense/PositionService/sourceType.html">sourceType</a></span>
+  <span class="signature">&#8594; <a href="../sense/DataSourceType.html">DataSourceType</a></span>
+  
+
+</dt>
+<dd>
+  Returns the type of the current position data source.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section class="summary offset-anchor" id="static-methods">
+    <h2>Static Methods</h2>
+    <dl class="callables">
+        <dt id="addImprovedPositionListener" class="callable">
+  <span class="name"><a href="../sense/PositionService/addImprovedPositionListener.html">addImprovedPositionListener</a></span><span class="signature">(<wbr><span class="parameter" id="addImprovedPositionListener-param-positionUpdatedCallback"><span class="type-annotation">void</span> <span class="parameter-name">positionUpdatedCallback</span>(<span class="parameter" id="param-position"><span class="type-annotation"><a href="../position/GemImprovedPosition-class.html">GemImprovedPosition</a></span> <span class="parameter-name">position</span></span>)</span>)
+    <span class="returntype parameter">&#8594; <a href="../sense/GemPositionListener-class.html">GemPositionListener</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Registers a callback to receive improved position updates from the active data source.
+  
+
+</dd>
+
+        <dt id="addPositionListener" class="callable">
+  <span class="name"><a href="../sense/PositionService/addPositionListener.html">addPositionListener</a></span><span class="signature">(<wbr><span class="parameter" id="addPositionListener-param-positionUpdatedCallback"><span class="type-annotation">void</span> <span class="parameter-name">positionUpdatedCallback</span>(<span class="parameter" id="param-position"><span class="type-annotation"><a href="../position/GemPosition-class.html">GemPosition</a></span> <span class="parameter-name">position</span></span>)</span>)
+    <span class="returntype parameter">&#8594; <a href="../sense/GemPositionListener-class.html">GemPositionListener</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Registers a callback to receive raw position updates from the active data source.
+  
+
+</dd>
+
+        <dt id="getDataSource" class="callable">
+  <span class="name"><a href="../sense/PositionService/getDataSource.html">getDataSource</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="../sense/DataSource-class.html">DataSource</a>?</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns the currently configured <a href="../sense/DataSource-class.html">DataSource</a>, or null if none is set.
+  
+
+</dd>
+
+        <dt id="removeDataSource" class="callable">
+  <span class="name"><a href="../sense/PositionService/removeDataSource.html">removeDataSource</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Removes the active position data source and stops delivering new samples.
+  
+
+</dd>
+
+        <dt id="removeListener" class="callable">
+  <span class="name"><a href="../sense/PositionService/removeListener.html">removeListener</a></span><span class="signature">(<wbr><span class="parameter" id="removeListener-param-listener"><span class="type-annotation"><a href="../sense/GemPositionListener-class.html">GemPositionListener</a></span> <span class="parameter-name">listener</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Unregisters a previously registered position listener.
+  
+
+</dd>
+
+        <dt id="requestLocationPermission" class="callable">
+  <span class="name"><a href="../sense/PositionService/requestLocationPermission.html">requestLocationPermission</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Requests location permission from the platform (web-only helper).
+  
+
+</dd>
+
+        <dt id="setExternalDataSource" class="callable">
+  <span class="name"><a href="../sense/PositionService/setExternalDataSource.html">setExternalDataSource</a></span><span class="signature">(<wbr><span class="parameter" id="setExternalDataSource-param-dataSource"><span class="type-annotation"><a href="../sense/DataSource-class.html">DataSource</a></span> <span class="parameter-name">dataSource</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../core/GemError.html">GemError</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Configures a custom external data source for providing position samples.
+  
+
+</dd>
+
+        <dt id="setLiveDataSource" class="callable">
+  <span class="name"><a href="../sense/PositionService/setLiveDataSource.html">setLiveDataSource</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="../core/GemError.html">GemError</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Sets the <a href="../sense/PositionService-class.html">PositionService</a> to use the device's live GPS data source.
+  
+
+</dd>
+
+    </dl>
+  </section>
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../sense/">sense</a></li>
+    <li class="self-crumb">PositionService class</li>
+</ol>
+
+    <h5>sense library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

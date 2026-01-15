@@ -5,7 +5,13 @@ title: Interact With Map
 
 # Interact with the map
 
-The Maps SDK for Flutter map view natively supports common gestures like pinch and double-tap for zooming. The table below outlines the available gestures and their default behaviors on the map.
+The Maps SDK for Flutter supports common touch gestures like pinch, double-tap, and pan. Use gesture listeners to detect user interactions and respond with custom actions like selecting landmarks or displaying information.
+
+---
+
+## Understanding gestures
+
+The map view natively supports common gestures. The table below outlines the available gestures and their default behaviors:
 
 | Gesture | Description |
 |:-------:| ----------|
@@ -17,39 +23,43 @@ The Maps SDK for Flutter map view natively supports common gestures like pinch a
 | 2 Finger Tap | **To align map towards north**, tap the screen with two fingers. |
 | Pinch | **To zoom in or out continuously**, press and hold two fingers to the screen, and increase or decrease the distance between them. **To rotate the map continuously**, press and hold two fingers to the screen, and change the angle between them either by rotating them both or by moving one of them. |
 
-The SDK provides support in ``GemMapController``, for informing whenever the user performs and action that could be detected. Usually, you will want to add a specific behavior to your application after a gesture was detected, like performing a selection after a tap on map.
+### Gesture listeners
 
-- Tap: ``registerOnTouch``
+The `GemMapController` provides listeners to detect user gestures. Add custom behaviors like selecting landmarks or displaying information after a gesture is detected.
 
-- Double Tap (one finger taps the same area in quick succession): ``registerOnDoubleTouch``
+**Basic gestures:**
 
-- Two Taps (two fingers tap the screen simultaneously): ``registerOnTwoTouches``
+- Tap - `registerOnTouch`
 
-- Long Press: ``registerOnLongPress``
+- Double Tap - `registerOnDoubleTouch`
 
-- Pan: ``registerOnMove`` obtains the two points between which the movement occurred.
+- Two Taps - `registerOnTwoTouches`
 
-- Shove: ``registerOnShove``obtains the angle, and gesture specific points
+- Long Press - `registerOnLongPress`
 
-- Rotate: ``registerOnMapAngleUpdate``
+- Pan - `registerOnMove` (provides start and end points)
 
-- Fling: ``registerOnSwipe``
+- Shove - `registerOnShove` (provides angle and gesture points)
 
-- Pinch: ``registerOnPinch``
+- Rotate - `registerOnMapAngleUpdate`
 
-The user can also listen for composite gestures:
+- Fling - `registerOnSwipe`
 
-- Tap followed by a pan: `registerOnTouchMove`
+- Pinch - `registerOnPinch`
 
-- Pinch followed by a swipe: `registerOnPinchSwipe`
+**Composite gestures:**
 
-- Tap followed by a pinch: `registerOnTouchPinch`
+- Tap followed by pan - `registerOnTouchMove`
 
-- Two double touches: `registerOnTwoDoubleTouches`
+- Pinch followed by swipe - `registerOnPinchSwipe`
 
-Keep in mind that only one listener can be active at a time for a specific gesture. If multiple listeners are registered, only the most recently set listener will be invoked when the gesture is detected.
+- Tap followed by pinch - `registerOnTouchPinch`
 
-Use ``registerOnMapViewMoveStateChanged`` to retrieve the corresponding ``RectangleGeographicArea`` currently visible whenever the map starts or stops moving. 
+- Two double touches - `registerOnTwoDoubleTouches`
+
+Only one listener can be active at a time for a specific gesture. If multiple listeners are registered, only the most recently set listener will be invoked.
+
+Use `registerOnMapViewMoveStateChanged` to retrieve the `RectangleGeographicArea` currently visible whenever the map starts or stops moving:
 ```dart
 mapController.registerOnMapViewMoveStateChanged((hasStarted, rect) {
   if (hasStarted) {
@@ -60,39 +70,43 @@ mapController.registerOnMapViewMoveStateChanged((hasStarted, rect) {
 });
 ```
 
-This callback is triggered when the camera is moved programmatically using methods like `centerOnRoutes`, `followPosition`, or `centerOnArea`, but not when the user performs a panning gesture. For detecting **user behaviour**, use `registerOnMove`.
+This callback is triggered when the camera is moved programmatically using methods like `centerOnRoutes`, `followPosition`, or `centerOnArea`, but not when the user performs a panning gesture. For detecting user behavior, use `registerOnMove`.
 
-The callback function is defined as ``void Function(bool isCameraMoving, RectangleGeographicArea area)``, where the ``isCameraMoving`` parameter is `true` when the camera is moving and `false` when it is stationary.
+The callback function is defined as `void Function(bool isCameraMoving, RectangleGeographicArea area)`, where `isCameraMoving` is `true` when the camera is moving and `false` when stationary.
+
+---
 
 ## Enable and disable gestures
 
-Touch gestures can be disabled or enabled by calling ``enableTouchGestures`` method like so:
+Disable or enable touch gestures using the `enableTouchGestures` method:
 ```dart
 mapController.preferences.enableTouchGestures([TouchGestures.onTouch, TouchGestures.onMove], false);
 ```
 
-The desired gestures in the ``TouchGestures`` enum list can be enabled or disabled by setting the ``enabled`` parameter to `true` or `false`, respectively. By default, all gestures are enabled.
+Set the `enabled` parameter to `true` or `false` to enable or disable the specified gestures from the `TouchGestures` enum. By default, all gestures are enabled.
 
-The TouchGestures enum supports the following gesture types:
+The `TouchGestures` enum supports the following gesture types:
 
-- *Basic Touch*: onTouch, onLongDown, onDoubleTouch, onTwoPointersTouch, onTwoPointersDoubleTouch
+- **Basic Touch** - onTouch, onLongDown, onDoubleTouch, onTwoPointersTouch, onTwoPointersDoubleTouch
 
-- *Movement*: onMove, onTouchMove, onSwipe
+- **Movement** - onMove, onTouchMove, onSwipe
 
-- *Pinch and Rotation*: onPinchSwipe, onPinch, onRotate, onShove
+- **Pinch and Rotation** - onPinchSwipe, onPinch, onRotate, onShove
 
-- *Combined Gestures*: onTouchPinch, onTouchRotate, onTouchShove, onRotatingSwipe
+- **Combined Gestures** - onTouchPinch, onTouchRotate, onTouchShove, onRotatingSwipe
 
-- *Other*: internalProcessing
+- **Other** - internalProcessing
 
-For checking if a gesture is enables the ``isTouchGestureEnabled`` method can be used:
+Check if a gesture is enabled using the `isTouchGestureEnabled` method:
 ```dart
 bool isTouchEnabled = mapController.preferences.isTouchGestureEnabled(TouchGestures.onTouch);
 ```
 
-## Implement gesture listeners
+---
 
-Let's see an example of how gesture listeners can be registered. The ``GemMapController`` provides specific listeners for each gesture. As soon as you register a listener, it will receive all related events for that gesture via the dedicated callback.
+## Register gesture listeners
+
+Register gesture listeners using the `GemMapController`. Once registered, the listener receives all related events via the dedicated callback:
 ```dart
 // previous code
 
@@ -136,31 +150,35 @@ void _onMapCreated(GemMapController mapController) async {
 
 Executing resource-intensive tasks within map-related callbacks can degrade performance.
 
-## Implement map render listeners
+---
 
-The `registerOnViewportResized` method allows you to monitor when the map's viewport dimensions change. This can occur when the user resizes the application window or changes the orientation of the device. In this callback, you receive a `Rectangle<int>` object representing the new viewport size.
+## Register map render listeners
+
+Monitor viewport dimension changes using `registerOnViewportResized`. This occurs when the user resizes the application window or changes device orientation. The callback receives a `Rectangle<int>` object representing the new viewport size:
 ```dart
-mapController.registerOnViewportResizedd((Rectangle<int> rect) {
+mapController.registerOnViewportResized((Rectangle<int> rect) {
   print("Viewport resized to: ${rect.width}x${rect.height}");
 });
 ```
 
-Use cases include:
+**Use cases:**
 
-- Adjusting overlays or UI elements to fit the new viewport size.
+- Adjust overlays or UI elements to fit the new viewport size
 
-- Triggering animations or updates based on the map's dimensions.
+- Trigger animations or updates based on map dimensions
 
-The `registerOnViewRendered` method is triggered after the map completes a rendering cycle. This listener provides a `MapViewRenderInfo` object containing details about the rendering process.
+The `registerOnViewRendered` method is triggered after the map completes a rendering cycle. This listener provides a `MapViewRenderInfo` object with rendering details:
 ```dart
 mapController.registerOnViewRendered((MapViewRenderInfo renderInfo) {
   print("View rendered: ${renderInfo.status}");
 });
 ```
 
-## Map selection functionality
+---
 
-After detecting a gesture, such as a tap, usually some specific action like selecting a landmark or a route is performed on GemMap. This selection is made using a map cursor, which is invisible by default. To showcase its functionality, the cursor can be made visible using the ``MapViewPreferences`` setting:
+## Select map elements
+
+After detecting a gesture like a tap, perform specific actions such as selecting landmarks or routes. Selection uses a map cursor, which is invisible by default. Make the cursor visible using `MapViewPreferences`:
 ```dart
 void _onMapCreated(GemMapController mapController) {
     // Save mapController for further usage.
@@ -173,11 +191,11 @@ void _onMapCreated(GemMapController mapController) {
 }
 ```
 
-Doing this inside maps's ``onMapCreated`` callback will result in a crosshair like icon in center of screen.
+This displays a crosshair icon in the center of the screen.
 
-### Landmark selection
+### Select landmarks
 
-To get the selected landmarks, you can use the following code (possibly placed in the `onMapCreated` callback):
+Get selected landmarks using the following code (place in the `onMapCreated` callback):
 ```dart
 mapController.registerOnTouch((pos) async {
   // Set the cursor position.
@@ -192,20 +210,20 @@ mapController.registerOnTouch((pos) async {
 });
 ```
 
-At higher zoom levels, landmarks provided by the cursorSelectionLandmarks method may lack some details for optimization purposes. Use `SearchService.searchLandmarkDetails` to retrieve full landmark details if needed.
+At higher zoom levels, landmarks from `cursorSelectionLandmarks` may lack some details for optimization. Use `SearchService.searchLandmarkDetails` to retrieve full landmark details.
 
-To unregister the callback:
+Unregister the callback:
 ```dart
 mapController.registerOnTouch(null);
 ```
 
-The selected landmarks are returned by the ``cursorSelectionLandmarks`` function, which is called after updating the cursor's position. This step is essential because the SDK only detects landmarks that are positioned directly under the cursor.
+The SDK only detects landmarks positioned directly under the cursor. Call `cursorSelectionLandmarks` after updating the cursor's position.
 
-The cursor screen position is also used for determining the default screen position for centering (unless other values are specified). Modifying the screen position might change the behavior of centering in unexpected ways. Reset the cursor position to the center of the screen using the `resetMapSelection` method from the `GemMapController` (needs to be awaited).
+The cursor screen position determines the default screen position for centering (unless other values are specified). Modifying the screen position might change centering behavior unexpectedly. Reset the cursor position using `resetMapSelection` (needs to be awaited).
 
-### Street selection
+### Select streets
 
-The following code can be used inside ``_onMapCreated`` callback in order to return selected streets under the cursor:
+Return selected streets under the cursor using the following code in the `_onMapCreated` callback:
 ```dart
 // Register touch callback to set cursor to tapped position
 mapController.registerOnTouch((point) async {
@@ -216,17 +234,17 @@ mapController.registerOnTouch((point) async {
 });
 ```
 
-Setting the cursor screen position is an asynchronous operation and each function call needs to be awaited. Otherwise, the result list may be empty.
+Setting the cursor screen position is asynchronous and must be awaited. Otherwise, the result list may be empty.
 
-Street name can then be displayed on screen. This is the result:
+Display the street name on screen:
 
-The visibility of the cursor has no impact whatsoever on the selection logic.
+The cursor visibility has no impact on selection logic.
 
-Getting the current cursor screen position is done by calling ``cursorScreenPosition`` getter of ``GemMapController``. Resetting the cursor position to its default location (the center of the screen) is done by ``resetMapSelection`` (needs to be awaited).
+Get the current cursor screen position using the `cursorScreenPosition` getter. Reset the cursor position to the center using `resetMapSelection` (needs to be awaited).
 
-### List of selection types
+### Selection methods
 
-To summarize, there are multiple methods used to select different types of elements on the map. You can see all those in the following table.
+The SDK provides multiple methods to select different element types on the map:
 
 <table>
 <tr>
@@ -285,52 +303,56 @@ To summarize, there are multiple methods used to select different types of eleme
 </tr>
 </table>
 
-As you can see, when selecting markers a list of `MarkerMatch` elements is returned. The match specifies information about the matched marker (the marker collection in which the marker resides, the index of the marker in the collection, the matched part index, the matched index of the point in the part).
+When selecting markers, a list of `MarkerMatch` elements is returned. Each match contains information about the marker collection, the marker's index in the collection, the matched part index, and the matched point index in the part.
 
-You can also register callbacks that are called when the cursor is placed over elements on the `GemMapController` class:
+### Register selection callbacks
 
-- `registerOnCursorSelectionUpdatedLandmarks` for landmarks
+Register callbacks that are triggered when the cursor is placed over elements:
 
-- `registerOnCursorSelectionUpdatedMarkers` for markers
+- `registerOnCursorSelectionUpdatedLandmarks` - Landmarks
 
-- `registerOnCursorSelectionUpdatedOverlayItems` for overlay items
+- `registerOnCursorSelectionUpdatedMarkers` - Markers
 
-- `registerOnCursorSelectionUpdatedRoutes` for routes
+- `registerOnCursorSelectionUpdatedOverlayItems` - Overlay items
 
-- `registerOnCursorSelectionUpdatedPath` for paths
+- `registerOnCursorSelectionUpdatedRoutes` - Routes
 
-- `registerOnCursorSelectionUpdatedTrafficEvents` for traffic events
+- `registerOnCursorSelectionUpdatedPath` - Paths
 
-- `registerOnCursorSelectionUpdatedMapSceneObject` for map scene objects
+- `registerOnCursorSelectionUpdatedTrafficEvents` - Traffic events
 
-These callbacks are triggered whenever the selection changes — for example, when new elements are selected, the selection switches to different elements, or the selection is cleared (in which case the callback is invoked with null or an empty list).
+- `registerOnCursorSelectionUpdatedMapSceneObject` - Map scene objects
 
-To unregister a callback, simply call the corresponding method with null as the argument.
+These callbacks are triggered when the selection changes, when new elements are selected, when the selection switches to different elements, or when the selection is cleared (callback invoked with null or an empty list).
+
+Unregister a callback by calling the corresponding method with null as the argument.
+
+---
 
 ## Capture the map view as an image
 
-In certain situations, it may be necessary to save the map as an image — for example, to generate previews that are too expensive to redraw in real time.
-In this case, the captureImage method can be used. It returns a `Future<Uint8List?>` representing the image as a JPEG.
+Save the map as an image to generate previews that are too expensive to redraw in real time. The `captureImage` method returns a `Future<Uint8List?>` representing the image as a JPEG:
 ```dart
 final Uint8List? image = await mapController.captureImage();
 
 if (image == null){
-  print("Could not capure image");
+  print("Could not capture image");
 }
 ```
 
-There are subtle differences between platforms:
+Platform differences:
 
-- **iOS**: The captured image **excludes** on-screen elements such as the cursor.
+- **iOS** - The captured image excludes on-screen elements like the cursor
 
-- **Android**: The captured image **includes** all on-screen elements, including the cursor.
+- **Android** - The captured image includes all on-screen elements, including the cursor
 
-Capturing the map view as an image may not work correctly when the map rendering is disabled.
+Capturing the map view may not work correctly when map rendering is disabled.
 
-To ensure that any ongoing map animations or loading have completed, wait for the callback provided to `registerOnViewRendered` to be triggered with `dataTransitionStatus` set to `ViewDataTransitionStatus.complete` before capturing the image.
-Make sure to implement a timeout, as the `registerOnViewRendered` is only triggered when the map is rendering — and will not be called if everything is already loaded.
+Ensure map animations and loading have completed before capturing. Wait for `registerOnViewRendered` to be triggered with `dataTransitionStatus` set to `ViewDataTransitionStatus.complete`. Implement a timeout, as `registerOnViewRendered` is only triggered when the map is rendering and will not be called if everything is already loaded.
 
-## Relevant examples demonstrating map interaction related features
+---
+
+## What's next?
 
 - [Map Gestures](/examples/maps-3dscene/map-gestures)
 

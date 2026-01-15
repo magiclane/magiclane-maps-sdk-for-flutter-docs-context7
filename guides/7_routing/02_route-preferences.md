@@ -5,11 +5,15 @@ title: Route Preferences
 
 # Handling Route Preferences
 
-Before computing a route, we need to specify some route options. 
+This guide explains how to customize routes using preferences, configure vehicle profiles, and apply routing constraints for different transport modes.
 
-## Route Preferences structure
+---
 
-The most generic supported route options are briefly presented in the following table.
+## Configure route preferences
+
+Set route options using **RoutePreferences** to customize route calculations.
+
+Generic route options:
 
 | Preference                          | Explanation                                            | Default Value                               |
 |-------------------------------------|--------------------------------------------------------|---------------------------------------------|
@@ -30,7 +34,7 @@ The most generic supported route options are briefly presented in the following 
 | timestamp                           | Custom timestamp for the route. Used with PT Routes to specify the desired arrival/departure time. It represents the **local time** of the route start/end, but with the `isUtc` flag set to `true` | null (current time will be used) |
 | transportMode                       | Transport mode for the route.                          | RouteTransportMode.car                      |
 
-In order to compute the `timestamp` in the required format, please check the snippet below:
+Compute the `timestamp` in the required format using this approach:
 ```dart
 final departureLandmark = Landmark.withLatLng(latitude: 45.65, longitude: 25.60);
 final destinationLandmark = Landmark.withLatLng(latitude: 46.76, longitude: 23.58);
@@ -50,16 +54,16 @@ TimezoneService.getTimezoneInfoFromCoordinates(
 );
 ```
 
-Check the [Timezone Service guide](../timezone-service) for more details.
+See the [Timezone Service guide](../timezone-service) for detailed information.
 
-Enabling complex structures creation options are presented in the following table:
+Complex structure creation options:
 
 | Preference                          | Explanation                                            | Default Value                               |
 |-------------------------------------|--------------------------------------------------------|---------------------------------------------|
 | buildConnections                    | Enables building of route connections.                 | false                                       |
 | buildTerrainProfile                 | Enables building of terrain profile.                   | BuildTerrainProfile(enable: false)          |
 
-Route specific options for custom profiles are presented in the following table:
+Vehicle profile options:
 
 | Preference                          | Explanation                                            | Default Value                               |
 |-------------------------------------|--------------------------------------------------------|---------------------------------------------|
@@ -69,7 +73,7 @@ Route specific options for custom profiles are presented in the following table:
 | pedestrianProfile                   | Profile configuration for pedestrians.                 | PedestrianProfile.walk                      |
 | truckProfile                        | Profile configuration for trucks.                      | null                                        |
 
-Avoid options are presented in the following table:
+Route avoidance options:
 
 | Preference                          | Explanation                                            | Default Value                               |
 |-------------------------------------|--------------------------------------------------------|---------------------------------------------|
@@ -82,14 +86,14 @@ Avoid options are presented in the following table:
 | avoidTurnAroundInstruction          | Avoids turn-around instructions.                       | false                                       |
 | avoidUnpavedRoads                   | Avoids unpaved roads in the route.                     | false                                       |
 
-Emergency vehicles preferences are shown in the following table:
+Emergency vehicle options:
 
 | Preference                          | Explanation                                            | Default Value                               |
 |-------------------------------------|--------------------------------------------------------|---------------------------------------------|
 | emergencyVehicleExtraFreedomLevels  | Extra freedom levels for emergency vehicles.           | 0                                           |
 | emergencyVehicleMode                | Enables emergency vehicle mode.                        | false                                       |
 
-Public Transport preferences are shown in the following table:
+Public transport options:
 | Preference                          | Explanation                                            | Default Value                               |
 |-------------------------------------|--------------------------------------------------------|---------------------------------------------|
 | algorithmType                       | Algorithm type used for routing.                       | PTAlgorithmType.departure                   |
@@ -102,7 +106,7 @@ Public Transport preferences are shown in the following table:
 | useWheelchair                       | Enables wheelchair-friendly routes.                    | false                                       |
 | routeGroupIdsEarlierLater           | IDs for earlier/later route groups.                    | []                                          |
 
-A short example of how they can be used to compute the fastest car route and also to compute a terrain profile is presented below:
+Example calculating the fastest car route with terrain profile:
 ```dart
 final routePreferences = RoutePreferences(
     transportMode: RouteTransportMode.car,
@@ -110,18 +114,23 @@ final routePreferences = RoutePreferences(
     buildTerrainProfile: BuildTerrainProfile(enable: true));
 ```
 
-There are also properties that can't be set and only can be obtained for a route, in order to know how that route was computed:
+Read-only properties that indicate how the route was computed:
 
 | Preference                          | Explanation                                            | Default Value                               |
 |-------------------------------------|--------------------------------------------------------|---------------------------------------------|
 | routeResultType                     | Type of route result.                                  | RouteResultType.path                        |
 
-## Profiles structure
+---
 
-### Car Profile
+## Configure vehicle profiles
 
-The `CarProfile` class is responsible for defining car specific routing preferences.
-The available options are presented in the following table:
+Customize routing behavior for different vehicle types using profile configurations.
+
+### Car profile
+
+Define car-specific routing preferences using the **CarProfile** class.
+
+Available options:
 
 | Member     | Type       | Default |                         Description                                                |
 |------------|------------|----------------------------------|-----------------------------------------------------------|
@@ -130,14 +139,15 @@ The available options are presented in the following table:
 | maxSpeed   | double     | 0 - not considered in routing.   | Vehicle max speed in m/s. Not considered in routing.      |
 | plateNumber| string     | ""                               | Vehicle plate number.                                     |
 
-`FuelType` can have the following values: petrol, diesel, lpg (liquid petroleum gas), electric. 
+**FuelType** values: `petrol`, `diesel`, `lpg` (liquid petroleum gas), `electric`.
 
-By default, all field except `fuel` have default value 0, meaning they are not considered in the routing. `fuel` by default is `FuelType.diesel`.
+All fields except `fuel` default to 0, meaning they are not considered in routing. The `fuel` field defaults to `FuelType.diesel`.
 
-## Truck Profile
+### Truck profile
 
-The `TruckProfile` class is responsible for defining truck specific routing preferences.
-The available options are presented in the following table:
+Define truck-specific routing preferences using the **TruckProfile** class.
+
+Available options:
 
 | Member      | Type     | Default                        | Description                                               |
 |--------------|----------|-------------------------------|-----------------------------------------------------------|
@@ -150,10 +160,11 @@ The available options are presented in the following table:
 | width        | int      | 0 - not considered in routing | Truck width in cm.                                        |
 | plateNumber  | string   | ""                            | Vehicle plate number.                                     |
 
-## Electric Bike Profile
+### Electric bike profile
 
-The `ElectricBikeProfile` class is responsible for defining electric bike specific routing preferences.
-The available options are presented in the following table:
+Define electric bike-specific routing preferences using the **ElectricBikeProfile** class.
+
+Available options:
 
 | Member                | Type              | Default                      | Description                                                           |
 |------------------------|-------------------|------------------------------|-----------------------------------------------------------------------|
@@ -165,11 +176,15 @@ The available options are presented in the following table:
 | type                   | ElectricBikeType  | ElectricBikeType.none        | E-bike type.                                                         |
 | plateNumber            | string            | ""                           | Vehicle plate number.                                     |
 
-The `ElectricBikeProfile` class is encapsulated within the `BikeProfileElectricBikeProfile` class, together with the `BikeProfile` enum.
+The **ElectricBikeProfile** class is encapsulated within the `BikeProfileElectricBikeProfile` class, together with the `BikeProfile` enum.
 
-## Computing truck routes
+---
 
-To compute routes for trucks we can write code like the following by initializing the `truckProfile` field of `RoutePreferences`:
+## Calculate truck routes
+
+Compute routes optimized for trucks by configuring truck-specific preferences and constraints.
+
+Set the `truckProfile` field in **RoutePreferences**:
 ```dart
 // Define the departure.
 final departureLandmark =
@@ -204,11 +219,15 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
 });
 ```
 
-## Computing caravan routes
+---
 
-Certain vehicles, such as caravans or trailers, may be restricted on some roads due to their size or weight, yet still permitted on roads where trucks are prohibited.
+## Calculate caravan routes
 
-To calculate routes for caravans or trailers, we can use the `truckProfile` field of `RoutePreferences` with the appropriate dimensions and weight.
+Compute routes for caravans and trailers with size and weight restrictions.
+
+Caravans or trailers may be restricted on some roads due to size or weight, yet still permitted on roads where trucks are prohibited.
+
+Use the `truckProfile` field in **RoutePreferences** with appropriate dimensions and weight:
 ```dart
 // Define the departure.
 final departureLandmark =
@@ -240,7 +259,71 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
 });
 ```
 
-At least one of the fields `height`, `length`, `width` or `axleLoad` must be set to a non-zero value in order for the settings to be taken into account during routing. If all these fields are set to 0 then a normal car route will be calculated.
+Set at least one of `height`, `length`, `width`, or `axleLoad` to a non-zero value for the settings to take effect. If all fields are 0, a normal car route is calculated.
+
+---
+
+## Calculate round trips
+
+Generate routes that start and end at the same location using roundtrip parameters.
+
+**Key differences from normal routing:**
+
+- **Waypoint requirements** - Normal routes require at least two waypoints. Roundtrips need only one departure point; additional waypoints are ignored. The algorithm generates multiple output waypoints automatically
+
+- **Determinism** - Normal routing produces the same route when inputs remain unchanged. Roundtrip generation is random by design, creating different routes each time. Use a seed value for deterministic results
+
+- **Preferences** - All normal routing preferences apply, including vehicle profiles and fitness factors
+
+### Range types
+
+The `RangeType` enumeration specifies units for the `range` parameter:
+
+| RangeType value | Description |
+|-----------------|-------------|
+| defaultType     | Uses `distanceBased` for shortest routes; `timeBased` for all other route types |
+| distanceBased   | Distance measured in meters |
+| timeBased       | Duration measured in seconds |
+| (energyBased)   | Not currently supported |
+
+Specify `distanceBased` or `timeBased` explicitly to avoid confusion. A value of 10,000 means 10 km for distance-based requests but ~3 hours for time-based requests.
+
+### Roundtrip parameters
+
+Configure roundtrips using **RoundTripParameters**:
+
+| Parameter  | Type       | Description |
+| -----------|--------    |-------------|
+| range      | int     | Target length or duration. The algorithm approximates this value but does not guarantee exact matches |
+| rangeType  | RangeType | Units for the range value (distance or time) |
+| randomSeed | int     | Set to `0` for random generation each time. Any other value produces deterministic results when other parameters remain unchanged |
+
+### Create a round trip route
+
+Set `roundTripParameters` in **RoutePreferences** with a non-zero `range` value:
+```dart
+// Define round trip preferences
+// highlight-start
+final tripPreferences = RoundTripParameters(range: 5000, rangeType: RangeType.distanceBased);
+// highlight-end
+// Define route preferences to include round trip parameters
+final routePreferences = RoutePreferences(
+  transportMode: RouteTransportMode.bicycle,
+  // highlight-start
+  roundTripParameters: tripPreferences,
+  // highlight-end
+);
+
+// Use only the departure landmark to calculate a round trip route
+final routingHandler = RoutingService.calculateRoute([departureLandmark], routePreferences,
+   (err, routes) {
+    // Handle routing results
+});
+```
+
+If more than one waypoint is provided in a round trip calculation, only the first is considered; others are ignored.
+
+---
 
 ## Relevant examples demonstrating routing related features
 
@@ -253,3 +336,5 @@ At least one of the fields `height`, `length`, `width` or `axleLoad` must be set
 - [Public Transit](/examples/routing-navigation/public-transit)
 
 - [Truck Profile](/examples/routing-navigation/truck-profile)
+
+- [Round Trip](/examples/routing-navigation/round-trip)

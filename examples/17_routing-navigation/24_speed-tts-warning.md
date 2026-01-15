@@ -48,7 +48,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late GemMapController _mapController;
-  late TTSEngine _ttsEngine;
 
   bool _areRoutesBuilt = false;
   bool _isSimulationActive = false;
@@ -67,9 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _ttsEngine = TTSEngine();
-    _ttsEngine.initTts();
-
     super.initState();
   }
 
@@ -198,7 +194,8 @@ class _MyHomePageState extends State<MyHomePage> {
           });
 
           final speedWarning = "Current speed limit: $speedLimitConverted";
-          await _ttsEngine.speakText(speedWarning);
+
+          await SoundPlayingService.playText(speedWarning);
         }
       },
     );
@@ -256,7 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Method to stop the simulation and remove the displayed routes,
   void _stopSimulation() {
     // Cancel the navigation.
-    NavigationService.cancelNavigation(_navigationHandler!);
+    NavigationService.cancelNavigation(_navigationHandler);
     _navigationHandler = null;
 
     _cancelRoute();
@@ -280,140 +277,4 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 ```
-
-### Text-To-Speech Engine Integration
-
-The app requires the `flutter_tts` package.
-```dart
-import 'package:flutter_tts/flutter_tts.dart';
-
-enum TtsState { playing, stopped, paused, continued }
-
-class TTSEngine {
-  late FlutterTts flutterTts;
-  String? language;
-  String? engine;
-  double volume = 0.5;
-  double pitch = 1.0;
-  double rate = 0.5;
-  bool isCurrentLanguageInstalled = false;
-
-  TtsState ttsState = TtsState.stopped;
-
-  bool get isPlaying => ttsState == TtsState.playing;
-  bool get isStopped => ttsState == TtsState.stopped;
-  bool get isPaused => ttsState == TtsState.paused;
-  bool get isContinued => ttsState == TtsState.continued;
-
-  bool get isIOS => !kIsWeb && Platform.isIOS;
-  bool get isAndroid => !kIsWeb && Platform.isAndroid;
-  bool get isWindows => !kIsWeb && Platform.isWindows;
-  bool get isWeb => kIsWeb;
-
-  void initTts() {
-    flutterTts = FlutterTts();
-
-    _setAwaitOptions();
-
-    if (isAndroid) {
-      _getDefaultEngine();
-      _getDefaultVoice();
-    }
-
-    if (kIsWeb) {
-      rate = 0.75;
-    }
-
-    flutterTts.setStartHandler(() {
-      ttsState = TtsState.playing;
-    });
-
-    flutterTts.setCompletionHandler(() {
-      ttsState = TtsState.stopped;
-    });
-
-    flutterTts.setCancelHandler(() {
-      ttsState = TtsState.stopped;
-    });
-
-    flutterTts.setPauseHandler(() {
-      ttsState = TtsState.paused;
-    });
-
-    flutterTts.setContinueHandler(() {
-      ttsState = TtsState.continued;
-    });
-
-    flutterTts.setErrorHandler((msg) {
-      ttsState = TtsState.stopped;
-    });
-  }
-
-  Future<void> _getDefaultEngine() async {
-    await flutterTts.getDefaultEngine;
-  }
-
-  Future<void> _getDefaultVoice() async {
-    await flutterTts.getDefaultVoice;
-  }
-
-  Future<void> setVolume(double volume) async {
-    await flutterTts.setVolume(volume);
-  }
-
-  Future<void> speakText(String text) async {
-    await flutterTts.setSpeechRate(rate);
-    await flutterTts.setPitch(pitch);
-    await flutterTts.speak(text);
-  }
-
-  Future<void> _setAwaitOptions() async {
-    await flutterTts.awaitSpeakCompletion(true);
-  }
-
-  void dispose() {
-    flutterTts.stop();
-  }
-}
-```
-
-### Bottom Speed Limit Panel
-```dart
-class BottomAlarmPanel extends StatelessWidget {
-  final int speed;
-
-  const BottomAlarmPanel({super.key, required this.speed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      width: MediaQuery.of(context).size.width - 20,
-      height: 50,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Row(
-        children: [
-          Text(
-            "Current speed limit: $speed km/h",
-            style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
-  }
-}
-```
-
 

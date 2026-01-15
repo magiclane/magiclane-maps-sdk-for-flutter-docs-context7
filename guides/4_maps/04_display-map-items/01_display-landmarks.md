@@ -5,9 +5,13 @@ title: Display Landmarks
 
 # Display landmarks
 
-# Filter landmarks by category
+Learn how to filter, add, customize, and highlight landmarks on your map.
 
-When displaying the map, we can choose what types of landmarks we want to display. Each landmark can have one or more `LandmarkCategory`. To selectively display specific categories of landmarks programmatically, you can use the `addStoreCategoryId` method provided by the `LandmarkStoreCollection` class:
+---
+
+## Filter landmarks by category
+
+When displaying the map, you can choose what types of landmarks to display. Each landmark can have one or more `LandmarkCategory`. To selectively display specific categories of landmarks, use the `addStoreCategoryId` method:
 ```dart
 // Clear all the landmark types on the map
 mapController.preferences.lmks.clear();
@@ -17,11 +21,15 @@ mapController.preferences.lmks.addStoreCategoryId(
 GenericCategories.landmarkStoreId, GenericCategoriesId.gasStation.id);
 ```
 
-This allows filtering the default map data. Next, we might want to also add custom landmarks to the map (see the next section).
+This allows filtering the default map data.
 
-## Display custom landmarks
+---
 
-Landmarks can be added to the map by storing them in a ``LandmarkStore``. Next, the ``LandmarkStore`` is added to the ``LandmarkStoreCollection`` within ``MapViewPreferences``. The following code demonstrates all these steps: first, creating custom landmarks, then adding them to a store, and finally adding the store to the collection of stores.
+## Add custom landmarks
+
+Landmarks are added to the map by storing them in a `LandmarkStore`. The `LandmarkStore` is then added to the `LandmarkStoreCollection` within `MapViewPreferences`.
+
+The following code creates custom landmarks, adds them to a store, and adds the store to the collection:
 ```dart
 final List<Landmark> landmarksToAdd = [];
 final Img imageData = await Img.fromAsset('assets/poi83.png');
@@ -49,35 +57,39 @@ for (final lmk in landmarksToAdd) {
 mapController.preferences.lmks.add(landmarkStore);
 ```
 
-Some methods of ``LandmarkStoreCollection`` class are explained below:
+### LandmarkStoreCollection methods
 
-- ``add(LandmarkStore lms)``: add a new store to be displayed on map. All the landmarks from the store will be displayed, regardless of the category provided.
+The `LandmarkStoreCollection` class provides the following methods:
 
-- ``addAllStoreCategories(int storeId)``: does the same thing as `add` but uses the `storeId`, not the `LandmarkStore` instance.
+- `add(LandmarkStore lms)` - Adds a new store to be displayed on the map. All landmarks from the store are displayed, regardless of category.
 
-- ``addStoreCategoryId(int storeId, int categoryId)``: adds the landmarks with the specified category from the landmark store on the map.
+- `addAllStoreCategories(int storeId)` - Same as `add` but uses the `storeId` instead of the `LandmarkStore` instance.
 
-- ``clear()``: removes all landmark stores from the map.
+- `addStoreCategoryId(int storeId, int categoryId)` - Adds landmarks with the specified category from the landmark store.
 
-- ``contains(int storeId, int categoryId)``: check if the specified category ID from the specified store ID was already added.
+- `clear()` - Removes all landmark stores from the map.
 
-- ``containsLandmarkStore(LandmarkStore lms)``: check if the specified store has any categories of landmarks shown on the map.
+- `contains(int storeId, int categoryId)` - Checks if the specified category ID from the store ID was already added.
+
+- `containsLandmarkStore(LandmarkStore lms)` - Checks if the specified store has any categories shown on the map.
+
+---
 
 ## Highlight landmarks
 
-Highlights allow customizing a list of landmarks, making them more visible and providing options to customize the render settings. Highlights can only be used upon Landmarks. By default, highlighted landmarks are not selectable but can be made selectable if necessary.
+Highlights allow you to customize landmarks, making them more visible and providing render settings options. By default, highlighted landmarks are not selectable but can be made selectable if necessary.
 
-Highlighting a landmark allows:
+Highlighting a landmark allows you to:
 
-  - Customizing its appearance.
+- Customize its appearance
 
-  - Temporarily isolating it from standard interactions - it cannot be selected (default behavior, can be modified for each highlight).
+- Temporarily isolate it from standard interactions (default behavior, can be modified)
 
-Landmarks retrieved through search or other means can be highlighted to enhance their prominence and customize their appearance. Additionally, custom landmarks can be highlighted, but they have to be added to a `LandmarkStore` first.
+Landmarks retrieved through search can be highlighted to enhance their prominence and customize their appearance. Custom landmarks can also be highlighted, but must be added to a `LandmarkStore` first.
 
 ### Activate highlights
 
-Highlights can be displayed on map by using ``GemMapController.activeHighlight``. For demonstration purposes, a new ``Landmark`` object will be instantiated and filled with specifications using available setters. Next, the created landmark needs to be added to a ``List<Landmarks>`` and a ``HighlightRenderSettings`` needs to be provided in order to enable desired customizations. Then ``activateHighlight`` can be called with an unique ``highlightId``.
+Highlights are displayed on the map using `GemMapController.activateHighlight`. Create a `Landmark` object, add it to a `List<Landmarks>`, and provide `HighlightRenderSettings` for customizations. Then call `activateHighlight` with a unique `highlightId`.
 ```dart
 final List<Landmark> landmarksToHighlight = [];
 final Img imageData = await Img.fromAsset('assets/poi83.png');
@@ -110,46 +122,45 @@ mapController.activateHighlight(
 mapController.centerOnCoordinates(Coordinates(latitude: 52.48209, longitude: -2.48888), zoomLevel: 40);
 ```
 
-### Hightlight options
+### Highlight options
 
-The `HighlightOptions` enum provides several options to customize the behavior of highlighted landmarks:
+The `HighlightOptions` enum provides options to customize highlighted landmark behavior:
 
 | Option       | Description |
 |--------------|-------------|
-| `showLandmark` | Shows the landmark icon & text. By default is enabled. |
-| `showContour`  | Shows the landmark contour area if available. By default, this option is enabled. |
-| `group`        | Groups landmarks when many are present in close proximity. Available only with `showLandmark`. By default it is disabled. |
-| `overlap`      | Overlap highlight over existing map data. Available only with `showLandmark`. By default, disabled. |
-| `noFading`     | Disable highlight fading in/out. Available only with `showLandmark`. By default, disabled. |
-| `bubble`       | Displays highlights in a bubble with custom icon placement inside the text. Available only with `showLandmark`. Automatically invalidates `group`. By default, disabled.|
-| `selectable`   | Makes highlights selectable using `setCursorScreenPosition`. Available only with `showLandmark`. By default, disabled. |
+| `showLandmark` | Shows the landmark icon and text. Enabled by default. |
+| `showContour`  | Shows the landmark contour area if available. Enabled by default. |
+| `group`        | Groups landmarks in close proximity. Available only with `showLandmark`. Disabled by default. |
+| `overlap`      | Overlaps highlight over existing map data. Available only with `showLandmark`. Disabled by default. |
+| `noFading`     | Disables highlight fading in/out. Available only with `showLandmark`. Disabled by default. |
+| `bubble`       | Displays highlights in a bubble with custom icon placement. Available only with `showLandmark`. Automatically invalidates `group`. Disabled by default. |
+| `selectable`   | Makes highlights selectable using `setCursorScreenPosition`. Available only with `showLandmark`. Disabled by default. |
 
-When showing bubble highlights, if the whole bubble does not fit on the screen, it will not be displayed at all.
-Make sure to truncate the text if the text length is very long.
+When showing bubble highlights, if the whole bubble does not fit on the screen, it will not be displayed at all. Make sure to truncate the text if the text length is very long.
 
-For a landmark contour to be displayed, the landmark must have a valid contour area. Landmarks which have a polygon representation on OpenStreetMap will have a contour area.
-
-Make sure the contour geographic related fields from the `extraInfo` property of the `Landmark` are not removed or altered.
+For a landmark contour to be displayed, the landmark must have a valid contour area. Landmarks with a polygon representation on OpenStreetMap will have a contour area. Make sure the contour geographic related fields from the `extraInfo` property of the `Landmark` are not removed or altered.
 
 ### Deactivate highlights
 
-To remove a displayed landmark from the map, use ``GemMapController.deactivateHighlight(id)`` to selectively remove a specific landmark, or ``GemMapController.deactivateAllHighlights()`` to clear all displayed landmarks at once.
+To remove a highlighted landmark from the map, use `GemMapController.deactivateHighlight(id)` to remove a specific landmark, or `GemMapController.deactivateAllHighlights()` to clear all highlighted landmarks.
 ```dart
 mapController.deactivateHighlight(highlightId: 2);
 ```
 
-To get the highlighted landmarks based on a particular highlight id:
-
 ### Get highlighted landmarks
+
+To retrieve highlighted landmarks based on a highlight ID:
 ```dart
 List<Landmark> landmarks = mapController.getHighlight(2);
 ```
 
 Overlay items can also be highlighted using the `activateHighlightOverlayItems` method in a similar way.
 
-## Disabling landmarks
+---
 
-Removing all presented landmarks can be done by calling `removeAllStoreCategories(GenericCategories.landmarkStoreId)` method of `LandmarkStoreCollection` class. The following code does just that:
+## Remove landmarks
+
+To remove all landmarks from the map, call the `removeAllStoreCategories(GenericCategories.landmarkStoreId)` method:
 ```dart
 mapController.preferences.lmks
     .removeAllStoreCategories(GenericCategories.landmarkStoreId);

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="Search topic docs, for the Dart programming language.">
+  <title>Search topic - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Search topic</li>
+  </ol>
+  <div class="self-name">Search</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div id="dartdoc-main-content" class="main-content">
+  <h1><span class="kind-category">Search</span> topic</h1>
+  
+<section class="desc markdown">
+  <p>The Search module provides fast, flexible address and place discovery for map-driven Flutter apps. Use this system to resolve addresses, find nearby points of interest, browse category hierarchies, and perform guided hierarchical address lookups — all while tuning behaviour with preferences for fuzziness, result limits, overlays and local vs online data. It is designed for high‑quality geocoding, POI discovery, and contextual searches (around a position, inside an area, or along a route).</p>
+<ul>
+<li><strong><code>SearchService</code></strong>: The main search entrypoint for free‑text, around‑position, area, and along‑route searches. Use it to run synchronous user searches or long‑running, cancellable queries that return <code>Landmark</code> results.</li>
+<li><strong><code>SearchPreferences</code></strong>: Central search configuration used by text and area searches. It encapsulates filters, overlays, category constraints, fuzzy matching and maximum result counts to tailor relevance and performance.</li>
+<li><strong><code>GuidedAddressSearchService</code></strong>: Hierarchical address lookup service for progressive search workflows (countries → regions → streets → addresses). It’s ideal for building address pickers and localized address entry flows where users drill down step‑by‑step.</li>
+<li><strong><code>GuidedAddressSearchPreferences</code></strong>: Tuning options for guided address searches such as automatic level skipping and onboard‑only mode. Apply preferences to shape the guided experience and balance speed vs completeness.</li>
+</ul>
+<p>Search is the bridge between raw map data and discoverable user experiences. By combining guided address flows, category-driven filtering, and configurable preferences with a robust service for spatial queries, the Search module enables consistent, high‑quality discovery and selection of places — improving relevance, reducing user friction, and supporting both online and offline scenarios.</p>
+<p>Prefer <code>GuidedAddressSearchService</code> for form‑style address entry where stepwise refinement improves accuracy and UX. For direct user queries, use <code>SearchService</code> with a tailored <code>SearchPreferences</code> to control result volume, fuzziness and overlay filters.</p>
+<p>Learn more about search: <a href="https://developer.magiclane.com/docs/flutter/guides/category/search">https://developer.magiclane.com/docs/flutter/guides/category/search</a></p>
+</section>
+
+
+
+  <section class="summary offset-anchor" id="classes">
+    <h2>Classes</h2>
+    <dl>
+      <dt id="GuidedAddressSearchPreferences">
+  <span class="name "><a href="../search/GuidedAddressSearchPreferences-class.html">GuidedAddressSearchPreferences</a></span> 
+    <span class="category search cp-8 linked" title="This is part of the Search topic."><a href="../topics/Search-topic.html">Search</a></span>
+
+</dt>
+<dd>
+  Preferences for guided address searches.
+</dd>
+
+      <dt id="SearchPreferences">
+  <span class="name "><a href="../search/SearchPreferences-class.html">SearchPreferences</a></span> 
+    <span class="category search cp-8 linked" title="This is part of the Search topic."><a href="../topics/Search-topic.html">Search</a></span>
+
+</dt>
+<dd>
+  Preferences for search operations from <a href="../search/SearchService-class.html">SearchService</a>.
+</dd>
+
+      <dt id="SearchService">
+  <span class="name "><a href="../search/SearchService-class.html">SearchService</a></span> 
+    <span class="category search cp-8 linked" title="This is part of the Search topic."><a href="../topics/Search-topic.html">Search</a></span>
+
+</dt>
+<dd>
+  Service for searching <a href="../core/Landmark-class.html">Landmark</a> from map or custom data
+</dd>
+
+    </dl>
+  </section>
+
+
+
+
+
+
+  <section class="summary offset-anchor" id="enums">
+    <h2>Enums</h2>
+    <dl>
+      <dt id="AddressDetailLevel">
+  <span class="name "><a href="../search/AddressDetailLevel.html">AddressDetailLevel</a></span> 
+    <span class="category search cp-8 linked" title="This is part of the Search topic."><a href="../topics/Search-topic.html">Search</a></span>
+
+</dt>
+<dd>
+  Address level of detail.
+</dd>
+
+    </dl>
+  </section>
+
+
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Search topic</li>
+</ol>
+
+  <h5><span class="package-name">magiclane_maps_flutter</span> <span class="package-kind">package</span></h5>
+  <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/Common-topic.html">Common</a></li>
+        <li><a href="../topics/Geographic-topic.html">Geographic</a></li>
+        <li><a href="../topics/Images-topic.html">Images</a></li>
+        <li><a href="../topics/Position-topic.html">Position</a></li>
+        <li><a href="../topics/Landmark Store-topic.html">Landmark&nbsp;Store</a></li>
+        <li><a href="../topics/Landmarks-topic.html">Landmarks</a></li>
+        <li><a href="../topics/Markers-topic.html">Markers</a></li>
+        <li><a href="../topics/Overlays-topic.html">Overlays</a></li>
+        <li><a href="../topics/Search-topic.html">Search</a></li>
+        <li><a href="../topics/Route-topic.html">Route</a></li>
+        <li><a href="../topics/Routing-topic.html">Routing</a></li>
+        <li><a href="../topics/Navigation-topic.html">Navigation</a></li>
+        <li><a href="../topics/Driver Behaviour-topic.html">Driver&nbsp;Behaviour</a></li>
+        <li><a href="../topics/Traffic & Roadblocks-topic.html">Traffic&nbsp;&&nbsp;Roadblocks</a></li>
+        <li><a href="../topics/Sound-topic.html">Sound</a></li>
+        <li><a href="../topics/Sensor Data Source-topic.html">Sensor&nbsp;Data&nbsp;Source</a></li>
+        <li><a href="../topics/Content-topic.html">Content</a></li>
+        <li><a href="../topics/Alarms-topic.html">Alarms</a></li>
+        <li><a href="../topics/Settings-topic.html">Settings</a></li>
+        <li><a href="../topics/Timezone-topic.html">Timezone</a></li>
+        <li><a href="../topics/Iso Code Conversions-topic.html">Iso&nbsp;Code&nbsp;Conversions</a></li>
+        <li><a href="../topics/Locale-topic.html">Locale</a></li>
+        <li><a href="../topics/Weather-topic.html">Weather</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../content_store/">content_store</a></li>
+      <li><a href="../core/">core</a></li>
+      <li><a href="../driver_behaviour/">driver_behaviour</a></li>
+      <li><a href="../landmark_store/">landmark_store</a></li>
+      <li><a href="../map/">map</a></li>
+      <li><a href="../navigation/">navigation</a></li>
+      <li><a href="../position/">position</a></li>
+      <li><a href="../projections/">projections</a></li>
+      <li><a href="../routing/">routing</a></li>
+      <li><a href="../search/">search</a></li>
+      <li><a href="../sense/">sense</a></li>
+      <li><a href="../weather/">weather</a></li>
+</ol>
+
+</div>
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  <h5>Search topic</h5>
+  <ol>
+
+    <li class="section-title"><a href="../topics/Search-topic.html#classes">Classes</a></li>
+      <li><a href="../search/GuidedAddressSearchPreferences-class.html">GuidedAddressSearchPreferences</a></li>
+      <li><a href="../search/SearchPreferences-class.html">SearchPreferences</a></li>
+      <li><a href="../search/SearchService-class.html">SearchService</a></li>
+
+    <li class="section-title"><a href="../topics/Search-topic.html#enums">Enums</a></li>
+      <li><a href="../search/AddressDetailLevel.html">AddressDetailLevel</a></li>
+
+
+
+
+
+
+
+
+</ol>
+
+</div>
+<!--/sidebar-offcanvas-right-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

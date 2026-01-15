@@ -5,38 +5,48 @@ title: Create First App
 
 # Create your first application
 
-The guide will walk you through the steps to create a simple Flutter application that displays a map using the MagicLane Maps SDK.
+Follow this tutorial to build a Flutter app with an interactive map.
 
-For this guide you will need to have an API key - follow our [step-by-step guide](https://developer.magiclane.com/docs/guides/get-started) to sign up for a free account, create a project and generate your API key.
+- Flutter installed ([installation guide](https://docs.flutter.dev/get-started/install))
 
-## Create a Flutter project
+- [Free API key from MagicLane](https://developer.magiclane.com/docs/guides/get-started)
 
-Make sure you have Flutter installed on your machine and `flutter doctor` shows no issues.
-It is recommended to use the latest stable version of Flutter.
+---
 
-To create a new Flutter project, run the following command in your terminal, replacing `my_first_map_app` with your desired project name:
- 
+## Step 1: Create a new project
 ```bash
 flutter create my_first_map_app
+cd my_first_map_app
 ```
 
-If you already have a Flutter project, you can skip this step.
+<details>
+    <summary>Using an existing project?</summary>
+    
+Skip to Step 2 and add the SDK to your existing app.
+</details>
 
-## Add the MagicLane Maps Flutter dependency
+## Step 2: Install the SDK
 
-To add the MagicLane Maps SDK to your Flutter project, open the `pubspec.yaml` file and add the following dependency:
+Add the package to `pubspec.yaml`:
 ```yaml
 dependencies:
-  magiclane_maps_flutter: 
+  flutter:
+    sdk: flutter
+  magiclane_maps_flutter:  # Add this line
 ```
 
-Additional platform-specific setup is required. Refer to the [Installation guide](./integrate-sdk#native-configuration) for detailed instructions.
+Install it:
+```bash
+flutter pub get
+```
 
-## Write the application code
+Complete the [Android/iOS setup](./integrate-sdk#step-2-configure-your-platform) before continuing (adds Maven repository, sets iOS version).
 
-To create an application with a map, use the following code:
+## Step 3: Write the code
+
+Open `lib/main.dart` and replace everything with this:
 ```dart
-import 'package:flutter/material.dart' hide Route; // To avoid conflict with the Route class from magiclane_maps_flutter
+import 'package:flutter/material.dart' hide Route;
 import 'package:magiclane_maps_flutter/magiclane_maps_flutter.dart';
 
 const projectApiToken = String.fromEnvironment('GEM_TOKEN');
@@ -68,7 +78,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
-    GemKit.release();
+    GemKit.release(); // Clean up SDK resources
     super.dispose();
   }
 
@@ -87,62 +97,166 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _onMapCreated(GemMapController mapController) {
-    // Code executed when the map is initialized
+    // Map is initialized and ready to use
   }
 }
 ```
 
-Run your project in either mode, replacing `your_token` with your actual token:
+<details>
+    <summary>Understanding the code</summary>
+
+- **`GemMap`** - Widget that displays the interactive map
+
+- **`appAuthorization`** - Your API key for SDK authentication
+
+- **`onMapCreated`** - Called when the map finishes loading
+
+- **`GemKit.release()`** - Frees memory when the app closes
+
+</details>
+
+---
+
+## Step 4: Run your app
+
+Start the app with your API key:
 ```bash
-# Debug mode
-flutter run --debug --dart-define=GEM_TOKEN="your_token"
-# Release mode
-flutter run --release --dart-define=GEM_TOKEN="your_token"
+flutter run --dart-define=GEM_TOKEN="your_actual_token_here"
 ```
 
-Or you can replace `String.fromEnvironment('GEM_TOKEN');` with your token directly in the code.
+<details>
+    <summary>Quick test: Hardcode the token</summary>
 
-Some explanations:
-
-- The `MyHomePage` widget contains the scaffold that houses the map.
-
-- The `dispose` method ensures that resources are released when the widget is destroyed.
-
-- The `GemMap` widget is used to display the interactive map in the body of the scaffold.
-
-Any call to a SDK method before the engine is initialized will throw an `GemKitUninitializedException`.
-
-The SDK is automatically initialized when creating a `GemMap` widget. However, if you need to initialize it manually (for example, if you want to use the SDK without displaying a map or some operations are needed before a map is shown), you can do so by calling `GemKit.initialize`:
+For quick testing only, change line 4 to:
 ```dart
-WidgetsFlutterBinding.ensureInitialized();
-await GemKit.initialize(appAuthorization: projectApiToken);
+const projectApiToken = "your_actual_token_here";
 ```
 
-It is also recommended to call `await GemKit.release` when the SDK is no longer needed to free up resources.
+**⚠️ Never commit hardcoded tokens to version control!**
+</details>
 
-If the API key is not configured, some features will be restricted, and a watermark will appear on the map. Functionality such as map downloads, updates, and other features may be unavailable or may not function as expected. Please ensure the API token is set correctly. Ensure the API key is stored securely and protected against unauthorized access or exposure.
+---
 
-The method ``verifyAppAuthorization`` from the ``SdkSettings`` class might be used to check if the token is set:
+🎉 **Success!** Your map app is running.
+
+---
+
+## What's next?
+
+Explore what you can do with the map:
+
+- [Add markers](../../examples/maps-3dscene/add-markers) - Pin locations on the map
+
+- [Draw shapes](../../examples/maps-3dscene/draw-shapes) - Add polygons, lines, and circles
+
+- [Change map styles](../../examples/maps-3dscene/map-styles) - Switch between light, dark, and custom themes
+
+- [Search for places](../../examples/places-search) - Find addresses and points of interest
+
+- [Add navigation](../../examples/routing-navigation) - Calculate routes and turn-by-turn directions
+
+---
+
+## Troubleshooting
+
+<details>
+    <summary>App crashes immediately</summary>
+
+**Most common causes:**
+
+1. **Missing platform setup** - Did you complete the [Android/iOS configuration](./integrate-sdk#step-2-configure-your-platform)?
+2. **Invalid API key** - Check your token is correct and active
+3. **Flutter environment issues** - Run `flutter doctor` and fix any issues
+
+</details>
+
+<details>
+    <summary>GemKitUninitializedException error</summary>
+
+You're calling SDK methods before the map initializes.
+
+**Solution:** Only call SDK methods inside `onMapCreated` or after the map loads.
 ```dart
-SdkSettings.verifyAppAuthorization(token, (status) {
-  switch (status) {
-    case GemError.success:
-      print('The token is set and is valid.');
-      break;
-    case GemError.invalidInput:
-      print('The token is invalid.');
-      break;
-    case GemError.expired:
-      print('The token is expired.');
-      break;
-    case GemError.accessDenied:
-      print('The token is blacklisted.');
-      break;
-    default:
-      print('Other error regarding token validation : $status.');
-      break;
+void _onMapCreated(GemMapController mapController) {
+  // ✓ Safe to call SDK methods here
+}
+```
+
+</details>
+
+<details>
+    <summary>How to check if my API key is valid</summary>
+
+Add this code to verify your token:
+```dart
+SdkSettings.verifyAppAuthorization(projectApiToken, (status) {
+  if (status == GemError.success) {
+    print('✓ API key is valid');
+  } else {
+    print('✗ API key error: $status');
   }
-})
+});
 ```
 
+**Possible status codes:**
 
+- `success` - Token is valid ✓
+
+- `invalidInput` - Wrong format ✗
+
+- `expired` - Token expired ✗
+
+- `accessDenied` - Token blocked ✗
+
+</details>
+
+<details>
+    <summary>Map shows a watermark</summary>
+
+This means your API key is missing or invalid.
+
+**Without a valid API key:**
+
+- ❌ Map downloads won't work
+
+- ❌ Map updates disabled
+
+- ⚠️ Watermark appears
+
+- ⚠️ Limited features
+
+**Fix:** Ensure you're passing a valid API key via `--dart-define=GEM_TOKEN="your_token"`
+
+</details>
+
+<details>
+    <summary>Advanced: Manual SDK initialization</summary>
+
+The SDK auto-initializes when you create a `GemMap` widget.
+
+If you need to use SDK features **before** showing a map:
+```dart
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await GemKit.initialize(appAuthorization: projectApiToken);
+  
+  runApp(const MyApp());
+}
+
+// Don't forget to clean up!
+@override
+void dispose() {
+  GemKit.release();
+  super.dispose();
+}
+```
+
+**When to use this:**
+
+- Background location tracking before map display
+
+- Preloading map data
+
+- SDK services without showing a map
+
+</details>

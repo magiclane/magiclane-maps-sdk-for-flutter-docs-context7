@@ -35,7 +35,7 @@ Compatibility is assured with both real devices and emulators used for developme
 
 ### Android
 
-- minimum Android API level of 23 is required (Android 6.0 Marshmallow), providing compatibility with over 98% of all Android devices currently in use.
+- minimum Android API level of 27 is required (Android 8.1 Oreo), providing compatibility with over 96.4% of all Android devices currently in use.
 
 ### iOS
 

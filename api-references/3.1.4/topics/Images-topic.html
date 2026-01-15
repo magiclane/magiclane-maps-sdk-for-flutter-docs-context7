@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="Images topic docs, for the Dart programming language.">
+  <title>Images topic - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Images topic</li>
+  </ol>
+  <div class="self-name">Images</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div id="dartdoc-main-content" class="main-content">
+  <h1><span class="kind-category">Images</span> topic</h1>
+  
+<section class="desc markdown">
+  <p>The Images module provides a compact, SDK-focused set of types for working with visual assets in Magic Lane Maps for Flutter. Use this module to obtain, inspect, render and customize images that the SDK produces or manages — from simple raster icons to vector-based navigation cues such as turn arrows, lane guidance and signboards with variable size. It makes it easy to request image bytes or fully rendered images with dimensions, and to control appearance for vector assets via rendering settings.</p>
+<ul>
+<li><strong><code>ImgBase</code></strong>: Abstract foundation for all SDK image types. Use it to check image metadata (validity, scaling support, unique id) and to obtain renderable image output that includes both bytes and final dimensions. It's the common interface implemented by all concrete image wrappers.</li>
+<li><strong><code>Img</code></strong>: Raster image wrapper for encoded image data or asset-based images. Use it when you need a simple image backed by bytes with SDK-recommended size and aspect ratio. It provides factory constructors for byte data and for loading from app assets.</li>
+<li><strong><code>RenderableImg</code></strong>: Container that packages rendered image bytes together with the actual width and height. Use this when you need to know final dimensions produced by the SDK (important for vector images and when automatic resizing may be applied).</li>
+<li><strong><code>SizeAndFormat</code></strong>: Lightweight holder pairing a <code>Size</code> with an <code>ImageFileFormat</code>. Use it for API calls or SDK settings that require both a target size and a format together.</li>
+<li><strong><code>AbstractGeometryImg</code></strong> : Vector image wrapper for abstract geometry turn/junction images. Use it to request schematic junction renderings that scale losslessly and to obtain either bytes or a <code>RenderableImg</code> with final dimensions. Can be customized via <code>AbstractGeometryImageRenderSettings</code>.</li>
+<li><strong><code>AbstractGeometry</code></strong>: Structured model describing junction and turn geometries. Use it as the machine-readable source when rendering schematic junction images or when requesting an abstract geometry image from turn details.</li>
+<li><strong><code>AbstractGeometryItem</code></strong>: Elementary geometry unit included in <code>AbstractGeometry</code> describing individual lanes, arrows or markers and their attachment to the junction anchor. Use these items to represent each drawable piece of a junction schematic.</li>
+<li><strong><code>AbstractGeometryImageRenderSettings</code></strong>: Rendering configuration for abstract geometry/vector turn images. Use it to customize active/inactive inner and outer colors when requesting rendered abstract geometry images.</li>
+<li><strong><code>LaneImg</code></strong>: Vector image wrapper for lane guidance. Use it to request lane graphics that scale losslessly and to obtain either bytes or a <code>RenderableImg</code> with final dimensions. Can be customized via <code>LaneImageRenderSettings</code>.</li>
+<li><strong><code>LaneImageRenderSettings</code></strong>: Rendering configuration for lane guidance images. Use it to set background and lane colors for clearer lane guidance visuals.</li>
+<li><strong><code>SignpostImg</code></strong>: Vector image wrapper for highway/directional sign visuals. Use it to obtain signpost renderings with customizable layout options. Can be customized via <code>SignpostImageRenderSettings</code>.</li>
+<li><strong><code>SignpostImageRenderSettings</code></strong>: Rendering configuration for signpost images. Use it to control border size, corner rounding and row limits for directional sign rendering.</li>
+<li><strong><code>RoadInfoImg</code></strong>: Vector image wrapper for road shields and route markers. Use it when you need road-number graphics or shields rendered to a specific size and background.</li>
+<li><strong><code>GemIcon</code></strong>: SDK-built-in icon identifier enum for common marker icons. Use it where built-in icon IDs are required.</li>
+<li><strong><code>EngineMisc</code></strong>: Additional engine icon identifiers used internally and available for SDK consumers.</li>
+</ul>
+<p>Together these classes let you request, customize and display SDK-produced images in a predictable, platform-friendly way. The <code>ImgBase</code> abstraction centralizes metadata and rendering behavior while concrete implementers (raster and vector wrappers) expose format, sizing and render settings that control the final output. <code>RenderableImg</code> provides the exact bytes and dimensions you can feed straight into Flutter UI.</p>
+<p>Prefer the concrete wrappers for common workflows: obtain an image, verify it is valid, then request either raw bytes for quick display or a <code>RenderableImg</code> when you need the final dimensions. When working with vector images, pass render settings to match your app theme and enable <code>allowResize</code> only when you want the SDK to choose an optimal aspect ratio.</p>
+<p>Learn more about images: <a href="https://developer.magiclane.com/docs/flutter/guides/core/images">https://developer.magiclane.com/docs/flutter/guides/core/images</a></p>
+</section>
+
+
+
+  <section class="summary offset-anchor" id="classes">
+    <h2>Classes</h2>
+    <dl>
+      <dt id="AbstractGeometry">
+  <span class="name "><a href="../core/AbstractGeometry-class.html">AbstractGeometry</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Structured representation of a junction or turn geometry.
+</dd>
+
+      <dt id="AbstractGeometryImageRenderSettings">
+  <span class="name "><a href="../core/AbstractGeometryImageRenderSettings-class.html">AbstractGeometryImageRenderSettings</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Rendering settings for turn instruction images in navigation instructions.
+</dd>
+
+      <dt id="AbstractGeometryImg">
+  <span class="name "><a href="../core/AbstractGeometryImg-class.html">AbstractGeometryImg</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Vector turn arrow image for navigation instructions.
+</dd>
+
+      <dt id="AbstractGeometryItem">
+  <span class="name "><a href="../core/AbstractGeometryItem-class.html">AbstractGeometryItem</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Geometry element used by <a href="../core/AbstractGeometry-class.html">AbstractGeometry</a>.
+</dd>
+
+      <dt id="ImageHandler">
+  <span class="name "><a href="../core/ImageHandler-class.html">ImageHandler</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Utilities for decoding raw image bytes into Flutter <code>ui.Image</code> objects.
+</dd>
+
+      <dt id="Img">
+  <span class="name "><a href="../core/Img-class.html">Img</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Plain raster image with recommended size and aspect ratio.
+</dd>
+
+      <dt id="ImgBase">
+  <span class="name "><a href="../core/ImgBase-class.html">ImgBase</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Base class for all SDK image representations with rendering capabilities.
+</dd>
+
+      <dt id="LaneImageRenderSettings">
+  <span class="name "><a href="../core/LaneImageRenderSettings-class.html">LaneImageRenderSettings</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Rendering settings for lane guidance images in navigation instructions.
+</dd>
+
+      <dt id="LaneImg">
+  <span class="name "><a href="../core/LaneImg-class.html">LaneImg</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Vector lane guidance image for navigation instructions.
+</dd>
+
+      <dt id="RenderableImg">
+  <span class="name "><a href="../core/RenderableImg-class.html">RenderableImg</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Container for rendered image data with bytes and dimensions.
+</dd>
+
+      <dt id="RoadInfoImg">
+  <span class="name "><a href="../core/RoadInfoImg-class.html">RoadInfoImg</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Vector road shield image for highway and route markers.
+</dd>
+
+      <dt id="SignpostImageRenderSettings">
+  <span class="name "><a href="../core/SignpostImageRenderSettings-class.html">SignpostImageRenderSettings</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Rendering settings for signpost images in navigation instructions.
+</dd>
+
+      <dt id="SignpostImg">
+  <span class="name "><a href="../core/SignpostImg-class.html">SignpostImg</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Vector signpost image for directional navigation signs.
+</dd>
+
+      <dt id="SizeAndFormat">
+  <span class="name "><a href="../core/SizeAndFormat-class.html">SizeAndFormat</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Represents the size and file format for an image.
+</dd>
+
+    </dl>
+  </section>
+
+
+
+
+
+
+  <section class="summary offset-anchor" id="enums">
+    <h2>Enums</h2>
+    <dl>
+      <dt id="AnchorType">
+  <span class="name "><a href="../core/AnchorType.html">AnchorType</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Anchor type for an abstract geometry.
+</dd>
+
+      <dt id="ArrowDirection">
+  <span class="name "><a href="../core/ArrowDirection.html">ArrowDirection</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Direction of the arrow drawn for a shape.
+</dd>
+
+      <dt id="ArrowType">
+  <span class="name "><a href="../core/ArrowType.html">ArrowType</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Indicates whether an arrow is present and on which side of the anchor it
+is attached.
+</dd>
+
+      <dt id="DriveSide">
+  <span class="name "><a href="../core/DriveSide.html">DriveSide</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Drive side used to render side-dependent geometry.
+</dd>
+
+      <dt id="EngineMisc">
+  <span class="name "><a href="../core/EngineMisc.html">EngineMisc</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Miscellaneous engine icon identifiers.
+</dd>
+
+      <dt id="GemIcon">
+  <span class="name "><a href="../core/GemIcon.html">GemIcon</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  SDK icon identifiers.
+</dd>
+
+      <dt id="ImageFileFormat">
+  <span class="name "><a href="../core/ImageFileFormat.html">ImageFileFormat</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Enumerates known image file formats.
+</dd>
+
+      <dt id="ImageType">
+  <span class="name "><a href="../core/ImageType.html">ImageType</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Image category used by SDK subsystems for classification.
+</dd>
+
+      <dt id="RestrictionType">
+  <span class="name "><a href="../core/RestrictionType.html">RestrictionType</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Restriction type for a geometry item.
+</dd>
+
+      <dt id="ShapeForm">
+  <span class="name "><a href="../core/ShapeForm.html">ShapeForm</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Shape form for an abstract geometry item.
+</dd>
+
+      <dt id="ShapeType">
+  <span class="name "><a href="../core/ShapeType.html">ShapeType</a></span> 
+    <span class="category images cp-2 linked" title="This is part of the Images topic."><a href="../topics/Images-topic.html">Images</a></span>
+
+</dt>
+<dd>
+  Shape type describing the semantic layer of a geometry item.
+</dd>
+
+    </dl>
+  </section>
+
+
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Images topic</li>
+</ol>
+
+  <h5><span class="package-name">magiclane_maps_flutter</span> <span class="package-kind">package</span></h5>
+  <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/Common-topic.html">Common</a></li>
+        <li><a href="../topics/Geographic-topic.html">Geographic</a></li>
+        <li><a href="../topics/Images-topic.html">Images</a></li>
+        <li><a href="../topics/Position-topic.html">Position</a></li>
+        <li><a href="../topics/Landmark Store-topic.html">Landmark&nbsp;Store</a></li>
+        <li><a href="../topics/Landmarks-topic.html">Landmarks</a></li>
+        <li><a href="../topics/Markers-topic.html">Markers</a></li>
+        <li><a href="../topics/Overlays-topic.html">Overlays</a></li>
+        <li><a href="../topics/Search-topic.html">Search</a></li>
+        <li><a href="../topics/Route-topic.html">Route</a></li>
+        <li><a href="../topics/Routing-topic.html">Routing</a></li>
+        <li><a href="../topics/Navigation-topic.html">Navigation</a></li>
+        <li><a href="../topics/Driver Behaviour-topic.html">Driver&nbsp;Behaviour</a></li>
+        <li><a href="../topics/Traffic & Roadblocks-topic.html">Traffic&nbsp;&&nbsp;Roadblocks</a></li>
+        <li><a href="../topics/Sound-topic.html">Sound</a></li>
+        <li><a href="../topics/Sensor Data Source-topic.html">Sensor&nbsp;Data&nbsp;Source</a></li>
+        <li><a href="../topics/Content-topic.html">Content</a></li>
+        <li><a href="../topics/Alarms-topic.html">Alarms</a></li>
+        <li><a href="../topics/Settings-topic.html">Settings</a></li>
+        <li><a href="../topics/Timezone-topic.html">Timezone</a></li>
+        <li><a href="../topics/Iso Code Conversions-topic.html">Iso&nbsp;Code&nbsp;Conversions</a></li>
+        <li><a href="../topics/Locale-topic.html">Locale</a></li>
+        <li><a href="../topics/Weather-topic.html">Weather</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../content_store/">content_store</a></li>
+      <li><a href="../core/">core</a></li>
+      <li><a href="../driver_behaviour/">driver_behaviour</a></li>
+      <li><a href="../landmark_store/">landmark_store</a></li>
+      <li><a href="../map/">map</a></li>
+      <li><a href="../navigation/">navigation</a></li>
+      <li><a href="../position/">position</a></li>
+      <li><a href="../projections/">projections</a></li>
+      <li><a href="../routing/">routing</a></li>
+      <li><a href="../search/">search</a></li>
+      <li><a href="../sense/">sense</a></li>
+      <li><a href="../weather/">weather</a></li>
+</ol>
+
+</div>
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  <h5>Images topic</h5>
+  <ol>
+
+    <li class="section-title"><a href="../topics/Images-topic.html#classes">Classes</a></li>
+      <li><a href="../core/AbstractGeometry-class.html">AbstractGeometry</a></li>
+      <li><a href="../core/AbstractGeometryImageRenderSettings-class.html">AbstractGeometryImageRenderSettings</a></li>
+      <li><a href="../core/AbstractGeometryImg-class.html">AbstractGeometryImg</a></li>
+      <li><a href="../core/AbstractGeometryItem-class.html">AbstractGeometryItem</a></li>
+      <li><a href="../core/ImageHandler-class.html">ImageHandler</a></li>
+      <li><a href="../core/Img-class.html">Img</a></li>
+      <li><a href="../core/ImgBase-class.html">ImgBase</a></li>
+      <li><a href="../core/LaneImageRenderSettings-class.html">LaneImageRenderSettings</a></li>
+      <li><a href="../core/LaneImg-class.html">LaneImg</a></li>
+      <li><a href="../core/RenderableImg-class.html">RenderableImg</a></li>
+      <li><a href="../core/RoadInfoImg-class.html">RoadInfoImg</a></li>
+      <li><a href="../core/SignpostImageRenderSettings-class.html">SignpostImageRenderSettings</a></li>
+      <li><a href="../core/SignpostImg-class.html">SignpostImg</a></li>
+      <li><a href="../core/SizeAndFormat-class.html">SizeAndFormat</a></li>
+
+    <li class="section-title"><a href="../topics/Images-topic.html#enums">Enums</a></li>
+      <li><a href="../core/AnchorType.html">AnchorType</a></li>
+      <li><a href="../core/ArrowDirection.html">ArrowDirection</a></li>
+      <li><a href="../core/ArrowType.html">ArrowType</a></li>
+      <li><a href="../core/DriveSide.html">DriveSide</a></li>
+      <li><a href="../core/EngineMisc.html">EngineMisc</a></li>
+      <li><a href="../core/GemIcon.html">GemIcon</a></li>
+      <li><a href="../core/ImageFileFormat.html">ImageFileFormat</a></li>
+      <li><a href="../core/ImageType.html">ImageType</a></li>
+      <li><a href="../core/RestrictionType.html">RestrictionType</a></li>
+      <li><a href="../core/ShapeForm.html">ShapeForm</a></li>
+      <li><a href="../core/ShapeType.html">ShapeType</a></li>
+
+
+
+
+
+
+
+
+</ol>
+
+</div>
+<!--/sidebar-offcanvas-right-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

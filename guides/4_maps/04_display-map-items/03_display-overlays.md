@@ -5,20 +5,30 @@ title: Display Overlays
 
 # Display overlays
 
-Overlays are used to provide enhanced, layered information that adds contextual value to a base map, offering users dynamic, interactive, and customized data that can be visualized on top of other map elements.
+Learn how to enable and disable map overlays to add or remove contextual information layers.
 
-### Disabling overlays
+---
 
-Overlays can be disabled either by applying a predefined, custom map style created in [Magic Lane Map Studio](https://developer.magiclane.com/documentation/OnlineStudio/guide_creating_a_style.html)—where certain overlays are already disabled—or by using the ``disableOverlay`` method, as shown below:
+## Overview
+
+Overlays provide enhanced, layered information on top of your base map. They offer dynamic, interactive, and customized data that adds contextual value to map elements.
+
+---
+
+## Disable overlays
+
+Disable overlays by applying a custom map style from [Magic Lane Map Studio](https://developer.magiclane.com/documentation/OnlineStudio/guide_creating_a_style.html) with certain overlays disabled, or by using the `disableOverlay` method:
 ```dart
 GemError error = OverlayService.disableOverlay(CommonOverlayId.publicTransport.id);
 ```
 
-Passing -1 (default value) as the optional `categUid` parameter indicates that we want to disable the entire public transport overlay, rather than targeting a specific category.
+Pass -1 (default value) as the optional `categUid` parameter to disable the entire overlay rather than a specific category.
 
-The error returned will be `success` if the overlay was disabled or `notFound` if no overlay (or overlay category) with the specified ID was found in the applied style.
+The returned error is `success` if the overlay was disabled, or `notFound` if no overlay with the specified ID was found in the applied style.
 
-To disable specific overlays within a category, you'll need to retrieve their unique identifiers (uid) as shown below:
+### Disable specific overlay categories
+
+To disable specific overlays within a category, retrieve their unique identifiers (uid):
 ```dart 
 final Completer<GemError> completer = Completer<GemError>();
 final availableOverlays = OverlayService.getAvailableOverlays(onCompleteDownload: (error) {
@@ -36,7 +46,9 @@ if(overlayInfo != null) {
 }
 ```
 
-### Enabling overlays
+---
+
+## Enable overlays
 
 In a similar way, the overlay can be enabled using the ``enableOverlay`` method by providing the overlay id. It also has an optional `categUid` parameter, which when left as default, it activates whole overlay rather than a specific category.
 

@@ -5,10 +5,9 @@ title: Integrate Sdk
 
 # Integrate the SDK
 
-## Add the package to your project
+## Step 1: Add the package
 
-The Magiclane Maps SDK for Flutter is available as a [pub.dev package](https://pub.dev/packages/magiclane_maps_flutter).
-In your `pubspec.yaml` file add `magiclane_maps_flutter` package to your dependencies:
+Add `magiclane_maps_flutter` to your `pubspec.yaml`:
 ```yaml
 dependencies:
   flutter:
@@ -18,16 +17,23 @@ dependencies:
   # highlight-end
 ```
 
-Run `flutter pub get` to install the new dependency.
+Then install it:
+```bash
+flutter pub get
+```
 
-## Native configuration
+## Step 2: Configure your platform
 
 <Tabs>
 <TabItem value="android" label="Android" default>
 
-    First, verify that the `ANDROID_SDK_ROOT` environment variable is set to the root path of your Android SDK.
+    ### Verify Android SDK
 
-    In `android/build.gradle.kts` add the maven block as shown, within the `allprojects` block, for both debug and release builds:
+    Ensure `ANDROID_SDK_ROOT` environment variable is set to your Android SDK path.
+
+    ### Add Maven repository
+
+    In `android/build.gradle.kts`, add this inside the `allprojects` block:
 
     
 ```kotlin
@@ -44,14 +50,14 @@ Run `flutter pub get` to install the new dependency.
     }
     ```
 
-    Additionally, for `release` builds, in `android/app/build.gradle.kts`, within the `android` block, add the following lines to disable code shrinking and resource shrinking:
+    ### Disable code shrinking (release builds only)
+
+    In `android/app/build.gradle.kts`, add these lines to the `release` block:
 
     
 ```kotlin
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
             // highlight-start
             isMinifyEnabled = false
@@ -63,9 +69,8 @@ Run `flutter pub get` to install the new dependency.
 
 </TabItem>
 <TabItem value="ios" label="IOS" default>
-	Set the minimum iOS platform version to **14** in your project.
 
-	### 1. Run the following commands:
+	### Install dependencies
 
 	
 ```bash
@@ -73,54 +78,83 @@ Run `flutter pub get` to install the new dependency.
 	flutter pub get
 	```
 
-	### 2. Open your project in Xcode:
+	### Open your project in Xcode
 
 	
 ```bash
 	open ios/Runner.xcodeproj
 	```
 
-    ### 3. Configure the target iOS version
+    ### Set minimum iOS version to 14.0
 
-    Select the project `Runner` in the project navigator, then select the target `Runner` and go to the **Build Settings** tab and search for `iOS Deployment Target` under **Deployment**.
+    In Xcode:
+    1. Select **Runner** (project navigator on the left)
+    2. Select **Runner** target
+    3. Open **Build Settings** tab
+    4. Search for **iOS Deployment Target**
+    5. Change to **14.0** or higher
 
     
 
-    Set the target iOS version to **14.0** or higher.
-
     
 
-	**Note:** This plugin uses Swift Package Manager for iOS dependencies. No CocoaPods configuration is required.
+		This SDK uses Swift Package Manager—no CocoaPods setup required.
+
+	:::
+
 </TabItem>
 
 </Tabs>
 
+---
+
+## Troubleshooting
+
 <details>
-    <summary>Common issues and troubleshooting</summary>
+    <summary>Dependencies not installing?</summary>
 
-    #### Reinstall dependencies
+    Try reinstalling:
 
-    Make sure the `flutter doctor` command does not report any issues.
-    Run `flutter clean` and `flutter pub get` to ensure all dependencies are correctly installed.
+    
+```bash
+    flutter clean
+    flutter pub get
+    ```
 
-    #### Android configuration issues
+    Check for issues:
 
-    If issues persist on Android, try opening the `android` folder in Android Studio and syncing the Gradle files.
+    
+```bash
+    flutter doctor
+    ```
 
-    #### Other issues
+</details>
 
-    If you still encounter issues, try cleaning the cache for flutter packages by running:
+<details>
+    <summary>Android build failing?</summary>
+
+    1. Open the `android` folder in Android Studio
+    2. Let Gradle sync
+    3. Fix any errors shown in the **Build** panel
+</details>
+
+<details>
+    <summary>Still having issues?</summary>
+
+    Clear the package cache and reinstall:
 
     
 ```bash
     flutter pub cache clean
+    flutter pub get
     ```
 
-    #### App craches on iOS startup in release mode
+</details>
 
-    Make sure you have the following entry in your iOS project's `info.plist` file (by default, a Flutter project contains this entry, but if you have removed it please re-add it as it's required by SDK initialization). 
+<details>
+    <summary>iOS app crashes on startup (release mode only)?</summary>
 
-    This setting is required for proper localization and application stability in release mode. The app will crash at startup otherwise.
+    Check that `ios/Runner/Info.plist` contains:
 
     
 ```xml
@@ -128,4 +162,5 @@ Run `flutter pub get` to install the new dependency.
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     ```
 
+    This entry is required for the SDK. Flutter projects include it by default.
 </details>

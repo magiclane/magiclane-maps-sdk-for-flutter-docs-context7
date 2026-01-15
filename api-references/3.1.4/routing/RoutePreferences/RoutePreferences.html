@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the RoutePreferences.new constructor from Class RoutePreferences from the routing library, for the Dart programming language.">
+  <title>RoutePreferences.new constructor - RoutePreferences - routing library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../routing/">routing.dart</a></li>
+    <li><a href="../../routing/RoutePreferences-class.html">RoutePreferences</a></li>
+    <li class="self-crumb">RoutePreferences.new factory constructor</li>
+  </ol>
+  <div class="self-name">RoutePreferences.new</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="routing&#47;RoutePreferences-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-constructor">RoutePreferences</span> constructor 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+      <span class="name ">RoutePreferences</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="-param-accurateTrackMatch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">accurateTrackMatch</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="-param-algorithmType"><span class="type-annotation"><a href="../../routing/PTAlgorithmType.html">PTAlgorithmType</a></span> <span class="parameter-name">algorithmType</span> = <span class="default-value">PTAlgorithmType.departure</span>, </span></li>
+<li><span class="parameter" id="-param-allowOnlineCalculation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">allowOnlineCalculation</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="-param-alternativeRoutesBalancedSorting"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">alternativeRoutesBalancedSorting</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="-param-alternativesSchema"><span class="type-annotation"><a href="../../routing/RouteAlternativesSchema.html">RouteAlternativesSchema</a></span> <span class="parameter-name">alternativesSchema</span> = <span class="default-value">RouteAlternativesSchema.defaultSchema</span>, </span></li>
+<li><span class="parameter" id="-param-avoidBikingHillFactor"><span>@<a href="https://api.flutter.dev/flutter/dart-core/Deprecated/Deprecated.html">Deprecated</a>(&#39;Use fitnessFactor instead&#39;)</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">avoidBikingHillFactor</span>, </span></li>
+<li><span class="parameter" id="-param-fitnessFactor"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">fitnessFactor</span> = <span class="default-value">0.5</span>, </span></li>
+<li><span class="parameter" id="-param-avoidCarpoolLanes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">avoidCarpoolLanes</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-avoidFerries"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">avoidFerries</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-avoidMotorways"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">avoidMotorways</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-avoidTollRoads"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">avoidTollRoads</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-avoidTraffic"><span class="type-annotation"><a href="../../routing/TrafficAvoidance.html">TrafficAvoidance</a></span> <span class="parameter-name">avoidTraffic</span> = <span class="default-value">TrafficAvoidance.none</span>, </span></li>
+<li><span class="parameter" id="-param-avoidTurnAroundInstruction"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">avoidTurnAroundInstruction</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-avoidUnpavedRoads"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">avoidUnpavedRoads</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-bikeProfile"><span class="type-annotation"><a href="../../routing/BikeProfileElectricBikeProfile-class.html">BikeProfileElectricBikeProfile</a>?</span> <span class="parameter-name">bikeProfile</span>, </span></li>
+<li><span class="parameter" id="-param-buildConnections"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">buildConnections</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-buildTerrainProfile"><span class="type-annotation"><a href="../../routing/BuildTerrainProfile-class.html">BuildTerrainProfile</a></span> <span class="parameter-name">buildTerrainProfile</span> = <span class="default-value">const BuildTerrainProfile()</span>, </span></li>
+<li><span class="parameter" id="-param-carProfile"><span class="type-annotation"><a href="../../routing/CarProfile-class.html">CarProfile</a>?</span> <span class="parameter-name">carProfile</span>, </span></li>
+<li><span class="parameter" id="-param-departureHeading"><span class="type-annotation"><a href="../../routing/DepartureHeading-class.html">DepartureHeading</a></span> <span class="parameter-name">departureHeading</span> = <span class="default-value">const DepartureHeading()</span>, </span></li>
+<li><span class="parameter" id="-param-emergencyVehicleExtraFreedomLevels"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">emergencyVehicleExtraFreedomLevels</span> = <span class="default-value">0</span>, </span></li>
+<li><span class="parameter" id="-param-emergencyVehicleMode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">emergencyVehicleMode</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-ignoreRestrictionsOverTrack"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">ignoreRestrictionsOverTrack</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-maximumDistanceConstraint"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">maximumDistanceConstraint</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="-param-maximumTransferTimeInMinutes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">maximumTransferTimeInMinutes</span> = <span class="default-value">300</span>, </span></li>
+<li><span class="parameter" id="-param-maximumWalkDistance"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">maximumWalkDistance</span> = <span class="default-value">5000</span>, </span></li>
+<li><span class="parameter" id="-param-minimumTransferTimeInMinutes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">minimumTransferTimeInMinutes</span> = <span class="default-value">1</span>, </span></li>
+<li><span class="parameter" id="-param-pathAlgorithm"><span class="type-annotation"><a href="../../routing/RoutePathAlgorithm.html">RoutePathAlgorithm</a></span> <span class="parameter-name">pathAlgorithm</span> = <span class="default-value">RoutePathAlgorithm.ml</span>, </span></li>
+<li><span class="parameter" id="-param-pathAlgorithmFlavor"><span class="type-annotation"><a href="../../routing/RoutePathAlgorithmFlavor.html">RoutePathAlgorithmFlavor</a></span> <span class="parameter-name">pathAlgorithmFlavor</span> = <span class="default-value">RoutePathAlgorithmFlavor.magicLane</span>, </span></li>
+<li><span class="parameter" id="-param-pedestrianProfile"><span class="type-annotation"><a href="../../routing/PedestrianProfile.html">PedestrianProfile</a></span> <span class="parameter-name">pedestrianProfile</span> = <span class="default-value">PedestrianProfile.walk</span>, </span></li>
+<li><span class="parameter" id="-param-resultDetails"><span class="type-annotation"><a href="../../routing/RouteResultDetails.html">RouteResultDetails</a></span> <span class="parameter-name">resultDetails</span> = <span class="default-value">RouteResultDetails.full</span>, </span></li>
+<li><span class="parameter" id="-param-routeGroupIdsEarlierLater"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> <span class="parameter-name">routeGroupIdsEarlierLater</span> = <span class="default-value">const &lt;int&gt;[]</span>, </span></li>
+<li><span class="parameter" id="-param-routeRanges"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>&gt;</span></span> <span class="parameter-name">routeRanges</span> = <span class="default-value">const &lt;int&gt;[]</span>, </span></li>
+<li><span class="parameter" id="-param-routeRangesQuality"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">routeRangesQuality</span> = <span class="default-value">100</span>, </span></li>
+<li><span class="parameter" id="-param-routeType"><span class="type-annotation"><a href="../../routing/RouteType.html">RouteType</a></span> <span class="parameter-name">routeType</span> = <span class="default-value">RouteType.fastest</span>, </span></li>
+<li><span class="parameter" id="-param-routeTypePreferences"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Set-class.html">Set</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../routing/RouteTypePreferences.html">RouteTypePreferences</a></span>&gt;</span></span> <span class="parameter-name">routeTypePreferences</span> = <span class="default-value">const &lt;RouteTypePreferences&gt;{RouteTypePreferences.none}</span>, </span></li>
+<li><span class="parameter" id="-param-sortingStrategy"><span class="type-annotation"><a href="../../routing/PTSortingStrategy.html">PTSortingStrategy</a></span> <span class="parameter-name">sortingStrategy</span> = <span class="default-value">PTSortingStrategy.bestTime</span>, </span></li>
+<li><span class="parameter" id="-param-timestamp"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">timestamp</span>, </span></li>
+<li><span class="parameter" id="-param-transportMode"><span class="type-annotation"><a href="../../routing/RouteTransportMode.html">RouteTransportMode</a></span> <span class="parameter-name">transportMode</span> = <span class="default-value">RouteTransportMode.car</span>, </span></li>
+<li><span class="parameter" id="-param-truckProfile"><span class="type-annotation"><a href="../../routing/TruckProfile-class.html">TruckProfile</a>?</span> <span class="parameter-name">truckProfile</span>, </span></li>
+<li><span class="parameter" id="-param-useBikes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">useBikes</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-useWheelchair"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">useWheelchair</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-isTrackResume"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isTrackResume</span> = <span class="default-value">true</span>, </span></li>
+<li><span class="parameter" id="-param-immutableRoadblockAvoidance"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">immutableRoadblockAvoidance</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-accurateWaypointsApproach"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">accurateWaypointsApproach</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="-param-roundTripParameters"><span class="type-annotation"><a href="../../routing/RoundTripParameters-class.html">RoundTripParameters</a>?</span> <span class="parameter-name">roundTripParameters</span>, </span></li>
+</ol>})
+    </section>
+    
+<section class="desc markdown">
+  <p>Creates a new set of routing preferences used to customize how routes are calculated.</p>
+<p>These preferences control routing behavior such as transport mode, avoidance options,
+algorithm selection, profile overrides, and constraints for transfers, walking distance,
+and timing. Provide only the options you need; unspecified profile fields will fall back
+to default behavior. This constructor configures a request-level set of hints that
+influence route generation and result formatting.</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>accurateTrackMatch</code>: When true, prefer tighter matching of the computed route to an existing track or path to increase positional accuracy.</li>
+<li><code>algorithmType</code>: Public-transport algorithm selection. Specifies if the <code>timestamp</code> should be interpreted for departure or arrival-based strategies.</li>
+<li><code>allowOnlineCalculation</code>: Whether online calculation can be used. If <code>false</code>, the routing engine will rely solely on offline data.</li>
+<li><code>alternativeRoutesBalancedSorting</code>: Balances sorting of alternative routes.</li>
+<li><code>alternativesSchema</code>: Defines the schema for alternative routes.</li>
+<li><code>avoidBikingHillFactor</code>: (Deprecated) Use <code>fitnessFactor</code> instead. Factor that influences how strongly hills are avoided when computing bike routes.</li>
+<li><code>fitnessFactor</code>: Factor that influences routing for bikes and pedestrians; affects slope preferences based on profile type.</li>
+<li><code>avoidCarpoolLanes</code>: When true, avoid carpool/HOV lanes in car routing.</li>
+<li><code>avoidFerries</code>: When true, avoid ferry segments in the route.</li>
+<li><code>avoidMotorways</code>: When true, avoid motorways/highways when possible.</li>
+<li><code>avoidTollRoads</code>: When true, avoid toll roads when possible.</li>
+<li><code>avoidTraffic</code>: Level of traffic avoidance to apply when computing motorized routes.</li>
+<li><code>avoidTurnAroundInstruction</code>: When true, prefer routes that do not require explicit turn-around maneuvers.</li>
+<li><code>avoidUnpavedRoads</code>: When true, avoid unpaved or unsealed roads in the route.</li>
+<li><code>bikeProfile</code>: Optional bike-specific routing profile to override default bicycle behavior.</li>
+<li><code>buildConnections</code>: When true, construct and include connections.</li>
+<li><code>buildTerrainProfile</code>: Options controlling whether and how a terrain profile is built for the route. Is crucial for <a href="../../core/RouteTerrainProfile-class.html">RouteTerrainProfile</a> availability.</li>
+<li><code>carProfile</code>: Optional car-specific routing profile to override default car behavior.</li>
+<li><code>departureHeading</code>: Optional heading constraint applied at the route origin.</li>
+<li><code>emergencyVehicleExtraFreedomLevels</code>: Extra freedom levels for emergency vehicles.</li>
+<li><code>emergencyVehicleMode</code>: When true, enable emergency-vehicle routing behavior and allowances.</li>
+<li><code>ignoreRestrictionsOverTrack</code>: When true, ignore map-based restrictions during path based calculations.</li>
+<li><code>maximumDistanceConstraint</code>: When true, enforce maximum distance constraints where applicable.</li>
+<li><code>maximumTransferTimeInMinutes</code>: Maximum allowed transfer time (in minutes) when building transit routes.</li>
+<li><code>maximumWalkDistance</code>: Maximum walking distance (in meters) that is allowed in the public transport route.</li>
+<li><code>minimumTransferTimeInMinutes</code>: Minimum allowed transfer time (in minutes) between connections in public transport routes.</li>
+<li><code>pathAlgorithm</code>: Choice of pathfinding algorithm used to compute the route geometry.</li>
+<li><code>pathAlgorithmFlavor</code>: Variant or flavor of the chosen path algorithm to tweak behavior or heuristics.</li>
+<li><code>pedestrianProfile</code>: Pedestrian profile selection (for example, walk, run) to influence pedestrian routing.</li>
+<li><code>resultDetails</code>: Level of detail to include in the returned <a href="../../core/Route-class.html">Route</a> (summary vs full details).</li>
+<li><code>routeGroupIdsEarlierLater</code>: IDs for earlier/later route groups.</li>
+<li><code>routeRanges</code>: List of route ranges thresholds used when generating route ranges. The unit depends on the <code>routeType</code>.</li>
+<li><code>routeRangesQuality</code>: Quality threshold applied to route ranges.</li>
+<li><a href="../../routing/RoutePreferences/routeResultType.html">routeResultType</a>: The type of the returned <a href="../../core/Route-class.html">Route</a> type: navigable path or range.</li>
+<li><code>routeType</code>: Preferred route type (for example, fastest, shortest, or eco).</li>
+<li><code>routeTypePreferences</code>: Set of additional public-transport route type preferences influencing the preferred transport modes.</li>
+<li><code>sortingStrategy</code>: Strategy used to sort or rank public-transport alternatives.</li>
+<li><code>timestamp</code>: Optional reference timestamp for the routing request (e.g., departure/arrival time).</li>
+<li><code>transportMode</code>: Primary transport mode for the route (for example, car, bike, pedestrian).</li>
+<li><code>truckProfile</code>: Optional truck-specific routing profile to override default truck behavior.</li>
+<li><code>useBikes</code>: When true, enable bike-accessible routing constraints.</li>
+<li><code>useWheelchair</code>: When true, enable wheelchair-accessible routing constraints.</li>
+<li><code>isTrackResume</code>: Whether path-based routing should follow the whole track or resume from the closest point.</li>
+<li><code>roundTripParameters</code>: Optional parameters for roundtrip route generation.</li>
+<li><a href="../../routing/RoutePreferences/roundTripRange.html">roundTripRange</a>: Desired roundtrip distance or duration, depending on <a href="../../routing/RoutePreferences/roundTripRangeType.html">roundTripRangeType</a>.</li>
+<li><a href="../../routing/RoutePreferences/roundTripRangeType.html">roundTripRangeType</a>: Unit type for the roundtrip range (distance or duration).</li>
+<li><a href="../../routing/RoutePreferences/roundTripRandomSeed.html">roundTripRandomSeed</a>: Optional random seed to influence roundtrip route generation variability.</li>
+</ul>
+<h2 id="see-also">See also:</h2>
+<ul>
+<li><a href="../../routing/RoutePreferences-class.html">RoutePreferences</a> - The class holding these constructor options.</li>
+<li><a href="../../routing/RouteTransportMode.html">RouteTransportMode</a> - Available transport modes that affect routing behavior.</li>
+<li><a href="../../routing/CarProfile-class.html">CarProfile</a> - Car-specific routing constraints.</li>
+<li><a href="../../routing/TruckProfile-class.html">TruckProfile</a> - Truck-specific routing constraints.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">factory RoutePreferences({
+  final bool accurateTrackMatch = true,
+  final PTAlgorithmType algorithmType = PTAlgorithmType.departure,
+  final bool allowOnlineCalculation = true,
+  final bool alternativeRoutesBalancedSorting = true,
+  final RouteAlternativesSchema alternativesSchema =
+      RouteAlternativesSchema.defaultSchema,
+  @Deprecated(&#39;Use fitnessFactor instead&#39;)
+  final double? avoidBikingHillFactor,
+  final double fitnessFactor = 0.5,
+  final bool avoidCarpoolLanes = false,
+  final bool avoidFerries = false,
+  final bool avoidMotorways = false,
+  final bool avoidTollRoads = false,
+  final TrafficAvoidance avoidTraffic = TrafficAvoidance.none,
+  final bool avoidTurnAroundInstruction = false,
+  final bool avoidUnpavedRoads = false,
+  final BikeProfileElectricBikeProfile? bikeProfile,
+  final bool buildConnections = false,
+  final BuildTerrainProfile buildTerrainProfile = const BuildTerrainProfile(),
+  final CarProfile? carProfile,
+  final DepartureHeading departureHeading = const DepartureHeading(),
+  final int emergencyVehicleExtraFreedomLevels = 0,
+  final bool emergencyVehicleMode = false,
+  final bool ignoreRestrictionsOverTrack = false,
+  final bool maximumDistanceConstraint = true,
+  final int maximumTransferTimeInMinutes = 300,
+  final int maximumWalkDistance = 5000,
+  final int minimumTransferTimeInMinutes = 1,
+  final RoutePathAlgorithm pathAlgorithm = RoutePathAlgorithm.ml,
+  final RoutePathAlgorithmFlavor pathAlgorithmFlavor =
+      RoutePathAlgorithmFlavor.magicLane,
+  final PedestrianProfile pedestrianProfile = PedestrianProfile.walk,
+  final RouteResultDetails resultDetails = RouteResultDetails.full,
+  final List&lt;int&gt; routeGroupIdsEarlierLater = const &lt;int&gt;[],
+  final List&lt;int&gt; routeRanges = const &lt;int&gt;[],
+  final int routeRangesQuality = 100,
+  final RouteType routeType = RouteType.fastest,
+  final Set&lt;RouteTypePreferences&gt; routeTypePreferences =
+      const &lt;RouteTypePreferences&gt;{RouteTypePreferences.none},
+  final PTSortingStrategy sortingStrategy = PTSortingStrategy.bestTime,
+  final DateTime? timestamp,
+  final RouteTransportMode transportMode = RouteTransportMode.car,
+  final TruckProfile? truckProfile,
+  final bool useBikes = false,
+  final bool useWheelchair = false,
+  final bool isTrackResume = true,
+  final bool immutableRoadblockAvoidance = false,
+  final bool accurateWaypointsApproach = false,
+  final RoundTripParameters? roundTripParameters,
+}) {
+  final RoutePreferences result = RoutePreferences._create();
+  result.accurateTrackMatch = accurateTrackMatch;
+  result.algorithmType = algorithmType;
+  result.allowOnlineCalculation = allowOnlineCalculation;
+  result.alternativeRoutesBalancedSorting = alternativeRoutesBalancedSorting;
+  result.alternativesSchema = alternativesSchema;
+  result.fitnessFactor = avoidBikingHillFactor ?? fitnessFactor;
+  result.avoidCarpoolLanes = avoidCarpoolLanes;
+  result.avoidFerries = avoidFerries;
+  result.avoidMotorways = avoidMotorways;
+  result.avoidTollRoads = avoidTollRoads;
+  result.avoidTraffic = avoidTraffic;
+  result.avoidTurnAroundInstruction = avoidTurnAroundInstruction;
+  result.avoidUnpavedRoads = avoidUnpavedRoads;
+  if (bikeProfile != null) {
+    result.bikeProfile = bikeProfile;
+  }
+  result.buildConnections = buildConnections;
+  result.buildTerrainProfile = buildTerrainProfile;
+  if (carProfile != null) {
+    result.carProfile = carProfile;
+  }
+  result.departureHeading = departureHeading;
+  result.emergencyVehicleExtraFreedomLevels =
+      emergencyVehicleExtraFreedomLevels;
+  result.emergencyVehicleMode = emergencyVehicleMode;
+  result.ignoreRestrictionsOverTrack = ignoreRestrictionsOverTrack;
+  result.maximumDistanceConstraint = maximumDistanceConstraint;
+  result.maximumTransferTimeInMinutes = maximumTransferTimeInMinutes;
+  result.maximumWalkDistance = maximumWalkDistance;
+  result.minimumTransferTimeInMinutes = minimumTransferTimeInMinutes;
+  result.pathAlgorithm = pathAlgorithm;
+  result.pathAlgorithmFlavor = pathAlgorithmFlavor;
+  result.pedestrianProfile = pedestrianProfile;
+  result.resultDetails = resultDetails;
+  result.routeGroupIdsEarlierLater = routeGroupIdsEarlierLater;
+  result.routeRangesQuality = routeRangesQuality;
+  result.routeRanges = routeRanges;
+  result.routeType = routeType;
+  result.routeTypePreferences = routeTypePreferences;
+  result.sortingStrategy = sortingStrategy;
+  if (timestamp != null) {
+    result.timestamp = timestamp;
+  }
+  result.transportMode = transportMode;
+  if (truckProfile != null) {
+    result.truckProfile = truckProfile;
+  }
+  result.useBikes = useBikes;
+  result.useWheelchair = useWheelchair;
+  result.isTrackResume = isTrackResume;
+  result.immutableRoadblockAvoidance = immutableRoadblockAvoidance;
+  result.accurateWaypointsApproach = accurateWaypointsApproach;
+  if (roundTripParameters != null) {
+    result.roundTripParameters = roundTripParameters;
+  }
+  return result;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../routing/">routing</a></li>
+    <li><a href="../../routing/RoutePreferences-class.html">RoutePreferences</a></li>
+    <li class="self-crumb">RoutePreferences.new factory constructor</li>
+</ol>
+
+    <h5>RoutePreferences class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-left-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

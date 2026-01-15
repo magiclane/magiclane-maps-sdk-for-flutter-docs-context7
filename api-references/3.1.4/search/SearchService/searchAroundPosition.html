@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the searchAroundPosition method from the SearchService class, for the Dart programming language.">
+  <title>searchAroundPosition method - SearchService class - search library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../search/">search.dart</a></li>
+    <li><a href="../../search/SearchService-class.html">SearchService</a></li>
+    <li class="self-crumb">searchAroundPosition static method</li>
+  </ol>
+  <div class="self-name">searchAroundPosition</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="search&#47;SearchService-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">searchAroundPosition</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="../../core/TaskHandler-class.html">TaskHandler</a>?</span>
+<span class="name ">searchAroundPosition</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="searchAroundPosition-param-position"><span class="type-annotation"><a href="../../core/Coordinates-class.html">Coordinates</a></span> <span class="parameter-name">position</span>, </span></li>
+<li><span class="parameter" id="searchAroundPosition-param-onComplete"><span class="type-annotation">void</span> <span class="parameter-name">onComplete</span>(<ol class="parameter-list single-line"> <li><span class="parameter" id="param-err"><span class="type-annotation"><a href="../../core/GemError.html">GemError</a></span> <span class="parameter-name">err</span>, </span></li>
+<li><span class="parameter" id="param-results"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../core/Landmark-class.html">Landmark</a></span>&gt;</span></span> <span class="parameter-name">results</span></span></li>
+</ol>), {</span></li>
+<li><span class="parameter" id="searchAroundPosition-param-textFilter"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">textFilter</span>, </span></li>
+<li><span class="parameter" id="searchAroundPosition-param-preferences"><span class="type-annotation"><a href="../../search/SearchPreferences-class.html">SearchPreferences</a>?</span> <span class="parameter-name">preferences</span>, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Search for landmarks around a position.</p>
+<p>Finds landmarks in the closest proximity to <code>position</code>, optionally filtered by <code>textFilter</code>. If no text filter is provided,
+all landmarks near the position are returned (limited by preferences).</p>
+<h2 id="parameters">Parameters</h2>
+<ul>
+<li><code>position</code>: The geographic position to search around.</li>
+<li><code>onComplete</code>: Callback invoked when the search completes. Provides:
+<ul>
+<li><code>err</code>: The result status. Possible values:
+<ul>
+<li><a href="../../core/GemError.html">GemError.success</a>: Search completed successfully with results.</li>
+<li><a href="../../core/GemError.html">GemError.reducedResult</a>: Search completed successfully but only a subset of results was returned.</li>
+<li><a href="../../core/GemError.html">GemError.invalidInput</a>: Invalid input (e.g., invalid <code>position</code>).</li>
+<li><a href="../../core/GemError.html">GemError.cancel</a>: Search canceled by user.</li>
+<li><a href="../../core/GemError.html">GemError.noMemory</a>: Insufficient memory for operation.</li>
+<li><a href="../../core/GemError.html">GemError.operationTimeout</a>: Operation timeout on online service (typically &gt; 1 min).</li>
+<li><a href="../../core/GemError.html">GemError.networkFailed</a>: Network failure during online search.</li>
+</ul>
+</li>
+<li><code>results</code>: List of found landmarks (empty on error).</li>
+</ul>
+</li>
+<li><code>textFilter</code>: Optional text filter to narrow results.</li>
+<li><code>preferences</code>: Optional <a href="../../search/SearchPreferences-class.html">SearchPreferences</a> to customize search behavior.</li>
+</ul>
+<h2 id="returns">Returns</h2>
+<ul>
+<li><a href="../../core/TaskHandler-class.html">TaskHandler?</a>: TaskHandler for this operation if search could be started; otherwise null.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static TaskHandler? searchAroundPosition(
+  final Coordinates position,
+  final void Function(GemError err, List&lt;Landmark&gt; results) onComplete, {
+  final String? textFilter,
+  SearchPreferences? preferences,
+}) {
+  preferences ??= SearchPreferences();
+
+  final EventDrivenProgressListener progListener =
+      EventDrivenProgressListener();
+  GemKitPlatform.instance.registerEventHandler(progListener.id, progListener);
+  final LandmarkList results = LandmarkList();
+
+  progListener.registerOnCompleteWithData((
+    final int err,
+    final String hint,
+    final Map&lt;dynamic, dynamic&gt; json,
+  ) {
+    GemKitPlatform.instance.unregisterEventHandler(progListener.id);
+
+    if (err == GemError.success.code || err == GemError.reducedResult.code) {
+      onComplete(GemErrorExtension.fromCode(err), results.toList());
+    } else {
+      onComplete(GemErrorExtension.fromCode(err), &lt;Landmark&gt;[]);
+    }
+  });
+
+  final OperationResult resultString = staticMethod(
+    &#39;SearchService&#39;,
+    &#39;searchAroundPosition&#39;,
+    args: &lt;String, dynamic&gt;{
+      &#39;results&#39;: results.pointerId,
+      &#39;listener&#39;: progListener.id,
+      &#39;position&#39;: position,
+      if (textFilter != null) &#39;textFilter&#39;: textFilter,
+      &#39;preferences&#39;: preferences.pointerId,
+    },
+  );
+
+  final GemError errorCode = GemErrorExtension.fromCode(
+    resultString[&#39;result&#39;],
+  );
+
+  if (errorCode != GemError.success) {
+    onComplete(errorCode, &lt;Landmark&gt;[]);
+    return null;
+  }
+
+  return TaskHandlerImpl(progListener.id);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">magiclane_maps_flutter</a></li>
+    <li><a href="../../search/">search</a></li>
+    <li><a href="../../search/SearchService-class.html">SearchService</a></li>
+    <li class="self-crumb">searchAroundPosition static method</li>
+</ol>
+
+    <h5>SearchService class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

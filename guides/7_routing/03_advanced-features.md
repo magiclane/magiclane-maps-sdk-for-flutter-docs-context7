@@ -5,9 +5,13 @@ title: Advanced Features
 
 # Advanced features
 
+This guide covers advanced routing features including route ranges, path-based routes, and public transit routing.
+
+---
+
 ## Compute route ranges
 
-In order to compute a route range we need to:
+To compute a route range:
 
 - Specify in the `RoutePreferences` the most important route preferences (others can also be used):
 
@@ -17,21 +21,23 @@ In order to compute a route range we need to:
 
      - [optional] `routeType` (can be `fastest`, `economic`, `shortest` - by default is fastest)
 
-     - [optional] `routeRangesQuality` ( a value in the interval [0, 100], default 100) representing the quality of the generated polygons.
+     - [optional] `routeRangesQuality` (a value in the interval [0, 100], default 100) representing the quality of the generated polygons
 
-- The list of landmarks will contain only one landmark, the starting point for the route range computation.
+- The list of landmarks will contain only one landmark, the starting point for the route range computation
 
-| Preference                          | Measurement unit     |
-|-------------------------------------|----------------------|
-| fastest                             | seconds              |
-| shortest                            | meters               |
-| economic                            | Wh                   |
+**Measurement units by route type:**
+
+- **fastest** - seconds
+
+- **shortest** - meters
+
+- **economic** - Wh
 
 Routes computed using route ranges are **not navigable**.
 
 The `RouteType.scenic` route type is not supported for route ranges.
 
-Route can be computed with a code like the following. It is a range route computation because it only has a simple `Landmark` and `routeRanges` contains values (in this case 2 routes will be computed).
+Compute a range route using a single `Landmark` and multiple `routeRanges` values:
 ```dart
 // Define the departure.
 final startLandmark =
@@ -56,23 +62,21 @@ final taskHandler = RoutingService.calculateRoute(
     });
 ```
 
-The computed routes can be displayed on the map, just like any regular route, with the only difference that the additional settings `RouteRenderSettings.m_fillColor` is used to define the polygon fill color.
+Display computed routes on the map like regular routes. Use `RouteRenderSettings.m_fillColor` to define the polygon fill color.
 
-## Compute path based routes
+---
 
-A `Path` is a structure containing a list of coordinates (a track). It can be created based on:
+## Compute path-based routes
 
-- custom coordinates specified by the user
+A `Path` contains a list of coordinates (a track) created from:
 
-- coordinates recorded in a GPX file
+- Custom coordinates
 
-- coordinates obtained by doing a finger draw on the map
+- GPX file coordinates
 
-A **Path backed landmark** is a special kind of `Landmark` that has a `Path` inside it.
+- Finger-drawn map coordinates
 
-Sometimes we want to compute routes based on a list of one or more **Path backed landmark**(s) and optionally some regular `Landmark`(s). In this case the result will only contain one route. The path provided as waypoint track is used as a hint for the routing algorithm.
-
-You can see an example below (the highlighted area represents the code necessary to create the list with one element of type landmark built based on a path): 
+A **path-backed landmark** is a `Landmark` containing a `Path`. Compute routes using one or more path-backed landmarks combined with optional regular landmarks. The path serves as a hint for the routing algorithm, and the result contains only one route.
 ```dart
 //highlight-start
 final coords = [
@@ -85,7 +89,7 @@ final coords = [
 Path gemPath = Path.fromCoordinates(coords);
 
 // A list containing only one Path backed Landmark
-List<Landmark> landmarkList = gemPath.toLandmarkList();
+List<Landmark> landmarkList = gemPath.landmarkList;
 //highlight-end
 
 // Define the route preferences.
@@ -103,18 +107,21 @@ final taskHandler = RoutingService.calculateRoute(
 });
 ```
 
-The `Path` object associated to a path based landmark can be modified using the `trackData` setter available on the `Landmark` object.
-See the [Landmarks guide](../core/landmarks) for more details about this.
+Modify the `Path` object using the `trackData` setter on the `Landmark` object. See the [Landmarks guide](../core/landmarks) for details.
 
-When computing a route based on a path backed landmark **and** non-path backed landmarks, it is mandatory to set the `accurateTrackMatch` field from `RoutePreferences` to `true`. Otherwise, the routing computation will fail with a `GemError.unsupported` error.
+When computing a route with both path-backed and non-path-backed landmarks, set `accurateTrackMatch` to `true` in `RoutePreferences`. Otherwise, routing computation fails with `GemError.unsupported`.
 
-The `isTrackResume` field from `RoutePreferences` can also be set to configure the behaviour of the routing engine when one track based landmark is used as a waypoint toghether with other landmarks.
-If this field is set to `true`, the routing engine will try to match the entire track of the path based landmark.
-Otherwise, if set to `false`, only the end point of the track will be used as waypoints.
+Configure the routing engine behavior with the `isTrackResume` field:
 
-## Computing a route based on a GPX file
+- **`true`** - Matches the entire track of the path-backed landmark
 
-You can compute a route based on a GPX file by using the `path based landmark` described in the previous section. The only difference is how we compute the `gemPath`.
+- **`false`** - Uses only the end point as a waypoint
+
+---
+
+## Compute routes from GPX files
+
+Compute a route from a GPX file using a path-based landmark. The only difference is creating the `gemPath` from the file:
 ```dart
 //highlight-start
 File gpxFile = await provideFile("recorded_route.gpx");
@@ -131,7 +138,7 @@ final gemPath = Path.create(data: pathData, format: PathFileFormat.gpx);
 //highlight-end
 
 // LandmarkList will contain only one path based landmark.
-final landmarkList = gemPath.toLandmarkList();
+final landmarkList = gemPath.landmarkList;
 
 // Define the route preferences.
 final routePreferences =
@@ -146,18 +153,18 @@ RoutingService.calculateRoute(
 );
 ```
 
-## Finger drawn path
+---
 
-When necessary, it is possible to record a path based on drawing with the finger on the map. 
+## Finger drawn paths
 
-It is also possible to record multiple paths. In this situation a straight line is added between any 2 consecutive finger drawn paths.
+Record a path by drawing with your finger on the map. When recording multiple paths, straight lines connect consecutive drawn segments.
 
-When you want to enter this recording mode:
+Enable drawing mode:
 ```dart
 mapController.enableDrawMarkersMode();
 ```
 
-When you want to exit this mode, you can get the generated `List<Landmark>` with the following:
+Exit drawing mode and retrieve the generated landmarks:
 ```dart
 List<Landmark> landmarks = mapController.disableDrawMarkersMode();
 
@@ -170,11 +177,13 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
     });
 ```
 
-The resulted `List<Landmark>` will only contain one element, a path based `Landmark`.
+The resulting `List<Landmark>` contains one path-based `Landmark`.
+
+---
 
 ## Compute public transit routes
 
-In order to compute a public transit route we need to set the `transportMode` field in the `RoutePreferences` like this:
+Set the `transportMode` field in `RoutePreferences` to compute public transit routes:
 ```dart
 // Define the route preferences with public transport mode.
 final routePreferences =
@@ -183,7 +192,7 @@ final routePreferences =
 
 Public transit routes are not navigable.
 
-The full source code to compute a public transit route and handle it could look like this:
+Compute and handle a public transit route:
 ```dart
 // Define the departure.
 final departureLandmark =
@@ -242,13 +251,14 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
 });
 ```
 
-Once routes are computed, if the computation was for public transport route, you can convert a resulted route to a public transit route via `toPtRoute()`. After that you have full access to the methods specific to this kind of route.
+Convert computed routes to public transit routes using `toPtRoute()` to access public transit-specific methods.
 
-A public transit route is a sequence of one or more segments. Each segment is either a walking segment, either a public transit segment. You can determine the segment type based on the `TransitType`.
+A public transit route contains one or more segments. Each segment is either a walking or public transit segment. Determine the segment type using `TransitType`.
 
-`TransitType` can have the following values: walk, bus, underground, railway, tram, waterTransport, other, sharedBike, sharedScooter, sharedCar, unknown.
+**Available `TransitType` values:**
+walk, bus, underground, railway, tram, waterTransport, other, sharedBike, sharedScooter, sharedCar, unknown
 
-Other settings related to public transit (such as departure/arrival time) can be specified within the `RoutePreferences` object passed to the `calculateRoute` method:
+Specify departure/arrival time and other public transit settings in the `RoutePreferences` object:
 ```dart
 final customRoutePreferences = RoutePreferences(
     transportMode: RouteTransportMode.public,
@@ -263,31 +273,30 @@ final customRoutePreferences = RoutePreferences(
 );
 ```
 
-## Export a Route to file
+---
 
-The `exportToFile` method allows you to export a route from `RouteBookmarks` into a file on disk. This makes it possible to store the route for later use or share it with other systems.
+## Export routes to files
 
-The file will be saved at the exact location provided in the **filePath** parameter, so always ensure the directory exists and is writable.
+Export a route from `RouteBookmarks` to a file on disk for later use or sharing. Ensure the directory exists and is writable before saving.
 ```dart
 final error = routeBookmark.exportToFile(index, filePath);
 ```
 
-:::tip[TIP]
+Handle possible errors when exporting:
 
-When exporting a route, make sure to handle possible errors:  
+- **`GemError.notFound`** - Route index does not exist
 
-- **`GemError.notFound`** — This occurs if the given route index does not exist.
+- **`GemError.io`** - File cannot be created or written
 
-- **`GemError.io`** — This occurs if the file cannot be created or written to. 
+## Export routes as strings
 
-## Export a Route as String
-
-The `exportAs` method allows you to export a route into a textual representation. The returned value is a `String` containing the full route data in the requested format.  
-This makes it easy to store the route as a file or share it with other applications that support formats like GPX, KML, NMEA, or GeoJSON.
+Export a route to a textual format using `exportAs`. The method returns a `String` containing the full route data in formats like GPX, KML, NMEA, or GeoJSON.
 ```dart
 final dataGpx = routes.first.exportAs(PathFileFormat.gpx);
-// You now have the full GPX as a string
+// Full GPX data as a string
 ```
+
+---
 
 ## Relevant examples demonstrating routing related features
 

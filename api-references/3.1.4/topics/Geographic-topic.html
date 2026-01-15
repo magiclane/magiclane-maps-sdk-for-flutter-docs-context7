@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="Geographic topic docs, for the Dart programming language.">
+  <title>Geographic topic - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Geographic topic</li>
+  </ol>
+  <div class="self-name">Geographic</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div id="dartdoc-main-content" class="main-content">
+  <h1><span class="kind-category">Geographic</span> topic</h1>
+  
+<section class="desc markdown">
+  <p>This module provides a compact set of value objects and spatial primitives for working with geographic locations, bounding areas, and route geometry in WGS‑84 coordinates. Use these classes to represent points on the globe, define search or geofence boundaries, compute containment and centroids, and manipulate linear path data. Key concepts include coordinate precision, axis-aligned bounding rectangles, polygonal and circular area representations, and tile-based coverage for complex regions.</p>
+<ul>
+<li><strong><code>Coordinates</code></strong>: Represents a position in WGS‑84 (latitude, longitude and optional altitude). Use this value object wherever a geographic point is required; it supports distance and azimuth calculations, validation and cloning.</li>
+<li><strong><code>GeographicArea</code></strong>: Abstract base that defines common spatial operations such as containment testing, bounding-box calculation, center point access and conversion between area types. Implementations provide concrete algorithms for area math - see <code>CircleGeographicArea</code>, <code>RectangleGeographicArea</code>, <code>PolygonGeographicArea</code>, and <code>TilesCollectionGeographicArea</code> for details.</li>
+<li><strong><code>CircleGeographicArea</code></strong>: Circular region defined by a center <code>Coordinates</code> and a radius in meters. Ideal for proximity checks and simple geofencing; provides bounding-box computation and conversion support.</li>
+<li><strong><code>RectangleGeographicArea</code></strong>: Axis-aligned rectangle defined by top-left and bottom-right <code>Coordinates</code>. Use it for bounding boxes, search areas, and map viewport calculations; includes intersection, union, containment, and construction helpers. Is always aligned to latitude/longitude axes.</li>
+<li><strong><code>PolygonGeographicArea</code></strong>: Arbitrary polygon defined by an ordered list of <code>Coordinates</code> vertices. Use polygons for precise administrative or irregular area shapes, centroid computation, and point-in-polygon containment tests.</li>
+<li><strong><code>TilesCollectionGeographicArea</code></strong>: Area represented as a collection of map tiles.</li>
+<li><strong><code>Path</code></strong>: An ordered sequence of <code>Coordinates</code> representing a linear geometry; supports creation from raw coordinates or binary files, cloning, export to multiple formats, and converting to a landmark list for routing.</li>
+<li><strong><code>PathMatch</code></strong>: Lightweight result model representing the outcome of a hit-test against a path collection (includes the matched path index, the matched coordinates, distance and segment index).</li>
+</ul>
+<p>The geographic components work together to provide a consistent spatial model: <code>Coordinates</code> are the core data unit, area types wrap coordinates into meaningful spatial extents, and <code>Path</code> objects model linear geometry used by routing and map display. Together they enable accurate containment checks, bounding-box calculations, centroid computations and conversions between area representations which simplifies search, routing, and geofencing workflows.</p>
+<p>Use <code>Coordinates</code> as the canonical representation of points, then choose the area type that best matches your use case: <code>RectangleGeographicArea</code> for simple bounds and search hints, <code>CircleGeographicArea</code> for proximity filters and radius-based geofencing, <code>PolygonGeographicArea</code> for precise irregular boundaries. These models are used throughout the SDK to define search areas, geofences, and other geographical indicators.</p>
+<p>Learn more about geographic base entities: <a href="https://developer.magiclane.com/docs/flutter/guides/core/base-entities">https://developer.magiclane.com/docs/flutter/guides/core/base-entities</a></p>
+</section>
+
+
+
+  <section class="summary offset-anchor" id="classes">
+    <h2>Classes</h2>
+    <dl>
+      <dt id="CircleGeographicArea">
+  <span class="name "><a href="../core/CircleGeographicArea-class.html">CircleGeographicArea</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Circular geographic area defined by center coordinates and radius in meters.
+</dd>
+
+      <dt id="Coordinates">
+  <span class="name "><a href="../core/Coordinates-class.html">Coordinates</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Represents a geographic position in the WGS‑84 coordinate system.
+</dd>
+
+      <dt id="GeographicArea">
+  <span class="name "><a href="../core/GeographicArea-class.html">GeographicArea</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Abstract base class for representing geographic areas on the WGS 84 ellipsoid.
+</dd>
+
+      <dt id="Path">
+  <span class="name "><a href="../core/Path-class.html">Path</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Represents a path object containing an ordered list of geographic coordinates.
+</dd>
+
+      <dt id="PathMatch">
+  <span class="name "><a href="../core/PathMatch-class.html">PathMatch</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Represents a match result when performing a hit test on a <code>MapViewPathCollection</code>.
+</dd>
+
+      <dt id="PolygonGeographicArea">
+  <span class="name "><a href="../core/PolygonGeographicArea-class.html">PolygonGeographicArea</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Polygonal geographic area defined by a sequence of coordinate vertices.
+</dd>
+
+      <dt id="RectangleGeographicArea">
+  <span class="name "><a href="../core/RectangleGeographicArea-class.html">RectangleGeographicArea</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Rectangular geographic area aligned with latitude and longitude lines.
+</dd>
+
+      <dt id="TilesCollectionGeographicArea">
+  <span class="name "><a href="../core/TilesCollectionGeographicArea-class.html">TilesCollectionGeographicArea</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Geographic area represented as a collection of map tiles.
+</dd>
+
+    </dl>
+  </section>
+
+
+
+
+
+
+  <section class="summary offset-anchor" id="enums">
+    <h2>Enums</h2>
+    <dl>
+      <dt id="GeographicAreaType">
+  <span class="name "><a href="../core/GeographicAreaType.html">GeographicAreaType</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Enumeration of supported geographic area types for spatial representation.
+</dd>
+
+      <dt id="PathFileFormat">
+  <span class="name "><a href="../core/PathFileFormat.html">PathFileFormat</a></span> 
+    <span class="category geographic cp-1 linked" title="This is part of the Geographic topic."><a href="../topics/Geographic-topic.html">Geographic</a></span>
+
+</dt>
+<dd>
+  Supported file formats for importing and exporting <a href="../core/Path-class.html">Path</a> data.
+</dd>
+
+    </dl>
+  </section>
+
+
+</div> <!-- /.main-content -->
+<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">magiclane_maps_flutter</a></li>
+    <li class="self-crumb">Geographic topic</li>
+</ol>
+
+  <h5><span class="package-name">magiclane_maps_flutter</span> <span class="package-kind">package</span></h5>
+  <ol>
+      <li class="section-title">Topics</li>
+        <li><a href="../topics/Common-topic.html">Common</a></li>
+        <li><a href="../topics/Geographic-topic.html">Geographic</a></li>
+        <li><a href="../topics/Images-topic.html">Images</a></li>
+        <li><a href="../topics/Position-topic.html">Position</a></li>
+        <li><a href="../topics/Landmark Store-topic.html">Landmark&nbsp;Store</a></li>
+        <li><a href="../topics/Landmarks-topic.html">Landmarks</a></li>
+        <li><a href="../topics/Markers-topic.html">Markers</a></li>
+        <li><a href="../topics/Overlays-topic.html">Overlays</a></li>
+        <li><a href="../topics/Search-topic.html">Search</a></li>
+        <li><a href="../topics/Route-topic.html">Route</a></li>
+        <li><a href="../topics/Routing-topic.html">Routing</a></li>
+        <li><a href="../topics/Navigation-topic.html">Navigation</a></li>
+        <li><a href="../topics/Driver Behaviour-topic.html">Driver&nbsp;Behaviour</a></li>
+        <li><a href="../topics/Traffic & Roadblocks-topic.html">Traffic&nbsp;&&nbsp;Roadblocks</a></li>
+        <li><a href="../topics/Sound-topic.html">Sound</a></li>
+        <li><a href="../topics/Sensor Data Source-topic.html">Sensor&nbsp;Data&nbsp;Source</a></li>
+        <li><a href="../topics/Content-topic.html">Content</a></li>
+        <li><a href="../topics/Alarms-topic.html">Alarms</a></li>
+        <li><a href="../topics/Settings-topic.html">Settings</a></li>
+        <li><a href="../topics/Timezone-topic.html">Timezone</a></li>
+        <li><a href="../topics/Iso Code Conversions-topic.html">Iso&nbsp;Code&nbsp;Conversions</a></li>
+        <li><a href="../topics/Locale-topic.html">Locale</a></li>
+        <li><a href="../topics/Weather-topic.html">Weather</a></li>
+      <li class="section-title">Libraries</li>
+      <li><a href="../content_store/">content_store</a></li>
+      <li><a href="../core/">core</a></li>
+      <li><a href="../driver_behaviour/">driver_behaviour</a></li>
+      <li><a href="../landmark_store/">landmark_store</a></li>
+      <li><a href="../map/">map</a></li>
+      <li><a href="../navigation/">navigation</a></li>
+      <li><a href="../position/">position</a></li>
+      <li><a href="../projections/">projections</a></li>
+      <li><a href="../routing/">routing</a></li>
+      <li><a href="../search/">search</a></li>
+      <li><a href="../sense/">sense</a></li>
+      <li><a href="../weather/">weather</a></li>
+</ol>
+
+</div>
+<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  <h5>Geographic topic</h5>
+  <ol>
+
+    <li class="section-title"><a href="../topics/Geographic-topic.html#classes">Classes</a></li>
+      <li><a href="../core/CircleGeographicArea-class.html">CircleGeographicArea</a></li>
+      <li><a href="../core/Coordinates-class.html">Coordinates</a></li>
+      <li><a href="../core/GeographicArea-class.html">GeographicArea</a></li>
+      <li><a href="../core/Path-class.html">Path</a></li>
+      <li><a href="../core/PathMatch-class.html">PathMatch</a></li>
+      <li><a href="../core/PolygonGeographicArea-class.html">PolygonGeographicArea</a></li>
+      <li><a href="../core/RectangleGeographicArea-class.html">RectangleGeographicArea</a></li>
+      <li><a href="../core/TilesCollectionGeographicArea-class.html">TilesCollectionGeographicArea</a></li>
+
+    <li class="section-title"><a href="../topics/Geographic-topic.html#enums">Enums</a></li>
+      <li><a href="../core/GeographicAreaType.html">GeographicAreaType</a></li>
+      <li><a href="../core/PathFileFormat.html">PathFileFormat</a></li>
+
+
+
+
+
+
+
+
+</ol>
+
+</div>
+<!--/sidebar-offcanvas-right-->
+</main>
+<footer>
+  <span class="no-break">
+    magiclane_maps_flutter
+      3.1.4
+  </span>
+  <span> | Copyright (C) 2023-2026 Magic Lane International B.V.</span>
+
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

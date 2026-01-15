@@ -5,63 +5,95 @@ title: Usage Guidelines
 
 # Usage guidelines
 
-This page outlines the recommended usage guidelines for the Maps SDK for Flutter. Adhering to these recommendations can enhance code reliability and help prevent issues that may arise from improper implementation.
+This guide outlines best practices and important guidelines for using the Maps SDK for Flutter. Following these recommendations ensures code reliability and helps you avoid common pitfalls.
 
-## Do not extend the classes provided by the SDK
+---
 
-The SDK is designed to deliver all necessary functionalities in an intuitive and straightforward manner. Avoid extending any of the Maps SDK for Flutter classes. Use the callback methods provided by the SDK for seamless integration.
+## SDK Class Usage
 
-## DateTime Parameter Rules
+### Do not extend SDK classes
 
-Make sure the `DateTime` passed to method is a valid positive utc value. Values below the `DateTime.utc(0)` are not supported.
+The SDK provides all necessary functionality out of the box. **Do not extend** any Maps SDK for Flutter classes. Instead, use the callback methods and interfaces provided by the SDK.
 
-## General principles related to listeners
+### Avoid @internal members
 
-- Use the provided register methods or constructor parameters **to subscribe** to events.
+Members, methods, and fields annotated with `@internal` are for internal use only and should not be accessed by your application.
 
-- Only one callback can be active per event type. If multiple callbacks are registered for the same event type, the most recently registered callback will **override** the previous one.
+**Do not use:**
 
-- **To unsubscribe** from events, register an empty callback.
+- **Fields:** `pointerId`, `mapId` getters/fields
 
-## Avoid using members annotated with @internal.
+- **Methods:**
 
-Members, methods, and fields annotated with **@internal** are intended for internal use and should not be accessed or used by API users.
+  - Constructors initializing `pointerId` or `mapId` with `-1`
 
-**Examples of Internal Members and Classes to Avoid:**
+  - `fromJson` and `toJson` methods (JSON structure may change between versions)
 
-- Fields
+  - Listener methods like `notify...` or `handleEvent`
 
-    - Avoid using the `pointerId`, `mapId` fields/getters from classes.
+  - Class `init` methods
 
-- Methods
+- **FFI classes:** `GemKitPlatform`, `GemSdkNative`, `GemAutoreleaseObject`
 
-    - Constructors that initialize `pointerId` or `mapId` with **-1**.
+Using internal elements can cause unexpected behavior and compatibility issues. These are not part of the public API and may change without notice.
 
-    - Do not use `fromJson` and `toJson` methods, as the structure of the generated JSON may change across SDK versions.
+---
 
-    - Avoid invoking listener methods such as `notify...` or `handleEvent`.
+## Working with Parameters
 
-    - Avoid using the `init` methods from classes.
+### DateTime requirements
 
-- FFI-Related Classes
+Ensure `DateTime` values passed to SDK methods are valid positive UTC values. Values below `DateTime.utc(0)` are not supported.
 
-    - Refrain from interacting with classes related to the foreign function interface (FFI), such as `GemKitPlatform`, `GemSdkNative`, `GemAutoreleaseObject`.
+### Units of measurement
 
-Using these internal elements can lead to unexpected behavior and compatibility issues since they are not part of the public API contract and may change or be removed without notice.
+The SDK uses SI units by default:
 
-## Check the error code
+- **Distance:** Meters
 
-Many methods return error codes that indicate the outcome of the operation. Ensure that all failure cases are handled appropriately to maintain code robustness and prevent unexpected behavior.
+- **Time:** Seconds
 
-The `GemError` enum defines the possible values corresponding to the outcome of an operation. The following values indicate successful outcomes:
+- **Mass:** Kilograms
 
-- `success`: The operation completed successfully.
+- **Speed:** Meters per second
 
-- `reducedResult`: The operation completed successfully, but only a subset of the results was returned.
+- **Power:** Watts
 
-- `scheduled`: The operation has been scheduled for execution at a later time.
+Configure the unit system for TTS instructions via `SDKSettings.unitSystem`.
 
-Other SDK methods might result in failure in certain cases (if the system runs out of memory for example), even if they don't return a `GemError` value. In this cases, the error code can be obtained via the ``ApiErrorService`` class. After each operation the error code can be consulted in the following way:
+Some fields use different units where more appropriate. For example, `TruckProfile` dimensions (`height`, `length`, `width`) are in **centimeters**. Check the API reference for specifics.
+
+---
+
+## Event Listeners
+
+Follow these principles when working with event listeners:
+
+- **Subscribe:** Use provided register methods or constructor parameters
+
+- **Single callback:** Only one callback is active per event type; registering a new callback **overrides** the previous one
+
+- **Unsubscribe:** Register an empty callback to unsubscribe
+
+---
+
+## Error Handling
+
+### Check error codes
+
+Always check error codes returned by SDK methods to handle failures appropriately.
+
+The `GemError` enum indicates operation outcomes. Success values include:
+
+- `success` — Operation completed successfully
+
+- `reducedResult` — Partial results returned
+
+- `scheduled` — Operation scheduled for later execution
+
+### Using ApiErrorService
+
+Some methods don't return `GemError` directly but may still fail. Use the `ApiErrorService` class to check the error code:
 ```dart
 // Any SDK call...
 GemError error = ApiErrorService.apiError;
@@ -69,11 +101,11 @@ if (error == GemError.success) print("The last operation succeeded.");
 else print("The last operation failed with error: $error");
 ```
 
-Make sure to check the error code using the ``ApiErrorService.apiError`` getter immediately after the operation completes. Delaying this check could result in other SDK operations being executed, which might overwrite the error code.
+Check the error code using `ApiErrorService.apiError` **immediately after** the operation completes. Other SDK operations may overwrite the error code.
 
-### Get notified about operation error code changes
+### Monitor error updates
 
-The ``ApiErrorService`` class also provides a way to get notified when a SDK operation error code gets updated. The following snippet will register a listener which will be called each time the ``ApiErrorService.apiError`` value updates.
+Register a listener to get notified when error codes change:
 ```dart
 ApiErrorService.registerOnErrorUpdate((error) {
     if (error == GemError.success) print("An operation succeeded");
@@ -81,31 +113,13 @@ ApiErrorService.registerOnErrorUpdate((error) {
 });
 ```
 
-## Units of measurement
+---
 
-The SDK primarily uses SI units for measurements, including:
+## Asynchronous Operations
 
-- Meter (distance).
+### Converting callbacks to Futures
 
-- Second (time).
-
-- Kilogram (mass).
-
-- Meters per second (speed).
-
-- Watts for power (consumption).
-
-The length value and measurement unit used in TTS (text-to-speech) instructions, such as "After 150 meters, bear left," are determined by the unit system configured through the `SDKSettings.unitSystem` setter.
-
-In certain cases, other units of measurement are used as they are better suited. For instance, the `height`, `length` and `width` fields of the `TruckProfile` class are measured in centimeters. These exceptions are clearly indicated in the API reference.
-
-## Avoid SDK operations inside isolates
-
-The SDK does not support executing provided methods within isolates. The SDK already leverages multithreading internally where applicable. Doing SDK operations inside isolates may lead to exceptions.
-
-## Return the result from a callback inside a method
-
-Most time-consuming operations (such as search, route calculation, etc.) use callbacks to return results. To integrate these results into an API user-defined function, a `Completer` can be used to convert the callback into a `Future`:
+Many SDK operations (search, routing, etc.) use callbacks to return results. Use a `Completer` to convert callbacks into `Future` objects:
 ```dart
 Future<ResultType?> myFunction() async{
     final Completer<ResultType?> completer = Completer<ResultType?>();
@@ -122,15 +136,21 @@ Future<ResultType?> myFunction() async{
 }
 ```
 
-This approach simplifies user code by converting callback parameters into a `Future `return type, making asynchronous handling easier and more readable. For more details about the `Completer` class, refer to the [Dart documentation](https://api.flutter.dev/flutter/dart-async/Completer-class.html).
+This simplifies asynchronous code handling. Learn more in the [Dart Completer documentation](https://api.flutter.dev/flutter/dart-async/Completer-class.html).
 
-## Provide SDK logs when reporting issues
+### Avoid isolates
 
-### Dart level logs
+Do not execute SDK operations inside isolates. The SDK already uses multithreading internally where appropriate. Using isolates may cause exceptions.
 
-When reporting issues, please include the SDK logs to help us diagnose and resolve problems more efficiently.
+---
 
-To configure logging and print messages to the console, add the following code:
+## Debugging and Logging
+
+When reporting issues, always include SDK logs to help diagnose problems.
+
+### Enable Dart-level logs
+
+Configure logging to print messages to the console:
 ```dart
 Debug.logCreateObject = true;
 Debug.logCallObjectMethod = true;
@@ -139,70 +159,72 @@ Debug.logListenerMethod = true;
 Debug.logLevel = GemLoggingLevel.all;
 ```
 
-The snippet above enable logs for operations at the Dart code level.
+This enables logging for Dart-level operations.
 
-### Native level logs
+### Enable native-level logs
 
-There are also logs at the native code level (C++). These logs are written to a file automatically. 
-To get the path of the file, use the `Debug.getSdkLogDumpPath` method. The logs granularity can be configured using the `Debug.setSdkDumpLevel` method.
+The SDK also generates native (C++) logs, written to a file automatically.
 
-In order to add a new entry to the native logs, use the `Debug.log` method:
+**Add a log entry:**
 ```dart
 Debug.log(level: GemDumpSdkLevel.info, message: "This is a log message");
 ```
 
-In order to set the native logs level, use the `Debug.setSdkDumpLevel` method:
+**Set log level:**
 ```dart
 await Debug.setSdkDumpLevel(GemDumpSdkLevel.verbose);
 ```
 
-On Android, all `GemLoggingLevel` values are supported. On iOS only the `GemDumpSdkLevel.silent` and `GemDumpSdkLevel.verbose` levels are supported.
-
-The file path of the native logs can be obtained using the `Debug.getSdkLogDumpPath` method:
+**Get log file path:**
 ```dart
-String logFilePath = await Debug.getSdkLogDumpPath();
+String logFilePath = await Debug.sdkLogDumpPath;
 ```
 
-Only the logs with a level equal to or higher than the configured level will be recorded in the log file.
+**Platform support:**
 
-Please provide **both** Dart and native logs when reporting issues.
+- **Android:** All `GemLoggingLevel` values supported
 
-The logs may contain sensitive information, so review them before sharing publicly.
+- **iOS:** Only `GemDumpSdkLevel.silent` and `GemDumpSdkLevel.verbose` supported
 
-### Other useful information
+Provide **both** Dart and native logs when reporting issues.
 
-When reporting issues, please provide the following information to help us diagnose and resolve the problem effectively:
+Logs may contain sensitive information. Review before sharing publicly.
 
-- Clear and concise description of the bug or issue.
+### Information checklist for bug reports
 
-- Steps to reproduce the issue, including a minimal code sample if possible.
+When reporting issues, include:
 
-- Expected behavior versus actual behavior you are experiencing.
+- **Description:** Clear, concise bug description
 
-- Screenshots or videos to help visualize the issue (if applicable).
+- **Reproduction steps:** Include minimal code sample if possible
 
-- SDK version you are using.
+- **Expected vs. actual behavior**
 
-- Platform details (e.g., iOS/Android, OS version, device model).
+- **Visual aids:** Screenshots or videos (if applicable)
 
-- Console logs printed during the issue.
+- **SDK version**
 
-- Geographical location where the issue occurred, if relevant (for example, routing, navigation, or search-related issues).
+- **Platform details:** iOS/Android, OS version, device model
 
-- Any other relevant information that could assist us in diagnosing and resolving the issue.
+- **Logs:** Console output during the issue
 
-- Additionally, ensure that your SDK is up-to-date, as newer versions often include bug fixes and performance improvements.
+- **Location:** Geographic location for routing/navigation/search issues
 
-## Changing resources safely
+- **SDK version:** Ensure you're using the latest version
 
-Some features are initialized before `GemKit.initialize()` is called, meaning certain resources may already be loaded at that point. This improves the startup speed in applications.
-Manually managing resources (such as maps, styles, icons, etc.) can lead to crashes or cause changes to be ignored, especially on Android devices.
+---
 
-If the resources need to be changed manually, follow one of the following approaches:
+## Resource Management
 
-#### Disable early init
+### Modifying resources safely
 
-Open the `android/build.gradle` file and add the following configuration inside the `buildTypes` block:
+Some resources load before `GemKit.initialize()` to improve startup speed. Manually changing resources (maps, styles, icons) can cause crashes or be ignored, especially on Android.
+
+**If you need to modify resources, use one of these approaches:**
+
+#### Option 1: Disable early initialization
+
+In `android/build.gradle`, add this to the `buildTypes` block:
 ```gradle
     buildTypes {
         debug {
@@ -217,9 +239,9 @@ Open the `android/build.gradle` file and add the following configuration inside 
     }
 ```
 
-#### Do a SDK init and release
+#### Option 2: Initialize and release SDK
 
-Initialize and release the SDK before modifying any resources:
+Unload resources before making changes:
 ```dart
 await GemKit.initialize(...);
 await GemKit.release();
@@ -230,19 +252,33 @@ await GemKit.initialize(...);
 await GemKit.release();
 ```
 
-This ensures that any currently loaded resources are properly unloaded before changes are applied, preventing conflicts or ignored updates.
+This ensures resources are properly unloaded before applying changes.
 
-## Avoid name conflicts
+---
 
-The `Route` class from the SDK may conflict with the `Route` class from Flutter. To avoid this, import the Flutter material package while hiding the `Route` class:
+## Common Issues
+
+### Avoid name conflicts
+
+The SDK's `Route` class may conflict with Flutter's `Route` class. Hide Flutter's version when importing:
 ```dart
 import 'package:flutter/material.dart' hide Route;
 ```
 
-## Legal requirements
+---
 
-Some features, such as police and speed camera reports, may be illegal in certain countries. Ensure that the `safety` overlay and the corresponding entries in `socialReports` overlay are disabled where applicable. Additionally, restrict the availability of the `SocialOverlay` features based on current local regulations.
+## Legal Requirements
 
-The Magic Lane Flutter SDK utilizes data from OpenStreetMap. Please ensure proper attribution is given in accordance with the [OpenStreetMap license](https://osmfoundation.org/wiki/Licence).
+### Feature restrictions by region
 
-Any use or display of Wikipedia content must include appropriate attribution, as outlined in the [Reusers' rights and obligations](https://en.wikipedia.org/wiki/Wikipedia:Copyrights#Reusers'_rights_and_obligations) section of Wikipedia's copyright guidelines.
+Some features may be illegal in certain countries:
+
+- **Safety features:** Disable the `safety` overlay and related `socialReports` entries where police/speed camera reporting is prohibited
+
+- **Social overlays:** Restrict `SocialOverlay` features based on local regulations
+
+### Data attribution
+
+**OpenStreetMap:** The SDK uses OpenStreetMap data. Provide proper attribution per the [OpenStreetMap license](https://osmfoundation.org/wiki/Licence).
+
+**Wikipedia:** Display appropriate attribution when using Wikipedia content, following [Reusers' rights and obligations](https://en.wikipedia.org/wiki/Wikipedia:Copyrights#Reusers'_rights_and_obligations).

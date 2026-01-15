@@ -5,63 +5,67 @@ title: Show Your Location On The Map
 
 # Show location on map
 
-The location of the device is shown by default using an arrow position tracker. If ``setLiveDataSource`` has been successfully set and the required permissions were granted then the position tracker showing the current location should be visible on the map as an arrow.
+The device location is shown by default using an arrow position tracker. When `setLiveDataSource` is successfully set and permissions are granted, the position tracker appears on the map as an arrow.
 
-At the moment it is not possible to have multiple position trackers on the map.
+Multiple position trackers on the map are not currently supported.
 
-GPS accuracy may be limited in environments such as indoor spaces, areas with weak GPS signals, or locations with significant obstructions, such as narrow streets or between tall buildings. In these situations, the tracker may exhibit erratic movement within a confined area. Additionally, the performance of device sensors, such as the accelerometer and gyroscope, can further impact GPS positioning accuracy.
+GPS accuracy may be limited in environments such as indoor spaces, areas with weak GPS signals, or locations with significant obstructions like narrow streets or tall buildings. In these situations, the tracker may exhibit erratic movement within a confined area. Device sensor performance, such as accelerometer and gyroscope, can further impact GPS positioning accuracy.
 
 This behavior is more pronounced when the device is stationary.
 
-## Start follow position
+---
 
-Following the position tracker can be done calling the `startFollowingPosition` method on the mapController.
+## Follow position
+
+Call the `startFollowingPosition` method on the mapController to follow the position tracker:
 ```dart
 mapController.startFollowingPosition();
 ```
 
-When the ``startFollowingPosition`` method is called, the camera enters a mode where it automatically follows the movement and rotation of the position tracker. This ensures the user's current location and orientation are consistently centered and updated on the map.
+When called, the camera automatically follows the movement and rotation of the position tracker, keeping the user's current location and orientation centered on the map.
 
-The ``startFollowingPosition`` method can take parameters such as ``animation``, which controls the movement from the current map camera position to the position of the tracker and ``zoomLevel`` and ``viewAngle``.
+The `startFollowingPosition` method accepts parameters such as `animation` (controls camera movement to the tracker position), `zoomLevel`, and `viewAngle`.
 
 ### Set map rotation mode
 
-When following position, it is possible to have the map rotated with the user orientation:
+Rotate the map with the user orientation when following position:
 ```dart
 final prefs = mapController.preferences.followPositionPreferences;
 prefs.setMapRotationMode(FollowPositionMapRotationMode.positionHeading);
 ```
 
-If you want to use the compass sensor for map rotation use `FollowPositionMapRotationMode.compass`:
+Use the compass sensor for map rotation with `FollowPositionMapRotationMode.compass`:
 ```dart
 prefs.setMapRotationMode(FollowPositionMapRotationMode.compass);
 ```
 
-The map rotation can also be fixed to a given angle using the `FollowPositionMapRotationMode.compass` value and providing a `mapAngle` value:
+Fix the map rotation to a given angle using `FollowPositionMapRotationMode.fixed` and providing a `mapAngle` value:
 ```dart
 prefs.setMapRotationMode(FollowPositionMapRotationMode.fixed, mapAngle: 30);
 ```
 
-A value of `0` given for the `mapAngle` parameter represents north-up alignment
+A value of `0` for the `mapAngle` parameter represents north-up alignment.
 
 The `mapRotationMode` returns a record containing:
 
-- the current `FollowPositionMapRotationMode` mode
+- The current `FollowPositionMapRotationMode` mode
 
-- the map angle set in case of `FollowPositionMapRotationMode.fixed`
+- The map angle set in case of `FollowPositionMapRotationMode.fixed`
 
-## Exit follow position 
+### Exit follow position
 
-The ``stopFollowingPosition`` method from the mapController can be used to programmatically stop following the position.
+Call the `stopFollowingPosition` method to programmatically stop following the position:
 ```dart
 mapController.stopFollowingPosition();
 ```
 
-The follow mode will be exited automatically if the user interacts with the map. Actions such as panning, or tilting will disable the camera's automatic tracking. This can be deactivated by setting ``touchHandlerExitAllow`` to false (see the section below).
+Follow mode exits automatically when the user interacts with the map. Actions such as panning or tilting disable automatic tracking. Deactivate this by setting `touchHandlerExitAllow` to false (see the section below).
+
+---
 
 ## Customize follow position settings
 
-The ``FollowPositionPreferences`` class has options which can be used to customize the behavior of following the position. This can be accessed from the ``preferences`` getter of the mapController.
+The `FollowPositionPreferences` class customizes the behavior of following the position. Access this from the `preferences` getter of the mapController.
 
 The fields defined in `FollowPositionPreferences` take effect only when the camera is in follow position mode. To customize camera behavior when not following the position, refer to the fields available in `MapViewPreferences` and `GemMapController`.
 
@@ -113,29 +117,29 @@ The fields defined in `FollowPositionPreferences` take effect only when the came
   </tr>
 </table>
 
-Please refer to the [adjust map guide](../maps/adjust-map) for more information about the ``viewAngle``, ``zoomLevel`` and ``cameraFocus`` fields.
+Refer to the [adjust map guide](../maps/adjust-map) for more information about the `viewAngle`, `zoomLevel`, and `cameraFocus` fields.
 
 If no zoom level is set, a default value is used.
 
-#### Use of *touchHandlerModifyPersistent*
+### Use touchHandlerModifyPersistent
 
-When the camera enters follow position mode and manually adjusts the zoom level or view angle, these modifications are retained until the mode is exited, either manually or programmatically.
+When the camera enters follow position mode and manually adjusts the zoom level or view angle, these modifications are retained until the mode is exited.
 
-If `touchHandlerModifyPersistent` is set to `true`, then invoking `startFollowingPosition` (with default parameters for zoom and angle) will restore the zoom level and view angle from the previous follow position session.
+If `touchHandlerModifyPersistent` is set to `true`, invoking `startFollowingPosition` (with default parameters for zoom and angle) restores the zoom level and view angle from the previous follow position session.
 
-If `touchHandlerModifyPersistent` is set to `false`, then calling `startFollowingPosition` (with default zoom and angle parameters) will result in appropriate values for the zoom level and view angle being recalculated.
+If `touchHandlerModifyPersistent` is set to `false`, calling `startFollowingPosition` (with default zoom and angle parameters) recalculates appropriate values for the zoom level and view angle.
 
-It is recommended to set the `touchHandlerModifyPersistent` property value right before calling the `startFollowingPosition` method.
+Set the `touchHandlerModifyPersistent` property value right before calling the `startFollowingPosition` method.
 
-#### Use of *touchHandlerExitAllow*
+### Use touchHandlerExitAllow
 
-If the camera is in follow position mode and the `touchHandlerExitAllow` property is set to `true`, a two-finger pan gesture in a non-vertical direction will cause the camera to exit follow position mode.
+If the camera is in follow position mode and the `touchHandlerExitAllow` property is set to `true`, a two-finger pan gesture in a non-vertical direction exits follow position mode.
 
-If `touchHandlerExitAllow` is set to false, the user cannot manually exit follow position mode through touch gestures. In this case, the mode can only be exited programmatically by calling the `stopFollowingPosition` method.
+If `touchHandlerExitAllow` is set to false, the user cannot manually exit follow position mode through touch gestures. The mode can only be exited programmatically by calling the `stopFollowingPosition` method.
 
 ### Set circle visibility
 
-For example, in order to show the accuracy circle visibility on the map (which is by default hidden):
+Show the accuracy circle on the map (hidden by default):
 ```dart
 FollowPositionPreferences prefs = mapController.preferences.followPositionPreferences;
 GemError error = prefs.setAccuracyCircleVisibility(true);
@@ -143,20 +147,20 @@ GemError error = prefs.setAccuracyCircleVisibility(true);
 
 ### Customize circle color
 
-The accuracy circle color can be set using the `setDefPositionTrackerAccuracyCircleColor` static method from the `MapSceneObject` class: 
+Set the accuracy circle color using the `setDefPositionTrackerAccuracyCircleColor` static method from the `MapSceneObject` class:
 ```dart
 final GemError setErrorCode = MapSceneObject.setDefPositionTrackerAccuracyCircleColor(Colors.red);
 print("Error code for setting the circle color: $setErrorCode");
 ```
 
-It is recommended to use colors with partial opacity instead of fully opaque colors for improved visibility and usability.
+Use colors with partial opacity instead of fully opaque colors for improved visibility and usability.
 
-The current color can be retrieved using the `getDefPositionTrackerAccuracyCircleColor` static method:
+Retrieve the current color using the `defPositionTrackerAccuracyCircleColor` static getter:
 ```dart
-final Color color = MapSceneObject.getDefPositionTrackerAccuracyCircleColor();
+final Color color = MapSceneObject.defPositionTrackerAccuracyCircleColor;
 ```
 
-The color can be reset to the default value using the `resetDefPositionTrackerAccuracyCircleColor` static method:
+Reset the color to the default value using the `resetDefPositionTrackerAccuracyCircleColor` static method:
 ```dart
 final GemError resetErrorCode = MapSceneObject.resetDefPositionTrackerAccuracyCircleColor();
 print("Error code for resetting the circle color: $resetErrorCode");
@@ -164,7 +168,7 @@ print("Error code for resetting the circle color: $resetErrorCode");
 
 ### Set position of the position tracker on the viewport
 
-In order to set the position tracker on a particular spot of the viewport while in follow position mode the ``cameraFocus`` property can be used:
+Set the position tracker on a particular spot of the viewport while in follow position mode using the `cameraFocus` property:
 ```dart
 // Calculate the position relative to the viewport
 double twoThirdsX = 2 / 3;
@@ -180,12 +184,13 @@ GemError error = prefs.setCameraFocus(position);
 mapController.startFollowingPosition();
 ```
 
-The ``setCameraFocus`` method uses a coordinate system relative to the viewport, not physical pixels.
-In this way ``Point(0.0, 0.0)`` corresponds with top left corner and ``Point(1.0, 1.0)`` corresponds with right bottom corner.  
+The `setCameraFocus` method uses a coordinate system relative to the viewport, not physical pixels. `Point(0.0, 0.0)` corresponds with the top-left corner and `Point(1.0, 1.0)` corresponds with the bottom-right corner.
+
+---
 
 ## Customize position icon
 
-The SDK supports customizing the position tracker to suit your application's requirements. For example, you can set a simple PNG as the position tracker using the following approach:
+Customize the position tracker to suit your application's requirements. Set a simple PNG as the position tracker:
 ```dart
     // Read the file and load the image as a binary resource
     final imageByteData = (await rootBundle.load('assets/navArrow.png'));
@@ -199,17 +204,19 @@ The SDK supports customizing the position tracker to suit your application's req
 
 Besides simple 2D icons, 3D objects as `glb` files can be set. The format parameter of the customizeDefPositionTracker should be set to `SceneObjectFileFormat.tex` in this case.
 
-At this moment it is not possible to set different icons for different maps.
+Setting different icons for different maps is not currently supported.
 
-Make sure the resource (in this example ``navArrow.png``) is correctly registered within the `pubspec.yaml` file. See the [Flutter documentation](https://docs.flutter.dev/ui/assets/assets-and-images) for more information.
+Ensure the resource (in this example `navArrow.png`) is correctly registered within the `pubspec.yaml` file. See the [Flutter documentation](https://docs.flutter.dev/ui/assets/assets-and-images) for more information.
+
+---
 
 ## Other position tracker settings
 
-Other settings such as scale and the visibility of the position tracker can be changed using the methods available on the ``MapSceneObject`` which can be obtained using ``MapSceneObject.getDefPositionTracker``.
+Change settings such as scale and visibility of the position tracker using the methods available on the `MapSceneObject`, obtained using `MapSceneObject.getDefPositionTracker`.
 
 ### Change the position tracker scale
 
-To change the scale of the position tracker we can use the ``scale`` setter:
+Use the `scale` setter to change the position tracker scale:
 ```dart
 // Get the position tracker
 MapSceneObject mapSceneObject = MapSceneObject.getDefPositionTracker();
@@ -218,13 +225,13 @@ MapSceneObject mapSceneObject = MapSceneObject.getDefPositionTracker();
 mapSceneObject.scale = 0.5;
 ```
 
-A value of 1 corresponds with the default scale value. The parameter passed to the setter should be in the range ``(0, mapSceneObject.maxScale]``. The code snippet from above sets half the scale.
+A value of 1 corresponds with the default scale. The parameter passed to the setter should be in the range `(0, mapSceneObject.maxScale]`. The code snippet above sets half the scale.
 
 The scale of the position tracker stays constant on the viewport regardless of the map zoom level.
 
 ### Change the position tracker visibility
 
-To change the visibility of the position tracker we can use the ``visibility`` setter:
+Use the `visibility` setter to change the position tracker visibility:
 ```dart
 // Get the position tracker
 MapSceneObject mapSceneObject = MapSceneObject.getDefPositionTracker();
@@ -234,6 +241,8 @@ mapSceneObject.visibility = false;
 ```
 
 The snippet above makes the position tracker invisible.
+
+---
 
 ## Relevant examples demonstrating custom position icon related features
 

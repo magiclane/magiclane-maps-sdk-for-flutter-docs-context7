@@ -5,39 +5,43 @@ title: Routes
 
 # Routes
 
-A Route usually represents a navigable path between two or more landmarks (waypoints). It includes data such as distance, estimated time, and navigation instructions.
+A route represents a navigable path between two or more landmarks (waypoints), including distance, estimated time, and navigation instructions.
 
-Routes can be computed in different ways:
+Compute routes in different ways:
 
-- Based on 2 or more intermediary landmarks (waypoints) - route is navigable.
+- **Waypoint-based** - Based on 2 or more landmarks (navigable)
 
-- Over-track routes (based on a predefined `path`, which could come from a GPX file but is not limited to this) are navigable.
+- **Over-track** - Based on a predefined `path` from GPX files or other sources (navigable)
 
-- Route ranges: These routes are **not** navigable and do not have segments or instructions.
+- **Route ranges** - Not navigable, without segments or instructions
 
-A navigable route consists of one or more segments. Each segment represents the portion of the route between two consecutive waypoints and includes its own set of route instructions.
+Navigable routes consist of segments. Each segment represents the portion between consecutive waypoints with its own route instructions.
 
-## Instantiating Routes
+---
 
-Routes cannot be instantiated directly. Instead, they must be computed based on a predefined list of landmarks. For detailed guidance on how to calculate routes, refer to the [Getting Started with Routing Guide](/guides/routing/get-started-routing).
+## Create Routes
 
-Calculating a route does not automatically display it on the map. Refer to the [Display markers guide](/guides/maps/display-map-items/display-markers) for detailed instructions on how to display one or more routes.
+Routes cannot be instantiated directly. Compute them based on a list of landmarks. See [Get started with Routing](/guides/routing/get-started-routing) for details.
 
-## Route specializations
+Calculating a route does not automatically display it on the map. See [Display routes](/guides/maps/display-map-items/display-routes) for instructions.
 
-The Maps SDK for Flutter supports multiple routes types, each tailored for specific use cases and implemented through dedicated classes:
+---
 
-1. **Normal Routes** - Standard routes computed for typical navigation scenarios.
+## Route Types
 
-2. **Public Transport (PT) Routes** - Routes calculated using a public transport mode, providing additional details such as frequency, ticket purchase information, and other public transport-specific data.
+The SDK supports multiple route types, each tailored for specific use cases:
 
-3. **Over-Track (OT) Routes** - Routes generated based on a predefined path, such as those derived from GPX files or routes drawn with the finder.
+- **Normal routes** - Standard routes for typical navigation
 
-4. **Electric Vehicle (EV) Routes**  - Not fully implemented at the moment. Are designed for EV-specific needs, including charging station information and related details.
+- **Public transport (PT) routes** - Routes using public transport with frequency, ticket info, and transit-specific data
 
-### Specific Classes
+- **Over-track (OT) routes** - Routes based on predefined paths from GPX files or drawn routes
 
-Each route type is associated with specific classes that offer functionality suited to its requirements:
+- **Electric vehicle (EV) routes** - Routes for EVs with charging station information (not fully implemented)
+
+### Route Classes
+
+Each route type has specific classes:
 
 | **Route Type**            | **Route Class** | **Segment Class**      | **Instruction Class**     |
 |---------------------------|-----------------|------------------------|---------------------------|
@@ -46,11 +50,13 @@ Each route type is associated with specific classes that offer functionality sui
 | Over-Track Route          | `OTRoute`       | Not Available          | Not Available             |
 | Electric Vehicle Route    | `EVRoute`       | `EVRouteSegment`       | `EVRouteInstruction`      |
 
-The specific classes extend the functionality of the base classes `RouteBase`, `RouteSegmentBase`, `RouteInstructionBase` that provide the common features for each type of entity.
+These classes extend base classes (`RouteBase`, `RouteSegmentBase`, `RouteInstructionBase`) that provide common features.
 
-## Route structure
+---
 
-The most important route characteristics are:
+## Route Structure
+
+Key route characteristics:
 
 <table>
   <tr>
@@ -124,9 +130,11 @@ The most important route characteristics are:
   </tr>
 </table>
 
-## RouteSegment structure
+---
 
-A route segment represents the portion of a route between two consecutive waypoints. For public transport routes, segments are further categorized as either pedestrian sections or public transit sections, depending on the mode of travel within that segment.  
+## RouteSegment Structure
+
+A route segment represents the portion between two consecutive waypoints. For public transport routes, segments are categorized as pedestrian or public transit sections.  
 
 <table>
   <thead>
@@ -180,9 +188,11 @@ A route segment represents the portion of a route between two consecutive waypoi
   </tbody>
 </table>
 
-## RouteInstruction structure
+---
 
-A route instruction provides detailed guidance for navigation, offering various methods to retrieve specific information about each maneuver the user needs to make, such as coordinates, turn directions, distances and time to next waypoints.
+## RouteInstruction Structure
+
+Route instructions provide detailed navigation guidance, including coordinates, turn directions, distances, and time to waypoints.
 
 <table>
     <thead>
@@ -316,15 +326,25 @@ A route instruction provides detailed guidance for navigation, offering various 
     </tbody>
 </table>
 
-It is important to distinguish between ``NavigationInstruction`` and ``RouteInstruction``. ``NavigationInstruction`` offers real-time, turn-by-turn navigation based on the user's current position and is relevant only during navigation or simulation. In contrast, ``RouteInstruction`` provides an overview of the entire route available as soon as the route is calculated and the list of instructions do not change as the user navigates on the route.
+Distinguish between `NavigationInstruction` and `RouteInstruction`:
 
-## Other classes 
+- `NavigationInstruction` - Real-time, turn-by-turn navigation based on current position (only during navigation or simulation)
 
-### Time distance
+- `RouteInstruction` - Route overview available immediately after calculation (instructions don't change during navigation)
 
-The TimeDistance class is used to get details about the time and distance to/from certain important points of interests.
+---
 
-The TimeDistance class differentiates between unrestricted and restricted road portions. Restricted segments refer to non-public roads, while unrestricted represent publicly accessible roads:
+## Related Classes 
+
+### TimeDistance
+
+The `TimeDistance` class provides time and distance details to important points of interest.
+
+It differentiates between road types:
+
+- **Restricted** - Non-public roads
+
+- **Unrestricted** - Publicly accessible roads
 
 | Field                      | Type    | Explanation                                                                                    |
 |----------------------------|---------|------------------------------------------------------------------------------------------------|
@@ -343,13 +363,11 @@ The TimeDistance class differentiates between unrestricted and restricted road p
 | `restrictedDistanceAtBegin`| `int`  | Restricted distance allocated to the beginning, based on the ratio.                             |
 | `restrictedDistanceAtEnd`  | `int`   | Restricted distance allocated to the end, based on the ratio.                                  |
 
-### Signpost details
+### Signpost Details
 
-Signposts near roadways typically indicate intersections and directions to various destinations. The Maps SDK for Flutter provides realistic image renderings of these signposts, along with additional relevant information.
+Signposts near roadways indicate intersections and directions. The SDK provides realistic image renderings with additional information.
 
-Below is an example of a rendered signpost details image:
-
-The ``SignpostDetails`` class also provides properties such as:
+The `SignpostDetails` class provides:
 
 | Member                | Type                       | Description                                                                                |
 |:---------------------:|:--------------------------:|:------------------------------------------------------------------------------------------:|
@@ -361,7 +379,7 @@ The ``SignpostDetails`` class also provides properties such as:
 | `hasTextColor`        | `bool`                     | Indicates whether the signpost has a text color.                                           |
 | `items`               | `List<SignpostItem>`       | Retrieves a list of `SignpostItem` elements associated with the signpost.                  |
 
-Each ``SignpostItem`` has the following properties:
+Each `SignpostItem` provides:
 
 | Member               | Type                          | Description                                                                              |
 |:--------------------:|:-----------------------------:|:----------------------------------------------------------------------------------------:|
@@ -378,27 +396,27 @@ Each ``SignpostItem`` has the following properties:
 
 ### Turn Details
 
-The ``TurnDetails`` class provides details such as:
+The `TurnDetails` class provides:
 
-- **event**: enum containing the turn type. Values for this field include straight, right, left, lightLeft, lightRight, sharpRight, sharpLeft, roundaboutExitRight, roundabout, roundRight, roundLeft, infoGeneric, driveOn, exitNr, exitLeft, exitRight, stayOn and more.
+- **event** - Turn type enum (straight, right, left, lightLeft, lightRight, sharpRight, sharpLeft, roundaboutExitRight, and more)
 
-- **abstractGeometryImg**: abstract image of the turn (the user needs to verify if the image is valid). The colors might be further personalized with ``AbstractGeometryImageRenderSettings``.
+- **abstractGeometryImg** - Abstract turn image (verify validity). Customize colors with `AbstractGeometryImageRenderSettings`
 
-- **roundaboutExitNumber**: the roundabout exist number if it exists.
+- **roundaboutExitNumber** - Roundabout exit number (if available)
 
-#### Turn details abstract image vs. turn image:
+#### Abstract Image vs. Turn Image
 
-The difference between images obtained via ``abstractGeometryImg`` (left) and ``turnImg`` (right) is shown below:
+Compare images from `abstractGeometryImg` (left) and `turnImg` (right):
 
-- **abstractGeometryImg**: Provides a detailed representation of the entire intersection, offering a comprehensive view of the turn geometry. This image can be customized, including options to adjust various colors for better visual alignment with the application's theme.
+- **abstractGeometryImg** - Detailed intersection representation with customizable colors for theme alignment
 
-- **turnImg**: Delivers a simplified schematic of the upcoming turn, focusing solely on the essential turn direction. Unlike abstractGeometryImg, this method does not support customization.
+- **turnImg** - Simplified turn schematic focusing on essential direction (no customization)
 
-Each image is assigned a unique identifier. You can use the ``uid`` getter of the images classes to retrieve this id and update the image in the UI only when the ID changes. This strategy can significantly enhance performance during navigation, especially in scenarios where frequent updates might otherwise impact efficiency.
+Use the `uid` getter to retrieve each image's unique identifier. Update the UI only when the ID changes to enhance navigation performance.
 
-#### Abstract geometry image customization
+#### Customize Abstract Geometry Images
 
-The ``AbstractGeometryImageRenderSettings`` allows for abstract geometry render settings customization, with the possibility of specifying the colors, improving the overall user experience:
+Use `AbstractGeometryImageRenderSettings` to customize render settings and colors:
 ```dart
  AbstractGeometryImageRenderSettings customizedRenderSettings = const AbstractGeometryImageRenderSettings(
     activeInnerColor: Colors.red,
@@ -408,12 +426,13 @@ The ``AbstractGeometryImageRenderSettings`` allows for abstract geometry render 
 );
 ```
 
-The render settings from above will create the following image when used:
+These settings produce:
 
-## Toll sections
+---
 
-The `TollSection` class represents a tolled portion of a route.
-It defines where the toll segment starts and ends (measured in meters from the beginning of the route), along with the toll cost and currency.
+## Toll Sections
+
+The `TollSection` class represents a tolled route portion, defining start and end points (in meters from route start), cost, and currency.
 
 | Member           | Type    | Description                                                                 |
 |------------------|---------|-----------------------------------------------------------------------------|
@@ -422,10 +441,14 @@ It defines where the toll segment starts and ends (measured in meters from the b
 | `cost`           | `double`| Cost in the specified currency.                                             |
 | `currency`       | `String`| Currency code, e.g. EUR, USD.                                               |
 
-If no data for the cost of the section is available then the cost field is 0 and the currency field is empty string.
+When cost data is unavailable, `cost` is 0 and `currency` is an empty string.
 
-In order to get the WGS Coordinates of the start and end of a `TollSection`, you can use the `Route.getCoordinateOnRoute` method, passing the `startDistanceM` and `endDistanceM` values respectively.
+Get WGS coordinates of toll section start and end using `Route.getCoordinateOnRoute` with `startDistanceM` and `endDistanceM` values.
 
-## Change the language of the instructions
+---
 
-The texts used in route instructions and related classes follow the language set in the SDK. See [the internationalization guide](/guides/get-started/internationalization) for more details.
+## Change Instruction Language
+
+Route instruction texts follow the SDK language settings. See [Internationalization](/guides/get-started/internationalization) for details.
+
+---

@@ -18,6 +18,142 @@ Legacy map formats will remain available until April 2027. However, the `registe
 
 Due to improvements of our SDK and map data, we kindly ask you to update your applications and projects with any SDK revision released starting with October 2024 in order to continue using the online Magic Lane map-related services and to continue receiving map updates.
 
+## [3.1.4] - 2025-12-16
+
+### Added
+
+- `ActivationInfo`, `DurationID`, `ProductID`, `ActivationService` classes and `ActivationStatus` enum
+
+- `registerOnWorldwideRoadMapRefreshed` methods to the `OffBoardListener` class
+
+- `immutableRoadblockAvoidance`, `accurateWaypointsApproach`, `avoidGeofenceAreas`, `roundTripRange`, `defaultEBikeProfile`, `roundTripRangeType`, `buildConnectionsMaxLength`, `roundTripRandomSeed`, `fitnessFactor`, `avoidGeofenceAntiAreas` properties to the `RoutePreferences` class
+
+- `createInFolder`static  method to the `RouteBookmarks` class
+
+### Removed
+
+- `setCoordinates` methods from the `MarkerInfo` class
+
+- `create` methods from the `ParameterList` and `SearchableParameterList` classes. Use the default constructor instead
+
+- `notifyOnNewImprovedPosition`, `notifyOnNewPosition` methods from the `GemPositionListener` class
+
+- `routeResultType` setter from the `RoutePreferences` class
+
+- `roundTripParameters` getter from the `RoutePreferences` class
+
+- `setClippingArea` method from the `GemMapController` class is deprecated.
+
+- `roadname`, `shieldType` setters and constructor from the `RoadInfo` class.
+
+- many methods such as `on...` methods for event handling, `fromJson` and `toJson`, `create` are now internal and not accessible from the public API
+
+### Changed
+
+- In `MarkerMatch`, the `getMarker` method was replaced with the `marker` property (old method deprecated).  
+
+- In `MarkerInfo`, the `getCoords` method was replaced with the `coords` property (old method deprecated).  
+
+- In `ContentStore`, the `getStoreFilteredList` method was replaced with the `storeFilteredList` property (old method deprecated).  
+
+- In `LandmarkStore`, the `getFilePath` method was replaced with the `filePath` property (old method deprecated).  
+
+- In `MapDetails`, the `getMapProviderIds`, `getCountryDataCount`, and `getMapReleaseInfo` methods were replaced with the `mapProviderIds`, `countryDataCount`, and `mapReleaseInfo` properties respectively (old methods deprecated).  
+
+- In `MapDownloaderService`, the `getMaxSquareKm` and `setMaxSquareKm` methods were replaced with the `maxSquareKm` property (old methods deprecated).  
+
+- In `SdkSettings`, the `getVoice` method was replaced with the `voice` property (old method deprecated).  
+
+- In `DriverBehaviour`, the `getOngoingAnalysis`, `getAllDriverBehaviourAnalyses`, `getInstantaneousScores`, and `getLastAnalysis` methods were replaced with the `ongoingAnalysis`, `allDriverBehaviourAnalyses`, `instantaneousScores`, and `lastAnalysis` properties respectively (old methods deprecated).  
+
+- In `MappedDrivingEvent`, the `getTimestamp` and `getCoordinates` methods were replaced with the `timestamp` and `coordinates` properties respectively (old methods deprecated).  
+
+- In `Path`, the `getLandmarkList` method was replaced with the `landmarkList` property (old method deprecated).  
+
+- In `TimezoneService`, the `getTimezoneInfoTimezoneIdSync` method was replaced with the `getTimezoneInfoFromTimezoneIdSync` method (renamed API entry; old method deprecated).  
+
+- In `Debug`, the legacy debug getters were consolidated into properties: `getUsedMemory` → `usedMemory`, `getTotalMemory` → `totalMemory`, `getFreeMemory` → `freeMemory`, `getMaxUsedMemory` → `maxUsedMemory`, `getAndroidVersion` → `androidVersion`, `getAppIOInfo` → `appIOInfo`, `getStyleBuilderUrls` → `styleBuilderUrls`, `getRoutingAlgoModifiers` → `routingAlgoModifiers`, `getNavigationModifiers` → `navigationModifiers`, `timeToBetterRouteSec` → `timeToBetterRoute`,  `getServicesIds` → `servicesIds`, `getAllWeatherConditions` → `allWeatherConditions`, `isMainThread` → `mainThread`, `getMapViewMaxZoomRanges` → `mapViewMaxZoomRanges`, `isRawPositionTrackerEnabled` → `rawPositionTrackerEnabled`, `getSdkLogDumpPath` → `sdkLogDumpPath` (all old methods deprecated)
+
+- In `MapSceneObject`, the `getDefPositionTrackerAccuracyCircleColor` method was replaced with the `defPositionTrackerAccuracyCircleColor` property (old method deprecated).
+
+- In `RoutePreferences`, the `getRoundTripRange`, `getRoundTripRangeType`, `getRoundTripRandomSeed` methods were replaced with the `roundTripRange`, `roundTripRangeType`, `roundTripRandomSeed` properties respectively (old methods deprecated).
+
+- `RoutePreferences` class has now been rewritten and additional checks are performed when setting properties. The behaviour may differ in some edge cases.
+
+- the `items` parameter of the `onComplete` callback from the `asyncGetStoreFilteredList` method from the `ContentStore` class changed from `List<ContentStoreItem>?` to `List<ContentStoreItem>`
+
+- the type of the `area` property from the `TilesCollectionGeographicArea` class changed from `RectangleGeographicArea` to `GeographicArea`
+
+- the type of the `area` property from the `centerOnAreaRect` method from the `GemView` class changed from `RectangleGeographicArea` to `GeographicArea`
+
+- the `area` parameter of the `centerOnArea` and `centerOnAreaRect` methods from the `GemMapController` class changed from `RectangleGeographicArea` to `GeographicArea`
+
+- the type of the `locationHint` parameter from the `search` and `searchInArea` methods from the `SearchService` class changed from `RectangleGeographicArea?` to `GeographicArea?`
+
+- return type of the `report`, `confirmReport`, `deleteReport`, `updateReport`, `denyReport`, `addComment` methods from the `SocialOverlay` class changed from `EventHandler?` to `ProgressListener?`
+
+- the type of the parameter from the `cancel` method from the `SocialOverlay` class changed from `EventHandler` to `ProgressListener`
+
+- return type of the `addListener` method from the `Recorder` class changed from `EventHandler?` to `ProgressListener?`
+
+- the parameter of the `removeListener` method from the `Recorder` class changed from `EventHandler` to `ProgressListener`
+
+- the parameters of the `cancelWikiInfo` method from the `ExternalInfoService` class changed from `EventHandler` to `ProgressListener`
+
+- return type of the `requestWikiInfo` method from the `ExternalInfoService` class changed from `EventHandler?` to `ProgressListener?`
+
+- the type of the `persistentRoadblockListener` property from the `TrafficService` class changed from `PersistentRoadblockListener` to `PersistentRoadblockListener?`
+
+- return type of the `setAllowInternetConnection` method from the `SdkSettings` class changed from `void` to `Future<void>`
+
+- the type of the `bikeProfile` property from the `RoutePreferences` class changed from `BikeProfileElectricBikeProfile?` to `BikeProfileElectricBikeProfile`
+
+- the type of the `truckProfile` property from the `RoutePreferences` class changed from `TruckProfile?` to `TruckProfile`
+
+- the type of the `carProfile` property from the `RoutePreferences` class changed from `CarProfile?` to `CarProfile`
+
+- the type of the `roundTripParameters` property from the `RoutePreferences` class changed from `RoundTripParameters?` to `RoundTripParameters`
+
+- the type of the `language` property from the `ContentStoreItem` class changed from `Language` to `Language?`
+
+- the type `callback` parameter of the `registerOnVolumeChangedByKeys` method from the `SoundPlayingListener` class changed to nullable
+
+- return type of the `getCollectionAt` method from the `MapViewMarkerCollections` class changed from `MarkerCollection` to `MarkerCollection?`
+
+- the type of the `onPlayingStatusChanged` parameter of the `registerOnPlayingStatusChanged` method from the `DataSourceListener` class changed to nullable
+
+- the type of the `onProgressChanged` parameter of the `registerOnProgressChanged` method from the `DataSourceListener` class changed to nullable
+
+- the type of the `onNewData` parameter of the `registerOnNewData` method from the `DataSourceListener` class changed to nullable
+
+- the type of the `onDataInterruptionEvent` parameter of the `registerOnDataInterruptionEvent` method from the `DataSourceListener` class changed to nullable
+
+- return type of the `getPreviewExtendedData` method from the `OverlayItem` class changed from `ProgressListener` to `ProgressListener?`
+
+- the `playText` method from the `SoundPlayingService` class is now asynchronous and returns a `Future<void>`
+
+- changed the values of the `ExternalImageQuality` enums to reflect changes regarding the wikipedia image retrieval
+
+- the SDK now performs auto activation when a valid token is set
+
+### Fixed
+
+- Images retrieved sometimes had corrupt data instead of transparent pixels
+
+- `GemMap` constructed with specific parameters now have consistent angle behavior
+
+- `setTrackDataDepartureAndDestination` method from the `Landmark` class now works as expected
+
+- internal network checks no longer override user set value for `setAllowInternetConnection` method from the `SdkSettings` class
+
+- `AddressInfo` optimizations for faster retrieval
+
+- fix occasional crash at app startup on Android devices caused by concurrent operations
+
+- crash on Android x32 when using `RoutePreferences` class
+
+- `getRoadInfoImg` method from the `NavigationInstruction` class now returns the correct image
+
 ## [3.1.3] - 2025-11-13
 
 ### Added
