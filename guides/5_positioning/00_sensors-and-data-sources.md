@@ -7,8 +7,6 @@ title: Sensors And Data Sources
 
 The Maps Flutter SDK integrates with device sensors and external data sources to enhance map functionality. Use GPS, compass, accelerometer, and custom telemetry to build navigation apps, augmented reality layers, and location-aware services.
 
----
-
 ## Sensor types
 
 The SDK supports the following sensor data types:
@@ -33,11 +31,9 @@ The SDK supports the following sensor data types:
 | **NMEA Chunk**        | Raw navigation data in NMEA sentence format, typically from GNSS receivers for high-precision tracking. Only available on Android devices. |
 | **Unknown**           | A fallback type used when the source of the data cannot be determined. |
 
-More details about the `Position` and `ImprovedPosition` classes are available [here](../core/positions).
+More details about the `Position` and `ImprovedPosition` classes are available [here](/guides/core/positions).
 
 Ensure that the specific `DataType` values are supported on the target platform. Attempting to create data sources or recordings with unsupported types may result in failures.
-
----
 
 ## Working with data sources
 
@@ -55,7 +51,7 @@ Create a `DataSource` using one of these static methods:
 
 - `createExternalDataSource` - Accepts user-supplied data. Feed data into this source via the `pushData` method. Note that `pushData` returns `false` if used with a non-external source
 
-- `createLogDataSource` - Replays data from a previously recorded session (log file: gpx, nmea). Useful for debugging, training, or offline data processing. See the [Recorder docs](./recorder) for recording data
+- `createLogDataSource` - Replays data from a previously recorded session (log file: gpx, nmea). Useful for debugging, training, or offline data processing. See the [Recorder docs](/guides/positioning/recorder) for recording data
 
 - `createSimulationDataSource` - Simulates movement along a specified route. Use for UI prototyping, testing, or feature validation without real-world movement
 
@@ -63,7 +59,7 @@ The first two types (live and external) are categorized under `DataSourceType.li
 
 By default, a data source starts automatically upon creation. However, it may not be fully initialized when you obtain the data source object.
 
-If you add a `DataSourceListener` immediately after acquiring the data source, you may miss the initial "playing status changed" notification—the data source may already be in the started state when the listener is attached.
+If you add a `DataSourceListener` immediately after acquiring the data source, you may miss the initial "playing status changed" notification - the data source may already be in the started state when the listener is attached.
 
 ### Configure and control a data source
 
@@ -122,11 +118,9 @@ Remove the listener when no longer needed:
 myDataSource.removeListener(DataType.position, listener);
 ```
 
----
-
 ## Use the Playback interface
 
-The `Playback` interface controls data sources that support playback functionality—specifically those of type `DataSourceType.playback`, such as log files or simulated route replays. **It is not compatible with live or custom data sources**.
+The `Playback` interface controls data sources that support playback functionality - specifically those of type `DataSourceType.playback`, such as log files or simulated route replays. **It is not compatible with live or custom data sources**.
 
 Access a `Playback` instance by checking the data source type:
 ```dart
@@ -148,8 +142,6 @@ Access supplementary metadata:
 - `Playback.logPath` - Path to the log file being executed
 
 - `Playback.route` - Route being simulated (if applicable)
-
----
 
 ## Track positions
 
@@ -194,8 +186,6 @@ mapViewExtensions.stopTrackPositions();
 ```
 
 Calling the `trackedPositions` getter **after** `stopTrackPositions` returns an empty list.
-
----
 
 ## Relevant examples demonstrating sensors and data source related features
 

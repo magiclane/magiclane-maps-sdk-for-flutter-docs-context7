@@ -17,8 +17,6 @@ All image classes provide these methods and properties:
 
 - **`getRenderableImage`** - Returns a `RenderableImg` containing the image size and `Uint8List` for UI rendering. Returns `null` if invalid
 
----
-
 ## Work with plain images
 
 The `Img` class represents plain (usually non-vector) images. These images have a recommended size and aspect ratio but can be resized to any dimension (with possible quality loss).
@@ -28,8 +26,6 @@ You can instantiate an `Img` class using:
 - **Constructor** - Pass `Uint8List` image data and format
 
 - **`fromAsset` method** - Pass the asset key (and optionally a custom bundle)
-
----
 
 ## Work with vector images
 
@@ -91,8 +87,6 @@ Use `getRenderableImage` instead of `getRenderableImageBytes` when setting `allo
 </table>
 
 For debugging, encode `Uint8List` images as Base64 strings using `base64Encode` and view them on a Base64 [image decoding website](https://base64.guru/converter/decode/image).
-
----
 
 ## Render images
 

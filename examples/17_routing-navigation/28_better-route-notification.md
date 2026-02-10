@@ -25,7 +25,8 @@ The example functionality is highly dependent on current traffic conditions. If 
 
 The following code demonstrates how to create a user interface with a `GemMap` widget and an app bar. The app bar includes buttons for calculating a route and initiating simulated navigation along the longer route. When a better route is identified, a notification panel will appear at the bottom of the screen, awaiting dismissal.
 ```dart
-const projectApiToken = String.fromEnvironment('GEM_TOKEN');
+const projectApiToken = String.fromEnvironment("GEM_TOKEN");
+
 void main() {
   runApp(const MyApp());
 }
@@ -35,7 +36,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(debugShowCheckedModeBanner: false, title: 'Better Route Notification', home: MyHomePage());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Better Route Notification',
+      home: MyHomePage(),
+    );
   }
 }
 
@@ -69,7 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Better Route Notification", style: TextStyle(color: Colors.white)),
+        title: const Text(
+          "Better Route Notification",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.deepPurple[900],
         actions: [
           if (!_isSimulationActive && _areRoutesBuilt)
@@ -91,7 +99,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Stack(
         children: [
-          GemMap(key: ValueKey("GemMap"), onMapCreated: _onMapCreated, appAuthorization: projectApiToken),
+          GemMap(
+            key: ValueKey("GemMap"),
+            onMapCreated: _onMapCreated,
+            appAuthorization: projectApiToken,
+          ),
           if (_isSimulationActive)
             Positioned(
               top: 10,
@@ -99,8 +111,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 spacing: 10,
                 children: [
-                  BottomNavigationPanel(instruction: currentInstruction),
-                  FollowPositionButton(onTap: () => _mapController.startFollowingPosition()),
+                  TopNavigationPanel(instruction: currentInstruction),
+                  FollowPositionButton(
+                    onTap: () => _mapController.startFollowingPosition(),
+                  ),
                 ],
               ),
             ),
@@ -109,9 +123,13 @@ class _MyHomePageState extends State<MyHomePage> {
               bottom: MediaQuery.of(context).padding.bottom + 10,
               left: 0,
               child: BottomNavigationPanel(
-                remainingDistance: getFormattedRemainingDistance(currentInstruction),
-                eta: getFormattedRemainingDuration(currentInstruction),
-                remainingDuration: getFormattedETA(currentInstruction),
+                remainingDistance: getFormattedRemainingDistance(
+                  currentInstruction,
+                ),
+                eta: getFormattedETA(currentInstruction),
+                remainingDuration: getFormattedRemainingDuration(
+                  currentInstruction,
+                ),
               ),
             ),
         ],
@@ -127,10 +145,16 @@ class _MyHomePageState extends State<MyHomePage> {
   // Custom method for calling calculate route and displaying the results.
   void _onBuildRouteButtonPressed(BuildContext context) {
     // Define the departure.
-    final departureLandmark = Landmark.withLatLng(latitude: 48.79743778098061, longitude: 2.4029037044571875);
+    final departureLandmark = Landmark.withLatLng(
+      latitude: 48.79743778098061,
+      longitude: 2.4029037044571875,
+    );
 
     // Define the destination.
-    final destinationLandmark = Landmark.withLatLng(latitude: 48.904767018940184, longitude: 2.3223936076132086);
+    final destinationLandmark = Landmark.withLatLng(
+      latitude: 48.904767018940184,
+      longitude: 2.3223936076132086,
+    );
 
     // Define the route preferences.
     final routePreferences = RoutePreferences(
@@ -143,32 +167,37 @@ class _MyHomePageState extends State<MyHomePage> {
     // Calling the calculateRoute SDK method.
     // (err, results) - is a callback function that gets called when the route computing is finished.
     // err is an error enum, results is a list of routes.
-    _routingHandler = RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (
-      err,
-      routes,
-    ) async {
-      // If the route calculation is finished, we don't have a progress listener anymore.
-      _routingHandler = null;
+    _routingHandler = RoutingService.calculateRoute(
+      [departureLandmark, destinationLandmark],
+      routePreferences,
+      (err, routes) async {
+        // If the route calculation is finished, we don't have a progress listener anymore.
+        _routingHandler = null;
 
-      ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).clearSnackBars();
 
-      // If there aren't any errors, we display the routes.
-      if (err == GemError.success) {
-        // Get the routes collection from map preferences.
-        final routesMap = _mapController.preferences.routes;
+        // If there aren't any errors, we display the routes.
+        if (err == GemError.success) {
+          // Get the routes collection from map preferences.
+          final routesMap = _mapController.preferences.routes;
 
-        // Display the routes on map.
-        for (final route in routes) {
-          routesMap.add(route, route == routes.first, label: getMapLabel(route));
+          // Display the routes on map.
+          for (final route in routes) {
+            routesMap.add(
+              route,
+              route == routes.first,
+              label: getMapLabel(route),
+            );
+          }
+
+          // Center the camera on routes.
+          _mapController.centerOnRoutes(routes: routes);
         }
-
-        // Center the camera on routes.
-        _mapController.centerOnRoutes(routes: routes);
-      }
-      setState(() {
-        _areRoutesBuilt = true;
-      });
-    });
+        setState(() {
+          _areRoutesBuilt = true;
+        });
+      },
+    );
   }
 
   // Method for starting the simulation and following the position,
@@ -250,7 +279,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Method to stop the simulation and remove the displayed routes,
   void _stopSimulation() {
     // Cancel the navigation.
-    NavigationService.cancelNavigation(_navigationHandler!);
+    NavigationService.cancelNavigation(_navigationHandler);
     _navigationHandler = null;
 
     _cancelRoute();
@@ -259,7 +288,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // Method to show message in case calculate route is not finished,
-  void _showSnackBar(BuildContext context, {required String message, Duration duration = const Duration(hours: 1)}) {
+  void _showSnackBar(
+    BuildContext context, {
+    required String message,
+    Duration duration = const Duration(hours: 1),
+  }) {
     final snackBar = SnackBar(content: Text(message), duration: duration);
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -296,7 +329,11 @@ class FollowPositionButton extends StatelessWidget {
             Icon(Icons.navigation),
             Text(
               'Recenter',
-              style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),
@@ -409,10 +446,10 @@ class BetterRoutePanel extends StatelessWidget {
 
 ### Top Navigation Panel
 ```dart
-class BottomNavigationPanel extends StatelessWidget {
+class TopNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const BottomNavigationPanel({super.key, required this.instruction});
+  const TopNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {
@@ -420,19 +457,25 @@ class BottomNavigationPanel extends StatelessWidget {
       width: MediaQuery.of(context).size.width - 20,
       height: MediaQuery.of(context).size.height * 0.2,
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(20),
             width: 100,
-            child: instruction.nextTurnDetails != null && instruction.nextTurnDetails!.abstractGeometryImg.isValid
+            child:
+                instruction.nextTurnDetails != null &&
+                    instruction.nextTurnDetails!.abstractGeometryImg.isValid
                 ? Image.memory(
-                    instruction.nextTurnDetails!.abstractGeometryImg.getRenderableImageBytes(
-                      size: Size(200, 200),
-                      format: ImageFileFormat.png,
-                    )!,
+                    instruction.nextTurnDetails!.abstractGeometryImg
+                        .getRenderableImageBytes(
+                          size: Size(200, 200),
+                          format: ImageFileFormat.png,
+                        )!,
                     gaplessPlayback: true,
                   )
                 : const SizedBox(), // Empty widget
@@ -446,12 +489,20 @@ class BottomNavigationPanel extends StatelessWidget {
                 Text(
                   getFormattedDistanceToNextTurn(instruction),
                   textAlign: TextAlign.left,
-                  style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   instruction.nextStreetName,
-                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

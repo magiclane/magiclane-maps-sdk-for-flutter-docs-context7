@@ -195,16 +195,16 @@ void _cancelRoute() {
 
 
 ```dart
-// Method to stop the simulation and remove the displayed routes,
-void _stopSimulation() {
-  // Cancel the navigation.
-  NavigationService.cancelNavigation(_navigationHandler!);
-  _navigationHandler = null;
+  // Method to stop the simulation and remove the displayed routes,
+  void _stopSimulation() {
+    // Cancel the navigation.
+    NavigationService.cancelNavigation(_navigationHandler);
+    _navigationHandler = null;
 
-  _cancelRoute();
+    _cancelRoute();
 
-  setState(() => _isSimulationActive = false);
-}
+    setState(() => _isSimulationActive = false);
+  }
 ```
 
 
@@ -219,10 +219,10 @@ void _stopSimulation() {
 
 ### Top Navigation Panel
 ```dart
-class BottomNavigationPanel extends StatelessWidget {
+class TopNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const BottomNavigationPanel({super.key, required this.instruction});
+  const TopNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {
@@ -230,19 +230,25 @@ class BottomNavigationPanel extends StatelessWidget {
       width: MediaQuery.of(context).size.width - 20,
       height: MediaQuery.of(context).size.height * 0.2,
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(20),
             width: 100,
-            child: instruction.nextTurnDetails != null && instruction.nextTurnDetails!.abstractGeometryImg.isValid
+            child:
+                instruction.nextTurnDetails != null &&
+                    instruction.nextTurnDetails!.abstractGeometryImg.isValid
                 ? Image.memory(
-                    instruction.nextTurnDetails!.abstractGeometryImg.getRenderableImageBytes(
-                      size: Size(200, 200),
-                      format: ImageFileFormat.png,
-                    )!,
+                    instruction.nextTurnDetails!.abstractGeometryImg
+                        .getRenderableImageBytes(
+                          size: Size(200, 200),
+                          format: ImageFileFormat.png,
+                        )!,
                     gaplessPlayback: true,
                   )
                 : const SizedBox(), // Empty widget
@@ -256,12 +262,20 @@ class BottomNavigationPanel extends StatelessWidget {
                 Text(
                   getFormattedDistanceToNextTurn(instruction),
                   textAlign: TextAlign.left,
-                  style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   instruction.nextStreetName,
-                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

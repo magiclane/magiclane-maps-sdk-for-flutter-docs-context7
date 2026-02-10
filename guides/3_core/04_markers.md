@@ -7,9 +7,7 @@ title: Markers
 
 A **marker** is a visual element placed at a geographic location to indicate a point of interest. Markers can be icons, polylines, or polygons representing temporary or user-defined locations, waypoints, or annotations.
 
-Markers contain basic metadata like position, title, and description. The map does not include markers by default—you must create and add them.
-
----
+Markers contain basic metadata like position, title, and description. The map does not include markers by default - you must create and add them.
 
 ## Create Markers
 
@@ -28,8 +26,6 @@ Create markers using one of these methods:
 - **Geographic area**: `Marker.fromArea(GeographicArea area)` - Creates a marker from a geographic area
 
 Creating a marker does not automatically display it on the map. Set its coordinates and attach it to the map. See [Display markers](/guides/maps/display-map-items/display-markers) for instructions.
-
----
 
 ## Marker Structure
 
@@ -75,8 +71,6 @@ Markers offer extensive customization options:
 
 **MarkerSketches** are predefined collections in the view. Each marker type has a collection, and each element has different render settings.
 
---- 
-
 ## Interaction with Markers
 
 ### Select Markers
@@ -104,8 +98,6 @@ Markers are **not searchable**.
 Markers are **not designed for route calculation**.
 
 For route calculation, create a landmark using the marker's coordinates and a representative name.
-
----
 
 ## MarkerCollection
 

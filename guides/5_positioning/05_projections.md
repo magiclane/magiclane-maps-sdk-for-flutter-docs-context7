@@ -7,8 +7,6 @@ title: Projections
 
 The Maps SDK for Flutter provides a `Projection` class that represents the base class for different geocoordinate systems.
 
----
-
 ## Supported projection types
 
 - `WGS84` - World Geodetic System 1984
@@ -30,8 +28,6 @@ You can check the projection type using the `type` getter:
 final type = projection.type;
 ```
 
----
-
 ## WGS84 projection
 
 The **WGS84** projection is a widely used geodetic datum that serves as the foundation for GPS and other mapping systems.
@@ -48,8 +44,6 @@ obj.coordinates = Coordinates(latitude: 10.0, longitude: 10.0); // Set coordinat
 ```
 
 The coordinates getter returns null if the coordinates are not set.
-
----
 
 ## GK projection
 
@@ -80,8 +74,6 @@ final newNorthing = obj.northing; // 1
 
 The `Gauss-Kruger` projection is currently supported only for countries that use **Bessel ellipsoid**. Converting to and from `Gauss-Kruger` projection for other countries will result in a `GemError.notSupported` error.
 
----
-
 ## BNG projection
 
 The **BNG** (British National Grid) projection is a coordinate system used in Great Britain for mapping and navigation. It provides a grid reference system for precise location identification.
@@ -103,8 +95,6 @@ final type = obj.type; // ProjectionType.bng
 final newEasting = obj.easting; // 1
 final newNorthing = obj.northing; // 1
 ```
-
----
 
 ## MGRS projection
 
@@ -132,8 +122,6 @@ final newNorthing = obj.northing; // 1
 final newLetters = obj.letters; // newLetters
 ```
 
----
-
 ## W3W projection
 
 The **W3W** (What three words) projection is a geocoding system that divides the world into a grid of 3m x 3m squares, each identified by a unique combination of three words.
@@ -144,8 +132,6 @@ final obj = W3WProjection('token');
 ```
 
 Access and modify the token and words values using the `token` and `words` getters and setters.
-
----
 
 ## LAM projection
 
@@ -168,8 +154,6 @@ final type = obj.type; // ProjectionType.lam
 final newX = obj.x; // 1
 final newY = obj.y; // 1
 ```
-
----
 
 ## UTM projection
 
@@ -194,8 +178,6 @@ final newX = obj.x; // 1
 final newY = obj.y; // 1
 final newHemisphere = obj.hemisphere; // Hemisphere.north
 ```
-
----
 
 ## Convert between projections
 
@@ -227,8 +209,6 @@ final letters = mgrs.letters; // XC
 ```
 
 `ProjectionService.convert` works with `W3WProjection` only if the `W3WProjection` object has a **valid** token that can be obtained from [what3words.com](https://developer.what3words.com/public-api). If the token is not set, the conversion will fail and the `GemError.notSupported` error will be returned via `onComplete`.
-
----
 
 ## Relevant examples demonstrating projections related features
 

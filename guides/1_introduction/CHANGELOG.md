@@ -18,7 +18,61 @@ Legacy map formats will remain available until April 2027. However, the `registe
 
 Due to improvements of our SDK and map data, we kindly ask you to update your applications and projects with any SDK revision released starting with October 2024 in order to continue using the online Magic Lane map-related services and to continue receiving map updates.
 
-## [3.1.4] - 2025-12-16
+## [3.1.6] - 2026-01-29
+
+### Added
+
+- `searchAddress` method to the `SearchService` class
+
+- `deviation` property to the `OverlayItemPosition` and `LandmarkPosition` classes
+
+- `getStringList`, `getIntList`, `setStringList`, `getBoolList`, `setIntList`, `getDoubleList`, `setDoubleList`, `setLargeIntList`, `getLargeIntList`, `setBoolList` methods to the `SettingsService` class
+
+- `getClosestAddressLandmark` method to the `GemView` and `GemMapController` classes
+
+- `isFollowingPositionTouchHandlerModified`, `isDefaultFollowingPosition` properties to the `GemView` class
+
+### Removed
+
+- `RoutingAlgoModifiers` enum, the `getRoutingAlgoModifiers`, `setRoutingAlgoModifiers` methods and `routingAlgoModifiers` getter from the `Debug` class as they are not relevant for the public API anymore
+
+### Changed
+
+- `isFollowingPositionTouchHandlerModified` and `isDefaultFollowingPosition` methods from the `GemMapController` and `GemView` and now getters with the same name
+
+- added an optional named `dataSavePolicy` parameter to the `update` method from the `ContentUpdater` class
+
+- return type of the `getRoadInfoImg` method from the `NavigationInstruction` class changed from `Img` to `RoadInfoImg`
+
+- return type of the `getSocialReportsCategory` method from the `SocialReportsOverlayInfo` class changed from `OverlayCategory?` to `SocialReportsOverlayCategory?`
+
+- the `BLUETOOTH`, `BLUETOOTH_CONNECT`, `READ_PHONE_STATE`, `MODIFY_AUDIO_SETTINGS` are no longer provided by default in the manifest.
+
+### Fixed
+
+- `getRoadInfoImg` method of the `RouteInstructionBase` class resizes the image width when the provided initial size is too small
+
+- `asyncDownload` method of the `ContentStoreItem` class does not call the provided `onComplete` callback on immediate failure
+
+- `setPerspective` method of the `FollowPositionPreferences` class works when animation is provided
+
+- callback provided to `registerOnTouchHandlerModifyFollowPosition` never gets called
+
+- `backgroundColor` argument provided to `getRenderableImage` method of the `RoadInfoImg` class is now taken into account
+
+- all fields passed to the `MarkerRenderSettings` are correctly taken into account
+
+- optimizations to `GemImprovedPosition`
+
+- stability improvements on Android
+
+## [3.1.5] - 2026-01-19
+
+### Fixed
+
+- Issue regarding automatic activation on Android devices
+
+## [3.1.4] - 2026-01-15
 
 ### Added
 

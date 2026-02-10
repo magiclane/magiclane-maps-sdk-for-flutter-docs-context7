@@ -7,8 +7,6 @@ title: Usage Guidelines
 
 This guide outlines best practices and important guidelines for using the Maps SDK for Flutter. Following these recommendations ensures code reliability and helps you avoid common pitfalls.
 
----
-
 ## SDK Class Usage
 
 ### Do not extend SDK classes
@@ -37,8 +35,6 @@ Members, methods, and fields annotated with `@internal` are for internal use onl
 
 Using internal elements can cause unexpected behavior and compatibility issues. These are not part of the public API and may change without notice.
 
----
-
 ## Working with Parameters
 
 ### DateTime requirements
@@ -63,8 +59,6 @@ Configure the unit system for TTS instructions via `SDKSettings.unitSystem`.
 
 Some fields use different units where more appropriate. For example, `TruckProfile` dimensions (`height`, `length`, `width`) are in **centimeters**. Check the API reference for specifics.
 
----
-
 ## Event Listeners
 
 Follow these principles when working with event listeners:
@@ -75,8 +69,6 @@ Follow these principles when working with event listeners:
 
 - **Unsubscribe:** Register an empty callback to unsubscribe
 
----
-
 ## Error Handling
 
 ### Check error codes
@@ -85,11 +77,11 @@ Always check error codes returned by SDK methods to handle failures appropriatel
 
 The `GemError` enum indicates operation outcomes. Success values include:
 
-- `success` — Operation completed successfully
+- `success` - Operation completed successfully
 
-- `reducedResult` — Partial results returned
+- `reducedResult` - Partial results returned
 
-- `scheduled` — Operation scheduled for later execution
+- `scheduled` - Operation scheduled for later execution
 
 ### Using ApiErrorService
 
@@ -112,8 +104,6 @@ ApiErrorService.registerOnErrorUpdate((error) {
     else print("An operation failed with error code $error")
 });
 ```
-
----
 
 ## Asynchronous Operations
 
@@ -141,8 +131,6 @@ This simplifies asynchronous code handling. Learn more in the [Dart Completer do
 ### Avoid isolates
 
 Do not execute SDK operations inside isolates. The SDK already uses multithreading internally where appropriate. Using isolates may cause exceptions.
-
----
 
 ## Debugging and Logging
 
@@ -212,8 +200,6 @@ When reporting issues, include:
 
 - **SDK version:** Ensure you're using the latest version
 
----
-
 ## Resource Management
 
 ### Modifying resources safely
@@ -254,8 +240,6 @@ await GemKit.release();
 
 This ensures resources are properly unloaded before applying changes.
 
----
-
 ## Common Issues
 
 ### Avoid name conflicts
@@ -264,8 +248,6 @@ The SDK's `Route` class may conflict with Flutter's `Route` class. Hide Flutter'
 ```dart
 import 'package:flutter/material.dart' hide Route;
 ```
-
----
 
 ## Legal Requirements
 

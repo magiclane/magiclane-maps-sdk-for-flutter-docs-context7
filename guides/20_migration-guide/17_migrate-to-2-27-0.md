@@ -466,9 +466,9 @@ A simple find-and-replace of `RectType<` to `Rectangle<` should suffice in most 
 
 ## Enum updates
 
-- Removed deprecated `me` value from the `RoutePathAlgorithm` enum — use `ml` instead. 
+- Removed deprecated `me` value from the `RoutePathAlgorithm` enum - use `ml` instead. 
 
-- Removed deprecated `downloadWaiting` value from `ContentStoreItemStatus` — use the more specific `waiting...` values. The numeric values of the enum were adjusted.
+- Removed deprecated `downloadWaiting` value from `ContentStoreItemStatus` - use the more specific `waiting...` values. The numeric values of the enum were adjusted.
 
 - Added `geofence`, `overlays` values to `ContentStoreItemStatus`
 

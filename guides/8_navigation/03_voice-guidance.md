@@ -7,19 +7,15 @@ title: Voice Guidance
 
 Enhance navigation experiences with spoken instructions. This guide covers enabling built-in Text-to-Speech (TTS), managing voice settings, switching voices and languages, and integrating custom playback.
 
----
-
 ## What you need
 
 The Maps SDK for Flutter provides two options for instruction playback:
 
-- **Built-in solutions** — playback using human voice recordings or computer-generated TTS
+- **Built-in solutions** - playback using human voice recordings or computer-generated TTS
 
-- **External integration** — delivery of TTS strings for use with third-party packages
+- **External integration** - delivery of TTS strings for use with third-party packages
 
 The built-in solution provides automatic audio session management, ducking other playbacks (such as music) while instructions play.
-
----
 
 ## Step 1: Enable voice guidance
 
@@ -37,8 +33,6 @@ By default, the current voice is set to the best computer TTS voice matching the
 **Limitations:**  
 Customizing the timing of TTS instructions is not supported. Filtering TTS instructions based on custom logic is not available.
 
----
-
 ## Step 2: Configure the Sound Playing Service
 
 The `SoundPlayingService` manages voice playback with the following features:
@@ -51,8 +45,6 @@ The `SoundPlayingService` manages voice playback with the following features:
 | `cancelNavigationSoundsPlaying()` | Cancels ongoing navigation-related sound playback                          |
 | `soundPlayingListener`            | Sound listener providing details about sound playing events                |
 
----
-
 ## Step 3: Select and configure voices
 
 The SDK provides voices for each supported language. Download and activate voices to deliver navigation prompts such as turn instructions, warnings, and announcements.
@@ -61,9 +53,9 @@ The SDK provides voices for each supported language. Download and activate voice
 
 The SDK offers two types of voice guidance:
 
-- **`VoiceType.human`** — Pre-recorded human voices delivering instructions in a natural tone. Supports basic instruction types only; **does not** include road or settlement names.
+- **`VoiceType.human`** - Pre-recorded human voices delivering instructions in a natural tone. Supports basic instruction types only; **does not** include road or settlement names.
 
-- **`VoiceType.computer`** — Device Text-to-Speech (TTS) engine providing detailed, flexible guidance. **Fully supports** street and place names. Quality depends on device capabilities.
+- **`VoiceType.computer`** - Device Text-to-Speech (TTS) engine providing detailed, flexible guidance. **Fully supports** street and place names. Quality depends on device capabilities.
 
 ### Voice structure
 
@@ -79,25 +71,25 @@ The `Voice` class contains:
 
 ⚠️ **Do not confuse `Voice` and `Language` concepts**
 
-- **`Language`** defines **what** is said — words, phrasing, and localization
+- **`Language`** defines **what** is said - words, phrasing, and localization
 
-- **`Voice`** defines **how** it is said — accent, tone, and gender
+- **`Voice`** defines **how** it is said - accent, tone, and gender
 
 Ensure the selected `Voice` is compatible with the chosen `Language`. Mismatched combinations may result in unnatural or incorrect pronunciation.
 
 **Relevance:**
 
-- `Language` — relevant for built-in TTS and custom solutions using `onTextToSpeechInstruction`. See the [internationalization guide](/guides/get-started/internationalization).
+- `Language` - relevant for built-in TTS and custom solutions using `onTextToSpeechInstruction`. See the [internationalization guide](/guides/get-started/internationalization).
 
-- `Voice` — relevant **only** for built-in voice-guidance (human and computer voices).
+- `Voice` - relevant **only** for built-in voice-guidance (human and computer voices).
 
 ⚠️ **Two language settings**
 
 The SDK distinguishes between:
 
-- **SDK language** (`SdkSettings.language`) — language for on-screen text and UI strings
+- **SDK language** (`SdkSettings.language`) - language for on-screen text and UI strings
 
-- **Voice language** (`Voice.language`) — language for spoken output (built-in engine or `onTextToSpeechInstruction` callback)
+- **Voice language** (`Voice.language`) - language for spoken output (built-in engine or `onTextToSpeechInstruction` callback)
 
 Both use the same `Language` class. Synchronize SDK language and voice language based on your use case.
 
@@ -133,7 +125,7 @@ for (final contentStoreItem in items) {
 }
 ```
 
-See the [Manage Content Guide](../offline/manage-content) for downloading, deleting, and managing voices, plus details about `ContentStore` and `ContentStoreItem`.
+See the [Manage Content Guide](/guides/offline/manage-content) for downloading, deleting, and managing voices, plus details about `ContentStore` and `ContentStoreItem`.
 
 ### Apply a voice by path
 
@@ -160,8 +152,6 @@ GemError error = SdkSettings.setTTSVoiceByLanguage(lang!);
 Computer voices use the device's built-in TTS capabilities.
 
 Selecting a computer voice in an unsupported language may cause a mismatch between spoken voice and instruction content. Exact behavior depends on device TTS capabilities.
-
----
 
 ## Step 4: Integrate external TTS (optional)
 
@@ -207,19 +197,17 @@ See [flutter_tts](https://pub.dev/packages/flutter_tts) documentation for settin
 **Disable internal playback:**  
 Set `SoundPlayingService.canPlaySounds` to `false`. Instructions still arrive via the callback, but no audio plays.
 
----
-
 ## Step 5: Monitor sound playback events
 
 The `SoundPlayingListener` class observes sound playback events, including navigation TTS instructions, custom text, audio files, and alerts.
 
 **Registration methods:**
 
-- `registerOnStart` — triggered when a sound starts playing
+- `registerOnStart` - triggered when a sound starts playing
 
-- `registerOnStop` — triggered when a sound finishes playing. Error is `GemError.success` if completed, or other errors if canceled
+- `registerOnStop` - triggered when a sound finishes playing. Error is `GemError.success` if completed, or other errors if canceled
 
-- `registerOnVolumeChangedByKeys` — triggered when the user adjusts volume using physical device buttons
+- `registerOnVolumeChangedByKeys` - triggered when the user adjusts volume using physical device buttons
 
 Register callbacks using the singleton instance from `SoundPlayingService.soundPlayingListener`:
 ```dart
@@ -240,15 +228,13 @@ listener.registerOnVolumeChangedByKeys((newVolume) {
 
 **Retrieve details about currently playing sound:**
 
-- `soundPlayType` — playback type (none, custom text, audio file, alert, navigation TTS, or custom sound by ID)
+- `soundPlayType` - playback type (none, custom text, audio file, alert, navigation TTS, or custom sound by ID)
 
-- `soundPlayContent` — playback string (only for `SoundPlayType.navigationSound` or `SoundPlayType.soundById`)
+- `soundPlayContent` - playback string (only for `SoundPlayType.navigationSound` or `SoundPlayType.soundById`)
 
-- `soundPlayFileName` — audio file name (only for `SoundPlayType.file` or `SoundPlayType.alert`)
+- `soundPlayFileName` - audio file name (only for `SoundPlayType.file` or `SoundPlayType.alert`)
 
 Only one sound can play at a time. The `SoundPlayingListener` instance persists from SDK initialization to release.
-
----
 
 ## Step 6: Play custom instructions
 
@@ -256,15 +242,61 @@ Use the `playText` method of `SoundPlayingService` to play custom instructions (
 
 The optional `severity` parameter determines interrupt behavior:
 
-- `information` — queued and played **after** current playback
+- `information` - queued and played **after** current playback
 
-- `warning` — **interrupts** current playback if it has lower priority
+- `warning` - **interrupts** current playback if it has lower priority
 
 Ensure the provided string matches the voice language.
 
-See [speed warnings](../alarms/speed-alarms) and [landmark & overlay alarms](../alarms/landmark-and-overlay-alarms) for notifications about speed warnings and reports.
+See [speed warnings](/guides/alarms/speed-alarms) and [landmark & overlay alarms](/guides/alarms/landmark-and-overlay-alarms) for notifications about speed warnings and reports.
 
----
+## Step 7: Adjust sound settings
+
+Fine-tune playback behavior for **voice guidance** and **alerts** to match your app's audio experience.
+
+### Set voice and warning volumes
+
+Use `SoundPlayingService.voiceVolume` and `SoundPlayingService.warningsVolume` to control playback levels. Both values use a **0-10** range, where `0` mutes playback. Volume changes can be deferred if the system is interrupted (for example, by a phone call).
+
+### Choose audio output
+
+Select the audio route with `SoundPlayingService.audioOutput`:
+
+- **`automatic`** - uses Bluetooth A2DP when available, otherwise speaker
+
+- **`speaker`** - forces speaker output
+
+- **`bluetoothAsPhoneCall`** - routes audio as a phone call ⚠️
+
+On Android, Bluetooth phone-call routing may require additional permissions and runtime requests. Ensure your permissions setup covers Bluetooth and audio settings.
+
+#### Required permissions for Bluetooth phone-call routing
+
+Add the following permissions to your `AndroidManifest.xml`:
+```xml
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+```
+
+Also request the relevant permissions at runtime via a package like [permission_handler](https://pub.dev/packages/permission_handler).
+
+### Tune timing and preferences
+
+Use these settings to refine how sounds are played:
+
+#### Sound-playing preferences (per alert severity)
+
+Use `SoundPlayingPreferences` to control playback behavior per severity (volume, max play time, audio stream, and delay). Apply preferences with `setSoundPlayingPreferences` and read them back with `getSoundPlayingPreferences`. Use `AlertSeverity.information` and `AlertSeverity.warning` to target different alert classes.
+
+#### Sound session request preferences (audio focus)
+
+Use `SoundSessionRequestPreferences` to control audio focus request behavior (category, output, delay, exclusivity). Set and get the value with the `SoundPlayingService.soundSessionRequestPreferences` property.
+
+### Check default TTS language
+
+Read `SoundPlayingService.ttsDefaultLanguage` to confirm the active system **TTS language**. If spoken output sounds mismatched, align it with the voice language configured in **Step 3**.
 
 ## Relevant examples demonstrating voice features
 

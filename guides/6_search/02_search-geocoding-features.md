@@ -7,8 +7,6 @@ title: Search Geocoding Features
 
 This guide explains how to use geocoding and reverse geocoding features to convert coordinates to addresses and vice versa, search along routes, and implement auto-suggestions.
 
----
-
 ## Convert coordinates to addresses
 
 Transform geographic coordinates into detailed address information including country, city, street name, and postal code.
@@ -45,8 +43,6 @@ SearchService.searchAroundPosition(
     },
 );
 ```
-
----
 
 ## Convert addresses to coordinates
 
@@ -147,17 +143,13 @@ showSnackbar('House number: ${houseNumberLandmark.name}');
 
 The `getCountryLevelItem` method returns the root node for the specified country code. If the country code is invalid, it returns null. Alternatively, use the `searchCountries` method.
 
----
-
 ## Access Wikipedia information
 
 Retrieve Wikipedia content for search results to provide additional context about landmarks.
 
 Perform a standard search, then call `ExternalInfoService.requestWikiInfo` to get Wikipedia descriptions for identified landmarks.
 
-See the [Location Wikipedia guide](../location-wikipedia) for detailed information.
-
----
+See the [Location Wikipedia guide](/guides/location-wikipedia) for detailed information.
 
 ## Implement auto-suggestions
 
@@ -257,8 +249,6 @@ class SearchSuggestion extends StatelessWidget {
 ```
 
 Customize the SearchSuggestion widget to display landmark icons, addresses, or other relevant details based on your use case.
-
----
 
 ## Search along routes
 

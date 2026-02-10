@@ -155,8 +155,6 @@ mapController.preferences.setMapStyle(currentStyle);
 mapController.preferences.setMapStyleById(currentStyle.id);
 ```
 
----
-
 ## Apply custom styles
 
 Create a custom map style in [Magic Lane Map Studio](https://developer.magiclane.com/documentation/OnlineStudio/guide_creating_a_style.html). The process generates a `.style` file that you can load into your application.
@@ -216,8 +214,6 @@ GemMap(
 
 When using `initialMapStyleAsset`, the path is relative to the project root and only works on Android and iOS.
 
----
-
 ## Get notified about style changes
 
 The user can be notified when the style changes by providing a callback using the `registerOnSetMapStyle` method from the `GemMapController`:
@@ -234,8 +230,6 @@ The callback provides:
 - `stylepath` - the path to the `.style` file
 
 - `viaApi` - indicates if the style was set via API
-
----
 
 ## Relevant examples demonstrating map styling related features
 

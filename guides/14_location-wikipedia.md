@@ -7,8 +7,6 @@ title: Location Wikipedia
 
 Landmarks can include Wikipedia data such as title, image title, URL, description, page summary, and language. The `ExternalInfo` class handles Wikipedia data and is provided by the `ExternalInfoService` class.
 
----
-
 ## Check Wikipedia Data Availability
 
 Use the `hasWikiInfo` method to check if a landmark has Wikipedia data:
@@ -17,8 +15,6 @@ final bool hasExternalInfo = ExternalInfoService.hasWikiInfo(landmark);
 ```
 
 Do not modify Wikipedia-related fields in the `extraInfo` property when changing landmark data.
-
----
 
 ## Get Wikipedia Information
 
@@ -58,8 +54,6 @@ Wikipedia data is provided in the language specified in `SDKSettings`. See [Inte
   - `GemError.notFound` - Wikipedia information could not be retrieved
 
   - `GemError.general` - Unspecified error occurred
-
----
 
 ## Get Wikipedia Image Data
 
@@ -106,8 +100,6 @@ final imageDataListener = externalInfo.requestWikiImage(
 
 It is recommended to use the `requestWikiImageInfo` method instead of using the `getWikiImageUrl` image URL directly.
 The `getWikiImageUrl` method provides a URL to the original image, which may have a very large size.
-
----
 
 ## Relevant example demonstrating Wikipedia-related features
 

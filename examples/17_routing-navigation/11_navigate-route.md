@@ -157,39 +157,39 @@ void _startNavigation() {
 
 ### Following the Position
 ```dart
-void _onFollowPositionButtonPressed() async {
-  if (kIsWeb) {
-    // On web platform permission are handled differently than other platforms.
-    // The SDK handles the request of permission for location.
-    final locationPermssionWeb = await PositionService.requestLocationPermission();
-    if (locationPermssionWeb == true) {
-      _locationPermissionStatus = PermissionStatus.granted;
+  void _onFollowPositionButtonPressed() async {
+    if (kIsWeb) {
+      // On web platform permission are handled differently than other platforms.
+      // The SDK handles the request of permission for location.
+      final locationPermssionWeb =
+          await PositionService.requestLocationPermission();
+      if (locationPermssionWeb == true) {
+        _locationPermissionStatus = PermissionStatus.granted;
+      } else {
+        _locationPermissionStatus = PermissionStatus.denied;
+      }
     } else {
-      _locationPermissionStatus = PermissionStatus.denied;
-    }
-  } else {
-    // For Android & iOS platforms, permission_handler package is used to ask for permissions.
-    _locationPermissionStatus = await Permission.locationWhenInUse.request();
-  }
-
-  if (_locationPermissionStatus == PermissionStatus.granted) {
-    // After the permission was granted, we can set the live data source (in most cases the GPS).
-    // The data source should be set only once, otherwise we'll get -5 error.
-    if (!_hasLiveDataSource) {
-      PositionService.setLiveDataSource();
-      _getCurrentLocation();
-      _hasLiveDataSource = true;
+      // For Android & iOS platforms, permission_handler package is used to ask for permissions.
+      _locationPermissionStatus = await Permission.locationWhenInUse.request();
     }
 
-    // After data source is set, startFollowingPosition can be safely called.
-    // Optionally, we can set an animation
-    final animation = GemAnimation(type: AnimationType.linear);
+    if (_locationPermissionStatus == PermissionStatus.granted) {
+      // After the permission was granted, we can set the live data source (in most cases the GPS).
+      // The data source should be set only once, otherwise we'll get -5 error.
+      if (!_hasLiveDataSource) {
+        PositionService.setLiveDataSource();
+        _getCurrentLocation();
+        _hasLiveDataSource = true;
+      }
 
-    // Calling the start following position SDK method.
-    _mapController.startFollowingPosition(animation: animation);
-  }
-  setState(() {});
-}
+      // After data source is set, startFollowingPosition can be safely called.
+      // Optionally, we can set an animation
+      final animation = GemAnimation(type: AnimationType.linear);
+
+      // Calling the start following position SDK method.
+      _mapController.startFollowingPosition(animation: animation);
+    }
+    setState(() {});
 ```
 
 Follow position means the camera tracks the position of the phone/device, indicated by an arrow moving along the route on the map.
@@ -211,10 +211,10 @@ If the user pans the map away from the route, clicking the Re-center button star
 
 ### Top Navigation Instruction Panel
 ```dart
-class BottomNavigationPanel extends StatelessWidget {
+class TopNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const BottomNavigationPanel({super.key, required this.instruction});
+  const TopNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {
@@ -222,19 +222,25 @@ class BottomNavigationPanel extends StatelessWidget {
       width: MediaQuery.of(context).size.width - 20,
       height: MediaQuery.of(context).size.height * 0.2,
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(20),
             width: 100,
-            child: instruction.nextTurnDetails != null && instruction.nextTurnDetails!.abstractGeometryImg.isValid
+            child:
+                instruction.nextTurnDetails != null &&
+                    instruction.nextTurnDetails!.abstractGeometryImg.isValid
                 ? Image.memory(
-                    instruction.nextTurnDetails!.abstractGeometryImg.getRenderableImageBytes(
-                      size: Size(200, 200),
-                      format: ImageFileFormat.png,
-                    )!,
+                    instruction.nextTurnDetails!.abstractGeometryImg
+                        .getRenderableImageBytes(
+                          size: Size(200, 200),
+                          format: ImageFileFormat.png,
+                        )!,
                     gaplessPlayback: true,
                   )
                 : const SizedBox(), // Empty widget
@@ -248,12 +254,20 @@ class BottomNavigationPanel extends StatelessWidget {
                 Text(
                   getFormattedDistanceToNextTurn(instruction),
                   textAlign: TextAlign.left,
-                  style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   instruction.nextStreetName,
-                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

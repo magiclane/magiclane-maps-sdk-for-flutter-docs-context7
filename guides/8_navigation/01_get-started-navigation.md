@@ -31,8 +31,6 @@ When you deviate from the route, the system notifies you and offers recalculatio
 
 You can test navigation features using the built-in location simulator during development.
 
----
-
 ## How navigation works
 
 The SDK offers two navigation methods:
@@ -48,8 +46,6 @@ Navigation mode uses `PositionService` with:
 - **Custom Position Data** - Configure a custom data source for position updates. No permissions required. See [Custom positioning](/guides/positioning/custom-positioning)
 
 Only one navigation or simulation can be active at a time, regardless of map count.
-
----
 
 ## Start navigation
 
@@ -152,8 +148,6 @@ Display the route on the map for better navigation clarity. Turn-by-turn navigat
 
 The traveled portion of the route changes color using the `traveledInnerColor` parameter of `RouteRenderSettings`.
 
----
-
 ## Start simulation
 
 Start a simulation with this code:
@@ -194,8 +188,6 @@ mapController.startFollowingPosition();
 ```
 
 The `speedMultiplier` sets simulation speed (default is 1.0, matching the maximum speed limit for each road segment). Check `simulationMinSpeedMultiplier` and `simulationMaxSpeedMultiplier` for allowed values.
-
----
 
 ## Listen for navigation events
 
@@ -306,7 +298,7 @@ These events are described in the following table:
   </tr>
   <tr>
     <td>onRouteCalculationCompleted(GemError error)</td>
-    <td>Called when a route recalculation is completed, providing details about any errors that occurred related to route calculation. Also gets called at the start of the navigation process. See the [calculate routes guide](../routing/get-started-routing#calculate-routes) for information about the possible error values. The route is passed via the `onRouteUpdated` callback</td> 
+    <td>Called when a route recalculation is completed, providing details about any errors that occurred related to route calculation. Also gets called at the start of the navigation process. See the [calculate routes guide](/guides/routing/get-started-routing#calculate-routes) for information about the possible error values. The route is passed via the `onRouteUpdated` callback</td> 
   </tr>
 </table>
 
@@ -317,8 +309,6 @@ When you receive `onSkipNextIntermediateDestinationDetected()`, drop the first w
 NavigationService.skipNextIntermediateDestination();
 ```
 
----
-
 ## Use custom data sources
 
 Navigation typically uses GPS position, but you can also use custom-defined positions.
@@ -327,15 +317,11 @@ Create a custom data source, set the position service to it, start the data sour
 
 See the [Custom positioning guide](/guides/positioning/custom-positioning) for details.
 
----
-
 ## Stop navigation or simulation
 
 Use the `cancelNavigation` method from `NavigationService` to stop navigation or simulation. Pass the `TaskHandler` returned by `startSimulation` or `startNavigation`. Pausing simulation is not currently supported.
 
 After stopping simulation, the position service reverts to the previous data source if one exists.
-
----
 
 ## Export navigation instructions
 
@@ -346,15 +332,11 @@ final Uint8List bytes = instruction.exportAs(fileFormat: PathFileFormat.packedGe
 
 `exportAs` only works with `PathFileFormat.packedGeometry`. Other values return an empty `Uint8List`.
 
----
-
 ## Run navigation in background
 
 To use navigation while your app is in the background, additional setup is required for iOS and Android.
 
-See the [Background location guide](../positioning/background-location) for configuration instructions.
-
----
+See the [Background location guide](/guides/positioning/background-location) for configuration instructions.
 
 ## Relevant examples demonstrating navigation related features
 

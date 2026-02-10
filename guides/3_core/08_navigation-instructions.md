@@ -11,8 +11,6 @@ The main class responsible for turn-by-turn navigation guidance is the `Navigati
 
 Distinguish between `NavigationInstruction` and `RouteInstruction`. `NavigationInstruction` offers real-time, turn-by-turn guidance based on your current position and is relevant only during active navigation or simulation. In contrast, `RouteInstruction` provides an overview of the entire route available immediately after calculation, with instructions that remain static throughout navigation.
 
----
-
 ## Get navigation instructions
 
 You cannot directly instantiate navigation instructions. The SDK provides them during active navigation. For detailed guidance, see the [Getting Started with Navigation Guide](/guides/navigation/get-started-navigation).
@@ -24,8 +22,6 @@ There are two ways to get navigation instructions:
 - **Via service** - The `NavigationService` class provides a `getNavigationInstruction` method that returns the current navigation instruction
 
 Ensure navigation or simulation is active before calling `getNavigationInstruction`.
-
----
 
 ## Understand the structure
 
@@ -195,8 +191,6 @@ The `NavigationInstruction` class contains the following members:
 
 The `nextTurnInstruction` field provides text suitable for UI display. Use the `onTextToSpeechInstruction` callback for text-to-speech output.
 
----
-
 ## Access turn details
 
 ### Get next turn details
@@ -251,8 +245,6 @@ The `hasNextNextTurnInfo` returns false if the next instruction is the destinati
 
 You can apply the same operations from next turn details to next-next turn details.
 
----
-
 ## Get street information
 
 ### Access current street details
@@ -298,8 +290,6 @@ These fields have the same meanings as the current street fields.
 
 Ensure `hasNextTurnInfo` and `hasNextNextTurnInfo` are true before accessing the respective fields. This prevents errors and ensures data availability.
 
----
-
 ## Get speed limit information
 
 The `NavigationInstruction` class provides information about the current road's speed limit and upcoming speed limits within a specified distance.
@@ -329,8 +319,6 @@ if (distanceToNextSpeedLimitChange == 0 && nextSpeedLimitValue == 0) {
 }
 ```
 
----
-
 ## Display lane guidance
 
 Use the lane image to illustrate the correct lane for upcoming turns:
@@ -338,8 +326,6 @@ Use the lane image to illustrate the correct lane for upcoming turns:
 final LaneImg laneImage = navigationInstruction.laneImage;
 final Uint8List? laneImageData = laneImage.getRenderableImageBytes(size: Size(500, 300), format: ImageFileFormat.png);
 ```
-
----
 
 ## Change instruction language
 

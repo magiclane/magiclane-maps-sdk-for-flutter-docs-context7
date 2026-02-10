@@ -7,21 +7,17 @@ title: Roadblocks
 
 This guide explains how to add, manage, and remove roadblocks to customize route planning and navigation.
 
----
-
 A **roadblock** is a user-defined restriction applied to a specific road segment or geographic area. It reflects traffic disruptions such as construction, closures, or areas to avoid, and influences route planning by marking certain paths or zones as unavailable for navigation.
 
 Roadblocks can be **path-based** (defined by a sequence of coordinates) or **area-based** (covering a geographic region). They may be **temporary** (short-lived) or **persistent** (remain after SDK uninitialization), depending on their intended duration.
 
-The `TrafficEvent` class represents roadblocks. Check the [Traffic Events guide](../core/traffic-events) for more details. Roadblocks are managed through the `TrafficService` class.
+The `TrafficEvent` class represents roadblocks. Check the [Traffic Events guide](/guides/core/traffic-events) for more details. Roadblocks are managed through the `TrafficService` class.
 
 While some roadblocks are provided in real time by online data from Magic Lane servers, you can also define your own **user roadblocks** to customize routing behavior.
 
 If the applied style includes traffic data and traffic display is enabled (`MapViewPreferences.setTrafficVisibility` is set to true), a visual indication of the blocked portion will appear on the map, highlighted in red.
 
-Adding or removing user roadblocks affects only the current user and does not impact other users' routes. To create reports that are visible to all users, refer to the [Social Reports guide](../social-reports).
-
----
+Adding or removing user roadblocks affects only the current user and does not impact other users' routes. To create reports that are visible to all users, refer to the [Social Reports guide](/guides/social-reports).
 
 ## Configure traffic service
 
@@ -40,8 +36,6 @@ To allow only offline usage:
 TrafficService.preferences.useTraffic = TrafficUsage.offline;
 ```
 
----
-
 ## Add temporary roadblock during navigation
 
 You can add a roadblock to bypass a portion of the route for a specified distance. Once applied, the route will be recalculated, and the updated route will be returned via the `onRouteUpdated` callback provided to either the `startNavigation` or `startSimulation` method.
@@ -52,8 +46,6 @@ NavigationService.setNavigationRoadBlock(100, startDistance: 10);
 ```
 
 Roadblocks added through `setNavigationRoadBlock` only affect the ongoing navigation.
-
----
 
 ## Check traffic information availability
 
@@ -80,8 +72,6 @@ The `TrafficOnlineRestrictions` enum provides the following values:
 - `diskSpace` - Insufficient disk space to download or store traffic data
 
 - `initFail` - Failed to initialize the traffic service
-
----
 
 ## Add persistent roadblock
 
@@ -150,7 +140,7 @@ if (result.$2 == GemError.success) {
 
 Use the `addPersistentRoadblockByCoordinates` method to add **path-based** user roadblocks. It accepts a list of `Coordinate` objects and supports two modes:
 
-- **Single Coordinate** - Defines a **point-based** roadblock. This may result in two roadblocks being created—one for each travel direction
+- **Single Coordinate** - Defines a **point-based** roadblock. This may result in two roadblocks being created - one for each travel direction
 
 - **Multiple Coordinates** - Defines a **path-based** roadblock, starting at the first coordinate and ending at the last. This restricts access along a specific road segment
 
@@ -188,8 +178,6 @@ If a region contains a persistent roadblock, you can whitelist a specific sub-ar
 
 This enables fine-grained control over blocked regions by allowing exceptions within otherwise restricted areas.
 
----
-
 ## Get all persistent roadblocks
 
 Use the `persistentRoadblocks` getter to retrieve the list of persistent roadblocks. All user-defined roadblocks that are currently active or scheduled to become active are returned. Expired roadblocks are automatically removed.
@@ -203,8 +191,6 @@ for (final roadblock in roadblocks){
 }
 ```
 
----
-
 ## Get persistent roadblock by ID
 
 Use the `getPersistentRoadblock` method to retrieve both path-based and area-based roadblocks by identifier. This method takes the identifier string as argument and returns `null` if the event could not be found or the event if it exists.
@@ -217,8 +203,6 @@ if (event != null){
     print("Event does not exist");
 }
 ```
-
----
 
 ## Remove roadblocks
 
@@ -263,8 +247,6 @@ This method can be used for both persistent and non-persistent roadblocks.
 ### Remove all persistent roadblocks
 
 Use the `removeAllPersistentRoadblocks` method to delete all existing user-defined roadblocks.
-
----
 
 ## Get path preview for roadblock
 
@@ -313,8 +295,6 @@ if (previewError != GemError.success) {
 }
 ```
 
----
-
 ## Listen for roadblock events
 
 You can register for notifications related to persistent roadblocks. These notifications are triggered when:
@@ -343,8 +323,6 @@ Register the listener using the `persistentRoadblockListener` setter:
 ```dart
 TrafficService.persistentRoadblockListener = listener;
 ```
-
----
 
 ## Relevant examples demonstrating roadblocks related features
 

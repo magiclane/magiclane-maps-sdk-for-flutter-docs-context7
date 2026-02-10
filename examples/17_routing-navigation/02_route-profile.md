@@ -303,9 +303,7 @@ Using the example `categs` above:
 
 - Slopes `> 16%` → `ascendExtreme`  
 
-This allows **custom flexibility**: you can tune the thresholds to your application’s needs (e.g., more sensitive slope categories for mountain biking vs. walking).
-
----
+This allows **custom flexibility**: you can tune the thresholds to your application's needs (e.g., more sensitive slope categories for mountain biking vs. walking).
 
 ## Climb Details
 
@@ -487,7 +485,7 @@ class ElevationChart extends StatefulWidget {
     this.indicatorColor,
     this.isInteractive = true,
   }) {
-    spots = points.map((e) => FlSpot(e.$1, e.$2)).toList();
+    spots = points.map((e) => FlSpot(e.dart, e.)).toList();
 
     if (spots.isEmpty) {
       maxY = 0;
@@ -512,8 +510,8 @@ class ElevationChart extends StatefulWidget {
     }
 
     for (final interval in highlightedColoredIntervals) {
-      final intervalStart = interval.$1;
-      final intervalEnd = interval.$2;
+      final intervalStart = interval.dart;
+      final intervalEnd = interval.;
       final intervalColor = interval.$3;
 
       final affectedSpots = spots
@@ -529,9 +527,11 @@ class ElevationChart extends StatefulWidget {
     state._setCurrentHighlight(value);
   }
 
+  // ignore: library_private_types_in_public_api
   late final _LineAreaChartState state;
 
   @override
+  // ignore: no_logic_in_create_state
   State<ElevationChart> createState() {
     state = _LineAreaChartState();
     return state;
@@ -1003,10 +1003,10 @@ class _ChartState extends State<_Chart> {
           ),
           for (final interval in widget.highlightedIntervals)
             LineChartBarData(
-              spots: interval.$1,
+              spots: interval.dart,
               isCurved: true,
               barWidth: 5,
-              color: interval.$2,
+              color: interval.,
               dotData: const FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
@@ -1291,8 +1291,6 @@ class _ChartGestureDetector extends StatelessWidget {
         );
       },
     );
-  }
-}
 ```
 
 The state class (`_LineAreaChartState`) wires up gesture detection, viewport changes, and tooltips, while private widgets like `_Chart`, `_LeftTitleBar`, and `_BottomTitleBar` handle chart drawing and axis labels.

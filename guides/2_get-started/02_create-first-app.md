@@ -11,8 +11,6 @@ Follow this tutorial to build a Flutter app with an interactive map.
 
 - [Free API key from MagicLane](https://developer.magiclane.com/docs/guides/get-started)
 
----
-
 ## Step 1: Create a new project
 ```bash
 flutter create my_first_map_app
@@ -40,7 +38,7 @@ Install it:
 flutter pub get
 ```
 
-Complete the [Android/iOS setup](./integrate-sdk#step-2-configure-your-platform) before continuing (adds Maven repository, sets iOS version).
+Complete the [Android/iOS setup](/guides/get-started/integrate-sdk#step-2-configure-your-platform) before continuing (adds Maven repository, sets iOS version).
 
 ## Step 3: Write the code
 
@@ -115,8 +113,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 </details>
 
----
-
 ## Step 4: Run your app
 
 Start the app with your API key:
@@ -135,11 +131,9 @@ const projectApiToken = "your_actual_token_here";
 **⚠️ Never commit hardcoded tokens to version control!**
 </details>
 
----
+When you initialize the SDK with a valid API key, it also performs an automatic activation. This allows better flexibility for licensing.
 
 🎉 **Success!** Your map app is running.
-
----
 
 ## What's next?
 
@@ -155,8 +149,6 @@ Explore what you can do with the map:
 
 - [Add navigation](../../examples/routing-navigation) - Calculate routes and turn-by-turn directions
 
----
-
 ## Troubleshooting
 
 <details>
@@ -164,7 +156,7 @@ Explore what you can do with the map:
 
 **Most common causes:**
 
-1. **Missing platform setup** - Did you complete the [Android/iOS configuration](./integrate-sdk#step-2-configure-your-platform)?
+1. **Missing platform setup** - Did you complete the [Android/iOS configuration](/guides/get-started/integrate-sdk#step-2-configure-your-platform)?
 2. **Invalid API key** - Check your token is correct and active
 3. **Flutter environment issues** - Run `flutter doctor` and fix any issues
 

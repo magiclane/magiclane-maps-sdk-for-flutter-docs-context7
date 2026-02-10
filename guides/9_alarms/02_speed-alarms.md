@@ -7,11 +7,7 @@ title: Speed Alarms
 
 This guide explains how to configure speed limit monitoring and receive notifications about speed violations and speed limit changes.
 
----
-
 The SDK monitors and notifies you about speed limits and violations. You can configure alerts for when a user exceeds the speed limit, when the speed limit changes on a new road segment, and when the user returns to a normal speed range. You can set customizable thresholds for speed violations, which can be adjusted for both city and non-city areas. These features provide timely speed-related notifications based on the user's location and current speed.
-
----
 
 ## Configure speed limit listeners
 ```dart
@@ -53,8 +49,6 @@ Although the parameter is named `insideCityArea`, it refers to areas with genera
 
 The `limit` parameter provided to `onSpeedLimit` will be 0 if the matched road section does not have a maximum speed limit available or if no road could be found.
 
----
-
 ## Set speed threshold
 
 The threshold for the maximum speed excess that triggers the `onHighSpeed` callback can be configured as follows:
@@ -65,8 +59,6 @@ alarmService.setOverSpeedThreshold(threshold: 1, insideCityArea: true);
 alarmService.setOverSpeedThreshold(threshold: 3, insideCityArea: true);
 ```
 
----
-
 ## Get speed threshold
 
 To access the configured threshold:
@@ -74,8 +66,6 @@ To access the configured threshold:
 double currentThresholdInsideCity = alarmService.getOverSpeedThreshold(true);
 double currentThresholdOutsideCity = alarmService.getOverSpeedThreshold(false);
 ```
-
----
 
 ## Relevant examples demonstrating speed alarms related features
 

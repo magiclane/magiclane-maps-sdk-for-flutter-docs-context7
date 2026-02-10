@@ -128,16 +128,16 @@ Define state variables to hold user preferences and the calculated route ranges.
 class _RangesPanelState extends State<RangesPanel> {
   int _rangeValue = 3600;
   RouteTransportMode _transportMode = RouteTransportMode.car;
+
   RouteType _routeType = RouteType.fastest;
   bool _avoidMotorways = false;
   bool _avoidTollRoads = false;
   bool _avoidFerries = false;
   bool _avoidUnpavedRoads = false;
+
   BikeProfile _bikeProfile = BikeProfile.city;
   double _hillsValue = 0;
-  TrafficAvoidance _trafficAvoidance = TrafficAvoidance.roadblocks;
-  List<Range> routeRanges = [];
-}
+
 ```
 
 ### Calculate Route Ranges

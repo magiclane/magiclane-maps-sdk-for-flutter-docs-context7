@@ -9,8 +9,6 @@ Some use cases require location access when the app is in the background. To ena
 
 Enable background location support for features like recording, navigation, or content download (maps can be large and take time to fetch).
 
----
-
 ## Configure iOS
 
 Update your `Info.plist` to request permission for background location access:
@@ -25,8 +23,6 @@ Update your `Info.plist` to request permission for background location access:
     <string>processing</string>
 </array>
 ```
-
----
 
 ## Configure Android
 
@@ -55,8 +51,6 @@ Learn more about foreground services: [Background Location Example](https://deve
 
 Find a sample implementation in the [Recorder in Background example](/examples/routing-navigation/background-recorder-with-foreground-service).
 
----
-
 ## Configure sensor settings
 
 Enable background location in the SDK by initializing the sensor configuration in your Flutter code:
@@ -77,8 +71,6 @@ if (err != GemError.success) {
     throw "Error setting data source configuration: ${err.toString()}";
 }
 ```
-
----
 
 ## Relevant examples demonstrating background location related features
 

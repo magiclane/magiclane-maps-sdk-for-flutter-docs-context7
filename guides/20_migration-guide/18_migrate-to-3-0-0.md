@@ -76,7 +76,7 @@ flutter pub get
 
 If errors persist on Android after making these changes, try opening the `android` folder in Android Studio and syncing the Gradle files.
 No additional code changes are needed for ios, besides updating the `iOS Deployment Target` in your Xcode project settings to at least `14.0`.
-See the [Getting Started](../../guides/get-started/integrate-sdk) guide for more details.
+See the [Getting Started](/guides/get-started/integrate-sdk) guide for more details.
 
 ## Removed *instance* static property from the *PositionService* class
 

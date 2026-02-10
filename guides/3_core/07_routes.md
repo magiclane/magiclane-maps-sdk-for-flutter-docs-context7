@@ -17,15 +17,11 @@ Compute routes in different ways:
 
 Navigable routes consist of segments. Each segment represents the portion between consecutive waypoints with its own route instructions.
 
----
-
 ## Create Routes
 
 Routes cannot be instantiated directly. Compute them based on a list of landmarks. See [Get started with Routing](/guides/routing/get-started-routing) for details.
 
 Calculating a route does not automatically display it on the map. See [Display routes](/guides/maps/display-map-items/display-routes) for instructions.
-
----
 
 ## Route Types
 
@@ -51,8 +47,6 @@ Each route type has specific classes:
 | Electric Vehicle Route    | `EVRoute`       | `EVRouteSegment`       | `EVRouteInstruction`      |
 
 These classes extend base classes (`RouteBase`, `RouteSegmentBase`, `RouteInstructionBase`) that provide common features.
-
----
 
 ## Route Structure
 
@@ -130,8 +124,6 @@ Key route characteristics:
   </tr>
 </table>
 
----
-
 ## RouteSegment Structure
 
 A route segment represents the portion between two consecutive waypoints. For public transport routes, segments are categorized as pedestrian or public transit sections.  
@@ -187,8 +179,6 @@ A route segment represents the portion between two consecutive waypoints. For pu
   </tr>
   </tbody>
 </table>
-
----
 
 ## RouteInstruction Structure
 
@@ -332,8 +322,6 @@ Distinguish between `NavigationInstruction` and `RouteInstruction`:
 
 - `RouteInstruction` - Route overview available immediately after calculation (instructions don't change during navigation)
 
----
-
 ## Related Classes 
 
 ### TimeDistance
@@ -428,8 +416,6 @@ Use `AbstractGeometryImageRenderSettings` to customize render settings and color
 
 These settings produce:
 
----
-
 ## Toll Sections
 
 The `TollSection` class represents a tolled route portion, defining start and end points (in meters from route start), cost, and currency.
@@ -444,8 +430,6 @@ The `TollSection` class represents a tolled route portion, defining start and en
 When cost data is unavailable, `cost` is 0 and `currency` is an empty string.
 
 Get WGS coordinates of toll section start and end using `Route.getCoordinateOnRoute` with `startDistanceM` and `endDistanceM` values.
-
----
 
 ## Change Instruction Language
 

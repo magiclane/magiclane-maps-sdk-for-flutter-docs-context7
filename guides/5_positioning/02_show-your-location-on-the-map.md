@@ -13,8 +13,6 @@ GPS accuracy may be limited in environments such as indoor spaces, areas with we
 
 This behavior is more pronounced when the device is stationary.
 
----
-
 ## Follow position
 
 Call the `startFollowingPosition` method on the mapController to follow the position tracker:
@@ -25,6 +23,9 @@ mapController.startFollowingPosition();
 When called, the camera automatically follows the movement and rotation of the position tracker, keeping the user's current location and orientation centered on the map.
 
 The `startFollowingPosition` method accepts parameters such as `animation` (controls camera movement to the tracker position), `zoomLevel`, and `viewAngle`.
+
+Setting `zoomLevel` and `viewAngle` via `startFollowingPosition` may behave differently than configuring them through `setZoomLevel` and `setViewAngle` on `FollowPositionPreferences`, especially in scenarios involving complex user interactions (for example, when user-modified values via touch need to be persisted).
+It is recommended to try both approaches and choose the one that best fits your specific use case.
 
 ### Set map rotation mode
 
@@ -60,8 +61,6 @@ mapController.stopFollowingPosition();
 ```
 
 Follow mode exits automatically when the user interacts with the map. Actions such as panning or tilting disable automatic tracking. Deactivate this by setting `touchHandlerExitAllow` to false (see the section below).
-
----
 
 ## Customize follow position settings
 
@@ -117,7 +116,7 @@ The fields defined in `FollowPositionPreferences` take effect only when the came
   </tr>
 </table>
 
-Refer to the [adjust map guide](../maps/adjust-map) for more information about the `viewAngle`, `zoomLevel`, and `cameraFocus` fields.
+Refer to the [adjust map guide](/guides/maps/adjust-map) for more information about the `viewAngle`, `zoomLevel`, and `cameraFocus` fields.
 
 If no zoom level is set, a default value is used.
 
@@ -186,8 +185,6 @@ mapController.startFollowingPosition();
 
 The `setCameraFocus` method uses a coordinate system relative to the viewport, not physical pixels. `Point(0.0, 0.0)` corresponds with the top-left corner and `Point(1.0, 1.0)` corresponds with the bottom-right corner.
 
----
-
 ## Customize position icon
 
 Customize the position tracker to suit your application's requirements. Set a simple PNG as the position tracker:
@@ -207,8 +204,6 @@ Besides simple 2D icons, 3D objects as `glb` files can be set. The format parame
 Setting different icons for different maps is not currently supported.
 
 Ensure the resource (in this example `navArrow.png`) is correctly registered within the `pubspec.yaml` file. See the [Flutter documentation](https://docs.flutter.dev/ui/assets/assets-and-images) for more information.
-
----
 
 ## Other position tracker settings
 
@@ -241,8 +236,6 @@ mapSceneObject.visibility = false;
 ```
 
 The snippet above makes the position tracker invisible.
-
----
 
 ## Relevant examples demonstrating custom position icon related features
 

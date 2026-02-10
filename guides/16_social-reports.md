@@ -9,8 +9,6 @@ Social reports are user-generated alerts about real-time driving conditions or i
 
 Users can create reports with category, name, image, and other parameters. They can vote on accuracy, comment on events, confirm or deny validity, and delete their own reports. Social reports are visible to all users with the social overlay enabled and a compatible map style.
 
----
-
 ## Report categories
 
 The following categories and subcategories are provided in the form of a hierarchical structure, based on the `OverlayCategory` class:
@@ -74,8 +72,6 @@ for (final OverlayCategory category in categories){
 ```
 
 More details about the `OverlayCategory` class structure can be found in the [Overlay documentation](/guides/core/overlays).
-
----
 
 ## Step 1: Prepare and upload a report
 
@@ -144,8 +140,6 @@ The `report` function accepts the following optional parameters:
 
 These parameters are optional and can be omitted if not needed.
 
----
-
 ## Step 2: Update a report
 
 Update an existing report's parameters using the `SocialOverlay.updateReport(item, params)` method:
@@ -181,8 +175,6 @@ A user can obtain a report `OverlayItem` through the following methods:
 
 - **Proximity Alerts** - Via the `AlarmListener`, when approaching a report that triggers an alert
 
----
-
 ## Step 3: Delete a report
 
 Delete a report using `SocialOverlay.deleteReport(overlayItem)`. Only the original creator of the report has the authority to delete it.
@@ -194,8 +186,6 @@ The `delete` method provides the following `GemError` values on the `onComplete`
 - `accessDenied` - User does not have the required rights
 
 - `success` - Operation completed successfully
-
----
 
 ## Step 4: Interact with reports
 
@@ -240,8 +230,6 @@ The `addComment` method provides the following `GemError` values on the `onCompl
 
 - `success` - Comment was added
 
----
-
 ## Step 5: Get updates about a report
 
 Track changes to a report using the `SocialReportListener` class.
@@ -283,8 +271,6 @@ The `unregisterReportListener` method returns the following possible values:
 - `GemError.invalidInput` - Provided `OverlayItem` is not a social overlay item
 
 - `GemError.notFound` - Listener was not registered for the report
-
----
 
 ## Relevant examples demonstrating social reports features
 

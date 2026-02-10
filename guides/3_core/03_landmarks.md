@@ -18,7 +18,7 @@ Calculate the distance between two landmarks using the `distance` method:
 final double distanceInMeters = landmark1.coordinates.distance(landmark2.coordinates);
 ```
 
-See the [Coordinates](./base-entities) guide for more details.
+See the [Coordinates](/guides/core/base-entities) guide for more details.
 
 ### Waypoint Track Data
 
@@ -72,8 +72,6 @@ landmark.contactInfo = info; // <-- Does not update the value associated with th
 
 The `ExtraInfo` object also stores data relevant for geographic area, contour geographic area, and Wikipedia information. Modifying `extraInfo` may cause data loss if related fields are not preserved.
 
----
-
 ## Create Landmarks
 
 Create landmarks using one of these methods:
@@ -90,7 +88,7 @@ Creating a landmark does not automatically display it on the map. See [Display l
 
 ### Select Landmarks
 
-Landmarks are selectable by default. User interactions like taps identify landmarks programmatically using `cursorSelectionLandmarks()`. See [Landmark selection](../maps/interact-with-map#select-landmarks) for details.
+Landmarks are selectable by default. User interactions like taps identify landmarks programmatically using `cursorSelectionLandmarks()`. See [Landmark selection](/guides/maps/interact-with-map#select-landmarks) for details.
 
 ### Highlight Landmarks
 
@@ -115,8 +113,6 @@ Configure alarms to notify users when approaching specific landmarks. See [Landm
 - Search results return landmark lists
 
 - Route waypoints are landmarks
-
----
 
 ## Landmark Categories
 
@@ -181,8 +177,6 @@ Retrieve POI subcategories using `GenericCategories.getPoiCategories()`. Find th
 - Toggle landmark visibility on the map
 
 - Organize landmarks within stores
-
----
 
 ## Landmark Stores
 

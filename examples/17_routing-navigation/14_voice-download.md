@@ -55,25 +55,25 @@ Future<List<ContentStoreItem>> _getVoices() async {
 
 The voices are displayed in a list, and a CircularProgressIndicator is shown while the voices are being loaded.
 ```dart
-  body: FutureBuilder<List<ContentStoreItem>>(
-    future: _getVoices(),
-    builder: (context, snapshot) {
-      if (!snapshot.hasData || snapshot.data == null) {
-        return const Center(child: CircularProgressIndicator());
-      }
-      return Scrollbar(
-        child: ListView.separated(
-          padding: EdgeInsets.zero,
-          itemCount: snapshot.data!.length,
-          separatorBuilder: (context, index) => const Divider(indent: 50, height: 0),
-          itemBuilder: (context, index) {
-            final voice = snapshot.data!.elementAt(index);
-            return VoicesItem(voice: voice);
-          },
-        ),
-      );
-    },
-  ),
+      body: FutureBuilder<List<ContentStoreItem>>(
+        future: _getVoices(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData || snapshot.data == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Scrollbar(
+            child: ListView.separated(
+              padding: EdgeInsets.zero,
+              itemCount: snapshot.data!.length,
+              separatorBuilder: (context, index) =>
+                  const Divider(indent: 50, height: 0),
+              itemBuilder: (context, index) {
+                final voice = snapshot.data!.elementAt(index);
+                return VoicesItem(voice: voice);
+              },
+            ),
+          );
+        },
 ```
 
 ### Download Voice

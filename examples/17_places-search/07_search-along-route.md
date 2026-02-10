@@ -200,7 +200,7 @@ This section demonstrates how to start and stop a simulated navigation along the
   // Stop simulated navigation.
   void _stopSimulation() {
     // Cancel the navigation.
-    NavigationService.cancelNavigation(_navigationHandler!);
+    NavigationService.cancelNavigation(_navigationHandler);
     _navigationHandler = null;
 
     _cancelRoute();

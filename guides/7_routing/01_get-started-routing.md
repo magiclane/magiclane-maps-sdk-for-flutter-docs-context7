@@ -23,8 +23,6 @@ Here’s a quick overview of what you can do with routing:
 
 - Access detailed route profiles for further analysis.
 
----
-
 ## Calculate routes
 
 Calculate a navigable route between a start point and destination. The route can be used for navigation or simulation.
@@ -103,8 +101,6 @@ RoutingService.cancelRoute(taskHandler);
 
 When the route is canceled, the callback returns `err` = `GemError.cancel`.
 
----
-
 ## Retrieve time and distance information
 
 Access estimated time of arrival (ETA), distance, and traffic details for computed routes.
@@ -149,9 +145,7 @@ for (final event in trafficEvents) {
 }
 ```
 
-See the [Traffic Events guide](../core/traffic-events) for detailed information.
-
----
+See the [Traffic Events guide](/guides/core/traffic-events) for detailed information.
 
 ## Display routes on the map
 
@@ -221,8 +215,6 @@ if (terrainProfile != null) {
 **SurfaceType** values: `asphalt`, `paved`, `unpaved`, `unknown`.
 
 See the [Route Profile example](/examples/routing-navigation/route-profile) for detailed information.
-
----
 
 ## Retrieve route instructions
 
@@ -336,8 +328,6 @@ Access instruction data using these **RouteInstruction** methods:
 -  `traveledTimeDistance.totalDistanceM`: 6.2km (after formatting)
 
 -  `turnDetails.abstractGeometryImg.getRenderableImageBytes(renderSettings: AbstractGeometryImageRenderSettings(),size: Size(100, 100))`: Instruction image or null when invalid
-
----
 
 ## Relevant examples demonstrating routing related features
 

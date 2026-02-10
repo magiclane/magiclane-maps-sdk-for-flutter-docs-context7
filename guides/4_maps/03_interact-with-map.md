@@ -7,8 +7,6 @@ title: Interact With Map
 
 The Maps SDK for Flutter supports common touch gestures like pinch, double-tap, and pan. Use gesture listeners to detect user interactions and respond with custom actions like selecting landmarks or displaying information.
 
----
-
 ## Understanding gestures
 
 The map view natively supports common gestures. The table below outlines the available gestures and their default behaviors:
@@ -74,8 +72,6 @@ This callback is triggered when the camera is moved programmatically using metho
 
 The callback function is defined as `void Function(bool isCameraMoving, RectangleGeographicArea area)`, where `isCameraMoving` is `true` when the camera is moving and `false` when stationary.
 
----
-
 ## Enable and disable gestures
 
 Disable or enable touch gestures using the `enableTouchGestures` method:
@@ -101,8 +97,6 @@ Check if a gesture is enabled using the `isTouchGestureEnabled` method:
 ```dart
 bool isTouchEnabled = mapController.preferences.isTouchGestureEnabled(TouchGestures.onTouch);
 ```
-
----
 
 ## Register gesture listeners
 
@@ -150,8 +144,6 @@ void _onMapCreated(GemMapController mapController) async {
 
 Executing resource-intensive tasks within map-related callbacks can degrade performance.
 
----
-
 ## Register map render listeners
 
 Monitor viewport dimension changes using `registerOnViewportResized`. This occurs when the user resizes the application window or changes device orientation. The callback receives a `Rectangle<int>` object representing the new viewport size:
@@ -173,8 +165,6 @@ mapController.registerOnViewRendered((MapViewRenderInfo renderInfo) {
   print("View rendered: ${renderInfo.status}");
 });
 ```
-
----
 
 ## Select map elements
 
@@ -327,8 +317,6 @@ These callbacks are triggered when the selection changes, when new elements are 
 
 Unregister a callback by calling the corresponding method with null as the argument.
 
----
-
 ## Capture the map view as an image
 
 Save the map as an image to generate previews that are too expensive to redraw in real time. The `captureImage` method returns a `Future<Uint8List?>` representing the image as a JPEG:
@@ -349,8 +337,6 @@ Platform differences:
 Capturing the map view may not work correctly when map rendering is disabled.
 
 Ensure map animations and loading have completed before capturing. Wait for `registerOnViewRendered` to be triggered with `dataTransitionStatus` set to `ViewDataTransitionStatus.complete`. Implement a timeout, as `registerOnViewRendered` is only triggered when the map is rendering and will not be called if everything is already loaded.
-
----
 
 ## What's next?
 

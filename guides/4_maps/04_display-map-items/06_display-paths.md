@@ -7,8 +7,6 @@ title: Display Paths
 
 Learn how to display paths on the map, customize their appearance, and manage the path collection.
 
----
-
 ## Add paths to the map
 
 Display [Paths](/guides/core/base-entities#path) by adding them to the `MapViewPathCollection`. The `MapViewPathCollection` is an iterable collection with methods like `size`, `add`, `remove`, `removeAt`, `getPathAt`, and `getPathByName`.
@@ -29,13 +27,9 @@ mapController.preferences.paths.add(path);
 mapController.centerOnArea(path.area);
 ```
 
----
-
 ## Remove paths
 
 Remove all paths from the map using `MapViewPathCollection.clear()`. To remove specific paths, use `MapViewPathCollection.remove(path)` or `MapViewPathCollection.removeAt(index)`.
-
----
 
 ## Relevant examples demonstrating paths related features
 

@@ -9,8 +9,6 @@ The Driver Behaviour feature analyzes and scores driver behavior during trips, i
 
 Use this data to provide user feedback, identify unsafe habits, and assess safety levels over time. All information is processed using on-device sensor data via the configured `DataSource` and optionally matched to the road network when `useMapMatch` is enabled.
 
----
-
 ## Start and Stop Analysis
 
 Start a session using the `startAnalysis` method of the `DriverBehaviour` object. Stop the session using `stopAnalysis`, which returns a `DriverBehaviourAnalysis` instance.
@@ -33,8 +31,6 @@ if (result == null){
 ```
 
 All `DriverBehaviourAnalysis` instances expose an `isValid` getter. Verify this property before accessing the data.
-
----
 
 ## Inspect Driving Session Summary
 
@@ -68,8 +64,6 @@ double overallScore = scores.aggregateScore;
 
 Each score ranges from 0 (unsafe) to 100 (safe). A score of -1 indicates invalid or unavailable data.
 
----
-
 ## Inspect Driving Events
 
 Use the `drivingEvents` property to access detected driving incidents:
@@ -79,8 +73,6 @@ for (final event in events) {
   print("Event at ${event.latitudeDeg}, ${event.longitudeDeg} at ${event.time} with type ${event.eventType}");
 }
 ```
-
----
 
 ## Driving Event Types
 
@@ -99,8 +91,6 @@ Event types are defined by the `DrivingEvent` enum:
 | `tailgating`          | Tailgating                      |
 | `ignoringSigns`       | Ignoring traffic signs          |
 
----
-
 ## Get Real-time Feedback
 
 Fetch real-time scores during ongoing analysis:
@@ -109,8 +99,6 @@ DrivingScores? instantScores = driverBehaviour.instantaneousScores;
 ```
 
 These scores reflect current driver behavior and provide immediate in-app feedback.
-
----
 
 ## Stop Analysis and Get Last Analysis
 
@@ -132,8 +120,6 @@ if (lastAnalysis == null) {
 }
 ```
 
----
-
 ## Retrieve Past Analyses
 
 Access all completed sessions stored locally:
@@ -149,13 +135,9 @@ DateTime end = DateTime.now();
 DriverBehaviourAnalysis? combined = driverBehaviour.getCombinedAnalysis(start, end);
 ```
 
----
-
 ## Analyses Storage Location
 
 Analyses are stored locally on the device in a **`DriverBehaviour`** folder inside the app's directory (at the same level as `Data`).
-
----
 
 ## Clean Up Data
 
@@ -166,15 +148,11 @@ driverBehaviour.eraseAnalysesOlderThan(DateTime.now().subtract(Duration(days: 30
 
 Driver behaviour analysis requires a properly configured `DataSource`. See the [Positioning guide](positioning/get-started-positioning) to set up your data pipeline. Start and stop the analysis appropriately and avoid frequent interruptions or overlapping sessions.
 
----
-
 ## Enable Background Location
 
 To use driver behaviour features while the app is in the background, configure both iOS and Android platforms.
 
 Refer to the [Background Location guide](positioning/background-location) for detailed configuration instructions.
-
----
 
 ## Relevant example demonstrating driver behavior-related features
 

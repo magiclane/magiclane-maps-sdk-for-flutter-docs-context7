@@ -7,8 +7,6 @@ title: Positions
 
 This page covers position data representation using `GemPosition` and `GemImprovedPosition` classes for GPS-based systems.
 
----
-
 Don't confuse `Coordinates` with `Position` classes. The `Coordinates` class represents geographic locations (latitude, longitude, altitude) and is widely used throughout the SDK. In contrast, `GemPosition` and `GemImprovedPosition` classes contain additional sensor data and primarily represent the user's location and movement details.
 
 ## Create positions
@@ -17,8 +15,6 @@ Instantiate the `GemPosition` class using methods in the `SenseDataFactory` clas
 
 For more details, refer to the [Get Started with Positioning](/guides/positioning/get-started-positioning) guide.
 
----
-
 ## Raw position data
 
 Raw position data represents unprocessed GPS sensor data from devices. It corresponds to the `GemPosition` interface.
@@ -26,8 +22,6 @@ Raw position data represents unprocessed GPS sensor data from devices. It corres
 ## Map matched position data
 
 Map matching aligns raw GPS data with a digital map, correcting inaccuracies by snapping the position to the nearest logical location (such as roads). It corresponds to the `GemImprovedPosition` interface.
-
----
 
 ## Compare position types
 
@@ -56,4 +50,4 @@ Map matched positions provide more information than raw positions:
 
 The `speedLimit` field may not always have a value, even if the position is map matched. This can happen if data is unavailable for the current road segment or if the position is not on a road. In such cases, the `speedLimit` field will be set to 0.
 
-To check if a user is exceeding the legal speed limit, use the `AlarmService` class. Refer to the [speed warnings guide](../alarms/speed-alarms) for more details.
+To check if a user is exceeding the legal speed limit, use the `AlarmService` class. Refer to the [speed warnings guide](/guides/alarms/speed-alarms) for more details.

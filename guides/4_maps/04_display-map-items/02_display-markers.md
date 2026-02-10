@@ -7,8 +7,6 @@ title: Display Markers
 
 Learn how to add and customize markers on your map, including point, polyline, and polygon types.
 
----
-
 ## Overview
 
 The `Marker` class is the base for all marker types. It encapsulates coordinates assigned to specific parts. You can add multiple coordinates to the same marker and separate them into different parts. If no part is specified, coordinates are added to the default part (indexed as 0). Coordinates are stored in a list-like structure where you can specify their index explicitly. By default, the index is -1, meaning the coordinate appends to the end of the list.
@@ -31,8 +29,6 @@ final marker1 = Marker()
   ..add(Coordinates(latitude: 52.14611, longitude: 1.06215), part: 0);
 ```
 
----
-
 ## Add markers to the map
 
 To display markers on your map, add them to a `MarkerCollection`. When creating a collection, provide a name and specify the `MarkerType` enum (`MarkerType.point`, `MarkerType.polyline`, or `MarkerType.polygon`).
@@ -41,8 +37,6 @@ Once populated, add the `MarkerCollection` to `MapViewMarkerCollections` through
 ```dart
 mapController.preferences.markers.add(markerCollection);
 ```
-
----
 
 ## Marker types
 
@@ -77,8 +71,6 @@ Polygon markers display closed shapes composed of straight-line segments. The `M
 At least three coordinates must be added to the same part to create a polygon. Otherwise, the result is an open polyline.
 
 Customize polygons using properties like `polygonFillColor` and `polygonTexture`. Since polygon edges are polylines, you can refine their appearance with `polylineInnerColor`, `polylineOuterColor`, `polylineTexture`, and more.
-
----
 
 ## Customize markers
 
@@ -130,7 +122,7 @@ To customize each marker individually, use the `MarkerSketches` class, which ext
 final sketches = ctrl.preferences.markers.getSketches(MarkerType.point);
 ```
 
-There are only three `MarkerSketches` collections—one for each marker type: `MarkerType.point`, `MarkerType.polyline`, and `MarkerType.polygon`. Each collection is a singleton.
+There are only three `MarkerSketches` collections - one for each marker type: `MarkerType.point`, `MarkerType.polyline`, and `MarkerType.polygon`. Each collection is a singleton.
 
 Adding markers to `MarkerSketches` is similar to adding them to `MarkerCollection`, but you can specify individual `MarkerRenderSettings` and index for each marker:
 ```dart
@@ -163,11 +155,9 @@ final returnedSettings = sketches.getRenderSettings(0);
 
 Calling `getRenderSettings` with an invalid index returns a `MarkerRenderSettings` object with default values.
 
-The `MarkerSketches` collection doesn't need to be added to `MapViewMarkerCollections`—it's already part of it. Changes to `MarkerSketches` automatically reflect on the map.
+The `MarkerSketches` collection doesn't need to be added to `MapViewMarkerCollections`-it's already part of it. Changes to `MarkerSketches` automatically reflect on the map.
 
 Individual `MarkerRenderSettings` from `MarkerSketches` override `MarkerCollectionRenderSettings` when both are specified.
-
----
 
 ## Marker clustering
 
@@ -248,8 +238,6 @@ final groupMarkers =
 ```
 
 Invoking `getPointsGroupComponents` without the group head marker ID returns an empty list.
-
----
 
 ## Add multiple markers efficiently
 

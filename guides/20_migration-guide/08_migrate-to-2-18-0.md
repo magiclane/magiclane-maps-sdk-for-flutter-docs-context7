@@ -46,4 +46,4 @@ SdkSettings.setAllowInternetConnection(true);
 
 The auto-update mechanism is no longer overwriten when registering callbacks via the `setAllowConnection`/`offBoardListener.register.../GemKit.initialize/GemMap()` methods / objects.
 
-The newly added `SdkSettings.offBoardListener` member allows changing the current auto update settings at any time and listening for when the auto-update has been completed. See the [Update Content page](../offline/update-content) for more details.
+The newly added `SdkSettings.offBoardListener` member allows changing the current auto update settings at any time and listening for when the auto-update has been completed. See the [Update Content page](/guides/offline/update-content) for more details.

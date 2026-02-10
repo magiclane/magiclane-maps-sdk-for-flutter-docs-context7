@@ -7,8 +7,6 @@ title: Route Preferences
 
 This guide explains how to customize routes using preferences, configure vehicle profiles, and apply routing constraints for different transport modes.
 
----
-
 ## Configure route preferences
 
 Set route options using **RoutePreferences** to customize route calculations.
@@ -54,7 +52,7 @@ TimezoneService.getTimezoneInfoFromCoordinates(
 );
 ```
 
-See the [Timezone Service guide](../timezone-service) for detailed information.
+See the [Timezone Service guide](/guides/timezone-service) for detailed information.
 
 Complex structure creation options:
 
@@ -120,8 +118,6 @@ Read-only properties that indicate how the route was computed:
 |-------------------------------------|--------------------------------------------------------|---------------------------------------------|
 | routeResultType                     | Type of route result.                                  | RouteResultType.path                        |
 
----
-
 ## Configure vehicle profiles
 
 Customize routing behavior for different vehicle types using profile configurations.
@@ -178,8 +174,6 @@ Available options:
 
 The **ElectricBikeProfile** class is encapsulated within the `BikeProfileElectricBikeProfile` class, together with the `BikeProfile` enum.
 
----
-
 ## Calculate truck routes
 
 Compute routes optimized for trucks by configuring truck-specific preferences and constraints.
@@ -218,8 +212,6 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
       // handle results
 });
 ```
-
----
 
 ## Calculate caravan routes
 
@@ -260,8 +252,6 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
 ```
 
 Set at least one of `height`, `length`, `width`, or `axleLoad` to a non-zero value for the settings to take effect. If all fields are 0, a normal car route is calculated.
-
----
 
 ## Calculate round trips
 
@@ -322,8 +312,6 @@ final routingHandler = RoutingService.calculateRoute([departureLandmark], routeP
 ```
 
 If more than one waypoint is provided in a round trip calculation, only the first is considered; others are ignored.
-
----
 
 ## Relevant examples demonstrating routing related features
 

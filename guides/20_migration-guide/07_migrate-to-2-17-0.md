@@ -23,7 +23,7 @@ This release adds the `LaneImg`, `AbstractGeometryImg`, `SignpostImg`, `RoadInfo
 
 Additionally, the new `RenderableImg` class wraps raw `Uint8List` image data and provides metadata such as width and height.
 
-See the [working with images](../core/images) page for more details about this change.
+See the [working with images](/guides/core/images) page for more details about this change.
 
 Before:
 ```dart
@@ -98,7 +98,7 @@ SearchService.search(
 );
 ```
 
-Make sure the `SearchPreferences` object passed to the search operation is configured to search on the correct overlays. See the [Search on overlays section](../search/get-started-search#search-on-overlays) for more details.
+Make sure the `SearchPreferences` object passed to the search operation is configured to search on the correct overlays. See the [Search on overlays section](/guides/search/get-started-search#search-on-overlays) for more details.
 
 ## The *networkProvider* getter of the *SdkSettings* class has been removed
 

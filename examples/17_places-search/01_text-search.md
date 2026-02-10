@@ -71,12 +71,16 @@ This is done in the method that calls SearchPage() above.
 
 The result landmark tapped by the user is selected:
 ```dart
-_mapController.activateHighlight([result], renderSettings: RenderSettings());
+      // Activating the highlight
+      _mapController.activateHighlight([
+        result,
+      ], renderSettings: HighlightRenderSettings());
 ```
 
 Then the map is centered on the coordinates of that result landmark:
 ```dart
-_mapController.centerOnCoordinates(result.coordinates);
+      // Centering the map on the desired coordinates
+      _mapController.centerOnCoordinates(result.coordinates, zoomLevel: 70);
 ```
 
 

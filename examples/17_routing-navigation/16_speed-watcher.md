@@ -222,7 +222,9 @@ class _SpeedIndicatorState extends State<SpeedIndicator> {
       width: 200,
       margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(15)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -234,8 +236,6 @@ class _SpeedIndicatorState extends State<SpeedIndicator> {
         ],
       ),
     );
-  }
-}
 ```
 
 ### Class for the Follow Position Button

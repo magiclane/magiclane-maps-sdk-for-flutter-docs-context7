@@ -9,8 +9,6 @@ Weather-related functionalities are organized into distinct classes, each design
 
 The main classes include `LocationForecast`, `Conditions`, and `Parameter`. This guide provides a detailed explanation of each class and its purpose.
 
----
-
 ## LocationForecast
 
 The `LocationForecast` class retains data such as the forecast update datetime, the geographic location, and forecast data.
@@ -20,8 +18,6 @@ The `LocationForecast` class retains data such as the forecast update datetime, 
 | `updated` | `DateTime` | Forecast update datetime (UTC) |
 | `coord` | `Coordinates` | Geographic location |
 | `forecast` | `List<Conditions>` | Forecast data |
-
----
 
 ## Conditions
 
@@ -60,8 +56,6 @@ The `PredefinedParameterTypeValues` class contains the common values for `Parame
 
 The `WeatherService` may return data with varying property types, depending on data availability. A response might include only a subset of the values listed above.
 
----
-
 ## Parameter
 
 The `Parameter` class contains weather parameter data.
@@ -72,8 +66,6 @@ The `Parameter` class contains weather parameter data.
 | `value` | `double` | Value |
 | `name` | `String` | Name translated according to the current SDK language |
 | `unit` | `String` | Unit |
-
----
 
 ## Related examples
 

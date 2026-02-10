@@ -77,48 +77,46 @@ This code sets up the app’s user interface, including a map and a button to fo
 
 ### Handling Location Permissions and Following Position
 ```dart
-// The callback for when the map is ready to use.
-void _onMapCreated(GemMapController controller) async {
-  // Save controller for further usage.
-  _mapController = controller;
-}
+  // The callback for when map is ready to use.
+  void _onMapCreated(GemMapController controller) async {
+    // Save controller for further usage.
+    _mapController = controller;
+  }
 
-```
-
-dart
-void _onFollowPositionButtonPressed() async {
-  if (kIsWeb) {
-    // On web platform permission are handled differently than other platforms.
-    // The SDK handles the request of permission for location.
-    final locationPermssionWeb =
-        await PositionService.requestLocationPermission();
-    if (locationPermssionWeb == true) {
-      _locationPermissionStatus = PermissionStatus.granted;
+  void _onFollowPositionButtonPressed() async {
+    if (kIsWeb) {
+      // On web platform permission are handled differently than other platforms.
+      // The SDK handles the request of permission for location.
+      final locationPermssionWeb =
+          await PositionService.requestLocationPermission();
+      if (locationPermssionWeb == true) {
+        _locationPermissionStatus = PermissionStatus.granted;
+      } else {
+        _locationPermissionStatus = PermissionStatus.denied;
+      }
     } else {
-      _locationPermissionStatus = PermissionStatus.denied;
-    }
-  } else {
-    // For Android & iOS platforms, permission_handler package is used to ask for permissions.
-    _locationPermissionStatus = await Permission.locationWhenInUse.request();
-  }
-
-  if (_locationPermissionStatus == PermissionStatus.granted) {
-    // Set the live data source (GPS) if not already set.
-    if (!_hasLiveDataSource) {
-      PositionService.setLiveDataSource();
-      _hasLiveDataSource = true;
+      // For Android & iOS platforms, permission_handler package is used to ask for permissions.
+      _locationPermissionStatus = await Permission.locationWhenInUse.request();
     }
 
-    // Optionally, set an animation.
-    final animation = GemAnimation(type: AnimationType.linear);
+    if (_locationPermissionStatus == PermissionStatus.granted) {
+      // After the permission was granted, we can set the live data source (in most cases the GPS).
+      // The data source should be set only once, otherwise we'll get -5 error.
+      if (!_hasLiveDataSource) {
+        PositionService.setLiveDataSource();
+        _hasLiveDataSource = true;
+      }
 
-    // Start following the device's position.
-    _mapController.startFollowingPosition(animation: animation);
+      // Optionally, we can set an animation
+      final animation = GemAnimation(type: AnimationType.linear);
 
-    setState(() {});
+      // Calling the start following position SDK method.
+      _mapController.startFollowingPosition(animation: animation);
+
+      setState(() {});
+    }
   }
 }
-
 ```
 
 This code handles the process of requesting location permissions, setting the GPS as the live data source, and starting the map’s follow position mode.

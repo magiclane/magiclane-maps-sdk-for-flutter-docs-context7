@@ -170,15 +170,15 @@ void _onBuildRouteButtonPressed(BuildContext context) {
 
 The startSimulation method triggers a simulated navigation session, updating the UI with lane instructions.
 ```dart
-void _startSimulation() {
+  void _startSimulation() {
+    final routes = _mapController.preferences.routes;
 
-  final routes = _mapController.preferences.routes;
-  _mapController.preferences.routes.clearAllButMainRoute();
+    _mapController.preferences.routes.clearAllButMainRoute();
 
-  if (routes.mainRoute == null) {
-    _showSnackBar(context, message: "No main route available");
-    return;
-  }
+    if (routes.mainRoute == null) {
+      _showSnackBar(context, message: "No main route available");
+      return;
+    }
 
     _navigationHandler = NavigationService.startSimulation(
       routes.mainRoute!,
@@ -189,6 +189,7 @@ void _startSimulation() {
         currentInstruction = instruction;
       },
       onError: (error) {
+        // If the navigation has ended or if and error occurred while navigating, remove routes.
         setState(() {
           _isSimulationActive = false;
           _cancelRoute();
@@ -200,8 +201,7 @@ void _startSimulation() {
         return;
       },
     );
-  _mapController.startFollowingPosition();
-}
+
 ```
 
 ### UI Components

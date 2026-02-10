@@ -31,8 +31,6 @@ The public transport data structure follows the [General Transit Feed Specificat
 
 - Use the returned `PTStopInfo` object to explore agencies, stops, and trips
 
----
-
 ## Query Public Transit Stops
 ```dart
 void _onMapCreated(GemMapController controller) async {
@@ -83,7 +81,7 @@ void _onMapCreated(GemMapController controller) async {
 
 Obtain `PTStopInfo` instances by performing an overlay search using `CommonOverlayId.publicTransport`. Retrieve the corresponding `OverlayItem`s and use their `getPTStopInfo` method to access stop information.
 
-See the [Search on overlays](./search/get-started-search#search-on-overlays) guide for details.
+See the [Search on overlays](/guides/search/get-started-search#search-on-overlays) guide for details.
 
 All returned times are local times represented as `DateTime` values in UTC (timezone offset 0). Use the `TimezoneService` to convert them to other time zones.
 
@@ -92,8 +90,6 @@ Two types of public transit stops exist on the map:
 - `OverlayItem` stops selected via `cursorSelectionOverlayItemsByType` - provide extensive `PTStopInfo` details and display with a blue icon (default style)
 
 - `Landmark` stops selected via `cursorSelectionLandmarks` - provide limited details and display with a gray icon (default style)
-
----
 
 ## Filter Trips
 
@@ -109,8 +105,6 @@ Example:
 final trips = ptStopInfo.tripsByRouteType(PTRouteType.bus);
 ```
 
----
-
 ## Agencies
 
 The `PTAgency` class represents a public transport agency.
@@ -120,8 +114,6 @@ The `PTAgency` class represents a public transport agency.
 | `id` | `int` | Agency ID |
 | `name` | `String` | Full name of the transit agency. |
 | `url` | `String?` | Optional URL of the transit agency. |
-
----
 
 ## Public Transport Routes
 
@@ -154,8 +146,6 @@ The `PTRouteType` enum represents the type of public transport route:
 | `waterTransport`| Water transport. Used for ferries and other water-based transit.                              |
 | `misc`          | Miscellaneous. Includes other types of public transport not covered by the other categories.  |
 
----
-
 ## Stops
 
 The `PTStop` class represents a public transport stop.
@@ -166,8 +156,6 @@ The `PTStop` class represents a public transport stop.
 | `stopName` | `String` | Name of the location. Matches the agency's rider-facing name for the location as printed on a timetable, published online, or represented on signage. |
 | `isStation` | `bool?` | Whether this location is a station or not. A station is considered a physical structure or area that contains one or more platforms. |
 | `routes` | `List<PTRouteInfo>` | Associated routes for the stop. Contains all routes serving this stop, whether active at the given time or not. |
-
----
 
 ## Stop Times
 
@@ -182,8 +170,6 @@ The `PTStopTime` class provides details about stop time in a `PTTrip`.
 | `departureTime` | `DateTime?` | Optional departure time in the local timezone. |
 | `isBefore` | `bool` | Whether the stop time is before the current time. |
 | `isWheelchairFriendly` | `bool` | Whether the stop is wheelchair accessible. |
-
----
 
 ## Trips
 
@@ -207,8 +193,6 @@ The `PTTrip` class represents a public transport trip.
 
 `PTRouteInfo` represents the public-facing service riders recognize (e.g., "Bus 42"). `PTTrip` is a single scheduled journey along that route at a specific time with its own stop times and sequence. The route is the line identity; trips are individual vehicle runs throughout the day.
 
----
-
 ## Stop Info
 
 The `PTStopInfo` class aggregates stop-related data including agencies, stops, and trips related to a specific public transit overlay item.
@@ -218,8 +202,6 @@ The `PTStopInfo` class aggregates stop-related data including agencies, stops, a
 | `agencies`  | `List<PTAgency>` | Agencies serving the selected item |
 | `trips`     | `List<PTTrip>`   | Trips in which the selected item is involved |
 | `stops`     | `List<PTStop>`   | Stops associated with the trips |
-
----
 
 ## Relevant examples demonstrating public transit related features
 

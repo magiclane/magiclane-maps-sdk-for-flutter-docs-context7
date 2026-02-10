@@ -7,8 +7,6 @@ title: Get Started
 
 Learn how to display a map view and use the `GemMapController` to enable additional map functionalities.
 
----
-
 ## Display a map
 
 The `GemMap` widget, a subclass of `StatefulWidget`, provides powerful mapping capabilities with a wide range of configurable options. The following code demonstrates how to display a map view in your `main.dart` file:
@@ -71,8 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
----
-
 ## Use the map controller
 
 The `GemMap` widget includes an `onMapCreated` callback, which is triggered once the map has finished initializing. This callback provides a `GemMapController` to enable additional map functionalities.
@@ -88,8 +84,6 @@ const GemMap(
 Multiple `GemMap` widgets can be instantiated within a single application, allowing you to display different data on each map. Each `GemMap` is independently controlled via its respective `GemMapController`.
 
 Certain settings, such as language, overlay visibility, and position tracking, are shared across all `GemMap` instances within the application.
-
----
 
 ## Relevant examples demonstrating map related features
 

@@ -7,13 +7,9 @@ title: Display Overlays
 
 Learn how to enable and disable map overlays to add or remove contextual information layers.
 
----
-
 ## Overview
 
 Overlays provide enhanced, layered information on top of your base map. They offer dynamic, interactive, and customized data that adds contextual value to map elements.
-
----
 
 ## Disable overlays
 
@@ -45,8 +41,6 @@ if(overlayInfo != null) {
   showSnackbar(err.toString());
 }
 ```
-
----
 
 ## Enable overlays
 

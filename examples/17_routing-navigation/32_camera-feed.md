@@ -213,16 +213,16 @@ import 'package:path/path.dart' as path;
 import 'dart:io';
 
 Future<String> getDirectoryPath(String dirName) async {
-  final docDirectory =
-      Platform.isAndroid
-          ? await path_provider.getExternalStorageDirectory()
-          : await path_provider.getApplicationDocumentsDirectory();
+  final docDirectory = Platform.isAndroid
+      ? await path_provider.getExternalStorageDirectory()
+      : await path_provider.getApplicationDocumentsDirectory();
 
   String absPath = docDirectory!.path;
 
   final expectedPath = path.joinAll([absPath, "Data", dirName]);
   return expectedPath;
 }
+
 ```
 
 

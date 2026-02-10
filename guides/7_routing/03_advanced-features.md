@@ -7,8 +7,6 @@ title: Advanced Features
 
 This guide covers advanced routing features including route ranges, path-based routes, and public transit routing.
 
----
-
 ## Compute route ranges
 
 To compute a route range:
@@ -64,8 +62,6 @@ final taskHandler = RoutingService.calculateRoute(
 
 Display computed routes on the map like regular routes. Use `RouteRenderSettings.m_fillColor` to define the polygon fill color.
 
----
-
 ## Compute path-based routes
 
 A `Path` contains a list of coordinates (a track) created from:
@@ -107,7 +103,7 @@ final taskHandler = RoutingService.calculateRoute(
 });
 ```
 
-Modify the `Path` object using the `trackData` setter on the `Landmark` object. See the [Landmarks guide](../core/landmarks) for details.
+Modify the `Path` object using the `trackData` setter on the `Landmark` object. See the [Landmarks guide](/guides/core/landmarks) for details.
 
 When computing a route with both path-backed and non-path-backed landmarks, set `accurateTrackMatch` to `true` in `RoutePreferences`. Otherwise, routing computation fails with `GemError.unsupported`.
 
@@ -116,8 +112,6 @@ Configure the routing engine behavior with the `isTrackResume` field:
 - **`true`** - Matches the entire track of the path-backed landmark
 
 - **`false`** - Uses only the end point as a waypoint
-
----
 
 ## Compute routes from GPX files
 
@@ -153,8 +147,6 @@ RoutingService.calculateRoute(
 );
 ```
 
----
-
 ## Finger drawn paths
 
 Record a path by drawing with your finger on the map. When recording multiple paths, straight lines connect consecutive drawn segments.
@@ -178,8 +170,6 @@ TaskHandler? taskHandler = RoutingService.calculateRoute(
 ```
 
 The resulting `List<Landmark>` contains one path-based `Landmark`.
-
----
 
 ## Compute public transit routes
 
@@ -273,8 +263,6 @@ final customRoutePreferences = RoutePreferences(
 );
 ```
 
----
-
 ## Export routes to files
 
 Export a route from `RouteBookmarks` to a file on disk for later use or sharing. Ensure the directory exists and is writable before saving.
@@ -295,8 +283,6 @@ Export a route to a textual format using `exportAs`. The method returns a `Strin
 final dataGpx = routes.first.exportAs(PathFileFormat.gpx);
 // Full GPX data as a string
 ```
-
----
 
 ## Relevant examples demonstrating routing related features
 

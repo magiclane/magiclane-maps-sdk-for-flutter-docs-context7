@@ -159,6 +159,7 @@ If `RouteTransportMode` is not set to `lorry`, the routing may direct you onto r
 This dialog allows users to modify the truck profile parameters and returns the updated profile.
 ```dart
 class TruckProfileDialog extends StatefulWidget {
+  // The truck profile data to be modified in the dialog.
   final TruckProfile truckProfile;
 
   const TruckProfileDialog({super.key, required this.truckProfile});
@@ -170,6 +171,7 @@ class TruckProfileDialog extends StatefulWidget {
 class TruckProfileDialogState extends State<TruckProfileDialog> {
   late TruckProfile profile;
 
+  // Initializes the state of the dialog by copying the truck profile and setting initial values.
   @override
   void initState() {
     super.initState();
@@ -274,8 +276,6 @@ class TruckProfileDialogState extends State<TruckProfileDialog> {
     );
   }
 
-  // Method for building slider...
-}
 ```
 
 

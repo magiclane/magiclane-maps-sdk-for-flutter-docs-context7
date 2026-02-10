@@ -7,8 +7,6 @@ title: Base Entities
 
 This page covers the fundamental building blocks of the SDK: coordinates, paths, and geographic areas.
 
----
-
 ## Coordinates
 
 The `Coordinates` class represents geographic positions with an optional altitude. The Maps SDK for Flutter uses the [WGS](https://en.wikipedia.org/wiki/World_Geodetic_System) coordinates standard.
@@ -62,8 +60,6 @@ Coordinates should not be compared using direct equality checks, as minor variat
 For example, **(48.858395, 2.294469)** may differ slightly from a stored value like **(48.858394583109785, 2.294469162581987)** due to rounding or internal representation differences. These discrepancies are inherent to floating-point arithmetic and do not indicate a meaningful positional difference.
 
 Use a small numerical tolerance (epsilon) for reliable comparisons rather than strict equality.
-
----
 
 ## Path
 
@@ -129,8 +125,6 @@ The `exportAs` method returns a `String` containing the full path data in the re
 final dataGpx = path.exportAs(PathFileFormat.gpx);
 // You now have the full GPX as a string
 ```
-
----
 
 ## Geographic areas
 

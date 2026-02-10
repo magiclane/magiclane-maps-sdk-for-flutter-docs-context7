@@ -7,8 +7,6 @@ title: Display Routes
 
 Learn how to display routes on the map, customize their appearance, and manage route labels.
 
----
-
 ## Add routes to the map
 
 Display routes on the map using `MapViewPreferences.routes.add(route, isMainRoute)`. Multiple routes can be displayed simultaneously, but only one can be the **main route**, with others treated as secondary. Specify the main route by passing `true` to the `bMainRoute` parameter when calling `MapViewRoutesCollection.add`, or use the `MapViewRoutesCollection.mainRoute` setter.
@@ -24,8 +22,6 @@ mapController.preferences.routes.add(route2, false);
 mapController.preferences.routes.add(route3, false);
 mapController.centerOnMapRoutes();
 ```
-
----
 
 ## Customize route appearance
 
@@ -44,13 +40,9 @@ mapViewRoute?.renderSettings = RouteRenderSettings(innerColor: Color.fromARGB(25
 
 All dimensional sizes within the `RouteRenderSettings` are measured in millimeters.
 
----
-
 ## Remove routes
 
 Remove all displayed routes using `MapViewRoutesCollection.clear()`. To remove only secondary routes while keeping the main route, use `mapController.preferences.routes.clearAllButMainRoute()`.
-
----
 
 ## Add route labels
 
@@ -81,18 +73,14 @@ Enabling `autoGenerateLabel` will override any customizations made with the `lab
 
 Hide a route label by calling `MapViewRoutesCollection.hideLabel(route)`. You can also manage labels through a `MapViewRoute` object using the `labelText` setter to assign a label or the `hideLabel` method to hide it.
 
----
-
 ## Check visible route portion
 
-Retrieve the visible portion of a route—defined by its start and end distances in meters—using the `getVisibleRouteInterval` method from the `GemMapController`:
+Retrieve the visible portion of a route - defined by its start and end distances in meters - using the `getVisibleRouteInterval` method from the `GemMapController`:
 ```dart
 final (startRouteVisibleIntervalMeters, endRouteVisibleIntervalMeters) = controller.getVisibleRouteInterval(route);
 ```
 
 You can provide a custom screen region to the `getVisibleRouteInterval` method instead of using the entire viewport. The method returns `(0,0)` if the route is not visible on the provided viewport or region.
-
----
 
 ## Relevant examples demonstrating routing related features
 

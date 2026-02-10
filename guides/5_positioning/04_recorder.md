@@ -19,11 +19,9 @@ Control the recording lifecycle:
 
 - Automatic restarts for continuous recording with chunked durations
 
-The Recorder supports various transportation modes (car, pedestrian, bike), enabling detailed analysis and classification based on context. Set disk space limits to prevent overwhelming device storage—logs are automatically managed based on retention thresholds.
+The Recorder supports various transportation modes (car, pedestrian, bike), enabling detailed analysis and classification based on context. Set disk space limits to prevent overwhelming device storage - logs are automatically managed based on retention thresholds.
 
 The main classes used by the Recorder:
-
----
 
 ## Initialize the Recorder
 
@@ -61,13 +59,13 @@ If the `dataSource`, `logsDir`, and `recordedTypes` parameters are not populated
 
 If the log duration is shorter than `minDurationSeconds`, the `stopRecording` method does not save the recording and returns `GemError.recordedLogTooShort`.
 
-The `GemError.recordedLogTooShort` error may also occur if an insufficient number of positions were emitted, even when the duration between `startRecording` and `stopRecording` exceeds `minDurationSeconds`. To test recording functionality, create a custom external `DataSource` and push custom positions. Refer to the [custom positioning guide](./custom-positioning) for details. The external `DataSource` must be provided to the `RecorderConfiguration` object.
+The `GemError.recordedLogTooShort` error may also occur if an insufficient number of positions were emitted, even when the duration between `startRecording` and `stopRecording` exceeds `minDurationSeconds`. To test recording functionality, create a custom external `DataSource` and push custom positions. Refer to the [custom positioning guide](/guides/positioning/custom-positioning) for details. The external `DataSource` must be provided to the `RecorderConfiguration` object.
 
 The `GemError.general` result might be returned if the application has been sent to background without the required configuration. See the [record while app is in background](#record-while-app-is-in-background) section below.
 
 If `minChunkDuration` is set too high, it may cause `GemError.noDiskSpace` since the SDK determines how much space is required for the entire chunk.
 
-Ensure that the `DataType` values passed to the `recordedTypes` parameter are supported by the target platform. For example, specifying `DataType.nmeaChunk` on iOS causes the `startRecording` method to return `GemError.invalidInput`. See more details about sensor types [here](./sensors-and-data-sources#sensor-types).
+Ensure that the `DataType` values passed to the `recordedTypes` parameter are supported by the target platform. For example, specifying `DataType.nmeaChunk` on iOS causes the `startRecording` method to return `GemError.invalidInput`. See more details about sensor types [here](/guides/positioning/sensors-and-data-sources#sensor-types).
 
 Use the [path_provider](https://pub.dev/packages/path_provider) package to obtain a valid path to save recordings. The following snippet shows how to obtain a valid folder path in a platform-independent way:
 ```dart
@@ -85,7 +83,7 @@ The `videoQuality` parameter is based on the `Resolution` enum. Each value repre
 
 | Resolution Enum Value    | Description           | Dimensions (pixels) |
 |--------------------------|-----------------------|----------------------|
-| `Resolution.unknown`     | No resolution set.    | —                    |
+| `Resolution.unknown`     | No resolution set.    | -                    |
 | `Resolution.sd480p`      | Standard Definition   | 640 × 480            |
 | `Resolution.hd720p`      | High Definition       | 1280 × 720           |
 | `Resolution.fullHD1080p` | Full HD               | 1920 × 1080          |
@@ -115,8 +113,6 @@ The actual disk usage depends on platform and encoding settings. Here are rough 
 3. **Chunked recordings** - If a chunk duration is set in the configuration, the recording automatically stops when the duration is reached. A new recording begins seamlessly if continuous recording is enabled, ensuring uninterrupted data capture
 
 4. **Stop the Recorder** - The `stopRecording` method halts recording, and the system ensures logs meet the configured minimum duration before saving them as `.gm` files inside `logsDir`
-
----
 
 ## Use the Recorder
 
@@ -157,8 +153,6 @@ The `Recorder` only saves data explicitly defined in the `recordedTypes` list. A
 The `startRecording` and `stopRecording` methods must be awaited to ensure proper execution. Otherwise, unexpected behavior may occur.
 
 Request permission for location usage before starting a recorder.
-
----
 
 ## Recorder permissions
 
@@ -219,8 +213,6 @@ More info: [Apple App Privacy & Permissions](https://developer.apple.com/documen
 </TabItem>
 </Tabs>
 
----
-
 ## Record metrics
 
 The `RecordMetrics` object provides performance metrics for a recorded activity.
@@ -251,8 +243,6 @@ print("Elevation gain: ${metrics.elevationGainMeters}");
 ```
 
 The metrics reset at the start of each recording. Once the recording stops, the collected data is available in LogMetadata.
-
----
 
 ## Record audio
 
@@ -291,8 +281,6 @@ Audio recording results in a log file of type `.mp4`. This file also contains th
 
 Request permission for microphone usage when setting the `enableAudio` parameter to `true`.
 
----
-
 ## Record video
 
 Enable video recording by adding `DataType.camera` to the `recordedTypes` and setting the `videoQuality` parameter in the `RecorderConfiguration` to your desired resolution (we recommend `Resolution.hd720p`). Video recording starts when calling `startRecording` and stops at `stopRecording`:
@@ -329,8 +317,6 @@ When `chunkDuration` is set, the SDK checks available disk space before starting
 If there isn't enough space to store an entire chunk (based on the selected resolution), the recorder does not start and returns `GemError.noDiskSpace`.
 
 Estimate required storage ahead of time. See [Camera Resolutions](#camera-resolutions) for expected sizes.
-
----
 
 ## Record multimedia
 
@@ -369,8 +355,6 @@ if (errorStop != GemError.success) {
 Audio recording results in a log file of type `.mp4`. This file also contains the binary data of a `.gm` file and is accessible by system players.
 
 Request permission for camera and microphone usage when setting the `enableAudio` parameter to `true` and adding the `DataType.camera` parameter to `recordedTypes`.
-
----
 
 ## Background Location Recording
 
@@ -452,8 +436,6 @@ Add the following entries to your `ios/Runner/Info.plist` inside the `<dict>` bl
 </Tabs>
 
 If the `allowsBackgroundLocationUpdates` flag is not enabled and the app is backgrounded during recording, calling `stopRecording` may result in `GemError.general`.
-
----
 
 ## Recorder bookmarks and metadata
 
@@ -582,8 +564,6 @@ Uint8List? encodedTextGot = logMetadata?.getUserMetadata("textData");
 String? textData = encodedTextGot != null ? utf8.decode(encodedTextGot) : null;
 ```
 
----
-
 ## Record while app is in background
 
 Recording might fail with error code `GemError.general` when calling `stopRecording` if the app is sent to background during recording. Set `positionActivity` to true on the `PositionActivity` associated with the data source before instantiating the `Recorder`:
@@ -627,8 +607,6 @@ and
 ### Android configuration
 
 Add the `ACCESS_BACKGROUND_LOCATION` permission to the app's manifest file.
-
----
 
 ## ActivityRecord
 
@@ -700,8 +678,6 @@ if (metadata == null) {
 
 ActivityRecord activityRecord = metadata.activityRecord;
 ```
-
----
 
 ## Relevant example demonstrating recorder related features
 

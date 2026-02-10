@@ -20,8 +20,6 @@ The example app highlights the following features:
 
 - Displaying the recorded track and duration on the map.
 
----
-
 ### UI and Map Integration
 
 The following code builds the UI with a `GemMap` widget and app bar controls for recording and following the user’s position.

@@ -7,8 +7,6 @@ title: Internationalization
 
 The Magic Lane SDK for Flutter provides multilingual and localization support for global applications. Configure language settings, text-to-speech instructions, units of measurement, and number formats to match your users' preferences.
 
----
-
 ## Set the SDK language
 
 Configure the SDK's language by selecting a language from the `SdkSettings.languageList` getter and assigning it using the `SdkSettings.language` setter.
@@ -39,17 +37,13 @@ By default, the SDK language is set to the device's preferred language.
 
 - **Wikipedia external information** - titles, descriptions, and localized URLs
 
----
-
 ## Set text-to-speech language
 
 The TTS (text-to-speech) instruction language is managed separately from the SDK language. You can change between a wide selection of voices.
 
 The SDK language and TTS language are not automatically synchronized. Keep these settings in sync based on your use case.
 
-See the [voice guidance guide](../navigation/voice-guidance) for more details.
-
----
+See the [voice guidance guide](/guides/navigation/voice-guidance) for more details.
 
 ## Configure map language
 
@@ -74,8 +68,6 @@ When the SDK language is set to English:
 - `MapLanguage.automatic` - displays "Beijing"
 
 - `MapLanguage.native` - displays "北京市"
-
----
 
 ## Configure units of measurement
 
@@ -111,8 +103,6 @@ All numeric getters and setters use SI (International System) units, regardless 
 
 Exceptions to this convention are documented in the API reference and user guide. For example, the `TruckProfile` class uses centimeters for dimension properties.
 
----
-
 ## DateTime convention
 
 Most members returning a `DateTime` value use the UTC time zone.
@@ -127,9 +117,7 @@ The following members return **local time** with the `isUtc` flag set to `true`:
 
 These exceptions are documented in the API reference and user guide.
 
-Use the `TimezoneService` class to convert between UTC and local time zones. See the [TimezoneService guide](../timezone-service) for more details.
-
----
+Use the `TimezoneService` class to convert between UTC and local time zones. See the [TimezoneService guide](/guides/timezone-service) for more details.
 
 ## Configure number separators
 
@@ -152,8 +140,6 @@ Use the `digitGroupSeparator` property of the `SdkSettings` class:
 ```dart
 SdkSettings.digitGroupSeparator = '.';
 ```
-
----
 
 ## Convert ISO codes
 

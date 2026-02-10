@@ -7,15 +7,13 @@ title: Get Started Search
 
 The Maps SDK for Flutter provides flexible search functionality for finding locations using text queries and coordinates:
 
-- **Text Search** — perform searches using a text query and geographic coordinates to prioritize results within a specific area
+- **Text Search** - perform searches using a text query and geographic coordinates to prioritize results within a specific area
 
-- **Search Preferences** — customize search behavior using options such as fuzzy results, distance limits, or result count
+- **Search Preferences** - customize search behavior using options such as fuzzy results, distance limits, or result count
 
-- **Category-Based Search** — filter search results by predefined categories, such as gas stations or parking areas
+- **Category-Based Search** - filter search results by predefined categories, such as gas stations or parking areas
 
-- **Proximity Search** — retrieve all nearby landmarks without specifying a text query
-
----
+- **Proximity Search** - retrieve all nearby landmarks without specifying a text query
 
 ## Text search
 
@@ -59,8 +57,6 @@ The `err` provided by the callback function can have the following values:
 | `GemError.operationTimeout` | Search was executed on the online service and the operation took too much time to complete (usually more than 1 min, depending on the server overload state) |
 | `GemError.networkTimeout` | Can't establish the connection or the server didn't respond on time |
 | `GemError.networkFailed` | Search was executed on the online service and the operation failed due to bad network connection |
-
----
 
 ## Specify preferences
 
@@ -129,8 +125,6 @@ Before searching, specify `SearchPreferences` to customize search behavior:
   </tr>
 </table>
 
----
-
 ### Search by category
 
 Filter search results based on categories.
@@ -186,13 +180,11 @@ The complete list of predefined categories is available via the static `GenericC
 
 The `addStoreCategoryId` method returns a `GemError` value:
 
-- `GemError.success` — the category was added successfully
+- `GemError.success` - the category was added successfully
 
-- `GemError.notFound` — the specified category or landmark store does not exist
+- `GemError.notFound` - the specified category or landmark store does not exist
 
 Use the modified `SearchPreferences` with custom categories in all search methods.
-
----
 
 ### Search on custom landmarks
 
@@ -245,8 +237,6 @@ The landmark store retains the landmarks added to it across sessions until the a
 
 Set `searchAddresses` and `searchMapPOIs` to `false` to filter non-relevant results.
 
----
-
 ### Search on overlays
 
 Perform searches on overlays by specifying the overlay ID. Consult the [Overlay documentation](/guides/core/overlays) for more details about proper usage.
@@ -288,8 +278,6 @@ To convert the returned `Landmark` to an `OverlayItem`, use the `overlayItem` ge
 Set `searchAddresses` and `searchMapPOIs` to `false` to filter non-relevant results.
 
 Overlay search requires a `GemMap` with a style that includes the overlay being searched. If the map is not initialized or the overlay is not part of the current map style, the `preferences.overlays.add` operation will fail with a `GemError.notFound` error, and the search will return `GemError.invalidInput` with no results. The default map style includes all common overlays.
-
----
 
 ## Search for location
 
@@ -343,7 +331,29 @@ SearchService.search('N',
 
 The reference coordinates used for search must be located within the `GeographicArea` provided to the `locationHint` parameter. Otherwise, the search will return an empty list.
 
----
+## Search in a certain area
+
+If the name is not relevant and you want to find landmarks (which match specific optional `SearchPreferences`) within a specific area ordered by the distance from the reference coordinates provided, use the `SearchService.searchInArea` method. Provide a `GeographicArea` such as a `RectangleGeographicArea` instance and reference coordinates located within that area.
+```dart
+SearchService.searchInArea(
+  RectangleGeographicArea(
+    topLeft: Coordinates(latitude: 67.69866, longitude: 24.81115),
+    bottomRight: Coordinates(latitude: 67.58326, longitude: 25.36093),
+  ),
+  Coordinates(latitude: 67.63826, longitude: 24.94154),
+  (err, result) {
+    if (err != GemError.success && err != GemError.reducedResult) {
+      showSnackbar("Error $err");
+    }
+
+    if (result.isEmpty) {
+      showSnackbar("No results");
+    }
+  },
+);
+```
+
+An optional `textFilter` parameter is also available to filter results by name.
 
 ## Show results on the map
 
@@ -351,13 +361,9 @@ In most use cases, the landmarks found by search are already present on the map.
 
 To zoom to a landmark found via search, use `GemMapController.centerOnCoordinates` on the coordinates of the landmark found (`Landmark.coordinates`). See the documentation for [map centering](/guides/maps/adjust-map#center-the-map) for more information.
 
----
-
 ## Change the language of results
 
 The language of search results and category names is determined by the `SdkSettings.language` setting. See the [internationalization guide](/guides/get-started/internationalization) for more details.
-
----
 
 ## Relevant examples demonstrating search related features
 

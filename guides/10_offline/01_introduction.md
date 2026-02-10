@@ -21,13 +21,13 @@ You can configure update preferences to restrict downloads to Wi-Fi connections 
 
 | Entity       | Offline availability                                                                                                           |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------|
-| [Base entities](../core/base-entities) | ✓ Fully operational                      |
-| [Position](../core/positions)          | ⚠️ Partial - Raw position data is always accessible, but map-matched position data requires downloaded or cached regions |
-| [Landmarks](../core/landmarks)         | ✓ Fully available                                                                                    |
-| [Markers](../core/markers)             | ✓ Fully available                                                                                     |
-| [Overlays](../core/overlays)           | ✗ Not available                                                                                       |
-| [Routes](../core/routes)               | ⚠️ Partial - The `trafficEvents` getter returns an empty list without internet connection       |
-| [Navigation](../core/navigation-instructions) | ✓ Fully available if navigation starts on an offline-calculated route                             |
+| [Base entities](/guides/core/base-entities) | ✓ Fully operational                      |
+| [Position](/guides/core/positions)          | ⚠️ Partial - Raw position data is always accessible, but map-matched position data requires downloaded or cached regions |
+| [Landmarks](/guides/core/landmarks)         | ✓ Fully available                                                                                    |
+| [Markers](/guides/core/markers)             | ✓ Fully available                                                                                     |
+| [Overlays](/guides/core/overlays)           | ✗ Not available                                                                                       |
+| [Routes](/guides/core/routes)               | ⚠️ Partial - The `trafficEvents` getter returns an empty list without internet connection       |
+| [Navigation](/guides/core/navigation-instructions) | ✓ Fully available if navigation starts on an offline-calculated route                             |
 
 Map tiles are automatically cached based on your location, camera position, and calculated routes to enhance performance and offline accessibility.
 

@@ -7,8 +7,6 @@ title: Settings Service
 
 The Settings Service stores key-value pairs in permanent storage using the `SettingsService` class. Settings are saved in a `.ini` file format.
 
----
-
 ## Step 1: Create a Settings Service
 
 Create or open a settings storage using the factory constructor of `SettingsService`. If no path is provided, a default one is used:
@@ -25,8 +23,6 @@ Access the current file path where settings are stored:
 ```dart
 final String currentPath = settings.path;
 ```
-
----
 
 ## Step 2: Add and get values
 
@@ -57,7 +53,23 @@ String value = settings.getString("count"); // Returns '1234'
 
 Each change may take up to one second to be written to storage. Use the `flush` method to ensure changes are written to permanent storage immediately.
 
----
+### Add and get multiple values at once
+
+Use the `setStringList`, `setIntList`, `setLargeIntList`, `setBoolList`, and `setDoubleList` methods to store multiple values at once.
+The methods require a list of key-value pairs in the form of a `Map<String, T>`.
+```dart
+settings.setStringList([('key1', 'val1'), ('key2', 'val2')]);
+```
+
+Use the `getStringList`, `getIntList`, `getLargeIntList`, `getBoolList`, and `getDoubleList` methods to retrieve multiple values at once.
+The methods require a list of keys in the form of a `List<String>` and an optional `List<String>?` of default values.
+If the number of default values provided is invalid, the methods return empty list and set `ApiErrorService` to `GemError.invalidInput`.
+The returned list contains values in the same order as the provided keys.
+```dart
+settingsService.getStringList(['key1', 'key2', 'key3'], defaultValues: ['def1', 'def2', 'def3']);
+```
+
+The same conversion apply when getting/setting multiple values as when getting/setting single values.
 
 ## Step 3: Organize with groups
 
@@ -82,8 +94,6 @@ The values passed to `beginGroup` are converted to upper-case.
 
 A `flush` is automatically done after the group is changed.
 
----
-
 ## Step 4: Remove values
 
 ### Remove value by key
@@ -99,4 +109,5 @@ Use the `clear` method to remove all settings from all groups:
 ```dart
 settings.clear();
 ```
+
 

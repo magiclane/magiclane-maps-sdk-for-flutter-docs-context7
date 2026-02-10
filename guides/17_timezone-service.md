@@ -9,8 +9,6 @@ The `TimezoneService` provides functionality for managing and retrieving time zo
 
 The service offers both online and offline methods. Online methods are more accurate and reflect recent timezone changes, while offline methods are faster and work without network access but may contain outdated data.
 
----
-
 ## Available methods
 
 The `TimezoneService` class provides four main methods:
@@ -24,8 +22,6 @@ The `TimezoneService` class provides four main methods:
 - `getTimezoneInfoFromTimezoneIdSync` - retrieves timezone information from a timezone ID using built-in data (offline)
 
 Offline methods use built-in timezone data that may become outdated. Update the SDK regularly to refresh timezone data.
-
----
 
 ## Understand the TimezoneResult structure
 
@@ -58,8 +54,6 @@ The `TimeZoneStatus` enum indicates the result of a timezone lookup operation:
 
 - `successUsingObsoleteData` - request succeeded using outdated timezone data (update the SDK)
 
----
-
 ## Retrieve timezone by coordinates
 
 ### Online lookup
@@ -89,8 +83,6 @@ TimezoneResult? result = TimezoneService.getTimezoneInfoFromCoordinatesSync(
 );
 ```
 
----
-
 ## Retrieve timezone by timezone ID
 
 ### Online lookup
@@ -119,4 +111,5 @@ TimezoneResult? result = TimezoneService.getTimezoneInfoFromTimezoneIdSync(
     time: DateTime.utc(2025, 7, 1, 6, 0), // <-- Always in UTC
 );
 ```
+
 

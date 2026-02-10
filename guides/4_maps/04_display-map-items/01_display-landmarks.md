@@ -7,8 +7,6 @@ title: Display Landmarks
 
 Learn how to filter, add, customize, and highlight landmarks on your map.
 
----
-
 ## Filter landmarks by category
 
 When displaying the map, you can choose what types of landmarks to display. Each landmark can have one or more `LandmarkCategory`. To selectively display specific categories of landmarks, use the `addStoreCategoryId` method:
@@ -22,8 +20,6 @@ GenericCategories.landmarkStoreId, GenericCategoriesId.gasStation.id);
 ```
 
 This allows filtering the default map data.
-
----
 
 ## Add custom landmarks
 
@@ -73,8 +69,6 @@ The `LandmarkStoreCollection` class provides the following methods:
 
 - `containsLandmarkStore(LandmarkStore lms)` - Checks if the specified store has any categories shown on the map.
 
----
-
 ## Highlight landmarks
 
 Highlights allow you to customize landmarks, making them more visible and providing render settings options. By default, highlighted landmarks are not selectable but can be made selectable if necessary.
@@ -107,7 +101,6 @@ final settings = HighlightRenderSettings(imgSz: 50, textSz: 10, options: {
   HighlightOptions.overlap,
 });
 
-    
 final lmkStore = LandmarkStoreService.createLandmarkStore('landmarks');
 lmkStore.addLandmark(landmark);
 
@@ -155,8 +148,6 @@ List<Landmark> landmarks = mapController.getHighlight(2);
 ```
 
 Overlay items can also be highlighted using the `activateHighlightOverlayItems` method in a similar way.
-
----
 
 ## Remove landmarks
 

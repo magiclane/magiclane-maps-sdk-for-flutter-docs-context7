@@ -7,8 +7,6 @@ title: Weather Service
 
 The `WeatherService` class provides methods for retrieving current, hourly, and daily weather forecasts.
 
----
-
 ## Get Current Weather Forecast
 
 Use the `getCurrent` method to retrieve the current weather forecast. Provide coordinates for the desired location, and the forecast will be returned through `onComplete`.
@@ -33,8 +31,6 @@ Use the `getCurrent` method to retrieve the current weather forecast. Provide co
 Verify that `LocationForecast` contains `Conditions` and each `Condition` includes a `Parameter`. If data is unavailable for the specified location and time, the API may return empty lists.
 
 The result contains as many `LocationForecast` objects as coordinates provided to the `coords` parameter.
-
----
 
 ## Get Hourly Weather Forecast
 
@@ -61,8 +57,6 @@ Use the `getHourlyForecast` method to retrieve hourly weather forecasts. Specify
 
 The number of requested hours must not exceed 240. Exceeding this limit results in an empty response and a `GemError.outOfRange` error.
 
----
-
 ## Get Daily Weather Forecast
 
 Use the `getDailyForecast` method to retrieve daily weather forecasts. Specify the number of days and coordinates for the desired location.
@@ -87,8 +81,6 @@ Use the `getDailyForecast` method to retrieve daily weather forecasts. Specify t
 ```
 
 The number of requested days must not exceed 10. Exceeding this limit results in an empty response and a `GemError.outOfRange` error.
-
----
 
 ## Get Weather Forecast with Duration
 
@@ -115,8 +107,6 @@ showSnackbar("Forecast lenght list: ${forecast.length}");
 ```
 
 The `duration` parameter in `WeatherDurationCoordinates` specifies the time offset into the future for the forecast.
-
----
 
 ## Relevant example demonstrating weather related features
 

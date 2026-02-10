@@ -75,9 +75,9 @@ The `RouteTrafficEvent` class extends `TrafficEvent` with route-specific informa
 
 Traffic events provide insights into road conditions, delays, and closures:
 
-- **Route traffic information** - See the [Get ETA and Traffic information guide](../routing/get-started-routing#retrieve-time-and-distance-information)
+- **Route traffic information** - See the [Get ETA and Traffic information guide](/guides/routing/get-started-routing#retrieve-time-and-distance-information)
 
-- **User-defined roadblocks** - See the [Roadblocks guide](../navigation/roadblocks)
+- **User-defined roadblocks** - See the [Roadblocks guide](/guides/navigation/roadblocks)
 
 ### Event classifications
 

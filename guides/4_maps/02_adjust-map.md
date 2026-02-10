@@ -7,8 +7,6 @@ title: Adjust Map
 
 The Maps SDK for Flutter provides multiple ways to modify the map view, center on coordinates or areas, and explore different perspectives. Control map features like zoom, tilt, rotation, and centering through the `GemMapController` provided by `GemMap`.
 
----
-
 ## Get the map viewport
 
 The map viewport is the visible area displayed by the `GemMap` widget. The `viewport` getter returns a `Rectangle` object containing xy coordinates (left and top) and dimensions (width and height).
@@ -26,8 +24,6 @@ final currentViewport = mapController.viewport;
 final flutterHeightPixels = currentViewport.height / mapController.devicePixelSize;
 final flutterWidthPixels = currentViewport.width / mapController.devicePixelSize;
 ```
-
----
 
 ## Center the map
 
@@ -147,8 +143,6 @@ mapController.centerOnArea(RectangleGeographicArea(
 
 When applying padding using Flutter panel heights, note that heights are measured in logical pixels, not physical pixels. A conversion is required, as detailed in [Get the map viewport](#get-the-map-viewport).
 
----
-
 ## Adjust the zoom level
 
 Get the current zoom level using the `zoomLevel` getter. Higher values bring the camera closer to the terrain. Change the zoom level using `setZoomLevel`:
@@ -158,8 +152,6 @@ mapController.setZoomLevel(50);
 ```
 
 Access maximum and minimum zoom levels via `maxZoomLevel` and `minZoomLevel` getters. The `GemMapController` class also provides setters for these limits. Use `canZoom` to check if a specific zoom level can be applied.
-
----
 
 ## Adjust the rotation angle
 
@@ -172,8 +164,6 @@ mapController.preferences.mapAngle = 45;
 The value must be between 0 and 360. By default, the camera has a rotation angle of 0 degrees (north-up alignment). The rotation axis is always perpendicular to the ground and passes through the camera.
 
 You can also use the `mapAngle` setter from the `GemMapController` class.
-
----
 
 ## Adjust the view angle
 
@@ -195,8 +185,6 @@ This operation can also be done using the `viewAngle` setter available in the `G
 
 Adjusting the rotation value produces different outcomes depending on the camera's tilt. When tilted, changing rotation shifts the target location. With no tilt, the target location remains fixed.
 
----
-
 ## Set the map perspective
 
 Set the map perspective to two-dimensional or three-dimensional using `setMapViewPerspective`:
@@ -212,8 +200,6 @@ A three-dimensional perspective gives buildings a realistic 3D appearance, while
 For three-dimensional buildings to be visible, the camera angle must not be perpendicular to the map. The view angle must be less than 90 degrees.
 
 You can achieve the same effect more precisely using the `tiltAngle` or `viewAngle` fields.
-
----
 
 ## Control building visibility
 
@@ -233,8 +219,6 @@ mapController.preferences.buildingsVisibility = BuildingsVisibility.twoDimension
 
 Buildings become visible when the camera is zoomed in close to the ground. The 3D effect is most noticeable from a tilted angle. Note that 3D buildings do not reflect realistic or accurate heights.
 
----
-
 ## Store and restore a view
 
 The map camera object provides getters and setters for position and orientation, giving you full control over the map view.
@@ -252,8 +236,6 @@ mapController.camera.cameraState = state;
 Alternatively, store and restore `position` and `orientation` separately using the provided getters and setters.
 
 The `cameraState` does not contain information about the current style.
-
----
 
 ## Download map tiles
 
@@ -307,9 +289,7 @@ Access detailed download statistics using the `transferStatistics` getter.
 
 Downloaded map tiles via `MapDownloaderService` do not support free-text search, routing, or turn-by-turn navigation offline. They are intended for caching map data for visual display only.
 
-For full offline functionality, including search and navigation, see the [Manage Offline Content Guide](../offline/manage-content) to download roadmap data for offline use.
-
----
+For full offline functionality, including search and navigation, see the [Manage Offline Content Guide](/guides/offline/manage-content) to download roadmap data for offline use.
 
 ## Change settings while following position
 
@@ -318,7 +298,7 @@ The `FollowPositionPreferences` class provides customization while the camera is
 FollowPositionPreferences preferences = mapController.preferences.followPositionPreferences;
 ```
 
-See [customize follow position settings](../positioning/show-your-location-on-the-map#customize-follow-position-settings) for more details.
+See [customize follow position settings](/guides/positioning/show-your-location-on-the-map#customize-follow-position-settings) for more details.
 
 Do not call methods on disposed `GemMapController` instances, as this may cause exceptions. If the `GemMap` widget is removed from the widget tree, avoid invoking methods on its associated `GemMapController` or related entities:
 

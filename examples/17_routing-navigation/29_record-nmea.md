@@ -94,7 +94,8 @@ The `Permission.manageExternalStorage` is also required for saving the exported 
     if (kIsWeb) {
       // On web platform permission are handled differently than other platforms.
       // The SDK handles the request of permission for location.
-      final locationPermssionWeb = await PositionService.requestLocationPermission();
+      final locationPermssionWeb =
+          await PositionService.requestLocationPermission();
       if (locationPermssionWeb == true) {
         _locationPermissionStatus = PermissionStatus.granted;
       } else {
@@ -122,7 +123,6 @@ The `Permission.manageExternalStorage` is also required for saving the exported 
 
       setState(() {});
     }
-  }
 ```
 
 ### Starting and Stopping Recording

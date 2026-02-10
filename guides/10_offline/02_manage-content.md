@@ -7,8 +7,6 @@ title: Manage Content
 
 Manage offline content through the Maps SDK for Flutter.
 
----
-
 ## Content types
 
 The `ContentType` enum defines supported downloadable content:
@@ -25,8 +23,6 @@ Use high-resolution map styles for most use cases.
 
 Other values within the `ContentType` enum are not fully supported by the Flutter SDK.
 
----
-
 ## ContentStore overview
 
 The `ContentStore` class manages and provides a list of downloadable items. Each item is represented by the `ContentStoreItem` class, which includes details such as name, image, type, version, and size. You can download and delete content through this class.
@@ -34,8 +30,6 @@ The `ContentStore` class manages and provides a list of downloadable items. Each
 Ensure your API token is set and valid. Some operations return `GemError.busy` if no valid API key is set.
 
 Modifying downloaded maps (download, delete, update) may interrupt ongoing operations such as search, route calculation, or navigation. The `onComplete` callback will be triggered with `GemError.invalidated` if this occurs.
-
----
 
 ## List online content
 
@@ -104,8 +98,6 @@ The `getStoreFilteredList` method returns the filtered content store items that 
 | Invalid `GeographicArea` (e.g., invalid coordinates)                                              | `GemError.success` with a full list of `ContentStoreItem`; behaves as if no filter was applied. |
 | The `area` parameter is an empty `TilesCollectionGeographicArea`                                  | `GemError.invalidInput` with an empty `ContentStoreItem` list.       |
 | HTTP request failed                                                                               | `GemError.general` with an empty `ContentStoreItem` list.            |
-
----
 
 ## Content store item fields
 
@@ -221,8 +213,6 @@ While the download is in progress, retrieve details about the downloaded content
 
 Use the `ISOCodeConversions` class for conversions between different types of codes. See the [internationalization documentation](/guides/get-started/internationalization#convert-iso-codes) for more details.
 
----
-
 ## Download content store item
 
 Download a content store item using the `asyncDownload` method:
@@ -278,11 +268,9 @@ Do not confuse `ContentStore`/`ContentStoreItem` classes with the `MapDownloader
 
 - `MapDownloaderService` - Caches map tiles for visual display purposes. Tiles downloaded via `MapDownloaderService` do not support most search operations, routing, or navigation while offline
 
-See the [download individual map tiles documentation](../maps/adjust-map#download-map-tiles) for more details.
+See the [download individual map tiles documentation](/guides/maps/adjust-map#download-map-tiles) for more details.
 
 Do not confuse `LandmarkStore` with `ContentStore`. `LandmarkStore` manages landmark data, while `ContentStore` manages offline map content.
-
----
 
 ## Download overlays
 
@@ -321,13 +309,9 @@ Not all overlay types support offline functionality, e.g., Alerts or Public Tran
 
 Check if the overlay data grabber has been enabled for a specific overlay using the `isOverlayOfflineDataGrabberEnabled` method. Keeping the grabber enabled automatically starts downloading overlay data when a new map region is downloaded or updated, ensuring users have the latest offline overlay data available.
 
----
-
 ## Download or update content in background
 
 Enable content updates and downloads while the app runs in the background by configuring your app to support foreground services on both iOS and Android.
-
----
 
 ## Relevant examples demonstrating content related features
 

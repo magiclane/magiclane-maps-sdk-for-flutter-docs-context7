@@ -98,7 +98,7 @@ flutter pub get
 
     
 
-		This SDK uses Swift Package Manager—no CocoaPods setup required.
+		This SDK uses Swift Package Manager - no CocoaPods setup required.
 
 	:::
 

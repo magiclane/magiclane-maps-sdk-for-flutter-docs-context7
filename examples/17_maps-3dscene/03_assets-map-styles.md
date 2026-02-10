@@ -40,7 +40,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // GemMapController object used to interact with the map
   late GemMapController _mapController;
+
   bool _isStyleLoaded = false;
 
   @override
@@ -75,8 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _onMapCreated(GemMapController controller) async {
-    _mapController = controller;
-  }
 ```
 
 This code sets up the main screen with a map and a button that triggers the _applyStyle method to load a custom style file.
@@ -116,10 +116,10 @@ Future<void> _applyStyle() async {
 
 This method reads the .style file from assets and returns the data as Uint8List bytes.
 ```dart
-Future<Uint8List> _loadStyle() async {
-  final data = await rootBundle.load('assets/Basic_1_Oldtime-1_21_656.style');
-  return data.buffer.asUint8List();
-}
+  Future<Uint8List> _loadStyle() async {
+    // Load style into memory
+    final data = await rootBundle.load('assets/Basic_1_Oldtime-1_21_656.style');
+
 ```
 
 

@@ -19,7 +19,7 @@ The `onYelpDataAvailable` callback parameter from the `getExternalInfo` method h
 ## Removed deprecated and no longer supported methods from the *GemMapController* and *GemView* classes
 
 The `registerLongPressCallback`, `registerOnMapAngleUpdateCallback` and `registerOnMapViewMoveStateChangedCallback` methods were renamed to `registerLongPressCallback`, `registerMapAngleUpdateCallback` and `registerMapViewMoveStateChangedCallback`.
-See the [Migrate to 3.13.0](./migrate-to-2-13-0) for more details.
+See the [Migrate to 3.13.0](/guides/migration-guide/migrate-to-2-13-0) for more details.
 
 The methods related to registering pointer callbacks were removed as they are no longer working. Please use the other methods provided in the `GemMapController` class instead.
 

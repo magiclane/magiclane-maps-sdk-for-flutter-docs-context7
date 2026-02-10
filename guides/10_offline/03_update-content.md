@@ -11,13 +11,19 @@ New map versions are released every few weeks. The update operation supports the
 
 The SDK requires all road map content store items to have the same version. Partial updates of individual items are not supported.
 
+The update process invalidates all routes currently in use. Make sure there are no active navigation sessions, route calculations, or similar operations running when applying the update.
+If a navigation session, route calculation, or any other related operation is in progress at the time of the update, it will fail with a `GemError.invalidated` error code.
+
+Additionally, interacting with objects created before the update - such as `Route`, `RouteInstruction`, `NavigationInstruction`, `RouteTerrainProfile`, or similar types - may lead to undefined behavior, including application crashes.
+To avoid these issues, it is strongly recommended to cancel all ongoing operations and discard any related objects before applying the update.
+
 ## Content store status
 
 Based on the client's content version relative to the newest available release, it can be in one of three states, as defined by the `ContentStoreStatus` enum:
 
 | Status        | Description  |
 |---------------|--------------|
-| `expiredData` | The client version is significantly outdated and no longer supports online operations.  All features—such as search, route calculation, and navigation—will function exclusively on the device using downloaded regions, even if an internet connection is available. If an operation like route calculation is attempted in non-downloaded regions, it will fail with a `GemError.expired` error code. An update is **mandatory** to restore online functionality. Only relevant for `ContentType.roadMap` elements. |
+| `expiredData` | The client version is significantly outdated and no longer supports online operations.  All features - such as search, route calculation, and navigation - will function exclusively on the device using downloaded regions, even if an internet connection is available. If an operation like route calculation is attempted in non-downloaded regions, it will fail with a `GemError.expired` error code. An update is **mandatory** to restore online functionality. Only relevant for `ContentType.roadMap` elements. |
 | `oldData`     | The client version is outdated but still supports online operations.  Features will work online when a connection is available and offline when not. While offline, only downloaded regions are accessible, but online access allows operations across the entire map.  An update is **recommended** as soon as possible. Relevant for all types of content store elements.|
 | `upToDate`    | The client version has the latest map data. Features function online when connected and offline using downloaded regions.  No updates are available. Relevant for all types of content store elements. |
 
@@ -25,16 +31,14 @@ The Magic Lane servers support online operations for the most up-to-date version
 
 The Magic Lane Flutter SDK is designed for seamless automatic updates by default, ensuring compatibility with the latest map data with minimal effort from the API user. If manual map update management is not required for your use case, no additional configuration is needed.
 
-After installation, the app includes a default map version of type `expiredData`, which contains no available content. An update—either manually triggered or performed automatically—is required before the app can be used. Internet access is required for the initial use of the app.
-
----
+After installation, the app includes a default map version of type `expiredData`, which contains no available content. An update - either manually triggered or performed automatically - is required before the app can be used. Internet access is required for the initial use of the app.
 
 ## Update process overview
 
 The update process follows these steps:
 
 1. The map update process is initiated by the API user or the SDK automatically starts the download process
-2. The process downloads the newer data in background ensuring the full usability of the current (old) map dataset for browsing, search and navigation. The content is downloaded in a close-to-current user position order—nearby maps are downloaded first
+2. The process downloads the newer data in background ensuring the full usability of the current (old) map dataset for browsing, search and navigation. The content is downloaded in a close-to-current user position order - nearby maps are downloaded first
 3. Once all new version data is downloaded:
 
     - If the auto-update feature is enabled, the update is automatically applied
@@ -53,8 +57,6 @@ The auto-update behavior is different between the Magic Lane SDKs:
 
 - The iOS SDK does not provide an auto-update mechanism
 
----
-
 ## Listen for auto-update completion
 
 Use the `registerOnAutoUpdateComplete` method from the `OffBoardListener` class to listen for auto-update completion events.
@@ -71,8 +73,6 @@ SdkSettings.offBoardListener.registerOnAutoUpdateComplete((ContentType type, Gem
 The callback is triggered for each content type when the auto-update process finishes (only for types configured to auto-update).
 
 If the auto-update fails, you are responsible for handling this case and triggering an update manually if needed.
-
----
 
 ## Configure automatic updates
 
@@ -110,8 +110,6 @@ If the update has already been completed for a specific type, the auto-update co
 
 The `AutoUpdateSettings` class also includes the `AutoUpdateSettings.allDisabled()` and `AutoUpdateSettings.allEnabled()` constructors for quickly disabling or enabling all updates.
 
----
-
 ## Listen for map updates
 
 Listen for map updates by calling the `registerOnWorldwideRoadMapSupportStatus` method and providing a callback.
@@ -144,8 +142,6 @@ The `checkForUpdate` method returns `GemError.success` if the check has been ini
 
 If the `checkForUpdate` method is provided with the `ContentType.roadMap` argument, the `onWorldwideRoadMapSupportStatusCallback` will be called. If other values are supplied (such as map styles), the response will be returned via the `onAvailableContentUpdateCallback` callback.
 
----
-
 ## Create a content updater
 
 Instantiate a `ContentUpdater` object to update road maps. This object manages all operations related to the update process:
@@ -165,8 +161,6 @@ The `createContentUpdater` method returns a `ContentUpdater` instance along with
 - If the error code is `GemError.exist`, a `ContentUpdater` for the specified `ContentType` already exists, and the existing instance is returned. This instance remains valid and can be used
 
 - If the error code corresponds to any other `GemError` value, the `ContentUpdater` instantiation has failed, and the returned object is not usable
-
----
 
 ## Start the update
 
@@ -230,8 +224,6 @@ The `ContentUpdaterStatus` enum provided by the `onStatusUpdated` method has the
 | `complete`                  | The update process has finished successfully. The `onComplete` callback is also triggered with `GemError.success` |
 | `error`                     | The update process encountered an error. The `onComplete` callback is also triggered with the appropriate error code |
 
----
-
 ## Get ContentUpdater details
 
 Get details about the `ContentUpdater` object using the provided getters:
@@ -242,8 +234,6 @@ final bool isStarted = contentUpdater.isStarted;
 final bool canApplyUpdate =  contentUpdater.canApply;
 final bool isUpdateStarted = contentUpdater.isStarted;
 ```
-
----
 
 ## Apply the update
 
@@ -280,8 +270,6 @@ The `apply` method returns:
 
 The `onComplete` callback is also triggered with the appropriate error code.
 
----
-
 ## Update resources
 
 The Magic Lane Flutter SDK includes built-in resources such as icons and translations. Enable or disable automatic updates for these resources by setting the `isAutoUpdateForResourcesEnabled` field within the `AutoUpdateSettings` object passed to `GemKit.initialize`.
@@ -289,8 +277,6 @@ The Magic Lane Flutter SDK includes built-in resources such as icons and transla
 If you configure callbacks manually using the `setAllowConnection` method, resource updates can still be enabled by setting the optional `canDoAutoUpdateResources` parameter.
 
 Unlike other content types, updating these resources does not require a `ContentUpdater`. By default, resource updates are enabled (`isAutoUpdateForResourcesEnabled` is true, and `canDoAutoUpdateResources` is true).
-
----
 
 ## Relevant examples demonstrating content update related features
 

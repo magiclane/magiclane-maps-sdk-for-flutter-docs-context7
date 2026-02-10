@@ -165,7 +165,7 @@ if (updateItem != null){
 The `step` method from the `Playback` class has been fixed. It can be used to step through logs containing video recordings frame by frame.
 The return type has changed from `GemError` to `void`. In this way the method is now aligned with how it works in the other SDKs provided by Magic Lane.
 
-The error can be retrieved via the `ApiErrorService` class. See the [Usage guidelines](../get-started/usage-guidelines) details for more information.
+The error can be retrieved via the `ApiErrorService` class. See the [Usage guidelines](/guides/get-started/usage-guidelines) details for more information.
 
 Before:
 ```dart

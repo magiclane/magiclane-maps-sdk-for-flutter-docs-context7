@@ -151,7 +151,7 @@ It has been replaced by a redesigned `onBoundaryCrossed` callback in the `AlarmL
 
 This feature was non-functional in previous releases. The latest API changes represent a complete overhaul of how monitored areas are handled.
 
-For implementation details and usage guidance, see the [Areas Alarm Guide](../alarms/areas-alarms).
+For implementation details and usage guidance, see the [Areas Alarm Guide](/guides/alarms/areas-alarms).
 
 ## The *Status* enum has been renamed to *MapStatus*
 
@@ -215,7 +215,7 @@ RouteTransportMode transportMode = event.affectedTransportModes;
 
 ## The *requestLocationPermission* getter of the *PositionService* class has been transformed into a method
 
-The `requestLocationPermission` has been changed from a getter to a method, as it performs an action rather than simply retrieving a value—making a method a more appropriate choice.
+The `requestLocationPermission` has been changed from a getter to a method, as it performs an action rather than simply retrieving a value - making a method a more appropriate choice.
 
 This change is part of ongoing work to support web platforms, which is not yet publicly released. The method can be safely ignored for now.
 

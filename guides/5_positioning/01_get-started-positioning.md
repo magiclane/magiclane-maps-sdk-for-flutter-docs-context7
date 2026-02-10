@@ -7,8 +7,6 @@ title: Get Started Positioning
 
 The Positioning module provides location data for navigation, tracking, and location-based services. Use GPS data from the device or integrate custom location data from external sources.
 
----
-
 ## Grant permissions
 
 ### Step 1: Add application location permissions
@@ -97,8 +95,6 @@ On iOS (simulators and devices), mock the location from Xcode for GPX replay. Se
 
 If the location permission popup doesn't appear, verify the platform-specific setup is correct. Check the `permission_handler` package documentation and issue tracker.
 
----
-
 ## Receive location updates
 
 Register a callback function using the `addImprovedPositionListener` and `addPositionListener` methods to receive position updates. The listener is called continuously as new position data becomes available.
@@ -146,8 +142,6 @@ PositionService.addImprovedPositionListener((GemImprovedPosition position) {
 
 During simulation, the positions provided through the `addImprovedPositionListener` and `addPositionListener` methods correspond to the simulated locations generated as part of the navigation simulation process.
 
----
-
 ## Get current location
 
 Use the `position` getter from the `PositionService` class to retrieve the current location. This returns a `GemPosition` object with the latest location information or `null` if no position data is available. Use this to access the most recent position without registering for continuous updates:
@@ -163,11 +157,11 @@ if (position == null) {
 
 A similar getter is provided for map-matched positions: `improvedPosition` returns `GemImprovedPosition?` instead of `GemPosition?`.
 
----
-
 ## Relevant examples demonstrating positioning related features
 
 - [Follow Position](/examples/maps-3dscene/follow-position)
+
+- [Advanced Follow Position](/examples/maps-3dscene/advanced-follow-position)
 
 - [Custom Position Icon](/examples/maps-3dscene/custom-position-icon)
 

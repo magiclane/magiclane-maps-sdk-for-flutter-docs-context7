@@ -15,15 +15,11 @@ Use the Magic Lane SDK for Flutter with AI-powered tools through the [Context7 M
 
 - GitHub account sign-in
 
----
-
 ## Step 1: Install the Context7 MCP server
 
 Open the **Extensions** tab in Visual Studio Code and search for the [Context7 MCP Server](vscode:extension/Upstash.context7-mcp). Click **Install**.
 
 Verify the Context7 MCP Server appears under **MCP Servers – Installed** in the Extensions tab. Right-click on the Context7 MCP Server and select **Start Server**.
-
----
 
 ## Step 2: Configure the Context7 MCP server
 
@@ -45,15 +41,7 @@ Grant access to the **Context7 MCP Server** when prompted. The LLM will have ful
 
 Include the `use context7` instruction in all prompts if the response includes non-existing classes or members.
 
-**Model recommendations:**
-
-- **GPT-5 mini (preview)** - consistently delivers strong results
-
-- **GPT-4.1** - produces satisfactory results with occasional errors
-
 Experiment with different prompts and models to achieve the best results.
-
----
 
 ## Use with other tools
 

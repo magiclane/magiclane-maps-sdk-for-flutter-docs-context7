@@ -5,11 +5,9 @@ title: Custom Positioning
 
 # Custom positioning
 
-Set a custom data source with the PositionService to dynamically manage and simulate location data. Use external or simulated positioning data instead of traditional GPS signals—ideal for testing or custom tracking solutions.
+Set a custom data source with the PositionService to dynamically manage and simulate location data. Use external or simulated positioning data instead of traditional GPS signals - ideal for testing or custom tracking solutions.
 
 Using a custom data source eliminates the need for location permission management.
-
----
 
 ## Create custom data source
 
@@ -80,8 +78,6 @@ while (true) {
 
 - **Update location data in real-time** - A loop continuously generates and pushes simulated position updates at regular intervals (every 50 milliseconds). This allows the application to simulate movement or integrate location data from custom sources
 
----
-
 ## Improve custom data source positions
 
 While latitude, longitude, and timestamp may suffice for some use cases, this data may not offer sufficient accuracy during navigation. The system might occasionally register incorrect turns or unexpected deviations. To improve precision, use the `heading` field of `ExternalPositionData` to indicate the direction of movement, which is factored into positioning calculations.
@@ -121,8 +117,6 @@ double _getSpeed(Coordinates from, Coordinates to, DateTime timestampAtFrom, Dat
 
 If the coordinates to be pushed in the custom data source are not known, extrapolate them based on previous values.
 
----
-
 ## Remove the custom data source
 
 Remove the data source when no longer needed:
@@ -148,8 +142,6 @@ PositionService.removeDataSource();
 
 Stop the data source and remove it from the position service when finished. Otherwise, unexpected problems can occur when trying to use other data sources (live or custom).
 
----
-
 ## Create simulation data source
 
 Integrate a simulation data source with the PositionService to simulate location data by following a given route. This data source behaves as a route simulation:
@@ -171,8 +163,6 @@ dataSource.start();
 
 - **Start the data source** - Activate the data source by calling the `start()` method. Once started, it begins simulating the given route
 
----
-
 ## Remove the simulation data source
 
 Remove the data source when no longer needed:
@@ -191,8 +181,6 @@ PositionService.removeDataSource();
 ```
 
 Stop the data source and remove it from the position service when finished. Otherwise, unexpected problems can occur when trying to use other data sources (live or custom).
-
----
 
 ## Create log data source
 
@@ -214,8 +202,6 @@ The log data source starts automatically when created. No need to call the `star
 
 - **Start the data source** - The data source activates automatically and begins replaying the recorded data
 
----
-
 ## Remove the log data source
 
 Remove the data source when no longer needed:
@@ -236,10 +222,8 @@ The log data source cannot be of type `.gm`. This file type is not supported in 
 
 Stop the data source and remove it from the position service when finished. Otherwise, unexpected problems can occur when trying to use other data sources (live or custom).
 
----
-
 ## Relevant example demonstrating custom positioning related features
 
 - [External Position Source Navigation](/examples/routing-navigation/external-position-source-navigation)
 
-- [Data Source Listeners](/examples/routing-navigation/datasource_listeners)
+- [Data Source Listeners](/examples/routing-navigation/datasource-listeners)

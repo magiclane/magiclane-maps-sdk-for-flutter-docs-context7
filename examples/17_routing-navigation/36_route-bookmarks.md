@@ -34,11 +34,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Route Bookmarks',
-      home: MyHomePage(),
-    );
+    return const MaterialApp(debugShowCheckedModeBanner: false, title: 'Route Bookmarks', home: MyHomePage());
   }
 }
 
@@ -123,48 +119,41 @@ class _MyHomePageState extends State<MyHomePage> {
     final departure = currentPair['departure']!;
     final destination = currentPair['destination']!;
 
-    final departureLandmark = Landmark.withLatLng(
-      latitude: departure['latitude']!,
-      longitude: departure['longitude']!,
-    );
+    final departureLandmark = Landmark.withLatLng(latitude: departure['latitude']!, longitude: departure['longitude']!);
     final destinationLandmark = Landmark.withLatLng(
       latitude: destination['latitude']!,
       longitude: destination['longitude']!,
     );
     final routePreferences = RoutePreferences();
 
-    _showSnackBar(
-      context,
-      message: 'Calculating route ${_currentRouteIndex + 1} of ${_routePairs.length}...',
-    );
+    _showSnackBar(context, message: 'Calculating route ${_currentRouteIndex + 1} of ${_routePairs.length}...');
 
-    _routingHandler = RoutingService.calculateRoute(
-      [departureLandmark, destinationLandmark],
-      routePreferences,
-      (err, routes) {
-        _routingHandler = null;
-        ScaffoldMessenger.of(context).clearSnackBars();
+    _routingHandler = RoutingService.calculateRoute([departureLandmark, destinationLandmark], routePreferences, (
+      err,
+      routes,
+    ) {
+      _routingHandler = null;
+      ScaffoldMessenger.of(context).clearSnackBars();
 
-        if (err == GemError.success) {
-          final routesMap = _mapController.preferences.routes;
+      if (err == GemError.success) {
+        final routesMap = _mapController.preferences.routes;
 
-          for (final route in routes) {
-            routesMap.add(route, route == routes.first);
-          }
-
-          _mapController.centerOnRoutes(routes: routes);
-
-          // Save route to bookmarks
-          _saveRouteToBookmarks(departureLandmark, destinationLandmark, routePreferences);
-
-          setState(() {
-            _areRoutesBuilt = true;
-            // Cycle to next route pair for next time
-            _currentRouteIndex = (_currentRouteIndex + 1) % _routePairs.length;
-          });
+        for (final route in routes) {
+          routesMap.add(route, route == routes.first);
         }
-      },
-    );
+
+        _mapController.centerOnRoutes(routes: routes);
+
+        // Save route to bookmarks
+        _saveRouteToBookmarks(departureLandmark, destinationLandmark, routePreferences);
+
+        setState(() {
+          _areRoutesBuilt = true;
+          // Cycle to next route pair for next time
+          _currentRouteIndex = (_currentRouteIndex + 1) % _routePairs.length;
+        });
+      }
+    });
 
     setState(() {});
   }
@@ -198,9 +187,9 @@ class _MyHomePageState extends State<MyHomePage> {
       _routingHandler = null;
     });
 
-    final result = await Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => RouteHistoryPage(routeBookmarks: _routeBookmarks)),
-    );
+    final result = await Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => RouteHistoryPage(routeBookmarks: _routeBookmarks)));
 
     if (result != null && result is Map<String, dynamic>) {
       final waypoints = result['waypoints'] as List<Landmark>?;
@@ -232,46 +221,26 @@ class _MyHomePageState extends State<MyHomePage> {
           _areRoutesBuilt = true;
         });
       } else {
-        _showSnackBar(
-          context,
-          message: 'Failed to calculate route',
-          duration: const Duration(seconds: 3),
-        );
+        _showSnackBar(context, message: 'Failed to calculate route', duration: const Duration(seconds: 3));
       }
     });
 
     setState(() {});
   }
 
-  void _saveRouteToBookmarks(
-    Landmark departure,
-    Landmark destination,
-    RoutePreferences preferences,
-  ) {
+  void _saveRouteToBookmarks(Landmark departure, Landmark destination, RoutePreferences preferences) {
     final timestamp = DateTime.now();
     final routeName =
-        'Route ${timestamp.day}/${timestamp.month} ${timestamp.hour}:
-        ${timestamp.minute.toString().padLeft(2, '0')}
-        :${timestamp.second.toString().padLeft(2, '0')}';
+        'Route ${timestamp.day}/${timestamp.month} ${timestamp.hour}:${timestamp.minute.toString().padLeft(2, '0')}:${timestamp.second.toString().padLeft(2, '0')}';
 
-    _routeBookmarks.add(
-      routeName,
-      [departure, destination],
-      preferences: preferences,
-      overwrite: false,
-    );
+    _routeBookmarks.add(routeName, [departure, destination], preferences: preferences, overwrite: false);
   }
 
-  void _showSnackBar(
-    BuildContext context, {
-    required String message,
-    Duration duration = const Duration(hours: 1),
-  }) {
+  void _showSnackBar(BuildContext context, {required String message, Duration duration = const Duration(hours: 1)}) {
     final snackBar = SnackBar(content: Text(message), duration: duration);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
-
 ```
 
 ### Route History Page
@@ -315,10 +284,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
                   SizedBox(height: 16),
                   Text('No routes in history', style: TextStyle(fontSize: 18, color: Colors.grey)),
                   SizedBox(height: 8),
-                  Text(
-                    'Calculate some routes to see them here',
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
+                  Text('Calculate some routes to see them here', style: TextStyle(fontSize: 14, color: Colors.grey)),
                 ],
               ),
             )
@@ -337,10 +303,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
                       backgroundColor: Colors.deepPurple[900],
                       child: Text('${index + 1}', style: const TextStyle(color: Colors.white)),
                     ),
-                    title: Text(
-                      name ?? 'Route ${index + 1}',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    title: Text(name ?? 'Route ${index + 1}', style: const TextStyle(fontWeight: FontWeight.bold)),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -387,8 +350,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
   }
 
   String _formatDate(DateTime date) {
-    return '${date.day}/${date.month}/${date.year} ${date.hour}:
-            ${date.minute.toString().padLeft(2, '0')}';
+    return '${date.day}/${date.month}/${date.year} ${date.hour}:${date.minute.toString().padLeft(2, '0')}';
   }
 
   void _onDeletePressed(int index, String? name) {
@@ -404,9 +366,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
               widget.routeBookmarks.remove(index);
               Navigator.of(context).pop();
               setState(() {});
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(const SnackBar(content: Text('Route deleted')));
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Route deleted')));
             },
             child: const Text('Delete', style: TextStyle(color: Colors.red)),
           ),
@@ -428,9 +388,7 @@ class _RouteHistoryPageState extends State<RouteHistoryPage> {
               widget.routeBookmarks.clear();
               Navigator.of(context).pop();
               setState(() {});
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(const SnackBar(content: Text('All routes deleted')));
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('All routes deleted')));
             },
             child: const Text('Clear All', style: TextStyle(color: Colors.red)),
           ),

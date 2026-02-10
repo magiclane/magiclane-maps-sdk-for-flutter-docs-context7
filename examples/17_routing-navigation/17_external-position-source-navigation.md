@@ -175,13 +175,14 @@ void _onBuildRouteButtonPressed(BuildContext context) {
 
 This method starts the navigation and sets the map to follow the user’s position.
 ```dart
-Future<void> _startNavigation() async {
-  final routes = _mapController.preferences.routes;
+  Future<void> _startNavigation() async {
+    final routes = _mapController.preferences.routes;
 
-  if (routes.mainRoute == null) {
-    _showSnackBar(context, message: "Route is not available");
-    return;
-  }
+    if (routes.mainRoute == null) {
+      _showSnackBar(context, message: "Route is not available");
+      return;
+    }
+
     _navigationHandler = NavigationService.startNavigation(
       routes.mainRoute!,
       onNavigationInstruction: (instruction, events) {
@@ -215,10 +216,9 @@ Future<void> _startNavigation() async {
         return;
       },
     );
+    // Set the camera to follow position.
+    _mapController.startFollowingPosition();
 
-  _mapController.startFollowingPosition();
-  await _pushExternalPosition();
-}
 ```
 
 ### Pushing External Position Data
@@ -261,10 +261,10 @@ Future<void> _pushExternalPosition() async {
 
 ### Top Navigation Instruction Panel
 ```dart
-class BottomNavigationPanel extends StatelessWidget {
+class TopNavigationPanel extends StatelessWidget {
   final NavigationInstruction instruction;
 
-  const BottomNavigationPanel({super.key, required this.instruction});
+  const TopNavigationPanel({super.key, required this.instruction});
 
   @override
   Widget build(BuildContext context) {
@@ -272,19 +272,25 @@ class BottomNavigationPanel extends StatelessWidget {
       width: MediaQuery.of(context).size.width - 20,
       height: MediaQuery.of(context).size.height * 0.2,
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(20),
             width: 100,
-            child: instruction.nextTurnDetails != null && instruction.nextTurnDetails!.abstractGeometryImg.isValid
+            child:
+                instruction.nextTurnDetails != null &&
+                    instruction.nextTurnDetails!.abstractGeometryImg.isValid
                 ? Image.memory(
-                    instruction.nextTurnDetails!.abstractGeometryImg.getRenderableImageBytes(
-                      size: Size(200, 200),
-                      format: ImageFileFormat.png,
-                    )!,
+                    instruction.nextTurnDetails!.abstractGeometryImg
+                        .getRenderableImageBytes(
+                          size: Size(200, 200),
+                          format: ImageFileFormat.png,
+                        )!,
                     gaplessPlayback: true,
                   )
                 : const SizedBox(), // Empty widget
@@ -296,14 +302,22 @@ class BottomNavigationPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  instruction.getFormattedDistanceToNextTurn(),
+                  getFormattedDistanceToNextTurn(instruction),
                   textAlign: TextAlign.left,
-                  style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   instruction.nextStreetName,
-                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

@@ -7,8 +7,6 @@ title: Landmark And Overlay Alarms
 
 This guide explains how to configure notifications when approaching specific landmarks or overlay items within a defined proximity.
 
----
-
 The `AlarmService` can be configured to send notifications when approaching specific landmarks or overlay items within a defined proximity. This behavior can be tailored to trigger notifications exclusively during navigation or simulation modes, or while freely exploring the map without a predefined route.
 
 Use cases include:
@@ -31,8 +29,6 @@ If notifications are not sent via the `AlarmListener`, make sure that:
 
 - The overlay items are on the correct side of the road. If the items are on the opposite side of the road, notifications will not be triggered
 
----
-
 ## Configure alarm distance
 
 The distance threshold measured in meters for triggering notifications when approaching a landmark or overlay item can be obtained as follows:
@@ -44,8 +40,6 @@ This threshold can also be adjusted as needed. To configure the alarm service to
 ```dart
 alarmService.alarmDistance = 200;
 ```
-
----
 
 ## Configure alarms without active navigation
 
@@ -60,8 +54,6 @@ To access the value of this preference:
 ```dart
 bool isMonitoringWithoutRoute = alarmService.monitorWithoutRoute;
 ```
-
----
 
 ## Landmark alarms
 
@@ -126,8 +118,6 @@ alarmService.landmarks.add(landmarkStore);
 
 Multiple `LandmarkStore` instances can be added to the monitoring list simultaneously. These stores can be updated later by modifying the landmarks within them or removed from the monitoring list as needed.
 
----
-
 ## Overlay alarms
 
 The workflow for overlay items is similar to that for landmarks, with comparable behavior and functionality. Notifications for overlay items are triggered in the same way as for landmarks, based on proximity or other criteria. The steps for monitoring and handling events related to overlay items align with those for landmarks. All the notices specified above for landmarks are also applicable for overlay items.
@@ -175,8 +165,6 @@ To add the social reports overlay (containing police reports and road hazards) t
 int socialReportsOverlayId = CommonOverlayId.socialReports.id;
 alarmService.overlays.add(socialReportsOverlayId);
 ```
-
----
 
 ## Relevant example demonstrating overlay alarms related features
 

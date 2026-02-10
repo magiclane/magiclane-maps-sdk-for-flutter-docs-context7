@@ -7,8 +7,6 @@ title: Optimization Best Practices
 
 Optimize app performance and resource management with the Magic Lane SDK for Flutter. Follow these strategies to create smoother user experiences, reduce unnecessary processing, and maintain efficient use of memory and system resources.
 
----
-
 ## Minimize SDK method calls
 
 Frequent calls to SDK methods can be computationally expensive and lead to UI lag, especially in performance-critical paths like rendering or user interactions.
@@ -39,15 +37,11 @@ Initialize or load SDK objects only when needed. Avoid early or unnecessary SDK 
 
 The `build` method is called multiple times, triggering unnecessary SDK calls each time the widget rebuilds. Compute values once and store them in state before the render cycle.
 
----
-
 ## Optimize image requests
 
 The `Img`, `AbstractGeometryImg`, `LaneImg`, `SignpostImg`, and `RoadInfoImg` classes expose a `uid` getter that uniquely identifies each image instance.
 
 During navigation, sequential `NavigationInstruction` objects may reference identical images. Avoid re-requesting or redrawing images if their `uid` matches the previous instruction.
-
----
 
 ## Avoid SDK calls during animations
 
@@ -55,7 +49,8 @@ Avoid SDK calls while UI animations are in progress. These calls can introduce d
 
 Schedule SDK calls to occur **before** the animation starts or **after** it completes. This maintains fluid animations and reduces dropped frames.
 
----
+Multiple SDK calls in quick succession can degrade performance.
+When you must make successive calls, insert `await Future.delayed(Duration.zero)` between them to yield to the event loop and allow pending UI updates and microtasks to run, keeping the UI responsive.
 
 ## Stop map rendering when not visible
 
@@ -67,8 +62,6 @@ Use the `isRenderEnabled` setter of the `GemMapController` class to control map 
 
 Further improvements are needed for this functionality, especially on Android platforms.
 
----
-
 ## Release objects
 
 Enable the garbage collector to reclaim resources tied to large objects once they're no longer needed. For immediate control over resource management, manually free resources by calling the object's `dispose` method.
@@ -77,15 +70,11 @@ Avoid storing large collections of entities in memory at one time.
 
 Calling methods on disposed objects is unsupported and can lead to application crashes.
 
----
-
 ## Avoid unnecessary `GemMap` widgets
 
 While multiple `GemMap` widgets can be used simultaneously, having many active at once negatively impacts performance.
 
 Avoid maintaining lists of `GemMap` instances. Reuse a single map widget whenever possible rather than creating new ones on demand.
-
----
 
 ## Test Skia vs Impeller performance
 
