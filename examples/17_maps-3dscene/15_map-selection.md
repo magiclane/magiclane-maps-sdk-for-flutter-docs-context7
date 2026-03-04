@@ -84,6 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Listen for map landmark selection events.
     _registerLandmarkTapCallback();
+
+    // Center the map on coordinates of Milan, Italy.
+    _mapController.centerOnCoordinates(
+      Coordinates(latitude: 45.46467971801758, longitude: 9.192851066589355),
+      zoomLevel: 70,
+    );
   }
 
   void _registerLandmarkTapCallback() {
@@ -104,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
 
         // Use the map controller to center on coordinates.
-        _mapController.centerOnCoordinates(landmarks[0].coordinates);
+        _mapController.centerOnCoordinates(_focusedLandmark!.coordinates, zoomLevel: 70);
       }
     });
   }

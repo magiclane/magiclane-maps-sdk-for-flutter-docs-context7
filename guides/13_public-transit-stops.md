@@ -32,54 +32,50 @@ The public transport data structure follows the [General Transit Feed Specificat
 - Use the returned `PTStopInfo` object to explore agencies, stops, and trips
 
 ## Query Public Transit Stops
+
+In order to query public transit stops, register a long-press listener on the map controller. When the user long-presses on the map, set the cursor position to that location and retrieve the public transit overlay items at that position.
 ```dart
-void _onMapCreated(GemMapController controller) async {
-    // Save controller for further usage.
-    _mapController = controller;
+controller.registerOnLongPress((pos) async {
+    // set cursor position on the screen
+    await controller.setCursorScreenPosition(pos);
 
-    _mapController.registerOnLongPress((pos) async {
-        // set cursor position on the screen
-        await _mapController.setCursorScreenPosition(pos);
+    // get the public transit overlay items at that position
+    final items = controller
+        .cursorSelectionOverlayItemsByType(CommonOverlayId.publicTransport);
 
-        // get the public transit overlay items at that position
-        final items = _mapController
-            .cursorSelectionOverlayItemsByType(CommonOverlayId.publicTransport);
+    // for each overlay item at that position
+    for (final OverlayItem item in items) {
+        // get the stop information
+        final ptStopInfo = await item.getPTStopInfo();
+        if (ptStopInfo != null) {
+        // information about agencies
+        final agencies = ptStopInfo.agencies;
 
-        // for each overlay item at that position
-        for (final OverlayItem item in items) {
-            // get the stop information
-            final ptStopInfo = await item.getPTStopInfo();
-            if (ptStopInfo != null) {
-                // information about agencies
-                final agencies = ptStopInfo.agencies;
+        // information about stops and generic routes
+        // (routes that don't have `heading` set)
+        final stops = ptStopInfo.stops;
 
-                // information about stops and generic routes
-                // (routes that don't have `heading` set)
-                final stops = ptStopInfo.stops;
+        // information about trips (together with
+        // route, agency, stop times, real-time info, etc.)
+        final trips = ptStopInfo.trips;
 
-                // information about trips (together with 
-                // route, agency, stop times, real-time info, etc.)
-                final trips = ptStopInfo.trips;
+        // How to use stops
+        for (final stop in stops) {
+            print('Stop id: ${stop.stopId}');
+            print('Stop name: ${stop.stopName}');
 
-                // How to use stops
-                for (final stop in stops) {
-                    print('Stop id: ${stop.stopId}');
-                    print('Stop name: ${stop.stopName}');
-
-                    print('Routes:');
-                    for (final route in stop.routes) {
-                        print('  Route id: ${route.routeId}');
-                        print('  Route short name: ${route.routeShortName}');
-                        print('  Route long name: ${route.routeLongName}');
-                    }
-                }
+            print('Routes:');
+            for (final route in stop.routes) {
+                print('  Route id: ${route.routeId}');
+                print('  Route short name: ${route.routeShortName}');
+                print('  Route long name: ${route.routeLongName}');
             }
         }
-    });
-}
+    }
+}});
 ```
 
-Obtain `PTStopInfo` instances by performing an overlay search using `CommonOverlayId.publicTransport`. Retrieve the corresponding `OverlayItem`s and use their `getPTStopInfo` method to access stop information.
+You can also obtain `PTStopInfo` instances by performing an overlay search using `CommonOverlayId.publicTransport`. Retrieve the corresponding `OverlayItem`s and use their `getPTStopInfo` method to access stop information.
 
 See the [Search on overlays](/guides/search/get-started-search#search-on-overlays) guide for details.
 

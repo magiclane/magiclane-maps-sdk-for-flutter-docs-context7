@@ -242,7 +242,7 @@ print("Distance in meters: ${metrics.distanceMeters}");
 print("Elevation gain: ${metrics.elevationGainMeters}");
 ```
 
-The metrics reset at the start of each recording. Once the recording stops, the collected data is available in LogMetadata.
+The metrics reset at the start of each recording. Once the recording stops, the collected data is available in `LogMetadata`.
 
 ## Record audio
 
@@ -279,7 +279,7 @@ if (errorStop != GemError.success) {
 
 Audio recording results in a log file of type `.mp4`. This file also contains the binary data of a `.gm` file and is accessible by system players.
 
-Request permission for microphone usage when setting the `enableAudio` parameter to `true`.
+Request permission for microphone usage when setting the `enableAudio` parameter to `true`. If the permission is not granted when trying to start audio recording, the `accessDenied` error will be returned.
 
 ## Record video
 

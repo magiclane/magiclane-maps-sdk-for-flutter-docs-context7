@@ -47,9 +47,9 @@ The method accepts the content type as an argument and a callback that provides:
 ```dart
 final ProgressListener? listener = ContentStore.asyncGetStoreContentList(ContentType.roadMap, (err, items, isCached){
     if (err != GemError.success){
-    showSnackbar("Failed to get list of content store items: $err");
+      showSnackbar("Failed to get list of content store items: $err");
     } else {
-        /// Do something with the items and isCached flag.
+      // Do something with the items and isCached flag.
     }
 });
 ```
@@ -75,15 +75,17 @@ Obtain a filtered list of available content from the Magic Lane servers using th
 final contentStoreItemListCompleter = Completer<List<ContentStoreItem>?>();
 
 ContentStore.asyncGetStoreFilteredList(
-    type: contentType,
-    area: RectangleGeographicArea(
-        topLeft: Coordinates(latitude: 53.7731, longitude: -1.7990),
-        bottomRight: Coordinates(latitude: 38.4549, longitude: 21.1696)),
-    onComplete: (err, result) {
+  type: contentType,
+  area: RectangleGeographicArea(
+    topLeft: Coordinates(latitude: 53.7731, longitude: -1.7990),
+    bottomRight: Coordinates(latitude: 38.4549, longitude: 21.1696),
+  ),
+  onComplete: (err, result) {
     contentStoreItemListCompleter.complete(result);
-    });
+  },
+);
 
-  final res = await contentStoreItemListCompleter.future;
+final res = await contentStoreItemListCompleter.future;
 ```
 
 The `getStoreFilteredList` method returns the filtered content store items that were last requested via `asyncGetStoreFilteredList`.
@@ -164,11 +166,9 @@ Get the image using the `imgPreview` getter:
 ```dart
 final bool isImagePreviewAvailable = contentStoreItem.isImagePreviewAvailable;
 if (isImagePreviewAvailable) {
-    final Img previewImage = contentStoreItem.imgPreview;
-    final Uint8List? bytes = previewImage.getRenderableImageBytes(
-    size: Size(80, 80)
-);
-// Do something with the preview image.
+  final Img previewImage = contentStoreItem.imgPreview;
+  final Uint8List? bytes = previewImage.getRenderableImageBytes(size: Size(80, 80));
+  // Do something with the preview image.
 }
 ```
 

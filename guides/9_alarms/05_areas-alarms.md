@@ -29,8 +29,8 @@ final PolygonGeographicArea polygon = PolygonGeographicArea(coordinates: [
 ]);
 
 alarmService!.monitorArea(rect, id: 'areaRect');
-alarmService!.monitorArea(circle, id: 'areaCircle');
-alarmService!.monitorArea(polygon, id: 'areaPolygon');
+alarmService.monitorArea(circle, id: 'areaCircle');
+alarmService.monitorArea(polygon, id: 'areaPolygon');
 ```
 
 Assign a unique identifier to each area. This lets you determine which zone a user has entered or exited.
@@ -57,28 +57,28 @@ final RectangleGeographicArea rect = RectangleGeographicArea(
     topLeft: Coordinates(latitude: 1, longitude: 0.5),
     bottomRight: Coordinates(latitude: 0.5, longitude: 1),
 );
-alarmService!.monitorArea(rect);
+alarmService.monitorArea(rect);
 
-alarmService!.unmonitorArea(rect);
+alarmService.unmonitorArea(rect);
 ```
 
 You can also use the `unmonitorAreasByIds` method by passing a list of IDs:
 ```dart
-alarmService.unmonitorAreasByIds(['firstIdToUnmonitor', 'secondIdToUnmonitor'])
+alarmService.unmonitorAreasByIds(['firstIdToUnmonitor', 'secondIdToUnmonitor']);
 ```
 
 ## Get notified when users enter or exit areass
 
 Attach an `AlarmListener` with the `onBoundaryCrossed` callback to your `AlarmService`. This callback returns two arrays: entered area IDs and exited area IDs.
 ```dart
-AlarmListener(
+final alarmListener = AlarmListener(
     onBoundaryCrossed: (List<String> entered, List<String> exited) {
-        print("ENTERED AREAS: ${entered}");
-        print("EXITED AREAS: ${exited}");
-    }
+        print("ENTERED AREAS: $entered");
+        print("EXITED AREAS: $exited");
+    },
 );
 
-alarmService = AlarmService(alarmListener);
+AlarmService alarmService = AlarmService(alarmListener);
 ```
 
 ## Get user location areas

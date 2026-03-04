@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-Check the [Migration Guide](/guides/category/migration-guide) for complete steps required for upgrading to a new version.
+Check the [Migration Guide](/guides/migration-guide) for complete steps required for upgrading to a new version.
 
 Update all applications to version 2.19.0 or later to access the newest map available. To support recent enhancements, a change in the map format was required.
 
@@ -18,7 +18,57 @@ Legacy map formats will remain available until April 2027. However, the `registe
 
 Due to improvements of our SDK and map data, we kindly ask you to update your applications and projects with any SDK revision released starting with October 2024 in order to continue using the online Magic Lane map-related services and to continue receiving map updates.
 
-## [3.1.6] - 2026-01-29
+## [3.1.7] - 2026-02-27
+
+### Added
+
+- `Gate`, `GateDecision` enums
+
+- `GateStatus`, `GateKeeperService` classes
+
+- `setTiltAngle`, `setMapAngle` methods to the `MapViewPreferences` class (for API consistency)
+
+- `viewAngle` setter to the `MapViewPreferences` class (for API consistency)
+
+- `GemList` and derived classes now support all `Iterable` methods (skip, skipWhile, take, takeWhile)
+
+### Removed
+
+- `registerOnMobileCountryCodeChanged`, `registerOnConnectionFailed`, `registerOnConnectFinished` methods from the `NetworkProvider` class. Use the `OffBoardListener` class methods instead.
+
+- `ProxyDetails` class and `ProxyType` enum as the `NetworkProvider` class has been simplified
+
+### Changed
+
+- the `capabilitties` getter of the `SdkSettings` class has been deprecated and replaced with `capabilities`
+
+- added activation value to `SdkCapability` enum
+
+- the `log` method from the `Debug` class now supports strings containing format specifiers like substrings
+
+- the `isMinifyEnabled` and `isShrinkResources` flags set to false in the Android config files are no longer necessary
+
+- the `appAuthorization` method of the `SdkSettings` class no longer sets the token if it is invalid
+
+- the `ActivationService` class is no longer available in public SDK releases with auto activation enabled. Calls to methods from this class will set the `ApiErrorService` error level to `GemError.missingCapability`
+
+- audio recording requires additional permissions on newer releases.
+
+### Fixed
+
+- `PositionService` methods now properly handle null values for the return type, without runtime assertion errors
+
+- crashes related to network events on Android devices, especially when Android Auto is involved
+
+- triggering the `onDetachedFromActivityForConfigChanges` event no longer crashes the app on Android devices
+
+- route ranges and other substructures of the `RoutePreferences` class are now properly returned by the corresponding getters.
+
+- `add`, `size` and other such members from the `MapViewRouteCollections` class no longer crash after the related `GemMapController` is disposed
+
+- rendering related crash invloving contour lines
+
+## [3.1.6] - 2026-02-05
 
 ### Added
 
@@ -47,6 +97,8 @@ Due to improvements of our SDK and map data, we kindly ask you to update your ap
 - return type of the `getSocialReportsCategory` method from the `SocialReportsOverlayInfo` class changed from `OverlayCategory?` to `SocialReportsOverlayCategory?`
 
 - the `BLUETOOTH`, `BLUETOOTH_CONNECT`, `READ_PHONE_STATE`, `MODIFY_AUDIO_SETTINGS` are no longer provided by default in the manifest.
+
+- the behavior of the `startFollowingPosition` method from the `GemMapController` class has suffered minor changes regarding the animation and angles on certain scenarios
 
 ### Fixed
 

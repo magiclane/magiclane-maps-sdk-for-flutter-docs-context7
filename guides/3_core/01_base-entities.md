@@ -117,7 +117,7 @@ Path path = Path.create(data: data, format: PathFileFormat.gpx);
 
 Export a `Path` to a specific format (like GeoJSON):
 ```dart
-Uint8List exportedData = path.exportAs(PathFileFormat.geoJson);
+String exportedData = path.exportAs(PathFileFormat.geoJson);
 ```
 
 The `exportAs` method returns a `String` containing the full path data in the requested format. This makes it easy to store the path as a file or share it with other applications that support GPX, KML, NMEA, or GeoJSON.

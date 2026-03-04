@@ -274,7 +274,7 @@ These events are described in the following table:
   </tr>
   <tr>
     <td>onBetterRouteDetected(Route route, int travelTime, int delay, int timeGain)</td>
-    <td>Triggered when a better alternative route is detected, including the new route and details such as travel time, delays caused by traffic and time gains. See te [Better route detection guide](better-route-detection) for more details.</td>
+    <td>Triggered when a better alternative route is detected, including the new route and details such as travel time, delays caused by traffic and time gains. See te [Better route detection guide](/guides/navigation/better-route-detection) for more details.</td>
   </tr>
   <tr>
     <td>onBetterRouteRejected(GemError error)</td>

@@ -93,14 +93,6 @@ await GemKit.initialize(
 
 You can also configure auto-update settings later in the application using the `OffBoardListener` class:
 ```dart
-// Via the AutoUpdateSettings object
-SdkSettings.offBoardListener.autoUpdateSettings = AutoUpdateSettings(
-    isAutoUpdateForRoadMapEnabled: true,
-    isAutoUpdateForViewStyleHighResEnabled: false,
-    isAutoUpdateForViewStyleLowResEnabled: false,
-);
-
-// Via the setters
 SdkSettings.offBoardListener.isAutoUpdateForRoadMapEnabled = true;
 ```
 
@@ -115,21 +107,21 @@ The `AutoUpdateSettings` class also includes the `AutoUpdateSettings.allDisabled
 Listen for map updates by calling the `registerOnWorldwideRoadMapSupportStatus` method and providing a callback.
 ```dart
 SdkSettings.offBoardListener.registerOnWorldwideRoadMapSupportStatus((status){
-        switch (status) {
-          case ContentStoreStatus.upToDate:
+    switch (status) {
+        case ContentStoreStatus.upToDate:
             showSnackbar("The map version is up-to-date.");
             break;
-          case ContentStoreStatus.oldData:
+        case ContentStoreStatus.oldData:
             showSnackbar(
                 "A new map version is available. Online operation on the current map version are still supported.");
             break;
-          case ContentStoreStatus.expiredData:
+        case ContentStoreStatus.expiredData:
             showSnackbar(
                 "The map version has expired. All operations will be executed offline.");
             break;
         }
-      },
-    );
+    },
+);
 ```
 
 The SDK may automatically trigger the map version check at an appropriate moment. To manually force the check, call the `checkForUpdate` method from the `ContentStore`:

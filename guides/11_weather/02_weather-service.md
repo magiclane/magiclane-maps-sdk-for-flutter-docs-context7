@@ -11,21 +11,21 @@ The `WeatherService` class provides methods for retrieving current, hourly, and 
 
 Use the `getCurrent` method to retrieve the current weather forecast. Provide coordinates for the desired location, and the forecast will be returned through `onComplete`.
 ```dart
-    final locationCoordinates = Coordinates(
-      latitude: 48.864716,
-      longitude: 2.349014,
-    );
-    final weatherCurrentCompleter = Completer<List<LocationForecast>>();
+final locationCoordinates = Coordinates(
+  latitude: 48.864716,
+  longitude: 2.349014,
+);
+final weatherCurrentCompleter = Completer<List<LocationForecast>>();
 
-    WeatherService.getCurrent(
-      coords: [locationCoordinates],
-      onComplete: (err, result) async {
-        weatherCurrentCompleter.complete(result);
-      },
-    );
+WeatherService.getCurrent(
+  coords: [locationCoordinates],
+  onComplete: (err, result) async {
+    weatherCurrentCompleter.complete(result);
+  },
+);
 
-    final currentForecast = await weatherCurrentCompleter.future;
-    showSnackbar("Forecast lenght list: ${currentForecast.length}");
+final currentForecast = await weatherCurrentCompleter.future;
+showSnackbar("Forecast lenght list: ${currentForecast.length}");
 ```
 
 Verify that `LocationForecast` contains `Conditions` and each `Condition` includes a `Parameter`. If data is unavailable for the specified location and time, the API may return empty lists.
@@ -89,20 +89,20 @@ Use the `getForecast` method to retrieve weather forecasts for specific times an
 final weatherCompleter = Completer<List<LocationForecast>>();
 
 WeatherService.getForecast(
-    coords: [
-      WeatherDurationCoordinates(
-          coordinates: Coordinates(
-            latitude: 48.864716,
-            longitude: 2.349014,
-          ),
-          duration: Duration(days: 2))
-    ],
-    onComplete: (err, result) async {
-      weatherCompleter.complete(result);
-    });
-
+  coords: [
+    WeatherDurationCoordinates(
+      coordinates: Coordinates(
+        latitude: 48.864716,
+        longitude: 2.349014,
+      ),
+      duration: Duration(days: 2),
+    )
+  ],
+  onComplete: (err, result) async {
+    weatherCompleter.complete(result);
+  },
+);
 final forecast = await weatherCompleter.future;
-
 showSnackbar("Forecast lenght list: ${forecast.length}");
 ```
 

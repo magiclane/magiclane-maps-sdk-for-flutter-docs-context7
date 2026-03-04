@@ -35,7 +35,7 @@ mapController.preferences.routes.add(route, true, routeRenderSettings: renderSet
 ```dart
 final mapViewRoute = mapController.preferences.routes.getMapViewRoute(0);
 
-mapViewRoute?.renderSettings = RouteRenderSettings(innerColor: Color.fromARGB(255, 255, 0, 0));
+mapViewRoute?.renderSettings = RouteRenderSettings(innerColor: Colors.red);
 ```
 
 All dimensional sizes within the `RouteRenderSettings` are measured in millimeters.

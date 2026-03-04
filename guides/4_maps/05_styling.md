@@ -82,63 +82,27 @@ Certain attributes may not apply to specific types of `ContentStoreItem`. For ex
 
 Download a map style by calling `ContentStoreItem.asyncDownload()`:
 ```dart
-Future<bool> _downloadStyle(ContentStoreItem style) async {
-  setState(() {
-    _isDownloadingStyle = true;
-  });
-  Completer<bool> completer = Completer<bool>();
-  style.asyncDownload((err) {
+style.asyncDownload(
+  (err) {
     if (err != GemError.success) {
-      // An error was encountered during download
-      completer.complete(false);
-      setState(() {
-        _isDownloadingStyle = false;
-      });
-      return;
+      showSnackbar("Download failed with error $err");
+    } else {
+      showSnackbar("Download succeeded");
     }
-    // Download was successful
-    completer.complete(true);
-    setState(() {
-      _isDownloadingStyle = false;
-    });
-  }, onProgress: (progress) {
-    // Gets called every time download progresses with a value between [0, 100]
-    print('progress: $progress');
-  }, allowChargedNetworks: true);
-  return await completer.future;
-}
+  },
+  onProgress: (progress) {
+    print('Download progress: $progress');
+  },
+  allowChargedNetworks: true
+);
 ```
+
+You can control whether to allow downloads over metered networks by setting the `allowChargedNetworks` parameter. The `onProgress` callback provides the download progress as a percentage (0-100).
 
 ### Apply the downloaded style
 
 Apply the downloaded style using `GemMapController.MapViewPreferences.setMapStyleByPath(path)` with the filename:
 ```dart
-final String filename = currentStyle.fileName;
-mapController.preferences.setMapStyleByPath(filename);
-```
-
-### Complete implementation
-
-The following code incorporates all steps:
-```dart
-if (_stylesList.isEmpty) {
-    _showSnackBar(context, message: "The map styles are loading.");
-    getStyles();
-    return;
-}
-
-final indexOfNextStyle = (_indexOfCurrentStyle >= _stylesList.length - 1)
-    ? 0
-    : _indexOfCurrentStyle + 1;
-ContentStoreItem currentStyle = _stylesList[indexOfNextStyle];
-
-if (currentStyle.isCompleted == false) {
-  final didDownloadSuccessfully = await _downloadStyle(currentStyle);
-  if (didDownloadSuccessfully == false) return;
-}
-
-_indexOfCurrentStyle = indexOfNextStyle;
-
 final String filename = currentStyle.fileName;
 mapController.preferences.setMapStyleByPath(filename);
 ```

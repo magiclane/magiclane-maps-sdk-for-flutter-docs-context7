@@ -33,7 +33,7 @@ final availableOverlays = OverlayService.getAvailableOverlays(onCompleteDownload
 
 await completer.future;
   
-final collection = availableOverlays.first;
+final collection = availableOverlays.$1;
 final overlayInfo = collection.getOverlayAt(0);
 if(overlayInfo != null) {
   final uid = overlayInfo.uid;

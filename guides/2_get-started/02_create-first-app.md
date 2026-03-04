@@ -139,15 +139,15 @@ When you initialize the SDK with a valid API key, it also performs an automatic 
 
 Explore what you can do with the map:
 
-- [Add markers](../../examples/maps-3dscene/add-markers) - Pin locations on the map
+- [Add markers](/examples/maps-3dscene/add-markers) - Pin locations on the map
 
-- [Draw shapes](../../examples/maps-3dscene/draw-shapes) - Add polygons, lines, and circles
+- [Draw shapes](/examples/maps-3dscene/draw-shapes) - Add polygons, lines, and circles
 
-- [Change map styles](../../examples/maps-3dscene/map-styles) - Switch between light, dark, and custom themes
+- [Change map styles](/examples/maps-3dscene/map-styles) - Switch between light, dark, and custom themes
 
-- [Search for places](../../examples/places-search) - Find addresses and points of interest
+- [Search for places](/examples/places-search) - Find addresses and points of interest
 
-- [Add navigation](../../examples/routing-navigation) - Calculate routes and turn-by-turn directions
+- [Add navigation](/examples/routing-navigation) - Calculate routes and turn-by-turn directions
 
 ## Troubleshooting
 

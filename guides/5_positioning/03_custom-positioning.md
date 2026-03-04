@@ -121,7 +121,7 @@ If the coordinates to be pushed in the custom data source are not known, extrapo
 
 Remove the data source when no longer needed:
 ```dart
-DataSource dataSource = DataSource.createExternalDataSource([DataType.position]);
+DataSource? dataSource = DataSource.createExternalDataSource([DataType.position]);
 
 if (dataSource == null){
   showSnackbar("The datasource could not be created");
@@ -144,17 +144,20 @@ Stop the data source and remove it from the position service when finished. Othe
 
 ## Create simulation data source
 
-Integrate a simulation data source with the PositionService to simulate location data by following a given route. This data source behaves as a route simulation:
+Integrate a simulation data source with the `PositionService` to simulate location data by following a given route. This data source behaves as a route simulation:
 ```dart
 // Create a simulation data source.
 final dataSource = DataSource.createSimulationDataSource(route);
+if (dataSource == null) {
+  showSnackbar("The datasource could not be created");
+  return;
+}
 
 // Positions will be provided from the data source.
 PositionService.setExternalDataSource(dataSource);
 
 // Start the data source.
 dataSource.start();
-
 ```
 
 **How it works:**
@@ -167,12 +170,6 @@ dataSource.start();
 
 Remove the data source when no longer needed:
 ```dart
-DataSource dataSource = DataSource.createSimulationDataSource(route);
-PositionService.setExternalDataSource(dataSource);
-dataSource.start();
-
-// Do something with the data source...
-
 // Stop the data source.
 dataSource.stop();
 
@@ -188,10 +185,13 @@ Integrate a log data source with the PositionService to replay location data fro
 ```dart
 // Create a simulation data source.
 final dataSource = DataSource.createLogDataSource(logFile);
+if (dataSource == null) {
+  showSnackbar("The datasource could not be created");
+  return;
+}
 
 // Positions will be provided from the data source.
 PositionService.setExternalDataSource(dataSource);
-
 ```
 
 The log data source starts automatically when created. No need to call the `start()` method.
@@ -206,11 +206,6 @@ The log data source starts automatically when created. No need to call the `star
 
 Remove the data source when no longer needed:
 ```dart
-DataSource dataSource = DataSource.createLogDataSource(logFile);
-PositionService.setExternalDataSource(dataSource);
-
-// Do something with the data source...
-
 // Stop the data source.
 dataSource.stop();
 

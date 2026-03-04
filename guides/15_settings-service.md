@@ -66,7 +66,7 @@ The methods require a list of keys in the form of a `List<String>` and an option
 If the number of default values provided is invalid, the methods return empty list and set `ApiErrorService` to `GemError.invalidInput`.
 The returned list contains values in the same order as the provided keys.
 ```dart
-settingsService.getStringList(['key1', 'key2', 'key3'], defaultValues: ['def1', 'def2', 'def3']);
+settings.getStringList(['key1', 'key2', 'key3'], defaultValues: ['def1', 'def2', 'def3']);
 ```
 
 The same conversion apply when getting/setting multiple values as when getting/setting single values.

@@ -238,7 +238,7 @@ Create and register a listener for a specific `OverlayItem` report:
 ```dart
 SocialReportListener listener = SocialReportListener(
     onReportUpdated: (OverlayItem report) {
-    print('The report has been updated');
+        print('The report has been updated');
     },
 );
 
