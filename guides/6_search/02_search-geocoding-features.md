@@ -56,17 +56,17 @@ The address structure varies by country. Some countries do not have states or pr
 
 Search at the country level to find the parent landmark for hierarchical address searches.
 ```dart
-  GuidedAddressSearchService.searchCountries("Germany", (err, result) {
-    if (err != GemError.success && err != GemError.reducedResult) {
-      showSnackbar("Error $err");    
-    }
+GuidedAddressSearchService.searchCountries("Germany", (err, result) {
+  if (err != GemError.success && err != GemError.reducedResult) {
+    showSnackbar("Error $err");    
+  }
 
-    if (result.isEmpty) {
-      showSnackbar("No results");
-    }
+  if (result.isEmpty) {
+    showSnackbar("No results");
+  }
 
-    // do something with "result"
-  });
+  // do something with "result"
+});
 ```
 
 This method restricts results to country-level landmarks and works with flexible search terms regardless of language.

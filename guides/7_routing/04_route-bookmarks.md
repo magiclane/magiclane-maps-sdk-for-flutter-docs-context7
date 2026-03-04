@@ -23,7 +23,7 @@ String path = bookmarks.filePath;
 
 ## Add routes
 
-Add a route to the collection using the `add` method. Provide a unique name and waypoints list. Optionally include route preferences and specify whether to overwrite existing routes.
+Add a route to the collection using the `add` method. Provide a unique name and waypoints list as `List<Landmark>`. Optionally include route preferences and specify whether to overwrite existing routes.
 ```dart
 bookmarks.add(
   'Home to Office',

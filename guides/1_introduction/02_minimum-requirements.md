@@ -19,15 +19,17 @@ Please note that Maps SDK for Flutter relies on following packages and versions:
 
 - [plugin_platform_interface](https://pub.dev/packages/plugin_platform_interface) (version ^2.1.8)
 
-- [logging](https://pub.dev/packages/logging) (version ^1.0.0) 
+- [logging](https://pub.dev/packages/logging) (version ^1.0.0)
 
-- [ffi](https://pub.dev/packages/ffi) (version ^2.0.1).
+- [ffi](https://pub.dev/packages/ffi) (version ^2.0.1)
 
-- [meta](https://pub.dev/packages/meta) (version ^1.15.0).
+- [meta](https://pub.dev/packages/meta) (version ^1.15.0)
 
-- [flutter_lints](https://pub.dev/packages/flutter_lints) (version ^6.0.0).
+- [flutter_lints](https://pub.dev/packages/flutter_lints) (version ^6.0.0)
 
 Be aware that compatibility issues may arise if other dependencies in your project require different versions of these libraries.
+
+---
 
 ## Target devices 
 
@@ -35,11 +37,11 @@ Compatibility is assured with both real devices and emulators used for developme
 
 ### Android
 
-- minimum Android API level of 27 is required (Android 8.1 Oreo), providing compatibility with over 96.4% of all Android devices currently in use.
+- Minimum Android API level of 27 is required (Android 8.1 Oreo), providing compatibility with over 96.4% of all Android devices currently in use.
 
 ### iOS
 
-- minimum version of iOS 14.0 or iPadOS 14.0 is required for compatibility, ensuring broad compatibility across Apple platforms.
+- Minimum version of iOS 14.0 or iPadOS 14.0 is required for compatibility, ensuring broad compatibility across Apple platforms.
 
 A simple compiled app may require approximately 250MB of storage.
 

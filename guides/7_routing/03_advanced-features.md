@@ -280,8 +280,8 @@ Handle possible errors when exporting:
 
 Export a route to a textual format using `exportAs`. The method returns a `String` containing the full route data in formats like GPX, KML, NMEA, or GeoJSON.
 ```dart
-final dataGpx = routes.first.exportAs(PathFileFormat.gpx);
 // Full GPX data as a string
+final String dataGpx = route.exportAs(PathFileFormat.gpx);
 ```
 
 ## Relevant examples demonstrating routing related features

@@ -354,6 +354,7 @@ class FollowPositionController extends ChangeNotifier {
 
     final MapSceneObject tracker = MapSceneObject.getDefPositionTracker();
 
+    debugPrint('[FollowPositionController] calling all getters to refresh info');
     _info = FollowPositionInfo(
       cameraFocus: prefs.cameraFocus,
       perspective: prefs.perspective,
@@ -386,12 +387,13 @@ class FollowPositionController extends ChangeNotifier {
     }
 
     final animation = GemAnimation(type: AnimationType.linear);
+    final zoomLevel = useDefaultStartFollowPosition ? -1 : startZoomLevel;
+    final viewAngle = useDefaultStartFollowPosition ? null : startViewAngle;
 
-    _mapController!.startFollowingPosition(
-      animation: animation,
-      zoomLevel: useDefaultStartFollowPosition ? -1 : startZoomLevel,
-      viewAngle: useDefaultStartFollowPosition ? startViewAngle : null,
+    debugPrint(
+      '[FollowPositionController] startFollowingPosition with zoomLevel=$zoomLevel and viewAngle=$viewAngle animation: type=${animation.type} duration=${animation.duration}',
     );
+    _mapController!.startFollowingPosition(animation: animation, zoomLevel: zoomLevel, viewAngle: viewAngle);
 
     await refreshInfo();
   }
@@ -401,6 +403,7 @@ class FollowPositionController extends ChangeNotifier {
       return;
     }
 
+    debugPrint('[FollowPositionController] stopFollowingPosition');
     _mapController!.stopFollowingPosition(restoreCameraMode: restoreCameraMode);
     refreshInfo();
   }
@@ -410,6 +413,7 @@ class FollowPositionController extends ChangeNotifier {
       return;
     }
 
+    debugPrint('[FollowPositionController] restoreFollowingPosition');
     _mapController!.restoreFollowingPosition(animation: GemAnimation(type: AnimationType.linear, duration: 600));
     refreshInfo();
   }
@@ -420,6 +424,9 @@ class FollowPositionController extends ChangeNotifier {
     }
 
     final prefs = _mapController!.preferences.followPositionPreferences;
+    debugPrint(
+      '[FollowPositionController] applyCameraFocus: cameraFocus=(${cameraFocusX.toStringAsFixed(3)}, ${cameraFocusY.toStringAsFixed(3)})',
+    );
     prefs.setCameraFocus(Point<double>(cameraFocusX, cameraFocusY));
     refreshInfo();
   }
@@ -431,6 +438,9 @@ class FollowPositionController extends ChangeNotifier {
 
     final prefs = _mapController!.preferences.followPositionPreferences;
     final animation = animatePerspective ? GemAnimation(type: AnimationType.linear, duration: 350) : null;
+    debugPrint(
+      '[FollowPositionController] applyPerspective: perspective=$perspective animate=$animatePerspective animationDuration=${animation?.duration}',
+    );
     prefs.setPerspective(perspective, animation: animation);
     refreshInfo();
   }
@@ -441,6 +451,7 @@ class FollowPositionController extends ChangeNotifier {
     }
 
     final prefs = _mapController!.preferences.followPositionPreferences;
+    debugPrint('[FollowPositionController] applyViewAngle: viewAngle=$viewAngle animate=$animateViewAngle');
     prefs.setViewAngle(viewAngle, animated: animateViewAngle);
     refreshInfo();
   }
@@ -451,6 +462,9 @@ class FollowPositionController extends ChangeNotifier {
     }
 
     final prefs = _mapController!.preferences.followPositionPreferences;
+    debugPrint(
+      '[FollowPositionController] applyZoomLevel: zoomLevel=${autoZoom ? -1 : zoomLevel} autoZoom=$autoZoom duration=$zoomDuration',
+    );
     prefs.setZoomLevel(autoZoom ? -1 : zoomLevel, duration: zoomDuration);
     refreshInfo();
   }
@@ -461,6 +475,9 @@ class FollowPositionController extends ChangeNotifier {
     }
 
     final prefs = _mapController!.preferences.followPositionPreferences;
+    debugPrint(
+      '[FollowPositionController] applyMapRotationMode: mapRotationMode=$mapRotationMode mapAngle=$mapAngle objectFollowMap=$objectFollowMap',
+    );
     prefs.setMapRotationMode(mapRotationMode, mapAngle: mapAngle, objectFollowMap: objectFollowMap);
     refreshInfo();
   }
@@ -472,6 +489,9 @@ class FollowPositionController extends ChangeNotifier {
 
     final prefs = _mapController!.preferences.followPositionPreferences;
     final value = useDefaultTurnPresentationTime ? -1 : turnPresentationSeconds.round();
+    debugPrint(
+      '[FollowPositionController] applyTurnPresentationTime: value=$value useDefault=$useDefaultTurnPresentationTime',
+    );
     prefs.timeBeforeTurnPresentation = value;
     refreshInfo();
   }
@@ -482,6 +502,7 @@ class FollowPositionController extends ChangeNotifier {
     }
 
     final prefs = _mapController!.preferences.followPositionPreferences;
+    debugPrint('[FollowPositionController] applyTouchHandlerExitAllow: touchHandlerExitAllow=$touchHandlerExitAllow');
     prefs.touchHandlerExitAllow = touchHandlerExitAllow;
     refreshInfo();
   }
@@ -492,6 +513,9 @@ class FollowPositionController extends ChangeNotifier {
     }
 
     final prefs = _mapController!.preferences.followPositionPreferences;
+    debugPrint(
+      '[FollowPositionController] applyTouchHandlerModifyPersistent: touchHandlerModifyPersistent=$touchHandlerModifyPersistent',
+    );
     prefs.touchHandlerModifyPersistent = touchHandlerModifyPersistent;
     refreshInfo();
   }
@@ -502,6 +526,9 @@ class FollowPositionController extends ChangeNotifier {
     }
 
     final prefs = _mapController!.preferences.followPositionPreferences;
+    debugPrint(
+      '[FollowPositionController] applyHorizontalAngleLimits: start=${horizontalAngleLimits.start} end=${horizontalAngleLimits.end}',
+    );
     prefs.touchHandlerModifyHorizontalAngleLimits = (horizontalAngleLimits.start, horizontalAngleLimits.end);
     refreshInfo();
   }
@@ -512,6 +539,9 @@ class FollowPositionController extends ChangeNotifier {
     }
 
     final prefs = _mapController!.preferences.followPositionPreferences;
+    debugPrint(
+      '[FollowPositionController] applyVerticalAngleLimits: start=${verticalAngleLimits.start} end=${verticalAngleLimits.end}',
+    );
     prefs.touchHandlerModifyVerticalAngleLimits = (verticalAngleLimits.start, verticalAngleLimits.end);
     refreshInfo();
   }
@@ -523,7 +553,9 @@ class FollowPositionController extends ChangeNotifier {
 
     final prefs = _mapController!.preferences.followPositionPreferences;
     final maxDistance = distanceLimits.end;
-
+    debugPrint(
+      '[FollowPositionController] applyDistanceLimits: start=${distanceLimits.start} end=$maxDistance distanceMaxUnlimited=$distanceMaxUnlimited',
+    );
     prefs.touchHandlerModifyDistanceLimits = (distanceLimits.start, maxDistance);
     refreshInfo();
   }

@@ -162,7 +162,7 @@ mapController.registerOnViewportResized((Rectangle<int> rect) {
 The `registerOnViewRendered` method is triggered after the map completes a rendering cycle. This listener provides a `MapViewRenderInfo` object with rendering details:
 ```dart
 mapController.registerOnViewRendered((MapViewRenderInfo renderInfo) {
-  print("View rendered: ${renderInfo.status}");
+  print("View rendered: ${renderInfo.cameraTransitionStatus}");
 });
 ```
 

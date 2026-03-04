@@ -50,23 +50,6 @@ flutter pub get
     }
     ```
 
-    ### Disable code shrinking (release builds only)
-
-    In `android/app/build.gradle.kts`, add these lines to the `release` block:
-
-    
-```kotlin
-    buildTypes {
-        release {
-            signingConfig = signingConfigs.getByName("debug")
-            // highlight-start
-            isMinifyEnabled = false
-            isShrinkResources = false
-            // highlight-end
-        }
-    }
-    ```
-
 </TabItem>
 <TabItem value="ios" label="IOS" default>
 
@@ -149,6 +132,28 @@ flutter pub get
     flutter pub get
     ```
 
+</details>
+
+<details>
+    <summary>Issues on Android (release mode only)?</summary>
+
+    In `android/app/build.gradle.kts`, add these lines to the `release` block:
+
+    
+```kotlin
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("debug")
+            // highlight-start
+            isMinifyEnabled = false
+            isShrinkResources = false
+            // highlight-end
+        }
+    }
+    ```
+
+    This configuration should no longer be neccessary in recent versions of the SDK, but may be required for older versions.
+    Please let us know if you are still experiencing this issue after updating to the latest SDK version.
 </details>
 
 <details>

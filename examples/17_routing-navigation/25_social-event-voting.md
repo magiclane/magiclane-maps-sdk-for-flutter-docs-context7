@@ -23,8 +23,7 @@ The example app demonstrates the following key features:
 
 The following code builds the UI with a `GemMap` widget and an app bar containing a compute route button. Once the route is calculated, simulated navigation starts along the route with a social event reported. As the simulated position approaches the social report, a bottom panel appears with a confirm report button.
 ```dart
-const projectApiToken = String.fromEnvironment('GEM_TOKEN');
-
+const projectApiToken = String.fromEnvironment("GEM_TOKEN");
 void main() {
   runApp(const MyApp());
 }
@@ -34,11 +33,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Social Event Voting',
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
-    );
+    return const MaterialApp(title: 'Social Event Voting', debugShowCheckedModeBanner: false, home: MyHomePage());
   }
 }
 
@@ -55,6 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
   AlarmService? _alarmService;
   AlarmListener? _alarmListener;
 
+  bool _areRoutesBuilt = false;
+  bool _isSimulationActive = false;
+
   // The closest alarm and with its associated distance and image
   OverlayItemPosition? _closestOverlayItem;
   TaskHandler? _navigationHandler;
@@ -70,25 +68,29 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[900],
-        title: const Text(
-          'Social Event Voting',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Social Event Voting', style: TextStyle(color: Colors.white)),
         actions: [
-          if (_navigationHandler == null)
+          if (_navigationHandler == null && !_areRoutesBuilt)
+            IconButton(
+              onPressed: () => _onRouteButtonPressed(),
+              icon: const Icon(Icons.route, color: Colors.white),
+            ),
+          if (_navigationHandler == null && !_isSimulationActive && _areRoutesBuilt)
             IconButton(
               onPressed: _startSimulation,
-              icon: Icon(Icons.route, color: Colors.white),
+              icon: const Icon(Icons.play_arrow, color: Colors.white),
+            ),
+
+          if (_isSimulationActive && _navigationHandler != null)
+            IconButton(
+              onPressed: _stopSimulation,
+              icon: const Icon(Icons.stop, color: Colors.white),
             ),
         ],
       ),
       body: Stack(
         children: [
-          GemMap(
-            key: ValueKey("GemMap"),
-            onMapCreated: _onMapCreated,
-            appAuthorization: projectApiToken,
-          ),
+          GemMap(key: ValueKey("GemMap"), onMapCreated: _onMapCreated, appAuthorization: projectApiToken),
           if (_closestOverlayItem != null)
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -130,10 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
         true,
         // Do not show intermediate waypoints as they may cover the report displayed on the map
         routeRenderSettings: RouteRenderSettings(
-          options: {
-            RouteRenderOptions.showTraffic,
-            RouteRenderOptions.showHighlights,
-          },
+          options: {RouteRenderOptions.showTraffic, RouteRenderOptions.showHighlights},
         ),
       );
     } else {
@@ -142,21 +141,31 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Future<void> _startSimulation() async {
+  Future<void> _onRouteButtonPressed() async {
+    _showSnackBar(context, message: "Route is being calculated, please wait...", duration: const Duration(seconds: 2));
     await _onBuildRouteButtonPressed(context);
-    final routes = _mapController.preferences.routes;
 
-    if (routes.mainRoute == null) {
+    if (_mapController.preferences.routes.mainRoute == null) {
       // ignore: use_build_context_synchronously
       _showSnackBar(context, message: "No main route available");
       return;
     }
+    _mapController.centerOnRoute(_mapController.preferences.routes.mainRoute!);
+    setState(() {
+      _areRoutesBuilt = true;
+    });
+  }
 
+  Future<void> _startSimulation() async {
     _navigationHandler = NavigationService.startSimulation(
-      routes.mainRoute!,
+      _mapController.preferences.routes.mainRoute!,
       onNavigationInstruction: (instruction, events) {},
       onDestinationReached: (landmark) => _stopSimulation(),
     );
+
+    setState(() {
+      _isSimulationActive = true;
+    });
 
     _mapController.startFollowingPosition();
   }
@@ -164,11 +173,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void _stopSimulation() {
     // Cancel the navigation.
     if (_navigationHandler != null) {
-      NavigationService.cancelNavigation(_navigationHandler!);
+      NavigationService.cancelNavigation(_navigationHandler);
     }
 
     setState(() {
       _navigationHandler = null;
+      _isSimulationActive = false;
     });
     _navigationHandler = null;
 
@@ -179,6 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _cancelRoute() {
     // Remove the routes from map.
     _mapController.preferences.routes.clear();
+    _areRoutesBuilt = false;
   }
 
   void _registerSocialEventListener() {
@@ -222,11 +233,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
-  void _showSnackBar(
-    BuildContext context, {
-    required String message,
-    Duration duration = const Duration(hours: 1),
-  }) {
+  void _showSnackBar(BuildContext context, {required String message, Duration duration = const Duration(hours: 1)}) {
     final snackBar = SnackBar(content: Text(message), duration: duration);
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -322,18 +329,13 @@ Future<Landmark?> _getReportFromMap() async {
   final searchPreferences = SearchPreferences(searchAddresses: false, searchMapPOIs: false);
   searchPreferences.overlays.add(CommonOverlayId.socialReports.id);
 
-  SearchService.searchInArea(
-    area,
-    Coordinates.fromLatLong(51.02858483954893, 10.29982567727901),
-    (err, results) {
-      if (err == GemError.success) {
-        completer.complete(results.first);
-      } else {
-        completer.complete(null);
-      }
-    },
-    preferences: searchPreferences,
-  );
+  SearchService.searchInArea(area, Coordinates.fromLatLong(51.02858483954893, 10.29982567727901), (err, results) {
+    if (err == GemError.success) {
+      completer.complete(results.first);
+    } else {
+      completer.complete(null);
+    }
+  }, preferences: searchPreferences);
 
   return completer.future;
 }
