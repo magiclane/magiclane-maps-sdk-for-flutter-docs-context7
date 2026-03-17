@@ -18,6 +18,24 @@ Legacy map formats will remain available until April 2027. However, the `registe
 
 Due to improvements of our SDK and map data, we kindly ask you to update your applications and projects with any SDK revision released starting with October 2024 in order to continue using the online Magic Lane map-related services and to continue receiving map updates.
 
+## [3.1.8] - 2026-03-16
+
+### Added
+
+- `RoadInfoType` enum
+
+- `getRoadInfoImgByType` method to the `NavigationInstruction` class
+
+### Removed
+
+- `getRoadInfoImg` method from the `NavigationInstruction` class as it was deprecated. Use the `getRoadInfoImgByType` method instead.
+
+### Fixed
+
+- `aVar` parameter from `GemKit` class issue on iOS devices
+
+- crashes related to some specific scenarios
+
 ## [3.1.7] - 2026-02-27
 
 ### Added
